@@ -1904,7 +1904,7 @@ if (typeof window !== 'undefined') {
                                 required
                                 value="${banner?.id || ''}"
                                 placeholder="welcome-banner"
-                                ${isEdit ? 'readonly' : ''}
+                                ${isEdit ? 'readonly' : ''} 
                             >
                         </div>
                     </div>
