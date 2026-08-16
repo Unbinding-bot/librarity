@@ -492,6 +492,28 @@
             refreshVCName();
             await renderLogbookEntries(true);
             loadLeaderboard(true);
+
+            // ── Auto-sync every 5 minutes ─────────────────────────
+            const SYNC_INTERVAL = 5 * 60 * 1000; // 5 minutes
+
+            setInterval(async () => {
+                // Only sync logbook if we're on page 0 (don't disrupt pagination)
+                if (logbookPage === 0) {
+                    await renderLogbookEntries(true);
+                }
+                // Only sync leaderboard if on page 0
+                if (lbCurrentPage === 0) {
+                    loadLeaderboard(true);
+                }
+            }, SYNC_INTERVAL);
+
+            // Also sync when the tab becomes visible again after being hidden
+            document.addEventListener('visibilitychange', async () => {
+                if (document.visibilityState === 'visible') {
+                    if (logbookPage === 0)  await renderLogbookEntries(true);
+                    if (lbCurrentPage === 0) loadLeaderboard(true);
+                }
+            });
         });
     </script>
 </body>
