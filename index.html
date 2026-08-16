@@ -96,28 +96,13 @@
             </div>
         </div>
 
-        <!-- FACULTY menu (immediately shows login) -->
+        <!-- FACULTY menu (goes straight to admin) -->
         <div class="section-menu" id="menuFaculty" data-section="faculty" style="display:none;">
             <div class="menu-inner menu-inner-narrow">
                 <button class="menu-back-btn" data-target="faculty">← Back to Library</button>
                 <h1 class="menu-title">🔐 Faculty Only</h1>
                 <p class="menu-subtitle">Staff &amp; admin access</p>
                 <div class="faculty-login-panel">
-                    <div class="faculty-login-section">
-                        <h3>Password Access</h3>
-                        <form id="facultyPasswordForm" class="faculty-form">
-                            <input
-                                type="password"
-                                id="facultyPassword"
-                                class="faculty-input"
-                                placeholder="Enter faculty password…"
-                                autocomplete="current-password"
-                            >
-                            <button type="submit" class="faculty-btn">Enter</button>
-                        </form>
-                        <p class="faculty-error" id="facultyError" style="display:none;">Incorrect password</p>
-                    </div>
-                    <div class="faculty-divider">or</div>
                     <div class="faculty-login-section">
                         <h3>GitHub Login</h3>
                         <a href="admin.html" class="faculty-btn faculty-btn-github">
@@ -516,15 +501,6 @@
                 build: () => {},
                 html: () => `
                     <div class="faculty-login-panel">
-                        <div class="faculty-login-section">
-                            <h3>Password Access</h3>
-                            <form id="fbFacultyForm" class="faculty-form">
-                                <input type="password" id="fbFacultyPw" class="faculty-input" placeholder="Enter faculty password…" autocomplete="current-password">
-                                <button type="submit" class="faculty-btn">Enter</button>
-                            </form>
-                            <p class="faculty-error" id="fbFacultyErr" style="display:none;">Incorrect password</p>
-                        </div>
-                        <div class="faculty-divider">or</div>
                         <div class="faculty-login-section">
                             <h3>GitHub Login</h3>
                             <a href="admin.html" class="faculty-btn faculty-btn-github">Login with GitHub</a>

@@ -6,17 +6,16 @@
 class GitHubAuth {
     constructor() {
         // GitHub OAuth Configuration
-        // IMPORTANT: These should be configured for your repository
         this.config = {
-            clientId: 'YOUR_GITHUB_CLIENT_ID', // Replace with your OAuth App Client ID
+            clientId: 'Ov23li6OxAocE3ahnCVS', // ← paste your Client ID here
             clientSecret: null, // Never store secret in frontend code
             redirectUri: window.location.origin + window.location.pathname + '#/admin/callback',
             scope: 'read:user repo',
             authEndpoint: 'https://github.com/login/oauth/authorize',
             
             // Repository info for collaborator check
-            owner: 'YOUR_GITHUB_USERNAME', // Replace with repository owner
-            repo: 'library-games', // Replace with repository name
+            owner: 'Unbinding-bot', // ← your GitHub username
+            repo: 'librarity',        // ← your repo name e.g. 'library-games'
         };
         
         this.tokenKey = 'github_auth_token';

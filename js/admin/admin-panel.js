@@ -1546,7 +1546,7 @@ class AdminPanel {
                     const active = e.target.checked;
                     try {
                         await this.contentManager.updateBook(bookId, { active });
-                        this.showToast(`Book ${active ? 'enabled' : 'disabled'}', 'success');
+                        this.showToast(`Book ${active ? 'enabled' : 'disabled'}`, 'success');
                         // Reload to update visual state
                         this.loadSection('books');
                     } catch (error) {
