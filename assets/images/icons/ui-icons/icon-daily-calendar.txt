@@ -1,0 +1,5 @@
+Icon: Daily challenge calendar
+Emoji placeholder: 📅
+Dimensions: 18x18px
+Usage: Daily mode button in Wordle, Spelling Bee, Word Ladder, Wikipedia Race
+Replace with: Drop icon-daily-calendar.svg or icon-daily-calendar.png in this same folder

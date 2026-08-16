@@ -1,0 +1,5 @@
+Menu button image: Flashcards — stack of index cards
+Section: Games menu
+Dimensions: 140x140px
+Style: Square illustration, library/school aesthetic, bold colors on dark background
+Replace with: Drop menu-flashcards.png in this same folder

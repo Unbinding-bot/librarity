@@ -1,0 +1,5 @@
+Icon: Refresh / circular arrows
+Emoji placeholder: 🔄
+Dimensions: 20x20px
+Usage: Shuffle (Spelling Bee), Refresh buttons (leaderboard/logbook), Reset Progress, Play Again, New Puzzle
+Replace with: Drop icon-refresh.svg or icon-refresh.png in this same folder

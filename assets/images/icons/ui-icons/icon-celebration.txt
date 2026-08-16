@@ -1,0 +1,5 @@
+Icon: Celebration / party popper
+Emoji placeholder: 🎉
+Dimensions: 28x28px
+Usage: Game complete modal titles; Events admin nav
+Replace with: Drop icon-celebration.svg or icon-celebration.png in this same folder

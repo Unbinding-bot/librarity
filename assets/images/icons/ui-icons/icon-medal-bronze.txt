@@ -1,0 +1,5 @@
+Icon: 3rd place bronze medal
+Emoji placeholder: 🥉
+Dimensions: 20x20px
+Usage: 3rd rank in leaderboard table
+Replace with: Drop icon-medal-bronze.svg or icon-medal-bronze.png in this same folder

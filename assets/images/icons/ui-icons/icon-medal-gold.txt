@@ -1,0 +1,5 @@
+Icon: 1st place gold medal
+Emoji placeholder: 🥇
+Dimensions: 20x20px
+Usage: 1st rank in leaderboard table
+Replace with: Drop icon-medal-gold.svg or icon-medal-gold.png in this same folder

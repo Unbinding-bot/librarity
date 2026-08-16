@@ -1,0 +1,5 @@
+Icon: Wordle game / game controller
+Emoji placeholder: 🎮
+Dimensions: 32x32px
+Usage: Wordle game cards; Game Content admin section
+Replace with: Drop icon-wordle.svg or icon-wordle.png in this same folder

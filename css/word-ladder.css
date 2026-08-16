@@ -1,0 +1,605 @@
+/* Word Ladder Game Styles */
+
+.game-container {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 1rem;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.game-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.game-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.game-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Game Controls */
+.game-controls {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.mode-btn {
+    padding: 0.625rem 1.25rem;
+    border: 2px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.mode-btn:hover {
+    background: var(--bg-hover);
+    transform: translateY(-2px);
+}
+
+.mode-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.icon-btn {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+    background: var(--bg-hover);
+    transform: translateY(-2px);
+}
+
+/* Puzzle Info */
+.puzzle-info {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.word-pair {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.word-box {
+    background: var(--bg-primary);
+    border: 3px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    min-width: 140px;
+}
+
+.word-box.start-word {
+    border-color: var(--primary-color);
+}
+
+.word-box.end-word {
+    border-color: var(--accent-color);
+}
+
+.word-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em;
+}
+
+.word-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.2em;
+}
+
+.arrow {
+    font-size: 2rem;
+    color: var(--text-secondary);
+}
+
+.puzzle-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* Ladder Display */
+.ladder-container {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.ladder {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.rung {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    animation: slideInLeft 0.3s ease-out;
+}
+
+.rung.start {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+.rung.end {
+    border-color: var(--accent-color);
+    background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+    color: white;
+}
+
+.rung.current {
+    border-color: var(--secondary-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.rung.placeholder {
+    border-style: dashed;
+    background: transparent;
+    opacity: 0.5;
+}
+
+.rung-number {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    min-width: 60px;
+}
+
+.rung.start .rung-number,
+.rung.end .rung-number {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.rung-word {
+    flex: 1;
+    font-size: 1.75rem;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.3em;
+    text-align: center;
+}
+
+.rung-diff {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    min-width: 80px;
+    text-align: right;
+}
+
+.rung.start .rung-diff,
+.rung.end .rung-diff {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Input Section */
+.input-section {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.input-group {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.word-input {
+    flex: 1;
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    border: 3px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+}
+
+.word-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
+}
+
+.word-input.error {
+    border-color: #e53935;
+    animation: shake 0.5s ease-in-out;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+
+/* Message Display */
+.message-display {
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.message-display.success {
+    background: rgba(76, 175, 80, 0.1);
+    border: 2px solid #4caf50;
+    color: #2e7d32;
+}
+
+.message-display.error {
+    background: rgba(229, 57, 53, 0.1);
+    border: 2px solid #e53935;
+    color: #c62828;
+}
+
+.message-display.info {
+    background: rgba(33, 150, 243, 0.1);
+    border: 2px solid #2196f3;
+    color: #1565c0;
+}
+
+.message-display.hint {
+    background: rgba(255, 193, 7, 0.1);
+    border: 2px solid #ffc107;
+    color: #f57f17;
+}
+
+/* Help Modal */
+.help-list {
+    margin: 1rem 0 1.5rem 1.5rem;
+    padding: 0;
+}
+
+.help-list li {
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.example-ladder {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.example-rung {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    background: var(--bg-primary);
+    border-radius: 6px;
+}
+
+.example-rung:last-child {
+    margin-bottom: 0;
+}
+
+.example-rung .rung-number {
+    min-width: 70px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.example-rung .rung-word {
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.2em;
+    font-size: 1.1rem;
+}
+
+.example-rung .rung-hint {
+    margin-left: auto;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Stats Modal */
+.stats-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.efficiency-chart {
+    margin-top: 2rem;
+}
+
+.efficiency-chart h3 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.efficiency-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.efficiency-label {
+    width: 80px;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+}
+
+.efficiency-fill {
+    flex: 1;
+    height: 30px;
+    background: var(--primary-color);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 0.5rem;
+    color: white;
+    font-weight: 600;
+    min-width: 30px;
+}
+
+/* Result Modal */
+.result-rating {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.result-message {
+    text-align: center;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+}
+
+.result-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+}
+
+.result-stat {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem;
+    background: var(--bg-primary);
+    border-radius: 6px;
+}
+
+.result-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.result-value {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.25rem;
+}
+
+.result-ladder {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.result-ladder .rung {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.result-ladder .rung:last-child {
+    margin-bottom: 0;
+}
+
+.result-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .game-container {
+        padding: 0.5rem;
+        margin: 1rem auto;
+    }
+
+    .game-title {
+        font-size: 2rem;
+    }
+
+    .word-pair {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .arrow {
+        transform: rotate(90deg);
+    }
+
+    .puzzle-stats {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .word-value {
+        font-size: 1.5rem;
+    }
+
+    .rung-word {
+        font-size: 1.25rem;
+        letter-spacing: 0.2em;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    .word-input {
+        font-size: 1.25rem;
+    }
+
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .result-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .word-box {
+        min-width: 120px;
+        padding: 0.75rem 1rem;
+    }
+
+    .word-value {
+        font-size: 1.25rem;
+    }
+
+    .rung {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+
+    .rung-number,
+    .rung-diff {
+        min-width: auto;
+        text-align: center;
+    }
+
+    .example-rung {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+
+    .example-rung .rung-number,
+    .example-rung .rung-hint {
+        margin-left: 0;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .navbar,
+    .game-controls,
+    .input-section,
+    .action-buttons {
+        display: none;
+    }
+
+    .ladder {
+        page-break-inside: avoid;
+    }
+}

@@ -1,0 +1,5 @@
+Icon: Rocket / coming soon
+Emoji placeholder: 🚀
+Dimensions: 20x20px
+Usage: Coming Soon admin nav item
+Replace with: Drop icon-rocket.svg or icon-rocket.png in this same folder

@@ -1,0 +1,5 @@
+Icon: Announcement / megaphone
+Emoji placeholder: 📢
+Dimensions: 20x20px
+Usage: Banners admin nav item
+Replace with: Drop icon-announcement.svg or icon-announcement.png in this same folder

@@ -1,0 +1,5 @@
+Icon: Target / bullseye
+Emoji placeholder: 🎯
+Dimensions: 18x18px
+Usage: Random Custom mode tab (Wikipedia Race); Daily Challenges admin nav; Trivia title
+Replace with: Drop icon-target.svg or icon-target.png in this same folder

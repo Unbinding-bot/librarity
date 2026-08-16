@@ -1,0 +1,5 @@
+Menu button image: Wikipedia Race — checkered flag with article links
+Section: Games menu
+Dimensions: 140x140px
+Style: Square illustration, library/school aesthetic, bold colors on dark background
+Replace with: Drop menu-wiki-race.png in this same folder

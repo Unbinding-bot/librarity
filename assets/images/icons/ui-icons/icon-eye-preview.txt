@@ -1,0 +1,5 @@
+Icon: Eye / preview
+Emoji placeholder: 👁️
+Dimensions: 16x16px
+Usage: Preview button in admin cards
+Replace with: Drop icon-eye-preview.svg or icon-eye-preview.png in this same folder

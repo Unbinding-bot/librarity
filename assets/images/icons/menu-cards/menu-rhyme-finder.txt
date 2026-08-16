@@ -1,0 +1,5 @@
+Menu button image: Rhyme Finder — musical notes with words
+Section: Tools menu
+Dimensions: 140x140px
+Style: Square illustration, library/school aesthetic, bold colors on dark background
+Replace with: Drop menu-rhyme-finder.png in this same folder

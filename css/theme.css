@@ -1,0 +1,361 @@
+/* ================================================
+   Theme System Styles
+   Earthy Olive-Green + Parchment
+   ================================================ */
+
+/* ================================================
+   Light Theme (Default)
+   ================================================ */
+:root,
+[data-theme="light"] {
+    /* Primary — olive moss */
+    --primary:       #5C6B3A;
+    --primary-light: #6E7F48;
+    --primary-dark:  #47522C;
+    --primary-alpha: rgba(92, 107, 58, 0.12);
+
+    /* Secondary — sage green */
+    --secondary:       #8A9A5B;
+    --secondary-light: #A0AF72;
+    --secondary-dark:  #6E7A46;
+
+    /* Accent — pale sage */
+    --accent:       #B5C08A;
+    --accent-light: #CDD9A0;
+    --accent-dark:  #9CAD70;
+
+    /* Text */
+    --text-primary:   #1E1C14;
+    --text-secondary: #5A5340;
+    --text-tertiary:  #7A6F58;
+    --text-disabled:  #A89F88;
+    --text-inverse:   #FDFAF4;
+
+    /* Backgrounds — warm parchment */
+    --bg-primary:   #FDFAF4;
+    --bg-secondary: #F4EFE4;
+    --bg-tertiary:  #EAE3D2;
+    --bg-elevated:  #FDFAF4;
+    --bg-overlay:   rgba(0, 0, 0, 0.5);
+
+    /* Cards */
+    --card-bg:    #FDFAF4;
+    --card-hover: #F4EFE4;
+    --surface:    #FDFAF4;
+
+    /* Borders */
+    --border-color: #C8B99A;
+    --border-light: #DDD0B8;
+    --border-dark:  #B0A080;
+    --border-focus: var(--primary);
+
+    /* Inputs */
+    --input-bg:       #FDFAF4;
+    --input-border:   #C8B99A;
+    --input-focus:    var(--primary);
+    --input-disabled: #EAE3D2;
+
+    /* Status */
+    --success:    #5C7A3A;
+    --success-bg: #EAF2E0;
+    --warning:    #A07830;
+    --warning-bg: #FBF0DC;
+    --error:      #B04030;
+    --error-bg:   #FAEAE8;
+    --info:       #4A7A8A;
+    --info-bg:    #E6F2F5;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(92, 107, 58, 0.10);
+    --shadow-md: 0 4px 6px rgba(92, 107, 58, 0.12);
+    --shadow-lg: 0 10px 20px rgba(92, 107, 58, 0.15);
+    --shadow-xl: 0 20px 40px rgba(92, 107, 58, 0.20);
+
+    /* Book/Library elements */
+    --book-spine:     linear-gradient(135deg, #6E7F48 0%, #5C6B3A 100%);
+    --book-shadow:    rgba(92, 107, 58, 0.35);
+    --dust-particle:  rgba(92, 107, 58, 0.18);
+    --spotlight:      radial-gradient(circle at center, rgba(181, 192, 138, 0.2) 0%, transparent 70%);
+}
+
+/* ================================================
+   Dark Theme — warm olive-dark
+   ================================================ */
+[data-theme="dark"] {
+    /* Primary — sage lifted for dark bg */
+    --primary:       #8A9A5B;
+    --primary-light: #A0AF72;
+    --primary-dark:  #6E7A46;
+    --primary-alpha: rgba(138, 154, 91, 0.15);
+
+    /* Secondary */
+    --secondary:       #B5C08A;
+    --secondary-light: #CDD9A0;
+    --secondary-dark:  #9CAD70;
+
+    /* Accent */
+    --accent:       #CDD9A0;
+    --accent-light: #E0EABB;
+    --accent-dark:  #B5C08A;
+
+    /* Text */
+    --text-primary:   #EDE8DA;
+    --text-secondary: #B0A88E;
+    --text-tertiary:  #7A7260;
+    --text-disabled:  #4E4A3C;
+    --text-inverse:   #1E1C14;
+
+    /* Backgrounds — warm olive-dark */
+    --bg-primary:   #1A1A12;
+    --bg-secondary: #23221A;
+    --bg-tertiary:  #2E2C20;
+    --bg-elevated:  #272620;
+    --bg-overlay:   rgba(0, 0, 0, 0.78);
+
+    /* Cards */
+    --card-bg:    #23221A;
+    --card-hover: #2E2C20;
+    --surface:    #272620;
+
+    /* Borders */
+    --border-color: #3A3628;
+    --border-light: #2E2C20;
+    --border-dark:  #4A4635;
+    --border-focus: var(--primary);
+
+    /* Inputs */
+    --input-bg:       #272620;
+    --input-border:   #3A3628;
+    --input-focus:    var(--primary);
+    --input-disabled: #1E1C14;
+
+    /* Status */
+    --success:    #7A9A50;
+    --success-bg: #243018;
+    --warning:    #C8A050;
+    --warning-bg: #352A10;
+    --error:      #C05040;
+    --error-bg:   #381818;
+    --info:       #5A90A0;
+    --info-bg:    #142028;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.55);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.65);
+
+    /* Book/Library elements */
+    --book-spine:    linear-gradient(135deg, #A0AF72 0%, #8A9A5B 100%);
+    --book-shadow:   rgba(138, 154, 91, 0.4);
+    --dust-particle: rgba(181, 192, 138, 0.12);
+    --spotlight:     radial-gradient(circle at center, rgba(181, 192, 138, 0.12) 0%, transparent 70%);
+}
+
+/* ================================================
+   Theme Toggle Button
+   ================================================ */
+.theme-toggle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-full);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: var(--shadow-sm);
+}
+
+.theme-toggle:hover {
+    background: var(--card-hover);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.theme-toggle:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
+.theme-toggle:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.theme-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+    transition: transform 0.3s;
+}
+
+.theme-toggle:hover .theme-icon {
+    transform: rotate(20deg);
+}
+
+.theme-label {
+    transition: color 0.3s;
+}
+
+/* Compact button (icon only) */
+.theme-toggle.compact {
+    padding: 0.5rem;
+    width: 44px;
+    height: 44px;
+    justify-content: center;
+}
+
+.theme-toggle.compact .theme-label {
+    display: none;
+}
+
+/* ================================================
+   Theme Transition
+   ================================================ */
+body {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Smooth transitions for theme-aware elements */
+*,
+*::before,
+*::after {
+    transition-property: background-color, border-color, box-shadow, color;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+}
+
+/* Preserve specific animation timings */
+.animate,
+[class*="fade"],
+[class*="slide"],
+[class*="bounce"] {
+    transition-property: none;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ================================================
+   Dark Mode Specific Adjustments
+   ================================================ */
+
+/* Adjust images in dark mode */
+[data-theme="dark"] img {
+    opacity: 0.9;
+}
+
+[data-theme="dark"] img:hover {
+    opacity: 1;
+}
+
+/* Code blocks in dark mode */
+[data-theme="dark"] code,
+[data-theme="dark"] pre {
+    background: var(--bg-tertiary);
+    border-color: var(--border-color);
+}
+
+/* Form inputs in dark mode */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+    background: var(--input-bg);
+    border-color: var(--input-border);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+    color: var(--text-tertiary);
+}
+
+/* Scrollbar styling for dark mode */
+[data-theme="dark"] ::-webkit-scrollbar {
+    background: var(--bg-secondary);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: var(--border-dark);
+}
+
+/* Selection color in dark mode */
+[data-theme="dark"] ::selection {
+    background: var(--primary);
+    color: var(--text-inverse);
+}
+
+/* ================================================
+   Navbar Theme Toggle Placement
+   ================================================ */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-actions .theme-toggle {
+    margin: 0;
+}
+
+/* ================================================
+   Admin Panel Theme Toggle
+   ================================================ */
+.admin-theme-toggle {
+    margin-top: auto;
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.admin-theme-toggle .theme-toggle {
+    width: 100%;
+    justify-content: center;
+}
+
+/* ================================================
+   Responsive Adjustments
+   ================================================ */
+
+/* Mobile - Compact toggle button */
+@media (max-width: 768px) {
+    .nav-actions .theme-toggle {
+        padding: 0.5rem;
+        width: 44px;
+        height: 44px;
+    }
+    
+    .nav-actions .theme-label {
+        display: none;
+    }
+}
+
+/* Smartwatch - Icon only, no border */
+@media (max-width: 320px) {
+    .theme-toggle {
+        border: none;
+        padding: 0.25rem;
+        width: 36px;
+        height: 36px;
+        background: transparent;
+    }
+    
+    .theme-icon {
+        font-size: 1.5rem;
+    }
+}

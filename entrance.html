@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Entrance - School Library Games</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/entrance.css">
+</head>
+<body class="entrance-body">
+    <div class="entrance-container">
+        <!-- Library Entrance Scene -->
+        <div class="library-facade">
+            <div class="library-doors">
+                <div class="door door-left"></div>
+                <div class="door door-right"></div>
+            </div>
+            <h1 class="library-sign">School Library</h1>
+            <p class="library-subtitle">Educational Games & Learning Tools</p>
+        </div>
+
+        <!-- Logbook Section -->
+        <div class="logbook-section">
+            <div class="logbook">
+                <div class="logbook-cover">
+                    <h2 class="logbook-title">Visitor Logbook</h2>
+                    <p class="logbook-subtitle">Please sign in to enter the library</p>
+                </div>
+                
+                <div class="logbook-page">
+                    <div class="logbook-lines"></div>
+                    
+                    <form id="logbookForm" class="logbook-form">
+                        <div class="form-group">
+                            <label for="visitorName" class="form-label">Your Name:</label>
+                            <input 
+                                type="text" 
+                                id="visitorName" 
+                                class="logbook-input" 
+                                placeholder="Enter your name..."
+                                maxlength="30"
+                                autocomplete="off"
+                                required
+                            >
+                        </div>
+                        
+                        <div class="logbook-actions">
+                            <button type="submit" class="enter-button">
+                                <span class="button-text">Enter Library</span>
+                                <span class="button-arrow">→</span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="recent-visitors">
+                        <h3>Recent Visitors</h3>
+                        <ul id="recentVisitorsList"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="desk-decoration">
+            <div class="desk-lamp"></div>
+            <div class="ink-pot"></div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user already signed in
+        const savedUsername = localStorage.getItem('library_username');
+        const lastVisit = localStorage.getItem('library_last_visit');
+        
+        // If signed in within last 24 hours, redirect to library
+        if (savedUsername && lastVisit) {
+            const hoursSinceLastVisit = (Date.now() - parseInt(lastVisit)) / (1000 * 60 * 60);
+            if (hoursSinceLastVisit < 24) {
+                // Show welcome back message and redirect
+                showWelcomeBack(savedUsername);
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('logbookForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('visitorName').value.trim();
+            
+            if (name.length < 2) {
+                alert('Please enter a valid name (at least 2 characters)');
+                return;
+            }
+
+            // Save username and timestamp
+            localStorage.setItem('library_username', name);
+            localStorage.setItem('library_last_visit', Date.now().toString());
+            
+            // Add to recent visitors
+            addToRecentVisitors(name);
+            
+            // Animate entrance
+            enterLibrary();
+        });
+
+        function addToRecentVisitors(name) {
+            let visitors = JSON.parse(localStorage.getItem('library_visitors') || '[]');
+            
+            // Add new visitor (avoid duplicates)
+            visitors = visitors.filter(v => v.name !== name);
+            visitors.unshift({
+                name: name,
+                timestamp: Date.now()
+            });
+            
+            // Keep only last 10
+            visitors = visitors.slice(0, 10);
+            
+            localStorage.setItem('library_visitors', JSON.stringify(visitors));
+            displayRecentVisitors();
+        }
+
+        function displayRecentVisitors() {
+            const visitors = JSON.parse(localStorage.getItem('library_visitors') || '[]');
+            const list = document.getElementById('recentVisitorsList');
+            
+            if (visitors.length === 0) {
+                list.innerHTML = '<li class="no-visitors">Be the first to sign in today!</li>';
+                return;
+            }
+
+            list.innerHTML = visitors.map(v => {
+                const timeAgo = getTimeAgo(v.timestamp);
+                return `<li class="visitor-item">${v.name} <span class="visitor-time">${timeAgo}</span></li>`;
+            }).join('');
+        }
+
+        function getTimeAgo(timestamp) {
+            const minutes = Math.floor((Date.now() - timestamp) / (1000 * 60));
+            if (minutes < 1) return 'just now';
+            if (minutes < 60) return `${minutes}m ago`;
+            const hours = Math.floor(minutes / 60);
+            if (hours < 24) return `${hours}h ago`;
+            const days = Math.floor(hours / 24);
+            return `${days}d ago`;
+        }
+
+        function enterLibrary() {
+            const container = document.querySelector('.entrance-container');
+            container.classList.add('entering');
+            
+            // Redirect after animation
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+
+        function showWelcomeBack(name) {
+            const form = document.getElementById('logbookForm');
+            form.innerHTML = `
+                <div class="welcome-back">
+                    <h3>Welcome back, ${name}!</h3>
+                    <p>Continuing your session...</p>
+                </div>
+            `;
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+
+        // Initialize
+        displayRecentVisitors();
+
+        // Auto-focus on name input
+        document.getElementById('visitorName').focus();
+    </script>
+</body>
+</html>

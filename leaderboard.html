@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Visitor Logbook - School Library Games">
+    <title>Visitor Logbook - Library Games</title>
+
+    <link rel="icon" type="image/png" href="./assets/images/favicon.png">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/theme.css">
+    <link rel="stylesheet" href="./css/animations.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+    <link rel="stylesheet" href="./css/game-ui-fixes.css">
+    <link rel="stylesheet" href="./css/leaderboard.css">
+    <link rel="stylesheet" href="./css/visitor-logbook.css">
+    <script src="./js/theme/theme-toggle.js"></script>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="book-loader">
+            <div class="book-page"></div>
+            <div class="book-page"></div>
+            <div class="book-page"></div>
+        </div>
+        <p>Opening the logbook…</p>
+    </div>
+
+    <!-- App -->
+    <div id="app" style="display:none;">
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-left">
+                    <a href="index.html" class="nav-brand">
+                        <span class="brand-icon">📚</span>
+                        <span class="brand-text">School Library Games</span>
+                    </a>
+                </div>
+                <div class="nav-right">
+                    <a href="index.html"      class="nav-link">🏠 Home</a>
+                    <a href="leaderboard.html" class="nav-link">📖 Logbook</a>
+                    <a href="admin.html"       class="nav-link">⚙️ Admin</a>
+                    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <main class="lb-page-main">
+
+            <!-- ── Visitor Card (top strip) ─────────────────────── -->
+            <section class="visitor-card" id="visitorCard">
+                <div class="visitor-card-inner">
+
+                    <!-- Left: current identity -->
+                    <div class="visitor-card-identity">
+                        <span class="vc-label">Visiting as</span>
+                        <span class="vc-name" id="vcName">Anonymous</span>
+                        <button class="vc-edit-btn" id="vcEditBtn">✏️ Change</button>
+                    </div>
+
+                    <!-- Centre: sign-in form -->
+                    <form class="visitor-card-form" id="vcForm">
+                        <div class="vc-field-row">
+                            <input
+                                type="text"
+                                id="vcNameInput"
+                                class="vc-input"
+                                maxlength="40"
+                                placeholder="Your name…"
+                            >
+                            <textarea
+                                id="vcMessage"
+                                class="vc-textarea"
+                                maxlength="280"
+                                rows="2"
+                                placeholder="Leave a message in the logbook… (max 280 chars)"
+                            ></textarea>
+                        </div>
+                        <div class="vc-form-actions">
+                            <span class="vc-char-count"><span id="vcCharCount">0</span>/280</span>
+                            <button type="submit" class="vc-sign-btn">✍️ Sign the Logbook</button>
+                        </div>
+                    </form>
+
+                    <!-- Right: name-only edit form (hidden until Change clicked) -->
+                    <div class="visitor-card-edit" id="vcEditPanel" style="display:none;">
+                        <p class="vc-edit-title">Change your name</p>
+                        <input type="text" id="vcEditInput" class="vc-input" maxlength="40" placeholder="New name…">
+                        <div class="vc-edit-actions">
+                            <button class="vc-btn-save"  id="vcSaveEdit">Save</button>
+                            <button class="vc-btn-anon"  id="vcGoAnon">Go Anonymous</button>
+                            <button class="vc-btn-cancel" id="vcCancelEdit">Cancel</button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ── Open Book ────────────────────────────────────── -->
+            <div class="book-spread">
+
+                <!-- Book spine -->
+                <div class="book-spine"></div>
+
+                <!-- Left page — Leaderboard -->
+                <div class="book-page-left book-page-panel">
+                    <div class="page-corner page-corner-tl"></div>
+
+                    <h2 class="page-heading page-heading-left">🏆 Hall of Fame</h2>
+
+                    <!-- Leaderboard filter bar -->
+                    <div class="lb-filter-bar">
+                        <select id="lbGameFilter" class="lb-select">
+                            <option value="wordle">Wordle</option>
+                            <option value="spelling_bee">Spelling Bee</option>
+                            <option value="word_ladder">Word Ladder</option>
+                            <option value="trivia">Trivia</option>
+                            <option value="flashcards">Flashcards</option>
+                            <option value="wikipedia_race">Wiki Race</option>
+                        </select>
+                        <select id="lbModeFilter" class="lb-select">
+                            <option value="daily">Daily</option>
+                            <option value="random">Random</option>
+                        </select>
+                        <select id="lbPeriodFilter" class="lb-select">
+                            <option value="all" selected>All time</option>
+                            <option value="weekly">This week</option>
+                            <option value="daily">Today</option>
+                        </select>
+                        <button id="lbRefreshBtn" class="lb-icon-btn" title="Refresh">🔄</button>
+                    </div>
+
+                    <!-- Stats row -->
+                    <div class="lb-stats-row" id="lbStatsRow">
+                        <div class="lb-stat"><span id="lbStatTotal">–</span><small>Entries</small></div>
+                        <div class="lb-stat"><span id="lbStatTop">–</span><small>Top Score</small></div>
+                        <div class="lb-stat"><span id="lbStatPlayer">–</span><small>Top Player</small></div>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="lb-table-wrap" id="lbTableWrap">
+                        <div class="lb-loading" id="lbLoading" style="display:none;">⏳ Loading…</div>
+                        <table class="lb-table" id="lbTable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Player</th>
+                                    <th>Score</th>
+                                    <th class="lb-hide-sm">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lbTableBody">
+                                <tr><td colspan="4" class="lb-empty">Select a game to load scores</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="lb-pagination" id="lbPagination"></div>
+
+                    <!-- Page number -->
+                    <div class="page-number page-number-left">i</div>
+                </div>
+
+                <!-- Right page — Logbook entries -->
+                <div class="book-page-right book-page-panel">
+                    <div class="page-corner page-corner-tr"></div>
+
+                    <h2 class="page-heading page-heading-right">📜 Visitor Messages</h2>
+
+                    <div class="logbook-entries-header">
+                        <span id="logbookEntryCount" class="logbook-entry-count"></span>
+                        <button class="lb-icon-btn" id="logbookRefreshBtn" title="Refresh entries">🔄</button>
+                    </div>
+
+                    <div class="logbook-entries" id="logbookEntries">
+                        <!-- injected by JS -->
+                    </div>
+
+                    <div class="logbook-more" id="logbookMore" style="display:none;">
+                        <button class="lb-load-more-btn" id="logbookLoadMore">Load more ↓</button>
+                    </div>
+
+                    <!-- Page number -->
+                    <div class="page-number page-number-right">ii</div>
+                </div>
+
+            </div><!-- /.book-spread -->
+
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2026 School Library · <a href="index.html">Home</a> · <a href="admin.html">Admin</a></p>
+        </footer>
+
+    </div><!-- /#app -->
+
+    <!-- Toast -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script type="module">
+        import { getLeaderboard, getLeaderboardStats } from './js/api/supabase.js';
+        import {
+            getUsername, setUsername, getDisplayName,
+            addLogbookEntry, getLogbookEntries,
+        } from './js/components/visitor-logbook.js';
+
+        // ── Toast ────────────────────────────────────────────────
+        window.showToast = function(msg, type = 'info') {
+            const c = document.getElementById('toast-container');
+            if (!c) return;
+            const t = document.createElement('div');
+            // main.css uses .toast.success / .toast.error etc (not toast-success)
+            t.className = `toast ${type}`;
+            t.innerHTML = `<span class="toast-message">${msg}</span>`;
+            c.appendChild(t);
+            // Auto-remove after 4 seconds (main.css shows via slideInRight animation)
+            setTimeout(() => {
+                t.style.opacity = '0';
+                t.style.transition = 'opacity 0.3s';
+                setTimeout(() => t.remove(), 300);
+            }, 4000);
+        };
+
+        // ── Helpers ──────────────────────────────────────────────
+        function esc(s) {
+            return String(s)
+                .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+                .replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+                .replace(/\n/g,'<br>');
+        }
+
+        function formatDate(iso) {
+            try {
+                return new Date(iso).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+            } catch { return iso; }
+        }
+
+        // ── Identity / Visitor Card ───────────────────────────────
+        function refreshVCName() {
+            const el   = document.getElementById('vcName');
+            const name = getUsername();
+            el.textContent = name || 'Anonymous';
+            el.classList.toggle('vc-name-anon', !name);
+            // Pre-fill the sign form name input with stored name
+            const ni = document.getElementById('vcNameInput');
+            if (ni) ni.value = name || '';
+        }
+
+        document.getElementById('vcEditBtn').addEventListener('click', () => {
+            const panel = document.getElementById('vcEditPanel');
+            const inp   = document.getElementById('vcEditInput');
+            panel.style.display = 'block';
+            inp.value = getUsername() || '';
+            inp.focus(); inp.select();
+        });
+
+        document.getElementById('vcCancelEdit').addEventListener('click', () => {
+            document.getElementById('vcEditPanel').style.display = 'none';
+        });
+
+        document.getElementById('vcSaveEdit').addEventListener('click', () => {
+            const val = document.getElementById('vcEditInput').value.trim();
+            setUsername(val || null);
+            document.getElementById('vcEditPanel').style.display = 'none';
+            refreshVCName();
+            showToast(val ? `Name set to "${val}"` : 'Now browsing as Anonymous', 'success');
+        });
+
+        document.getElementById('vcGoAnon').addEventListener('click', () => {
+            setUsername(null);
+            document.getElementById('vcEditPanel').style.display = 'none';
+            refreshVCName();
+            showToast('Now browsing as Anonymous', 'info');
+        });
+
+        document.getElementById('vcEditInput').addEventListener('keydown', e => {
+            if (e.key === 'Enter')  document.getElementById('vcSaveEdit').click();
+            if (e.key === 'Escape') document.getElementById('vcCancelEdit').click();
+        });
+
+        // Char counter
+        document.getElementById('vcMessage').addEventListener('input', function() {
+            document.getElementById('vcCharCount').textContent = this.value.length;
+        });
+
+        // Sign form submit
+        document.getElementById('vcForm').addEventListener('submit', async e => {
+            e.preventDefault();
+            const msg  = document.getElementById('vcMessage').value.trim();
+            const name = document.getElementById('vcNameInput').value.trim() || null;
+            if (!msg) {
+                const ta = document.getElementById('vcMessage');
+                ta.focus();
+                ta.classList.add('logbook-input-error');
+                setTimeout(() => ta.classList.remove('logbook-input-error'), 800);
+                return;
+            }
+            const btn = document.querySelector('.vc-sign-btn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Saving…';
+            await addLogbookEntry(msg, name);
+            document.getElementById('vcMessage').value = '';
+            document.getElementById('vcCharCount').textContent = '0';
+            btn.disabled = false;
+            btn.textContent = '✍️ Sign the Logbook';
+            refreshVCName();
+            logbookPage = 0;
+            await renderLogbookEntries(true);
+            showToast('Signed the logbook! ✍️', 'success');
+            document.getElementById('logbookEntries')
+                .scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        // ── Logbook entries ───────────────────────────────────────
+        const LOG_PAGE_SIZE = 15;
+        let logbookPage = 0;
+
+        async function renderLogbookEntries(reset) {
+            const entries  = await getLogbookEntries();
+            const el       = document.getElementById('logbookEntries');
+            const countEl  = document.getElementById('logbookEntryCount');
+            const moreBtn  = document.getElementById('logbookMore');
+
+            countEl.textContent = entries.length
+                ? `${entries.length} entr${entries.length === 1 ? 'y' : 'ies'}` : '';
+
+            const end = (logbookPage + 1) * LOG_PAGE_SIZE;
+            if (reset) el.innerHTML = '';
+
+            if (!entries.length) {
+                el.innerHTML = `
+                    <div class="logbook-empty">
+                        <span class="logbook-empty-icon">📜</span>
+                        <p>No entries yet — be the first to sign!</p>
+                    </div>`;
+                moreBtn.style.display = 'none';
+                return;
+            }
+
+            const start = reset ? 0 : logbookPage * LOG_PAGE_SIZE;
+            entries.slice(start, end).forEach((entry, i) => {
+                const card = document.createElement('article');
+                card.className = 'logbook-entry';
+                card.style.animationDelay = `${i * 35}ms`;
+                card.innerHTML = `
+                    <div class="logbook-entry-header">
+                        <span class="logbook-entry-name">${esc(entry.name)}</span>
+                        <span class="logbook-entry-date">${entry.date} · ${entry.time}</span>
+                    </div>
+                    <div class="logbook-entry-msg logbook-msg-clamped" data-clamped="true">${esc(entry.message)}</div>
+                    <button class="logbook-expand-btn" style="display:none;">Show more ▼</button>
+                `;
+
+                // After insertion, check if msg is taller than 3 lines and show toggle
+                el.appendChild(card);
+                const msgEl = card.querySelector('.logbook-entry-msg');
+                const btn   = card.querySelector('.logbook-expand-btn');
+                // Use rAF so browser has rendered heights
+                requestAnimationFrame(() => {
+                    if (msgEl.scrollHeight > msgEl.clientHeight + 2) {
+                        btn.style.display = 'block';
+                        btn.addEventListener('click', () => {
+                            const clamped = msgEl.dataset.clamped === 'true';
+                            msgEl.classList.toggle('logbook-msg-clamped', !clamped);
+                            msgEl.dataset.clamped = (!clamped).toString();
+                            btn.textContent = !clamped ? 'Show more ▼' : 'Show less ▲';
+                        });
+                    }
+                });
+            });
+
+            moreBtn.style.display = end < entries.length ? 'block' : 'none';
+        }
+
+        document.getElementById('logbookRefreshBtn').addEventListener('click', async () => {
+            logbookPage = 0;
+            await renderLogbookEntries(true);
+        });
+
+        document.getElementById('logbookLoadMore').addEventListener('click', async () => {
+            logbookPage++;
+            await renderLogbookEntries(false);
+        });
+
+        // ── Leaderboard ───────────────────────────────────────────
+        let lbCurrentPage = 0;
+        const LB_PAGE_SIZE = 20;
+
+        async function loadLeaderboard(reset = true) {
+            if (reset) lbCurrentPage = 0;
+
+            const game    = document.getElementById('lbGameFilter').value;
+            const mode    = document.getElementById('lbModeFilter').value;
+            const period  = document.getElementById('lbPeriodFilter').value;
+            const tbody   = document.getElementById('lbTableBody');
+            const loading = document.getElementById('lbLoading');
+
+            loading.style.display = 'flex';
+            tbody.innerHTML = '';
+
+            try {
+                // Both calls may throw if Supabase not configured — catch gracefully
+                const [data, stats] = await Promise.all([
+                    getLeaderboard({
+                        gameType: game, gameMode: mode, period,
+                        limit: LB_PAGE_SIZE,
+                        offset: lbCurrentPage * LB_PAGE_SIZE,
+                    }).catch(() => null),
+                    getLeaderboardStats({ gameType: game, gameMode: mode })
+                        .catch(() => null),
+                ]);
+
+                // Stats
+                document.getElementById('lbStatTotal').textContent  = stats?.totalEntries  ?? '–';
+                document.getElementById('lbStatTop').textContent    = stats?.topScore      ?? '–';
+                document.getElementById('lbStatPlayer').textContent = stats?.topPlayer     ?? '–';
+
+                if (!data || !data.length) {
+                    tbody.innerHTML = `
+                        <tr><td colspan="4" class="lb-empty">
+                            ${data === null
+                                ? '⚠️ Leaderboard not connected yet — configure Supabase to enable scores.'
+                                : 'No scores yet for this game!'}
+                        </td></tr>`;
+                } else {
+                    data.forEach((entry, i) => {
+                        const rank  = lbCurrentPage * LB_PAGE_SIZE + i + 1;
+                        const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : rank;
+                        const tr    = document.createElement('tr');
+                        tr.className = 'lb-row';
+                        tr.style.animationDelay = `${i * 30}ms`;
+                        tr.innerHTML = `
+                            <td class="lb-rank">${medal}</td>
+                            <td class="lb-player">${esc(entry.player_name || 'Anonymous')}</td>
+                            <td class="lb-score">${entry.score ?? '–'}</td>
+                            <td class="lb-date lb-hide-sm">${formatDate(entry.date_played)}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
+
+                renderLbPagination(data?.length === LB_PAGE_SIZE);
+
+            } catch (err) {
+                console.error('Leaderboard error:', err);
+                tbody.innerHTML = `<tr><td colspan="4" class="lb-empty">⚠️ Could not load scores.</td></tr>`;
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function renderLbPagination(hasMore) {
+            const el   = document.getElementById('lbPagination');
+            const prev = lbCurrentPage > 0;
+            if (!prev && !hasMore) { el.innerHTML = ''; return; }
+            el.innerHTML = `
+                ${prev ? '<button id="lbPrev" class="lb-page-btn">← Prev</button>' : ''}
+                <span class="lb-page-num">Page ${lbCurrentPage + 1}</span>
+                ${hasMore ? '<button id="lbNext" class="lb-page-btn">Next →</button>' : ''}
+            `;
+            document.getElementById('lbPrev')?.addEventListener('click', () => {
+                lbCurrentPage--; loadLeaderboard(false);
+            });
+            document.getElementById('lbNext')?.addEventListener('click', () => {
+                lbCurrentPage++; loadLeaderboard(false);
+            });
+        }
+
+        ['lbGameFilter','lbModeFilter','lbPeriodFilter'].forEach(id => {
+            document.getElementById(id).addEventListener('change', () => loadLeaderboard(true));
+        });
+        document.getElementById('lbRefreshBtn').addEventListener('click', () => loadLeaderboard(true));
+
+        // ── Boot ──────────────────────────────────────────────────
+        document.addEventListener('DOMContentLoaded', async () => {
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.display = 'none';
+                document.getElementById('app').style.display = 'block';
+            }, 400);
+
+            refreshVCName();
+            await renderLogbookEntries(true);
+            loadLeaderboard(true);
+        });
+    </script>
+</body>
+</html>

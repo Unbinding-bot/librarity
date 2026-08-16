@@ -1,0 +1,5 @@
+Menu button image: Trivia game — question mark with lightbulb
+Section: Games menu
+Dimensions: 140x140px
+Style: Square illustration, library/school aesthetic, bold colors on dark background
+Replace with: Drop menu-trivia.png in this same folder

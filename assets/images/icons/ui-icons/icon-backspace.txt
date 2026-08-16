@@ -1,0 +1,5 @@
+Icon: Backspace / delete key
+Emoji placeholder: ⌫
+Dimensions: 24x20px
+Usage: Backspace key on Wordle on-screen keyboard
+Replace with: Drop icon-backspace.svg or icon-backspace.png in this same folder

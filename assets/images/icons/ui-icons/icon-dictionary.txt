@@ -1,0 +1,5 @@
+Icon: Dictionary / open book
+Emoji placeholder: 📖
+Dimensions: 48x48px
+Usage: Dictionary tool card icon; dictionary tab
+Replace with: Drop icon-dictionary.svg or icon-dictionary.png in this same folder

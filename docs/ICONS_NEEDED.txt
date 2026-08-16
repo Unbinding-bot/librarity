@@ -1,0 +1,72 @@
+ICONS NEEDED FOR SCHOOL LIBRARY GAMES
+=====================================
+
+Please download doodle-style SVG icons from:
+- Open Doodles (https://www.opendoodles.com/)
+- Icons8 Doodle Style (https://icons8.com/illustrations/style--doodle)
+- Flaticon Doodle Packs (https://www.flaticon.com/)
+- Iconscout Developer Doodles (https://iconscout.com/)
+
+Save icons in: /assets/icons/
+
+REQUIRED ICONS:
+---------------
+
+GAMES (96x96px):
+- wordle-icon.svg - Letter tiles or alphabet blocks
+- spelling-bee-icon.svg - Bee or honeycomb
+- word-ladder-icon.svg - Ladder or stairs
+- trivia-icon.svg - Question mark or brain
+- flashcards-icon.svg - Stack of cards or note cards
+- wikipedia-icon.svg - Book with globe or encyclopedia
+
+TOOLS (64x64px):
+- dictionary-icon.svg - Open book or dictionary
+- thesaurus-icon.svg - Book with magnifying glass
+- rhyme-icon.svg - Musical note or poetry book
+
+UI ELEMENTS (48x48px):
+- library-entrance-icon.svg - Door or entrance
+- bookshelf-icon.svg - Bookshelf
+- leaderboard-icon.svg - Trophy or medal
+- admin-icon.svg - Key or lock
+- theme-light-icon.svg - Sun
+- theme-dark-icon.svg - Moon
+- help-icon.svg - Question mark in circle
+- stats-icon.svg - Bar chart or graph
+- close-icon.svg - X or close symbol
+- menu-icon.svg - Three horizontal lines
+- back-icon.svg - Left arrow
+- forward-icon.svg - Right arrow
+- shuffle-icon.svg - Shuffle arrows
+- reset-icon.svg - Circular arrow
+
+NAVIGATION (32x32px):
+- home-icon.svg - House
+- games-icon.svg - Game controller or dice
+- tools-icon.svg - Wrench or toolbox
+- books-icon.svg - Stack of books
+- coming-soon-icon.svg - Clock or hourglass
+
+DECORATIVE (various sizes):
+- book-spine-decoration.svg - Book spine texture
+- library-shelf.svg - Wooden shelf
+- reading-character.svg - Person reading (for entrance)
+- book-stack.svg - Stack of books
+- desk-lamp.svg - Vintage desk lamp
+- quill-pen.svg - Quill and inkwell
+- bookmark.svg - Ribbon bookmark
+
+PLACEHOLDER IMPLEMENTATION:
+----------------------------
+Until icons are added, the code will use:
+1. CSS background gradients with icon shapes
+2. Unicode symbols as fallbacks
+3. Colored divs with labels
+
+Note: All icons should be:
+- SVG format (scalable)
+- Doodle/hand-drawn style
+- Warm library colors (browns, greens, beiges)
+- Transparent background
+- Optimized file size

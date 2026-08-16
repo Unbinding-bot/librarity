@@ -1,0 +1,5 @@
+Icon: Sun / light mode
+Emoji placeholder: ☀️
+Dimensions: 20x20px
+Usage: Theme toggle button when light mode is active
+Replace with: Drop icon-sun.svg or icon-sun.png in this same folder

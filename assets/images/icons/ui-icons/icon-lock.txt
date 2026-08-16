@@ -1,0 +1,5 @@
+Icon: Lock / restricted access
+Emoji placeholder: 🔐
+Dimensions: 28x28px
+Usage: Faculty/Admin access lock heading; faculty-door.html
+Replace with: Drop icon-lock.svg or icon-lock.png in this same folder

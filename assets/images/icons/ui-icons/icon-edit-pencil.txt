@@ -1,0 +1,5 @@
+Icon: Edit / pencil
+Emoji placeholder: ✏️
+Dimensions: 16x16px
+Usage: Custom mode tab; Change name button; admin edit buttons
+Replace with: Drop icon-edit-pencil.svg or icon-edit-pencil.png in this same folder

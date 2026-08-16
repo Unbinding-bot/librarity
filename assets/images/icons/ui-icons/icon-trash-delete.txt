@@ -1,0 +1,5 @@
+Icon: Trash / delete
+Emoji placeholder: 🗑️
+Dimensions: 16x16px
+Usage: Delete button in admin cards
+Replace with: Drop icon-trash-delete.svg or icon-trash-delete.png in this same folder

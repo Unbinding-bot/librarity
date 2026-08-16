@@ -1,0 +1,5 @@
+Icon: Admin / settings gear
+Emoji placeholder: ⚙️
+Dimensions: 20x20px
+Usage: Admin nav link; Admin settings section
+Replace with: Drop icon-admin.svg or icon-admin.png in this same folder

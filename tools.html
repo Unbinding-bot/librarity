@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Writing tools - Dictionary, Thesaurus, and Rhyme Finder for students and writers">
+    <meta name="keywords" content="dictionary, thesaurus, rhyme finder, writing tools, vocabulary, synonyms, antonyms">
+    <title>Writing Tools - Library Games</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./assets/images/favicon.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/animations.css">
+    <link rel="stylesheet" href="./css/tools.css">
+    <link rel="stylesheet" href="./css/theme.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+    
+    <style>
+        .tools-hub {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .tools-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .tools-header h1 {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin: 0 0 1rem 0;
+        }
+        
+        .tools-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .tool-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .tool-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+        
+        .tool-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tool-card h2 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin: 0 0 0.75rem 0;
+        }
+        
+        .tool-card p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .active-tool-section {
+            margin-top: 2rem;
+        }
+        
+        .tool-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            overflow-x: auto;
+        }
+        
+        .tool-tab {
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            padding: 1rem 1.5rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .tool-tab:hover {
+            color: var(--text-primary);
+        }
+        
+        .tool-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tool-panel {
+            display: none;
+        }
+        
+        .tool-panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .tools-header h1 {
+                font-size: 2rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .tool-tabs {
+                gap: 0.5rem;
+            }
+            
+            .tool-tab {
+                padding: 0.75rem 1rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="book-loader">
+            <div class="book-page"></div>
+            <div class="book-page"></div>
+            <div class="book-page"></div>
+        </div>
+        <p>Loading Tools...</p>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app" style="display: none;">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="navbar-container flex-between">
+                <div class="navbar-logo flex gap-md">
+                    <span class="logo-text">
+                        <span class="logo-library">Library</span>
+                        <span class="logo-games">Games</span>
+                    </span>
+                </div>
+                <nav class="navbar-nav flex gap-lg">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="#/games" class="nav-link">Games</a>
+                    <a href="tools.html" class="nav-link active">Tools</a>
+                    <a href="#/books" class="nav-link">Books</a>
+                    <a href="leaderboard.html" class="nav-link">Leaderboards</a>
+                </nav>
+                <div class="navbar-actions">
+                    <div id="theme-toggle-container" class="nav-actions"></div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="tools-hub">
+                <div class="tools-header">
+                    <h1>✍️ Writing Tools</h1>
+                    <p>Powerful tools to enhance your vocabulary, improve your writing, and spark creativity.</p>
+                </div>
+                
+                <!-- Tool Tabs -->
+                <div class="tool-tabs">
+                    <button class="tool-tab active" data-tool="dictionary">
+                        📖 Dictionary
+                    </button>
+                    <button class="tool-tab" data-tool="thesaurus">
+                        📚 Thesaurus
+                    </button>
+                    <button class="tool-tab" data-tool="rhyme">
+                        🎵 Rhyme Finder
+                    </button>
+                </div>
+                
+                <!-- Tool Panels -->
+                <div class="active-tool-section">
+                    <div id="dictionary-panel" class="tool-panel active">
+                        <div id="dictionary-container"></div>
+                    </div>
+                    
+                    <div id="thesaurus-panel" class="tool-panel">
+                        <div id="thesaurus-container"></div>
+                    </div>
+                    
+                    <div id="rhyme-panel" class="tool-panel">
+                        <div id="rhyme-container"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>By Unbinding</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Application Scripts -->
+    <script type="module">
+        import Dictionary from './js/tools/dictionary.js';
+        import Thesaurus from './js/tools/thesaurus.js';
+        import RhymeFinder from './js/tools/rhyme-finder.js';
+        import { ThemeSystem } from './js/theme/theme-system.js';
+        
+        // Initialize theme system first
+        const themeSystem = new ThemeSystem();
+        themeSystem.init();
+        window.themeSystem = themeSystem;
+        
+        // Wait for DOM to load
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Hide loading screen
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.display = 'none';
+                document.getElementById('app').style.display = 'block';
+            }, 500);
+            
+            // Initialize theme toggle
+            if (window.themeSystem) {
+                themeSystem.createToggleButton('theme-toggle-container');
+            }
+            
+            // Initialize all tools
+            const dictionary = new Dictionary('dictionary-container');
+            const thesaurus = new Thesaurus('thesaurus-container');
+            const rhymeFinder = new RhymeFinder('rhyme-container');
+            
+            // Make tools accessible globally
+            window.dictionary = dictionary;
+            window.thesaurus = thesaurus;
+            window.rhymeFinder = rhymeFinder;
+            
+            // Setup tab switching
+            const tabs = document.querySelectorAll('.tool-tab');
+            const panels = document.querySelectorAll('.tool-panel');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const toolName = tab.dataset.tool;
+                    
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Update active panel
+                    panels.forEach(p => p.classList.remove('active'));
+                    document.getElementById(`${toolName}-panel`).classList.add('active');
+                });
+            });
+        });
+        
+        // Toast notification function
+        window.showToast = function(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            
+            const icon = {
+                success: '✓',
+                error: '✗',
+                warning: '⚠',
+                info: 'ℹ'
+            }[type] || 'ℹ';
+            
+            toast.innerHTML = `
+                <span class="toast-icon">${icon}</span>
+                <span class="toast-message">${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => toast.classList.add('toast-show'), 10);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                toast.classList.remove('toast-show');
+                setTimeout(() => toast.remove(), 300);
+            }, 5000);
+        };
+    </script>
+</body>
+</html>

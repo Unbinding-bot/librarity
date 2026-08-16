@@ -1,0 +1,5 @@
+Icon: 2nd place silver medal
+Emoji placeholder: 🥈
+Dimensions: 20x20px
+Usage: 2nd rank in leaderboard table
+Replace with: Drop icon-medal-silver.svg or icon-medal-silver.png in this same folder

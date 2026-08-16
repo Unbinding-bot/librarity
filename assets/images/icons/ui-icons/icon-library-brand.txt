@@ -1,0 +1,5 @@
+Icon: Library brand / logo
+Emoji placeholder: 📚
+Dimensions: 32x32px
+Usage: Navbar brand icon, left of "School Library Games" text
+Replace with: Drop icon-library-brand.svg or icon-library-brand.png in this same folder

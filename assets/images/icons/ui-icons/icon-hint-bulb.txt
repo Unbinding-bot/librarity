@@ -1,0 +1,5 @@
+Icon: Hint / light bulb
+Emoji placeholder: 💡
+Dimensions: 20x20px
+Usage: Hint button in Word Ladder and Wikipedia Race
+Replace with: Drop icon-hint-bulb.svg or icon-hint-bulb.png in this same folder

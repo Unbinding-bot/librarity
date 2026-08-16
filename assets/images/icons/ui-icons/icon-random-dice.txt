@@ -1,0 +1,5 @@
+Icon: Random / dice
+Emoji placeholder: 🎲
+Dimensions: 18x18px
+Usage: Random mode button across all games
+Replace with: Drop icon-random-dice.svg or icon-random-dice.png in this same folder

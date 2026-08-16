@@ -1,0 +1,5 @@
+Icon: Events / party
+Emoji placeholder: 🎉
+Dimensions: 20x20px
+Usage: Events admin nav item
+Replace with: Drop icon-events.svg or icon-events.png in this same folder

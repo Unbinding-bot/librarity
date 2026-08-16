@@ -1,0 +1,5 @@
+Icon: Plus / add
+Emoji placeholder: ➕
+Dimensions: 16x16px
+Usage: Add Book button; add card button in admin
+Replace with: Drop icon-plus-add.svg or icon-plus-add.png in this same folder

@@ -1,0 +1,5 @@
+Icon: Scroll / parchment
+Emoji placeholder: 📜
+Dimensions: 24x24px
+Usage: Visitor Messages page heading; empty logbook state
+Replace with: Drop icon-scroll.svg or icon-scroll.png in this same folder

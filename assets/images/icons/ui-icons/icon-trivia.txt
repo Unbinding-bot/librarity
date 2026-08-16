@@ -1,0 +1,5 @@
+Icon: Trivia game
+Emoji placeholder: 🎯
+Dimensions: 32x32px
+Usage: Trivia game title heading; game cards
+Replace with: Drop icon-trivia.svg or icon-trivia.png in this same folder

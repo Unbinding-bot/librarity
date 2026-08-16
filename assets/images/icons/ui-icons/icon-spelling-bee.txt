@@ -1,0 +1,5 @@
+Icon: Spelling Bee game
+Emoji placeholder: 🐝
+Dimensions: 32x32px
+Usage: Spelling Bee game title heading; game cards
+Replace with: Drop icon-spelling-bee.svg or icon-spelling-bee.png in this same folder

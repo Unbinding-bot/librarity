@@ -1,0 +1,5 @@
+Icon: Word Ladder game
+Emoji placeholder: 🪜
+Dimensions: 32x32px
+Usage: Word Ladder game title heading; game cards
+Replace with: Drop icon-word-ladder.svg or icon-word-ladder.png in this same folder

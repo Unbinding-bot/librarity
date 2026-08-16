@@ -1,0 +1,562 @@
+/* ================================================
+   Library Games - Banner Carousel Styles
+   ================================================ */
+
+/* Carousel Container */
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    background: var(--card-bg);
+    margin: 2rem 0;
+}
+
+/* Carousel Track */
+.carousel-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Carousel Slide */
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    pointer-events: none;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+    z-index: 1;
+}
+
+/* Banner Content */
+.banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 3rem;
+    gap: 2rem;
+    background: var(--primary);
+    color: white;
+}
+
+/* Banner Image */
+.banner-image {
+    flex: 0 0 40%;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-image img {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Banner Text */
+.banner-text {
+    flex: 1;
+    text-align: left;
+    max-width: 600px;
+}
+
+.banner-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.banner-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.banner-description {
+    font-size: 1.25rem;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.6;
+    opacity: 0.95;
+}
+
+.banner-button {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    background: white;
+    color: var(--primary);
+    border: none;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: var(--shadow-sm);
+}
+
+.banner-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+/* Navigation Controls */
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--primary);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 2rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    box-shadow: var(--shadow-md);
+}
+
+.carousel-control:hover {
+    background: white;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: var(--shadow-lg);
+}
+
+.carousel-control:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.carousel-control-prev {
+    left: 1rem;
+}
+
+.carousel-control-next {
+    right: 1rem;
+}
+
+.carousel-control-icon {
+    line-height: 0;
+}
+
+/* Indicators */
+.carousel-indicators {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: 0.75rem;
+}
+
+.carousel-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 0;
+}
+
+.carousel-indicator:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: scale(1.2);
+}
+
+.carousel-indicator.active {
+    background: white;
+    transform: scale(1.3);
+}
+
+/* Empty State */
+.carousel-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    background: var(--bg-secondary);
+}
+
+.carousel-empty-message {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+}
+
+.carousel-empty-message p {
+    margin: 0;
+}
+
+/* Animation for slide entrance */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.carousel-slide.active .banner-content > * {
+    animation: slideIn 0.6s ease-out;
+}
+
+/* Stagger animation for banner elements */
+.carousel-slide.active .banner-icon {
+    animation-delay: 0.1s;
+}
+
+.carousel-slide.active .banner-title {
+    animation-delay: 0.2s;
+}
+
+.carousel-slide.active .banner-description {
+    animation-delay: 0.3s;
+}
+
+.carousel-slide.active .banner-button {
+    animation-delay: 0.4s;
+}
+
+/* Responsive Design */
+
+/* Tablet (769-1024px) */
+@media (max-width: 1024px) {
+    .carousel {
+        height: 350px;
+    }
+    
+    .banner-content {
+        padding: 2rem;
+        gap: 1.5rem;
+    }
+    
+    .banner-title {
+        font-size: 2rem;
+    }
+    
+    .banner-description {
+        font-size: 1.125rem;
+    }
+    
+    .banner-image {
+        max-width: 300px;
+    }
+}
+
+/* Mobile (321-768px) */
+@media (max-width: 768px) {
+    .carousel {
+        height: 300px;
+    }
+    
+    .banner-content {
+        flex-direction: column;
+        padding: 1.5rem;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .banner-text {
+        text-align: center;
+    }
+    
+    .banner-image {
+        flex: 0 0 auto;
+        max-width: 200px;
+    }
+    
+    .banner-image img {
+        max-height: 150px;
+    }
+    
+    .banner-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .banner-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .banner-description {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .banner-button {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    /* Smaller controls */
+    .carousel-control {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+    }
+    
+    .carousel-control-prev {
+        left: 0.5rem;
+    }
+    
+    .carousel-control-next {
+        right: 0.5rem;
+    }
+    
+    /* Smaller indicators */
+    .carousel-indicators {
+        bottom: 1rem;
+        gap: 0.5rem;
+    }
+    
+    .carousel-indicator {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+/* Smartwatch (0-320px) */
+@media (max-width: 320px) {
+    .carousel {
+        height: 250px;
+        margin: 1rem 0;
+    }
+    
+    .banner-content {
+        padding: 1rem;
+    }
+    
+    .banner-image {
+        display: none; /* Hide image on very small screens */
+    }
+    
+    .banner-icon {
+        font-size: 1.5rem;
+    }
+    
+    .banner-title {
+        font-size: 1.25rem;
+    }
+    
+    .banner-description {
+        font-size: 0.875rem;
+    }
+    
+    .banner-button {
+        padding: 0.625rem 1rem;
+        font-size: 0.875rem;
+    }
+    
+    .carousel-control {
+        width: 35px;
+        height: 35px;
+        font-size: 1.25rem;
+    }
+    
+    .carousel-indicator {
+        width: 8px;
+        height: 8px;
+    }
+}
+
+/* TV/Large Desktop (1921px+) */
+@media (min-width: 1921px) {
+    .carousel {
+        height: 500px;
+    }
+    
+    .banner-content {
+        padding: 4rem;
+        gap: 3rem;
+    }
+    
+    .banner-title {
+        font-size: 3rem;
+    }
+    
+    .banner-description {
+        font-size: 1.5rem;
+    }
+    
+    .banner-button {
+        padding: 1rem 2.5rem;
+        font-size: 1.25rem;
+    }
+    
+    .banner-image {
+        max-width: 500px;
+    }
+    
+    .banner-image img {
+        max-height: 400px;
+    }
+}
+
+/* Landscape orientation on mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .carousel {
+        height: 250px;
+    }
+    
+    .banner-content {
+        flex-direction: row;
+        padding: 1rem;
+    }
+    
+    .banner-image {
+        display: block;
+        max-width: 150px;
+    }
+    
+    .banner-image img {
+        max-height: 180px;
+    }
+    
+    .banner-text {
+        text-align: left;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .carousel-slide {
+        transition: opacity 0.3s ease;
+        transform: none;
+    }
+    
+    .carousel-slide.active {
+        transform: none;
+    }
+    
+    .carousel-control:hover {
+        transform: translateY(-50%);
+    }
+    
+    .carousel-indicator:hover,
+    .carousel-indicator.active {
+        transform: none;
+    }
+    
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .carousel-control {
+        border: 3px solid currentColor;
+    }
+    
+    .carousel-indicator {
+        border-width: 3px;
+    }
+    
+    .banner-button {
+        border: 2px solid currentColor;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .carousel {
+        height: auto;
+        box-shadow: none;
+    }
+    
+    .carousel-control,
+    .carousel-indicators {
+        display: none;
+    }
+    
+    .carousel-slide {
+        position: relative;
+        opacity: 1;
+        transform: none;
+        page-break-inside: avoid;
+    }
+    
+    .carousel-slide:not(.active) {
+        display: none;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .carousel-control {
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+    }
+    
+    .carousel-control:hover {
+        background: rgba(0, 0, 0, 0.9);
+    }
+}
+
+/* Focus states for accessibility */
+.carousel-control:focus,
+.carousel-indicator:focus {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Loading skeleton for carousel */
+.carousel-skeleton {
+    width: 100%;
+    height: 400px;
+    background: linear-gradient(
+        90deg,
+        var(--bg-secondary) 25%,
+        var(--bg-primary) 50%,
+        var(--bg-secondary) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: var(--radius-lg);
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}

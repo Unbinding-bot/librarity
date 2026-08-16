@@ -1,0 +1,80 @@
+name: Keep Supabase Active
+
+on:
+  # Run daily at noon UTC
+  schedule:
+    - cron: '0 12 * * *'
+  
+  # Allow manual trigger from Actions tab
+  workflow_dispatch:
+
+jobs:
+  ping-database:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Ping Supabase Database
+        run: |
+          echo "Pinging Supabase to keep database active..."
+          
+          # Call health check RPC function
+          response=$(curl -s -w "\n%{http_code}" -X POST \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/rpc/health_check" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Content-Type: application/json" \
+            -H "Prefer: return=representation")
+          
+          http_code=$(echo "$response" | tail -n1)
+          body=$(echo "$response" | sed '$d')
+          
+          echo "HTTP Status: $http_code"
+          echo "Response: $body"
+          
+          # Check if successful
+          if [ "$http_code" = "200" ] || [ "$http_code" = "201" ]; then
+            echo "✅ Database ping successful!"
+            exit 0
+          else
+            echo "❌ Database ping failed with status $http_code"
+            exit 1
+          fi
+      
+      - name: Query Leaderboard Count
+        if: success()
+        run: |
+          echo "Checking leaderboard table..."
+          
+          # Query the leaderboards table to ensure it's accessible
+          response=$(curl -s -w "\n%{http_code}" \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/leaderboards?select=count" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Content-Type: application/json" \
+            -H "Prefer: count=exact")
+          
+          http_code=$(echo "$response" | tail -n1)
+          
+          if [ "$http_code" = "200" ] || [ "$http_code" = "206" ]; then
+            echo "✅ Leaderboard table accessible!"
+          else
+            echo "⚠️ Leaderboard query returned status $http_code"
+          fi
+      
+      - name: Report Success
+        if: success()
+        run: |
+          echo "========================================="
+          echo "  Supabase Keep-Alive Successful"
+          echo "  Database remains active"
+          echo "  Next run: Tomorrow at 12:00 UTC"
+          echo "========================================="
+      
+      - name: Report Failure
+        if: failure()
+        run: |
+          echo "========================================="
+          echo "  ⚠️ Supabase Keep-Alive Failed"
+          echo "  Check repository secrets:"
+          echo "  - SUPABASE_URL"
+          echo "  - SUPABASE_ANON_KEY"
+          echo "========================================="
+          exit 1

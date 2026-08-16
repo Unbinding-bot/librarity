@@ -1,0 +1,5 @@
+Icon: Good difficulty rating (flashcard)
+Emoji placeholder: 😊
+Dimensions: 24x24px
+Usage: Good button in Flashcards study screen
+Replace with: Drop icon-rating-good.svg or icon-rating-good.png in this same folder

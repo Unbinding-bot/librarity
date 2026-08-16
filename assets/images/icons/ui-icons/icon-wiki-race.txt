@@ -1,0 +1,5 @@
+Icon: Wikipedia Race game / checkered flag
+Emoji placeholder: 🏁
+Dimensions: 32x32px
+Usage: Wikipedia Race game title heading; game cards
+Replace with: Drop icon-wiki-race.svg or icon-wiki-race.png in this same folder

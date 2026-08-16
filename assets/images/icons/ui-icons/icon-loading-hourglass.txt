@@ -1,0 +1,5 @@
+Icon: Loading / hourglass
+Emoji placeholder: ⏳
+Dimensions: 20x20px
+Usage: Loading indicator in leaderboard table
+Replace with: Drop icon-loading-hourglass.svg or icon-loading-hourglass.png in this same folder

@@ -1,0 +1,5 @@
+Icon: Help / question mark
+Emoji placeholder: ❓
+Dimensions: 24x24px
+Usage: Help / How to Play icon button in all games
+Replace with: Drop icon-help-question.svg or icon-help-question.png in this same folder

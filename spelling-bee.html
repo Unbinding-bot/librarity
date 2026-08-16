@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spelling Bee - School Library Games</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/game-ui-fixes.css">
+    <link rel="stylesheet" href="css/spelling-bee.css">
+    <!-- Theme toggle: runs before body renders to avoid flash -->
+    <script src="js/theme/theme-toggle.js"></script>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="book-loader">
+                <div class="book">
+                    <div class="page"></div>
+                    <div class="page"></div>
+                    <div class="page"></div>
+                </div>
+            </div>
+            <p class="loading-text">Loading Spelling Bee...</p>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="nav-brand">
+                    <span class="brand-icon">📚</span>
+                    <span class="brand-text">School Library Games</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="leaderboard.html" class="nav-link">🏆 Leaderboard</a>
+                <a href="tools.html" class="nav-link">🔧 Tools</a>
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="game-container">
+        <div class="game-header">
+            <h1 class="game-title">🐝 Spelling Bee</h1>
+            <p class="game-subtitle">Make words using the letters in the hive. Every word must use the center letter!</p>
+            
+            <div class="game-controls">
+                <button id="dailyModeBtn" class="mode-btn active">📅 Daily Puzzle</button>
+                <button id="randomModeBtn" class="mode-btn">🎲 Random Puzzle</button>
+                <button id="statsBtn" class="icon-btn" aria-label="View Statistics">📊</button>
+                <button id="helpBtn" class="icon-btn" aria-label="How to Play">❓</button>
+            </div>
+        </div>
+
+        <!-- Game Stats -->
+        <div class="game-stats">
+            <div class="stat-box">
+                <div class="stat-value" id="scoreValue">0</div>
+                <div class="stat-label">Score</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="wordsFoundValue">0</div>
+                <div class="stat-label">Words</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="pangramsValue">0</div>
+                <div class="stat-label">Pangrams</div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-labels">
+                <span class="progress-label">Beginner</span>
+                <span class="progress-label">Good Start</span>
+                <span class="progress-label">Moving Up</span>
+                <span class="progress-label">Good</span>
+                <span class="progress-label">Solid</span>
+                <span class="progress-label">Nice</span>
+                <span class="progress-label">Great</span>
+                <span class="progress-label">Amazing</span>
+                <span class="progress-label">Genius</span>
+                <span class="progress-label">Queen Bee</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+                <div class="progress-markers" id="progressMarkers"></div>
+            </div>
+            <div class="progress-info">
+                <span id="currentRank">Beginner</span>
+                <span id="progressPercent">0%</span>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-section">
+            <div class="word-input">
+                <div class="input-display" id="inputDisplay"></div>
+                <div class="input-buttons">
+                    <button id="deleteBtn" class="input-btn" aria-label="Delete letter">
+                        <span>Delete</span>
+                    </button>
+                    <button id="shuffleBtn" class="input-btn" aria-label="Shuffle letters">
+                        <span>🔄 Shuffle</span>
+                    </button>
+                    <button id="enterBtn" class="input-btn input-btn-primary" aria-label="Submit word">
+                        <span>Enter</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Honeycomb -->
+        <div class="honeycomb-container" id="honeycomb">
+            <!-- Honeycomb cells will be generated by JavaScript -->
+        </div>
+
+        <!-- Word List -->
+        <div class="word-list-section">
+            <div class="word-list-header">
+                <h3>Your Words (<span id="wordCount">0</span>)</h3>
+                <button id="toggleWordList" class="toggle-btn">▼</button>
+            </div>
+            <div class="word-list-content" id="wordListContent">
+                <div class="word-list-empty" id="wordListEmpty">
+                    <p>No words found yet. Start spelling!</p>
+                </div>
+                <div class="word-list-grid" id="wordListGrid"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="modal">
+        <div class="modal-content modal-medium">
+            <div class="modal-header">
+                <h2 class="modal-title">How to Play</h2>
+                <button class="modal-close" data-modal="helpModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>Rules</h3>
+                <ul class="help-list">
+                    <li>Create words using letters from the hive.</li>
+                    <li><strong>Every word must include the center letter (yellow).</strong></li>
+                    <li>Words must be at least 4 letters long.</li>
+                    <li>Letters can be used more than once.</li>
+                    <li>No proper nouns, hyphenated words, or offensive terms.</li>
+                </ul>
+
+                <h3>Scoring</h3>
+                <ul class="help-list">
+                    <li><strong>4-letter words:</strong> 1 point</li>
+                    <li><strong>Longer words:</strong> 1 point per letter</li>
+                    <li><strong>Pangrams</strong> (words using all 7 letters): 7 bonus points!</li>
+                </ul>
+
+                <h3>Rankings</h3>
+                <div class="rankings-info">
+                    <div class="rank-item"><span class="rank-badge">Beginner</span> 0%</div>
+                    <div class="rank-item"><span class="rank-badge">Good Start</span> 2%</div>
+                    <div class="rank-item"><span class="rank-badge">Moving Up</span> 5%</div>
+                    <div class="rank-item"><span class="rank-badge">Good</span> 8%</div>
+                    <div class="rank-item"><span class="rank-badge">Solid</span> 15%</div>
+                    <div class="rank-item"><span class="rank-badge">Nice</span> 25%</div>
+                    <div class="rank-item"><span class="rank-badge">Great</span> 40%</div>
+                    <div class="rank-item"><span class="rank-badge">Amazing</span> 50%</div>
+                    <div class="rank-item"><span class="rank-badge">Genius</span> 70%</div>
+                    <div class="rank-item"><span class="rank-badge gold">Queen Bee</span> 100%</div>
+                </div>
+
+                <h3>Tips</h3>
+                <ul class="help-list">
+                    <li>Look for common word patterns and prefixes.</li>
+                    <li>Try plural forms by adding 'S'.</li>
+                    <li>Don't forget about past tenses with '-ED'.</li>
+                    <li>Use the Shuffle button to see letters in a new arrangement.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Modal -->
+    <div id="statsModal" class="modal">
+        <div class="modal-content modal-medium">
+            <div class="modal-header">
+                <h2 class="modal-title">Statistics</h2>
+                <button class="modal-close" data-modal="statsModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="stats-summary">
+                    <div class="stat-item">
+                        <div class="stat-value" id="statPuzzlesPlayed">0</div>
+                        <div class="stat-label">Puzzles Played</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="statQueenBees">0</div>
+                        <div class="stat-label">Queen Bees</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="statTotalWords">0</div>
+                        <div class="stat-label">Total Words</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="statAvgScore">0</div>
+                        <div class="stat-label">Avg Score</div>
+                    </div>
+                </div>
+
+                <button id="toggleRankDistribution" class="btn btn-secondary toggle-distribution">
+                    Show Best Ranks ▼
+                </button>
+
+                <div class="rank-distribution" id="rankDistributionSection" style="display: none;">
+                    <h3>Best Ranks Achieved</h3>
+                    <div id="rankDistribution"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Modal -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content modal-medium">
+            <div class="modal-header">
+                <h2 class="modal-title">🎉 Puzzle Complete!</h2>
+                <button class="modal-close" data-modal="resultModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="result-summary">
+                    <div class="result-rank" id="resultRank"></div>
+                    <div class="result-stats-grid">
+                        <div class="result-stat">
+                            <div class="result-stat-value" id="resultScore">0</div>
+                            <div class="result-stat-label">Final Score</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="result-stat-value" id="resultWords">0</div>
+                            <div class="result-stat-label">Words Found</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="result-stat-value" id="resultPangrams">0</div>
+                            <div class="result-stat-label">Pangrams</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="result-stat-value" id="resultPercent">0%</div>
+                            <div class="result-stat-label">Completion</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="result-actions">
+                    <button id="shareResultBtn" class="btn btn-primary">📋 Share</button>
+                    <button id="playAgainBtn" class="btn btn-secondary">🔄 New Puzzle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/games/spelling-bee.js"></script>
+</body>
+</html>

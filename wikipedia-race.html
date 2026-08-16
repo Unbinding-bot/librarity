@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikipedia Race - School Library Games</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/game-ui-fixes.css">
+    <link rel="stylesheet" href="css/wikipedia-race.css">
+    <script src="js/theme/theme-toggle.js"></script>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="book-loader">
+                <div class="book">
+                    <div class="page"></div>
+                    <div class="page"></div>
+                    <div class="page"></div>
+                </div>
+            </div>
+            <p class="loading-text">Loading Wikipedia Race...</p>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="nav-brand">
+                    <span class="brand-icon">📚</span>
+                    <span class="brand-text">School Library Games</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="leaderboard.html" class="nav-link">🏆 Leaderboard</a>
+                <a href="tools.html" class="nav-link">🔧 Tools</a>
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="game-container">
+        <!-- Setup Screen -->
+        <div id="setupScreen" class="setup-screen">
+            <h1 class="game-title">🏁 Wikipedia Race</h1>
+            <p class="game-subtitle">Navigate from one Wikipedia article to another using only links!</p>
+
+            <!-- Mode tabs -->
+            <div class="mode-tabs">
+                <button class="mode-tab active" data-mode="daily">📅 Daily</button>
+                <button class="mode-tab" data-mode="random">🎲 Random</button>
+                <button class="mode-tab" data-mode="random-custom">🎯 Random Custom</button>
+                <button class="mode-tab" data-mode="custom">✏️ Custom</button>
+            </div>
+
+            <!-- Daily panel -->
+            <div id="dailyPanel" class="mode-panel">
+                <h2>Today's Challenge</h2>
+                <div id="dailyChallengeInfo" class="daily-info"></div>
+                <button id="startDailyBtn" class="btn btn-primary btn-lg">▶ Start Daily Challenge</button>
+            </div>
+
+            <!-- Random panel -->
+            <div id="randomPanel" class="mode-panel" style="display:none;">
+                <h2>Random Race</h2>
+                <p class="mode-desc">Both start and target articles are randomly chosen from Wikipedia.</p>
+                <button id="startRandomBtn" class="btn btn-primary btn-lg">🎲 Start Random Race</button>
+            </div>
+
+            <!-- Random Custom panel -->
+            <div id="randomCustomPanel" class="mode-panel" style="display:none;">
+                <h2>Random Custom</h2>
+                <p class="mode-desc">You pick one article — the other is randomly chosen.</p>
+                <div class="rc-form">
+                    <label class="rc-toggle">
+                        <input type="radio" name="rcFixed" id="rcStartFixed" value="start" checked>
+                        <span>I pick the <strong>start</strong>, random target</span>
+                    </label>
+                    <label class="rc-toggle">
+                        <input type="radio" name="rcFixed" id="rcTargetFixed" value="target">
+                        <span>I pick the <strong>target</strong>, random start</span>
+                    </label>
+                    <input type="text" id="rcInput" class="form-input" placeholder="Enter article title…">
+                    <button id="startRandomCustomBtn" class="btn btn-primary">🚀 Start Race</button>
+                </div>
+            </div>
+
+            <!-- Custom panel -->
+            <div id="customPanel" class="mode-panel" style="display:none;">
+                <h2>Custom Challenge</h2>
+                <div class="custom-challenge-form">
+                    <input type="text" id="customStart" class="form-input" placeholder="Start article (e.g., Albert Einstein)">
+                    <input type="text" id="customTarget" class="form-input" placeholder="Target article (e.g., Pizza)">
+                    <button id="startCustomBtn" class="btn btn-primary">▶ Start Race</button>
+                </div>
+                <h3 style="margin-top:2rem;">Or pick a preset challenge</h3>
+                <div class="challenges-grid" id="challengesGrid"></div>
+            </div>
+
+            <div class="setup-actions">
+                <button id="helpBtn" class="btn btn-secondary">❓ How to Play</button>
+                <button id="statsBtn" class="btn btn-secondary">📊 Statistics</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="game-screen" style="display: none;">
+            <div class="game-header">
+                <button id="quitBtn" class="btn btn-sm btn-secondary">← Quit</button>
+                <div class="challenge-info">
+                    <div class="route-display">
+                        <span class="route-label">From:</span>
+                        <span class="route-start" id="routeStart">Start</span>
+                        <span class="route-arrow">→</span>
+                        <span class="route-label">To:</span>
+                        <span class="route-target" id="routeTarget">Target</span>
+                    </div>
+                </div>
+                <div class="game-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Clicks:</span>
+                        <span class="stat-value" id="clickCount">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Time:</span>
+                        <span class="stat-value" id="timerValue">0:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="breadcrumb-trail" id="breadcrumbTrail">
+                <!-- Breadcrumb will be generated by JavaScript -->
+            </div>
+
+            <div class="wikipedia-container">
+                <div class="article-header">
+                    <h2 id="articleTitle">Loading...</h2>
+                    <button id="showLinksBtn" class="btn btn-sm btn-secondary">📋 Show Links</button>
+                </div>
+                <div class="article-content" id="articleContent">
+                    <p class="loading-message">Loading article...</p>
+                </div>
+            </div>
+
+            <div class="hints-panel">
+                <button id="hintBtn" class="btn btn-sm btn-secondary">💡 Get Hint</button>
+                <div id="hintDisplay" class="hint-display" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" class="results-screen" style="display: none;">
+            <div class="results-content">
+                <button class="result-close" id="resultClose">&times;</button>
+                <h2 class="results-title">🎉 Challenge Complete!</h2>
+                
+                <div class="results-stats">
+                    <div class="result-stat">
+                        <div class="result-stat-value" id="finalClicks">0</div>
+                        <div class="result-stat-label">Total Clicks</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-value" id="finalTime">0:00</div>
+                        <div class="result-stat-label">Time Taken</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-value" id="hintsUsed">0</div>
+                        <div class="result-stat-label">Hints Used</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-value" id="finalScore">0</div>
+                        <div class="result-stat-label">Score</div>
+                    </div>
+                </div>
+
+                <div class="path-visualization">
+                    <h3>Your Path</h3>
+                    <div id="pathDisplay" class="path-display">
+                        <!-- Path will be visualized here -->
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <button id="shareResultBtn" class="btn btn-primary">📋 Share</button>
+                    <button id="playAgainBtn" class="btn btn-secondary">🔄 Play Again</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Links Modal -->
+    <div id="linksModal" class="modal" style="display:none;">
+        <div class="modal-content modal-medium">
+            <div class="modal-header">
+                <h2 class="modal-title">Available Links</h2>
+                <button class="modal-close" data-modal="linksModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="linkSearch" class="form-input" placeholder="Search links...">
+                <div id="linksList" class="links-list">
+                    <!-- Links will be listed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="modal" style="display:none;">
+        <div class="modal-content modal-medium">
+            <div class="modal-header">
+                <h2 class="modal-title">How to Play</h2>
+                <button class="modal-close" data-modal="helpModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>Objective</h3>
+                <p>Navigate from the starting Wikipedia article to the target article by clicking only on links within the articles.</p>
+
+                <h3>Rules</h3>
+                <ul class="help-list">
+                    <li>You can only click on links within article content</li>
+                    <li>Try to reach the target in as few clicks as possible</li>
+                    <li>Time and clicks are recorded</li>
+                    <li>You can use hints, but they add to your final count</li>
+                </ul>
+
+                <h3>Tips</h3>
+                <ul class="help-list">
+                    <li>Think about common topics that might connect the articles</li>
+                    <li>Look for geographical, historical, or thematic links</li>
+                    <li>The breadcrumb trail shows your path</li>
+                    <li>Use the "Show Links" button to see all available links</li>
+                    <li>Hints suggest intermediate articles</li>
+                </ul>
+
+                <h3>Scoring</h3>
+                <p>Your score is based on the number of clicks and time taken. Fewer clicks and less time result in better scores!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Modal -->
+    <div id="statsModal" class="modal" style="display:none;">
+        <div class="modal-content modal-medium">
+            <div class="modal-header">
+                <h2 class="modal-title">Statistics</h2>
+                <button class="modal-close" data-modal="statsModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="stats-summary">
+                    <div class="stat-item">
+                        <div class="stat-value" id="statRacesCompleted">0</div>
+                        <div class="stat-label">Races</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="statAvgClicks">0</div>
+                        <div class="stat-label">Avg Clicks</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="statBestTime">-</div>
+                        <div class="stat-label">Best Time</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="statTotalArticles">0</div>
+                        <div class="stat-label">Articles</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="statBestScore">-</div>
+                        <div class="stat-label">Best Score</div>
+                    </div>
+                </div>
+
+                <div class="challenge-history">
+                    <h3>Recent Races</h3>
+                    <div id="challengeHistory"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/games/wikipedia-race.js"></script>
+</body>
+</html>

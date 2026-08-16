@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin Panel - Library Games</title>
+    
+    <!-- Security Check -->
+    <script>
+        // Check if faculty authenticated
+        const isAuth = sessionStorage.getItem('faculty_auth');
+        const authTime = sessionStorage.getItem('faculty_auth_time');
+        
+        // Check if session expired (4 hours)
+        const fourHoursInMs = 4 * 60 * 60 * 1000;
+        const isExpired = authTime && (Date.now() - parseInt(authTime)) > fourHoursInMs;
+        
+        if (!isAuth || isExpired) {
+            // Clear expired session
+            sessionStorage.removeItem('faculty_auth');
+            sessionStorage.removeItem('faculty_auth_time');
+            // Redirect to faculty door
+            window.location.replace('faculty-door.html');
+        }
+    </script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./assets/images/favicon.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/animations.css">
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/theme.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+    
+    <style>
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: calc(100vh - 120px);
+            gap: var(--spacing-lg);
+        }
+        
+        .admin-sidebar {
+            background-color: var(--surface-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: var(--spacing-lg);
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+        
+        .admin-nav-item {
+            display: block;
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+            border-radius: var(--radius-md);
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all var(--transition-fast);
+            cursor: pointer;
+        }
+        
+        .admin-nav-item:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            transform: translateX(4px);
+        }
+        
+        .admin-nav-item.active {
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .admin-content {
+            background-color: var(--surface-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: var(--spacing-xl);
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-round);
+            border: 2px solid var(--secondary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .admin-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-sidebar {
+                position: static;
+                display: flex;
+                overflow-x: auto;
+                gap: var(--spacing-sm);
+                padding: var(--spacing-md);
+            }
+            
+            .admin-nav-item {
+                white-space: nowrap;
+                margin-bottom: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="book-loader">
+            <div class="book-page"></div>
+            <div class="book-page"></div>
+            <div class="book-page"></div>
+        </div>
+        <p>Loading Admin Panel...</p>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app" style="display: none;">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="navbar-container flex-between">
+                <div class="navbar-logo flex gap-md">
+                    <img src="./assets/images/logo.png" alt="School Logo" class="logo-img" 
+                         style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;"
+                         onerror="this.style.display='none'">
+                    <span class="logo-text font-handwritten text-primary" style="font-size: 1.5rem; font-weight: 700; color: white;">
+                        Library Games - Admin
+                    </span>
+                </div>
+                <div class="navbar-actions">
+                    <button id="back-to-site-btn" class="btn btn-sm btn-outline" style="color: white; border-color: white;">
+                        ← Back to Site
+                    </button>
+                    <button id="logout-btn" class="btn btn-sm btn-outline" style="color: white; border-color: white; margin-left: var(--spacing-sm);">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div id="admin-container">
+                <!-- Admin content will be loaded here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+
+    <!-- Admin Application Scripts -->
+    <script type="module">
+        import AdminPanel from './js/admin/admin-panel.js';
+        import { ThemeSystem } from './js/theme/theme-system.js';
+        
+        // Initialize theme system first
+        const themeSystem = new ThemeSystem();
+        themeSystem.init();
+        window.themeSystem = themeSystem;
+        
+        // Toast notification function
+        window.showToast = function(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            
+            const icon = {
+                success: '✓',
+                error: '✗',
+                warning: '⚠',
+                info: 'ℹ'
+            }[type] || 'ℹ';
+            
+            toast.innerHTML = `
+                <span class="toast-icon">${icon}</span>
+                <span class="toast-message">${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => toast.classList.add('toast-show'), 10);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                toast.classList.remove('toast-show');
+                setTimeout(() => toast.remove(), 300);
+            }, 5000);
+        };
+        
+        // Initialize admin panel
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Hide loading screen after delay
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.display = 'none';
+                document.getElementById('app').style.display = 'block';
+            }, 500);
+            
+            // Create admin panel instance
+            window.adminPanel = new AdminPanel();
+            
+            // Create theme toggle button after admin panel is ready
+            setTimeout(() => {
+                if (window.themeSystem) {
+                    themeSystem.createToggleButton('admin-theme-toggle-container');
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>

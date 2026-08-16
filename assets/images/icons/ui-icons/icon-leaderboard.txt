@@ -1,0 +1,5 @@
+Icon: Leaderboard / trophy
+Emoji placeholder: 🏆
+Dimensions: 20x20px
+Usage: Leaderboard nav link; Hall of Fame heading
+Replace with: Drop icon-leaderboard.svg or icon-leaderboard.png in this same folder

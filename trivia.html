@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia - School Library Games</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/game-ui-fixes.css">
+    <link rel="stylesheet" href="css/trivia.css">
+    <!-- Theme toggle: runs before body renders to avoid flash -->
+    <script src="js/theme/theme-toggle.js"></script>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="book-loader">
+                <div class="book">
+                    <div class="page"></div>
+                    <div class="page"></div>
+                    <div class="page"></div>
+                </div>
+            </div>
+            <p class="loading-text">Loading Trivia...</p>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="nav-brand">
+                    <span class="brand-icon">📚</span>
+                    <span class="brand-text">School Library Games</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="leaderboard.html" class="nav-link">🏆 Leaderboard</a>
+                <a href="tools.html" class="nav-link">🔧 Tools</a>
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="game-container">
+        <!-- Setup Screen -->
+        <div id="setupScreen" class="setup-screen">
+            <h1 class="game-title">🎯 Trivia Challenge</h1>
+            <p class="game-subtitle">Test your knowledge across multiple categories!</p>
+
+            <div class="setup-options">
+                <div class="option-group">
+                    <label for="categorySelect">Category</label>
+                    <select id="categorySelect" class="form-select">
+                        <option value="all">All Categories</option>
+                        <option value="history">History</option>
+                        <option value="science">Science</option>
+                        <option value="literature">Literature</option>
+                        <option value="geography">Geography</option>
+                        <option value="arts">Arts & Culture</option>
+                        <option value="general">General Knowledge</option>
+                    </select>
+                </div>
+
+                <div class="option-group">
+                    <label for="difficultySelect">Difficulty</label>
+                    <select id="difficultySelect" class="form-select">
+                        <option value="mixed">Mixed</option>
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
+
+                <div class="option-group">
+                    <label for="questionCount">Number of Questions</label>
+                    <select id="questionCount" class="form-select">
+                        <option value="5">5 Questions</option>
+                        <option value="10" selected>10 Questions</option>
+                        <option value="15">15 Questions</option>
+                        <option value="20">20 Questions</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="setup-actions">
+                <button id="startBtn" class="btn btn-primary btn-large">Start Quiz</button>
+                <button id="statsBtn" class="btn btn-secondary">📊 Statistics</button>
+                <button id="helpBtn" class="btn btn-secondary">❓ How to Play</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="game-screen" style="display: none;">
+            <div class="game-header">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                    <div class="progress-text" id="progressText">Question 1 of 10</div>
+                </div>
+                <div class="game-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Score:</span>
+                        <span class="stat-value" id="scoreValue">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Streak:</span>
+                        <span class="stat-value" id="streakValue">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Time:</span>
+                        <span class="stat-value" id="timerValue">0:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-container">
+                <div class="question-header">
+                    <span class="question-category" id="questionCategory">Category</span>
+                    <span class="question-difficulty" id="questionDifficulty">Medium</span>
+                </div>
+                <h2 class="question-text" id="questionText">Question goes here?</h2>
+                <div class="answers-grid" id="answersGrid">
+                    <!-- Answer buttons will be generated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="game-actions">
+                <button id="quitBtn" class="btn btn-secondary">Quit Quiz</button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" class="results-screen" style="display: none;">
+            <div class="results-content">
+                <button class="result-close" id="resultsClose">&times;</button>
+                <h2 class="results-title" id="resultsTitle">Quiz Complete!</h2>
+                <div class="results-grade" id="resultsGrade">A+</div>
+                
+                <div class="results-stats">
+                    <div class="result-stat">
+                        <div class="result-stat-value" id="finalScore">0</div>
+                        <div class="result-stat-label">Final Score</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-value" id="correctAnswers">0/10</div>
+                        <div class="result-stat-label">Correct</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-value" id="finalTime">0:00</div>
+                        <div class="result-stat-label">Time</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-value" id="accuracy">0%</div>
+                        <div class="result-stat-label">Accuracy</div>
+                    </div>
+                </div>
+
+                <div class="results-breakdown" id="resultsBreakdown">
+                    <!-- Question breakdown will be generated -->
+                </div>
+
+                <div class="results-actions">
+                    <button id="shareBtn" class="btn btn-primary">📋 Share</button>
+                    <button id="playAgainBtn" class="btn btn-secondary">🔄 Play Again</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="modal">
+        <div class="modal-content modal-medium">
+            <div class="modal-header">
+                <h2 class="modal-title">How to Play</h2>
+                <button class="modal-close" data-modal="helpModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>Objective</h3>
+                <p>Answer trivia questions correctly to earn points and build your streak!</p>
+
+                <h3>Scoring</h3>
+                <ul class="help-list">
+                    <li><strong>Correct Answer:</strong> Base points + bonus for difficulty and streak</li>
+                    <li><strong>Easy:</strong> 10 points</li>
+                    <li><strong>Medium:</strong> 20 points</li>
+                    <li><strong>Hard:</strong> 30 points</li>
+                    <li><strong>Streak Bonus:</strong> +5 points per consecutive correct answer</li>
+                </ul>
+
+                <h3>Features</h3>
+                <ul class="help-list">
+                    <li>Choose from multiple categories</li>
+                    <li>Select difficulty level (Easy, Medium, Hard, Mixed)</li>
+                    <li>Customize quiz length (5-20 questions)</li>
+                    <li>Build a streak for bonus points</li>
+                    <li>Review all answers at the end</li>
+                </ul>
+
+                <h3>Tips</h3>
+                <ul class="help-list">
+                    <li>Read questions carefully before answering</li>
+                    <li>Build a streak for maximum points</li>
+                    <li>Try different categories to expand your knowledge</li>
+                    <li>Challenge yourself with harder difficulties</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Modal -->
+    <div id="statsModal" class="modal">
+        <div class="modal-content modal-medium">
+            <div class="modal-header">
+                <h2 class="modal-title">Statistics</h2>
+                <button class="modal-close" data-modal="statsModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="stats-summary">
+                    <div class="stat-item">
+                        <div class="stat-value" id="statQuizzesPlayed">0</div>
+                        <div class="stat-label">Quizzes</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="statTotalQuestions">0</div>
+                        <div class="stat-label">Questions</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="statCorrectRate">0%</div>
+                        <div class="stat-label">Accuracy</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="statMaxStreak">0</div>
+                        <div class="stat-label">Best Streak</div>
+                    </div>
+                </div>
+
+                <div class="category-performance">
+                    <h3>Category Performance</h3>
+                    <div id="categoryStats"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/games/trivia.js"></script>
+</body>
+</html>

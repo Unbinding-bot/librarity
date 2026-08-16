@@ -1,0 +1,5 @@
+Icon: Statistics / bar chart
+Emoji placeholder: 📊
+Dimensions: 24x24px
+Usage: Stats icon button in all games; Dashboard admin nav
+Replace with: Drop icon-stats-chart.svg or icon-stats-chart.png in this same folder

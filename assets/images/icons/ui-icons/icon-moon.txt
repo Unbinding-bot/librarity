@@ -1,0 +1,5 @@
+Icon: Moon / dark mode
+Emoji placeholder: 🌙
+Dimensions: 20x20px
+Usage: Theme toggle button when dark mode is active
+Replace with: Drop icon-moon.svg or icon-moon.png in this same folder

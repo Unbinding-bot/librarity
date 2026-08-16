@@ -1,0 +1,5 @@
+Image: Library interior illustration — 3840x2160px (4K 16:9)
+Description: Hand-drawn or illustrated school library interior. Should contain clearly visible bookshelves or sections for: Games, Tools, Visitor Logbook, Coming Soon (locked/greyed out bookshelf), Faculty Only (door or restricted area). The areas should look natural in a library setting so invisible hitboxes can be placed over them.
+Dimensions: 3840x2160px (4K, 16:9 ratio)
+Replace with: Drop library.png in this same folder
+_note: Use scripts/hitbox_tool.py to define clickable areas after placing this image

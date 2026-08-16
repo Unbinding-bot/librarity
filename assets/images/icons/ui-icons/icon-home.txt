@@ -1,0 +1,5 @@
+Icon: Home navigation
+Emoji placeholder: 🏠
+Dimensions: 20x20px
+Usage: Home nav link in navbar
+Replace with: Drop icon-home.svg or icon-home.png in this same folder

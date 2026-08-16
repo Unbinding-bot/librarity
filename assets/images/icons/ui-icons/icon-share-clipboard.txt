@@ -1,0 +1,5 @@
+Icon: Share / clipboard
+Emoji placeholder: 📋
+Dimensions: 20x20px
+Usage: Share result button in all games; Show Links button (Wikipedia Race)
+Replace with: Drop icon-share-clipboard.svg or icon-share-clipboard.png in this same folder

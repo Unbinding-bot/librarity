@@ -1,0 +1,5 @@
+Icon: Sign / writing hand
+Emoji placeholder: ✍️
+Dimensions: 20x20px
+Usage: Sign the Logbook button; Writing Tools section
+Replace with: Drop icon-sign-logbook.svg or icon-sign-logbook.png in this same folder

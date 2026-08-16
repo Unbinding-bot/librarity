@@ -1,0 +1,5 @@
+Icon: Shuffle / crossed arrows
+Emoji placeholder: 🔀
+Dimensions: 18x18px
+Usage: Shuffle deck button in Flashcards study screen
+Replace with: Drop icon-shuffle.svg or icon-shuffle.png in this same folder

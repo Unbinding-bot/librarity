@@ -1,0 +1,664 @@
+/* ================================================
+   Library Games - Animations
+   Smooth, Performant Animations using CSS and anime.js
+   ================================================ */
+
+/* ================================================
+   Keyframe Animations
+   ================================================ */
+
+/* Fade In */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Fade Out */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* Slide In from Right */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Slide In from Left */
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Slide In from Bottom */
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Slide In from Top */
+@keyframes slideInDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Modal Scale and Fade */
+@keyframes modalSlideUp {
+    from {
+        transform: translateY(50px) scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Bounce */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Shake */
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-10px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(10px);
+    }
+}
+
+/* Pulse */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Spin */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ================================================
+   Book Loading Animation
+   ================================================ */
+
+.book-page:nth-child(1) {
+    background-color: var(--primary-color);
+    animation: turnPage 1.5s infinite;
+}
+
+.book-page:nth-child(2) {
+    background-color: var(--secondary-color);
+    animation: turnPage 1.5s 0.5s infinite;
+}
+
+.book-page:nth-child(3) {
+    background-color: var(--accent-color);
+    animation: turnPage 1.5s 1s infinite;
+}
+
+@keyframes turnPage {
+    0%, 100% {
+        transform: rotateY(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: rotateY(-180deg);
+        opacity: 0.3;
+    }
+}
+
+/* ================================================
+   Dust Particles Animation (Ambient Effect)
+   ================================================ */
+
+.dust-particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: rgba(45, 80, 22, 0.1);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: floatDust 10s infinite ease-in-out;
+}
+
+@keyframes floatDust {
+    0%, 100% {
+        transform: translate(0, 0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.3;
+    }
+    90% {
+        opacity: 0.3;
+    }
+    100% {
+        transform: translate(100px, -100vh);
+        opacity: 0;
+    }
+}
+
+/* ================================================
+   Book Spine Animations
+   ================================================ */
+
+.book-spine {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.book-spine:hover {
+    transform: translateX(10px) rotateY(-5deg);
+    box-shadow: -10px 10px 20px var(--shadow-color);
+}
+
+.book-spine.clicked {
+    animation: bookFlyOff 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes bookFlyOff {
+    0% {
+        transform: translateX(10px) rotateY(-5deg) scale(1);
+    }
+    50% {
+        transform: translateZ(200px) rotateY(0deg) scale(1.2);
+    }
+    100% {
+        transform: translateZ(500px) rotateY(0deg) scale(2);
+        opacity: 0;
+    }
+}
+
+/* ================================================
+   Card Flip Animation (Books & Flashcards)
+   ================================================ */
+
+.flip-card {
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.flip-card-back {
+    transform: rotateY(180deg);
+}
+
+/* ================================================
+   Tile Flip Animation (Wordle)
+   ================================================ */
+
+.tile-flip {
+    animation: flipTile 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes flipTile {
+    0% {
+        transform: rotateX(0deg);
+    }
+    50% {
+        transform: rotateX(90deg);
+    }
+    100% {
+        transform: rotateX(0deg);
+    }
+}
+
+/* ================================================
+   Stagger Animation (Leaderboards, Lists)
+   ================================================ */
+
+.stagger-item {
+    opacity: 0;
+    animation: staggerFadeIn 0.5s forwards;
+}
+
+@keyframes staggerFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply stagger delays via inline styles or JS */
+.stagger-item:nth-child(1) { animation-delay: 0.05s; }
+.stagger-item:nth-child(2) { animation-delay: 0.1s; }
+.stagger-item:nth-child(3) { animation-delay: 0.15s; }
+.stagger-item:nth-child(4) { animation-delay: 0.2s; }
+.stagger-item:nth-child(5) { animation-delay: 0.25s; }
+.stagger-item:nth-child(6) { animation-delay: 0.3s; }
+.stagger-item:nth-child(7) { animation-delay: 0.35s; }
+.stagger-item:nth-child(8) { animation-delay: 0.4s; }
+.stagger-item:nth-child(9) { animation-delay: 0.45s; }
+.stagger-item:nth-child(10) { animation-delay: 0.5s; }
+
+/* ================================================
+   Confetti Animation (Victory)
+   ================================================ */
+
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background-color: var(--accent-color);
+    pointer-events: none;
+    animation: confettiFall 3s ease-out forwards;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.confetti:nth-child(odd) {
+    background-color: var(--secondary-color);
+}
+
+.confetti:nth-child(even) {
+    background-color: var(--primary-color);
+}
+
+/* ================================================
+   Spotlight Sweep (Ambient Effect)
+   ================================================ */
+
+.spotlight {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(124, 179, 66, 0.1),
+        transparent
+    );
+    pointer-events: none;
+    animation: spotlightSweep 30s infinite;
+    z-index: var(--z-base);
+}
+
+@keyframes spotlightSweep {
+    0% {
+        left: -100%;
+    }
+    50% {
+        left: 100%;
+    }
+    100% {
+        left: -100%;
+    }
+}
+
+/* ================================================
+   Ink Writing Effect (Titles)
+   ================================================ */
+
+.ink-writing {
+    position: relative;
+    overflow: hidden;
+}
+
+.ink-writing::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: var(--background-color);
+    animation: revealText 2s ease forwards;
+}
+
+@keyframes revealText {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0;
+    }
+}
+
+/* ================================================
+   Page Transitions
+   ================================================ */
+
+.page-transition-enter {
+    animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-transition-exit {
+    animation: slideOutLeft 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+.page-transition-back-enter {
+    animation: slideInLeft 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-transition-back-exit {
+    animation: slideOutRight 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* ================================================
+   Progress Bar Animation
+   ================================================ */
+
+.progress-bar {
+    position: relative;
+    height: 8px;
+    background-color: var(--border-color);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        var(--secondary-color),
+        var(--accent-color)
+    );
+    transition: width 0.5s ease;
+    border-radius: var(--radius-xl);
+}
+
+.progress-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* ================================================
+   Skeleton Loading
+   ================================================ */
+
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--border-color) 25%,
+        #e0e0e0 50%,
+        var(--border-color) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeletonLoading 1.5s infinite;
+    border-radius: var(--radius-md);
+}
+
+@keyframes skeletonLoading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ================================================
+   Pulsating Glow (Hints, Notifications)
+   ================================================ */
+
+.glow-pulse {
+    animation: glowPulse 2s infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        box-shadow: 0 0 5px var(--secondary-color);
+    }
+    50% {
+        box-shadow: 0 0 20px var(--secondary-color);
+    }
+}
+
+/* ================================================
+   Celebration Sparkle
+   ================================================ */
+
+.sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: sparkleAnimation 1s ease-out forwards;
+}
+
+@keyframes sparkleAnimation {
+    0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(3) rotate(180deg);
+        opacity: 0;
+    }
+}
+
+/* ================================================
+   Wobble (Shelf effect)
+   ================================================ */
+
+.wobble {
+    animation: wobbleEffect 0.5s ease;
+}
+
+@keyframes wobbleEffect {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-2deg);
+    }
+    75% {
+        transform: rotate(2deg);
+    }
+}
+
+/* ================================================
+   Letter Pop (Spelling Bee)
+   ================================================ */
+
+.letter-pop {
+    animation: letterPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes letterPop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* ================================================
+   Cascade Effect (Word Ladder)
+   ================================================ */
+
+.cascade-item {
+    animation: cascadeDown 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+@keyframes cascadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ================================================
+   Zoom In (Modal, Images)
+   ================================================ */
+
+.zoom-in {
+    animation: zoomIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ================================================
+   Performance Optimizations
+   ================================================ */
+
+/* Use GPU acceleration for transforms */
+.gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* Optimize animations that run frequently */
+.optimized-animation {
+    will-change: transform, opacity;
+}
+
+/* Remove will-change after animation completes */
+.animation-complete {
+    will-change: auto;
+}

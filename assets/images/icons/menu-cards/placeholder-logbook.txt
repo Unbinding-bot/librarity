@@ -1,0 +1,5 @@
+Menu button image: Visitor Logbook — open logbook with quill pen
+Section: Logbook menu (large card)
+Dimensions: 140x140px
+Style: Square illustration, warm parchment tones, quill and ink aesthetic
+Replace with: Drop placeholder-logbook.png in this same folder

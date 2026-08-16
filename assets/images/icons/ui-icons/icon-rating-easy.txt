@@ -1,0 +1,5 @@
+Icon: Easy difficulty rating (flashcard)
+Emoji placeholder: 😎
+Dimensions: 24x24px
+Usage: Easy button in Flashcards study screen
+Replace with: Drop icon-rating-easy.svg or icon-rating-easy.png in this same folder

@@ -1,0 +1,5 @@
+Icon: Visitor logbook / open book
+Emoji placeholder: 📖
+Dimensions: 20x20px
+Usage: Logbook nav link
+Replace with: Drop icon-logbook.svg or icon-logbook.png in this same folder

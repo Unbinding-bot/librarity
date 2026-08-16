@@ -1,0 +1,46 @@
+{
+  "books": [
+    {
+      "id": "book-001",
+      "title": "The Hobbit",
+      "author": "J.R.R. Tolkien",
+      "isbn": "9780547928227",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780547928227-L.jpg",
+      "rating": 5,
+      "genre": ["Fantasy", "Adventure"],
+      "description": "A classic tale of adventure, courage, and friendship as Bilbo Baggins embarks on an unexpected journey.",
+      "recommendedFor": "Middle School and up",
+      "dateAdded": "2024-01-15",
+      "addedBy": "manual",
+      "active": true
+    },
+    {
+      "id": "book-002",
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "isbn": "9780061120084",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780061120084-L.jpg",
+      "rating": 5,
+      "genre": ["Classic", "Historical Fiction"],
+      "description": "A powerful story about justice, morality, and growing up in the American South.",
+      "recommendedFor": "High School and up",
+      "dateAdded": "2024-01-16",
+      "addedBy": "manual",
+      "active": true
+    },
+    {
+      "id": "book-003",
+      "title": "Harry Potter and the Sorcerer's Stone",
+      "author": "J.K. Rowling",
+      "isbn": "9780590353427",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780590353427-L.jpg",
+      "rating": 5,
+      "genre": ["Fantasy", "Young Adult"],
+      "description": "The magical beginning of Harry Potter's journey at Hogwarts School of Witchcraft and Wizardry.",
+      "recommendedFor": "All Ages",
+      "dateAdded": "2024-01-17",
+      "addedBy": "manual",
+      "active": true
+    }
+  ]
+}

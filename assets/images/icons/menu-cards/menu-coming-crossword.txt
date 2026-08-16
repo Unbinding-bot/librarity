@@ -1,0 +1,5 @@
+Menu button image: Crossword coming soon — crossword grid
+Section: Coming Soon menu
+Dimensions: 140x140px
+Style: Square illustration, library/school aesthetic, desaturated/muted (coming soon style)
+Replace with: Drop menu-coming-crossword.png in this same folder

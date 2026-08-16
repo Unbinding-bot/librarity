@@ -1,0 +1,5 @@
+Menu button image: Thesaurus — connected word bubbles
+Section: Tools menu
+Dimensions: 140x140px
+Style: Square illustration, library/school aesthetic, bold colors on dark background
+Replace with: Drop menu-thesaurus.png in this same folder

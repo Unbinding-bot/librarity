@@ -1,0 +1,5 @@
+Icon: Music note / rhyme
+Emoji placeholder: 🎵
+Dimensions: 48x48px
+Usage: Rhyme Finder tool card icon
+Replace with: Drop icon-music-note.svg or icon-music-note.png in this same folder

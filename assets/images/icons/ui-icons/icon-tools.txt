@@ -1,0 +1,5 @@
+Icon: Tools / wrench
+Emoji placeholder: 🔧
+Dimensions: 20x20px
+Usage: Tools nav link; Learning Tools section heading
+Replace with: Drop icon-tools.svg or icon-tools.png in this same folder
