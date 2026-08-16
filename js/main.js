@@ -127,9 +127,6 @@ async function initNavbar() {
     navbar.innerHTML = `
         <div class="navbar-container flex-between">
             <div class="navbar-logo flex gap-md">
-                <img src="./assets/images/logo.png" alt="School Logo" class="logo-img" 
-                     style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;"
-                     onerror="this.style.display='none'">
                 <span class="logo-text font-handwritten text-primary" style="font-size: 1.5rem; font-weight: 700;">
                     Library Games
                 </span>

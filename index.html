@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>School Library Games</title>
-    <link rel="icon" type="image/png" href="./assets/images/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="./assets/images/favicon.svg">
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/theme.css">
     <link rel="stylesheet" href="./css/animations.css">
@@ -15,9 +15,9 @@
 </head>
 <body class="library-home-body">
 
-    <!-- ═══════════════════════════════════════════════════════════════
-         ILLUSTRATED VIEW  (16:9 screens only — hidden on others)
-    ════════════════════════════════════════════════════════════════ -->
+    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+         ILLUSTRATED VIEW  (16:9 screens only â€” hidden on others)
+    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
     <div id="illustratedView" class="illustrated-view" style="display:none;">
 
         <!-- The library background image -->
@@ -29,7 +29,7 @@
                 draggable="false"
             >
 
-            <!-- Hitbox overlays — positions loaded from data/hitboxes.json -->
+            <!-- Hitbox overlays â€” positions loaded from data/hitboxes.json -->
             <!-- Cursors change to pointer on hover via JS -->
             <div id="hitboxLayer" class="hitbox-layer" aria-hidden="true"></div>
         </div>
@@ -37,12 +37,12 @@
         <!-- Fade-out overlay used during transition animation -->
         <div class="transition-overlay" id="transitionOverlay"></div>
 
-        <!-- ── Section menus ── each is a full-screen panel ────────── -->
+        <!-- â”€â”€ Section menus â”€â”€ each is a full-screen panel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 
         <!-- GAMES menu -->
         <div class="section-menu" id="menuGames" data-section="games" style="display:none;">
             <div class="menu-inner">
-                <button class="menu-back-btn" data-target="games">← Back to Library</button>
+                <button class="menu-back-btn" data-target="games">â† Back to Library</button>
                 <h1 class="menu-title">Games</h1>
                 <p class="menu-subtitle">Pick a game to play</p>
                 <div class="menu-grid" id="gamesGrid">
@@ -54,7 +54,7 @@
         <!-- TOOLS menu -->
         <div class="section-menu" id="menuTools" data-section="tools" style="display:none;">
             <div class="menu-inner">
-                <button class="menu-back-btn" data-target="tools">← Back to Library</button>
+                <button class="menu-back-btn" data-target="tools">â† Back to Library</button>
                 <h1 class="menu-title">Learning Tools</h1>
                 <p class="menu-subtitle">Dictionary, Thesaurus & more</p>
                 <div class="menu-grid" id="toolsGrid">
@@ -66,7 +66,7 @@
         <!-- LOGBOOK menu -->
         <div class="section-menu" id="menuLogbook" data-section="logbook" style="display:none;">
             <div class="menu-inner">
-                <button class="menu-back-btn" data-target="logbook">← Back to Library</button>
+                <button class="menu-back-btn" data-target="logbook">â† Back to Library</button>
                 <h1 class="menu-title">Visitor Logbook</h1>
                 <p class="menu-subtitle">Sign in, leave a message, check the leaderboard</p>
                 <div class="menu-grid menu-grid-centered">
@@ -75,7 +75,7 @@
                             <img src="./assets/images/icons/menu-cards/placeholder-logbook.png"
                                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
                                  alt="Logbook" class="mc-img">
-                            <div class="mc-img-fallback" style="display:none;">📖</div>
+                            <div class="mc-img-fallback" style="display:none;">ðŸ“–</div>
                         </div>
                         <div class="mc-label">Open Logbook</div>
                         <div class="mc-desc">Sign in &amp; leave a message</div>
@@ -87,7 +87,7 @@
         <!-- COMING SOON menu -->
         <div class="section-menu" id="menuComingSoon" data-section="coming-soon" style="display:none;">
             <div class="menu-inner">
-                <button class="menu-back-btn" data-target="coming-soon">← Back to Library</button>
+                <button class="menu-back-btn" data-target="coming-soon">â† Back to Library</button>
                 <h1 class="menu-title">Coming Soon</h1>
                 <p class="menu-subtitle">Sneak peek at what's being added</p>
                 <div class="menu-grid" id="comingSoonGrid">
@@ -99,8 +99,8 @@
         <!-- FACULTY menu (goes straight to admin) -->
         <div class="section-menu" id="menuFaculty" data-section="faculty" style="display:none;">
             <div class="menu-inner menu-inner-narrow">
-                <button class="menu-back-btn" data-target="faculty">← Back to Library</button>
-                <h1 class="menu-title">🔐 Faculty Only</h1>
+                <button class="menu-back-btn" data-target="faculty">â† Back to Library</button>
+                <h1 class="menu-title">ðŸ” Faculty Only</h1>
                 <p class="menu-subtitle">Staff &amp; admin access</p>
                 <div class="faculty-login-panel">
                     <div class="faculty-login-section">
@@ -117,23 +117,23 @@
     </div><!-- /#illustratedView -->
 
 
-    <!-- ═══════════════════════════════════════════════════════════════
+    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
          FALLBACK VIEW  (no image / non-16:9 / small screens)
          Shows the same section menus as the illustrated view but
          triggered by clicking section cards instead of hitboxes
-    ════════════════════════════════════════════════════════════════ -->
+    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
     <div id="fallbackView" class="fallback-view" style="display:none;">
 
-        <!-- Landing screen — section cards -->
+        <!-- Landing screen â€” section cards -->
         <div id="fbLanding" class="fb-landing">
 
             <header class="fb-header">
                 <div class="fb-brand">
-                    <span class="fb-brand-icon">📚</span>
+                    <span class="fb-brand-icon">ðŸ“š</span>
                     <span class="fb-brand-text">School Library Games</span>
                 </div>
                 <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
-                    <span class="theme-icon">🌙</span>
+                    <span class="theme-icon">ðŸŒ™</span>
                 </button>
             </header>
 
@@ -144,31 +144,31 @@
                 <div class="fb-section-grid">
 
                     <button class="fb-section-card" data-open="games">
-                        <span class="fb-sc-icon">🎮</span>
+                        <span class="fb-sc-icon">ðŸŽ®</span>
                         <span class="fb-sc-label">Games</span>
                         <span class="fb-sc-desc">Wordle, Spelling Bee, Trivia &amp; more</span>
                     </button>
 
                     <button class="fb-section-card" data-open="tools">
-                        <span class="fb-sc-icon">🔧</span>
+                        <span class="fb-sc-icon">ðŸ”§</span>
                         <span class="fb-sc-label">Learning Tools</span>
                         <span class="fb-sc-desc">Dictionary, Thesaurus &amp; Rhymes</span>
                     </button>
 
                     <button class="fb-section-card" data-open="logbook">
-                        <span class="fb-sc-icon">📖</span>
+                        <span class="fb-sc-icon">ðŸ“–</span>
                         <span class="fb-sc-label">Visitor Logbook</span>
                         <span class="fb-sc-desc">Sign in &amp; check the leaderboard</span>
                     </button>
 
                     <button class="fb-section-card" data-open="coming-soon">
-                        <span class="fb-sc-icon">🚀</span>
+                        <span class="fb-sc-icon">ðŸš€</span>
                         <span class="fb-sc-label">Coming Soon</span>
                         <span class="fb-sc-desc">Sneak peek at upcoming features</span>
                     </button>
 
                     <button class="fb-section-card fb-section-card-faculty" data-open="faculty">
-                        <span class="fb-sc-icon">🔐</span>
+                        <span class="fb-sc-icon">ðŸ”</span>
                         <span class="fb-sc-label">Faculty Only</span>
                         <span class="fb-sc-desc">Staff &amp; admin access</span>
                     </button>
@@ -177,18 +177,18 @@
             </main>
         </div>
 
-        <!-- Section panels — same content as illustrated menus, shown inline -->
+        <!-- Section panels â€” same content as illustrated menus, shown inline -->
         <div id="fbPanel" class="fb-panel" style="display:none;">
 
             <header class="fb-header">
                 <div class="fb-brand">
-                    <span class="fb-brand-icon">📚</span>
+                    <span class="fb-brand-icon">ðŸ“š</span>
                     <span class="fb-brand-text">School Library Games</span>
                 </div>
                 <div class="fb-header-right">
-                    <button class="fb-back-btn" id="fbBackBtn">← Back</button>
+                    <button class="fb-back-btn" id="fbBackBtn">â† Back</button>
                     <button class="theme-toggle" aria-label="Toggle theme">
-                        <span class="theme-icon">🌙</span>
+                        <span class="theme-icon">ðŸŒ™</span>
                     </button>
                 </div>
             </header>
@@ -205,7 +205,7 @@
     <script type="module">
         import { getUsername } from './js/components/visitor-logbook.js';
 
-        // ── Section data ─────────────────────────────────────────────
+        // â”€â”€ Section data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
         const GAMES = [
             { id: 'wordle',       label: 'Wordle',         desc: 'Guess the 5-letter word',       href: 'wordle.html',         img: 'assets/images/icons/menu-cards/menu-wordle.png' },
@@ -228,7 +228,7 @@
             { id: 'word-search', label: 'Word Search', desc: 'Find words in the grid',       img: 'assets/images/icons/menu-cards/menu-coming-word-search.png' },
         ];
 
-        // ── Helpers ──────────────────────────────────────────────────
+        // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
         function menuCard(item, disabled = false) {
             const inner = `
@@ -236,7 +236,7 @@
                     <img src="${item.img}"
                          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
                          alt="${item.label}" class="mc-img" draggable="false">
-                    <div class="mc-img-fallback" style="display:none;">🎮</div>
+                    <div class="mc-img-fallback" style="display:none;">ðŸŽ®</div>
                 </div>
                 <div class="mc-label">${item.label}</div>
                 <div class="mc-desc">${item.desc}</div>
@@ -270,7 +270,7 @@
             }).join('');
         }
 
-        // ── 16:9 detection ───────────────────────────────────────────
+        // â”€â”€ 16:9 detection â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         function is169() {
             const w = window.innerWidth;
             const h = window.innerHeight;
@@ -320,12 +320,12 @@
 
         window.addEventListener('resize', applyView);
 
-        // ── Build grids (illustrated menus) ─────────────────────────
+        // â”€â”€ Build grids (illustrated menus) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         buildGrid('gamesGrid',      GAMES);
         buildGrid('toolsGrid',      TOOLS);
         buildGrid('comingSoonGrid', COMING_SOON, true);
 
-        // ── Hitbox layer ─────────────────────────────────────────────
+        // â”€â”€ Hitbox layer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
         async function loadHitboxes() {
             try {
@@ -333,7 +333,7 @@
                 const data = await res.json();
                 return data.hitboxes || [];
             } catch {
-                // No hitboxes.json yet — use sensible defaults so page still works
+                // No hitboxes.json yet â€” use sensible defaults so page still works
                 return [
                     { name: 'games',       x: 10, y: 25, w: 20, h: 50 },
                     { name: 'tools',       x: 33, y: 25, w: 20, h: 50 },
@@ -391,7 +391,7 @@
 
         initHitboxes();
 
-        // ── Section open/close ───────────────────────────────────────
+        // â”€â”€ Section open/close â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
         const overlay = document.getElementById('transitionOverlay');
         let activeMenu = null;
@@ -448,13 +448,13 @@
             if (e.key === 'Escape') closeSection();
         });
 
-        // ── Faculty password ─────────────────────────────────────────
+        // â”€â”€ Faculty password â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
         document.getElementById('facultyPasswordForm')?.addEventListener('submit', e => {
             e.preventDefault();
             const pw  = document.getElementById('facultyPassword').value;
             const err = document.getElementById('facultyError');
-            // Simple client-side check — real auth is handled by admin.html
+            // Simple client-side check â€” real auth is handled by admin.html
             const correct = localStorage.getItem('faculty_password') || 'library2026';
             if (pw === correct) {
                 window.location.href = 'admin.html';
@@ -466,23 +466,23 @@
             }
         });
 
-        // ── Fallback panel system ────────────────────────────────────
+        // â”€â”€ Fallback panel system â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
         const FALLBACK_PANELS = {
             games: {
-                title: '🎮 Games',
+                title: 'ðŸŽ® Games',
                 subtitle: 'Pick a game to play',
                 build: () => buildGrid('fbPanelGrid', GAMES),
                 html: () => `<div class="menu-grid" id="fbPanelGrid"></div>`,
             },
             tools: {
-                title: '🔧 Learning Tools',
+                title: 'ðŸ”§ Learning Tools',
                 subtitle: 'Dictionary, Thesaurus &amp; more',
                 build: () => buildGrid('fbPanelGrid', TOOLS),
                 html: () => `<div class="menu-grid" id="fbPanelGrid"></div>`,
             },
             logbook: {
-                title: '📖 Visitor Logbook',
+                title: 'ðŸ“– Visitor Logbook',
                 subtitle: 'Sign in &amp; check the leaderboard',
                 build: () => buildGrid('fbPanelGrid', [
                     { id: 'logbook', label: 'Open Logbook', desc: 'Sign in & leave a message', href: 'leaderboard.html', img: 'assets/images/icons/placeholder-logbook.png' }
@@ -490,13 +490,13 @@
                 html: () => `<div class="menu-grid" id="fbPanelGrid"></div>`,
             },
             'coming-soon': {
-                title: '🚀 Coming Soon',
+                title: 'ðŸš€ Coming Soon',
                 subtitle: 'Sneak peek at upcoming features',
                 build: () => buildGrid('fbPanelGrid', COMING_SOON, true),
                 html: () => `<div class="menu-grid" id="fbPanelGrid"></div>`,
             },
             faculty: {
-                title: '🔐 Faculty Only',
+                title: 'ðŸ” Faculty Only',
                 subtitle: 'Staff &amp; admin access',
                 build: () => {},
                 html: () => `

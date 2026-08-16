@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +6,7 @@
     <meta name="description" content="Visitor Logbook - School Library Games">
     <title>Visitor Logbook - Library Games</title>
 
-    <link rel="icon" type="image/png" href="./assets/images/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="./assets/images/favicon.svg">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="./css/main.css">
@@ -27,7 +27,7 @@
             <div class="book-page"></div>
             <div class="book-page"></div>
         </div>
-        <p>Opening the logbook…</p>
+        <p>Opening the logbookâ€¦</p>
     </div>
 
     <!-- App -->
@@ -38,16 +38,16 @@
             <div class="nav-container">
                 <div class="nav-left">
                     <a href="index.html" class="nav-brand">
-                        <span class="brand-icon">📚</span>
+                        <span class="brand-icon">ðŸ“š</span>
                         <span class="brand-text">School Library Games</span>
                     </a>
                 </div>
                 <div class="nav-right">
-                    <a href="index.html"      class="nav-link">🏠 Home</a>
-                    <a href="leaderboard.html" class="nav-link">📖 Logbook</a>
-                    <a href="admin.html"       class="nav-link">⚙️ Admin</a>
+                    <a href="index.html"      class="nav-link">ðŸ  Home</a>
+                    <a href="leaderboard.html" class="nav-link">ðŸ“– Logbook</a>
+                    <a href="admin.html"       class="nav-link">âš™ï¸ Admin</a>
                     <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
-                        <span class="theme-icon">🌙</span>
+                        <span class="theme-icon">ðŸŒ™</span>
                     </button>
                 </div>
             </div>
@@ -55,7 +55,7 @@
 
         <main class="lb-page-main">
 
-            <!-- ── Visitor Card (top strip) ─────────────────────── -->
+            <!-- â”€â”€ Visitor Card (top strip) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
             <section class="visitor-card" id="visitorCard">
                 <div class="visitor-card-inner">
 
@@ -63,7 +63,7 @@
                     <div class="visitor-card-identity">
                         <span class="vc-label">Visiting as</span>
                         <span class="vc-name" id="vcName">Anonymous</span>
-                        <button class="vc-edit-btn" id="vcEditBtn">✏️ Change</button>
+                        <button class="vc-edit-btn" id="vcEditBtn">âœï¸ Change</button>
                     </div>
 
                     <!-- Centre: sign-in form -->
@@ -74,26 +74,26 @@
                                 id="vcNameInput"
                                 class="vc-input"
                                 maxlength="40"
-                                placeholder="Your name…"
+                                placeholder="Your nameâ€¦"
                             >
                             <textarea
                                 id="vcMessage"
                                 class="vc-textarea"
                                 maxlength="280"
                                 rows="2"
-                                placeholder="Leave a message in the logbook… (max 280 chars)"
+                                placeholder="Leave a message in the logbookâ€¦ (max 280 chars)"
                             ></textarea>
                         </div>
                         <div class="vc-form-actions">
                             <span class="vc-char-count"><span id="vcCharCount">0</span>/280</span>
-                            <button type="submit" class="vc-sign-btn">✍️ Sign the Logbook</button>
+                            <button type="submit" class="vc-sign-btn">âœï¸ Sign the Logbook</button>
                         </div>
                     </form>
 
                     <!-- Right: name-only edit form (hidden until Change clicked) -->
                     <div class="visitor-card-edit" id="vcEditPanel" style="display:none;">
                         <p class="vc-edit-title">Change your name</p>
-                        <input type="text" id="vcEditInput" class="vc-input" maxlength="40" placeholder="New name…">
+                        <input type="text" id="vcEditInput" class="vc-input" maxlength="40" placeholder="New nameâ€¦">
                         <div class="vc-edit-actions">
                             <button class="vc-btn-save"  id="vcSaveEdit">Save</button>
                             <button class="vc-btn-anon"  id="vcGoAnon">Go Anonymous</button>
@@ -104,17 +104,17 @@
                 </div>
             </section>
 
-            <!-- ── Open Book ────────────────────────────────────── -->
+            <!-- â”€â”€ Open Book â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
             <div class="book-spread">
 
                 <!-- Book spine -->
                 <div class="book-spine"></div>
 
-                <!-- Left page — Leaderboard -->
+                <!-- Left page â€” Leaderboard -->
                 <div class="book-page-left book-page-panel">
                     <div class="page-corner page-corner-tl"></div>
 
-                    <h2 class="page-heading page-heading-left">🏆 Hall of Fame</h2>
+                    <h2 class="page-heading page-heading-left">ðŸ† Hall of Fame</h2>
 
                     <!-- Leaderboard filter bar -->
                     <div class="lb-filter-bar">
@@ -135,19 +135,19 @@
                             <option value="weekly">This week</option>
                             <option value="daily">Today</option>
                         </select>
-                        <button id="lbRefreshBtn" class="lb-icon-btn" title="Refresh">🔄</button>
+                        <button id="lbRefreshBtn" class="lb-icon-btn" title="Refresh">ðŸ”„</button>
                     </div>
 
                     <!-- Stats row -->
                     <div class="lb-stats-row" id="lbStatsRow">
-                        <div class="lb-stat"><span id="lbStatTotal">–</span><small>Entries</small></div>
-                        <div class="lb-stat"><span id="lbStatTop">–</span><small>Top Score</small></div>
-                        <div class="lb-stat"><span id="lbStatPlayer">–</span><small>Top Player</small></div>
+                        <div class="lb-stat"><span id="lbStatTotal">â€“</span><small>Entries</small></div>
+                        <div class="lb-stat"><span id="lbStatTop">â€“</span><small>Top Score</small></div>
+                        <div class="lb-stat"><span id="lbStatPlayer">â€“</span><small>Top Player</small></div>
                     </div>
 
                     <!-- Table -->
                     <div class="lb-table-wrap" id="lbTableWrap">
-                        <div class="lb-loading" id="lbLoading" style="display:none;">⏳ Loading…</div>
+                        <div class="lb-loading" id="lbLoading" style="display:none;">â³ Loadingâ€¦</div>
                         <table class="lb-table" id="lbTable">
                             <thead>
                                 <tr>
@@ -170,15 +170,15 @@
                     <div class="page-number page-number-left">i</div>
                 </div>
 
-                <!-- Right page — Logbook entries -->
+                <!-- Right page â€” Logbook entries -->
                 <div class="book-page-right book-page-panel">
                     <div class="page-corner page-corner-tr"></div>
 
-                    <h2 class="page-heading page-heading-right">📜 Visitor Messages</h2>
+                    <h2 class="page-heading page-heading-right">ðŸ“œ Visitor Messages</h2>
 
                     <div class="logbook-entries-header">
                         <span id="logbookEntryCount" class="logbook-entry-count"></span>
-                        <button class="lb-icon-btn" id="logbookRefreshBtn" title="Refresh entries">🔄</button>
+                        <button class="lb-icon-btn" id="logbookRefreshBtn" title="Refresh entries">ðŸ”„</button>
                     </div>
 
                     <div class="logbook-entries" id="logbookEntries">
@@ -186,7 +186,7 @@
                     </div>
 
                     <div class="logbook-more" id="logbookMore" style="display:none;">
-                        <button class="lb-load-more-btn" id="logbookLoadMore">Load more ↓</button>
+                        <button class="lb-load-more-btn" id="logbookLoadMore">Load more â†“</button>
                     </div>
 
                     <!-- Page number -->
@@ -198,7 +198,7 @@
         </main>
 
         <footer class="footer">
-            <p>&copy; 2026 School Library · <a href="index.html">Home</a> · <a href="admin.html">Admin</a></p>
+            <p>&copy; 2026 School Library Â· <a href="index.html">Home</a> Â· <a href="admin.html">Admin</a></p>
         </footer>
 
     </div><!-- /#app -->
@@ -215,7 +215,7 @@
             addLogbookEntry, getLogbookEntries,
         } from './js/components/visitor-logbook.js';
 
-        // ── Toast ────────────────────────────────────────────────
+        // â”€â”€ Toast â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         window.showToast = function(msg, type = 'info') {
             const c = document.getElementById('toast-container');
             if (!c) return;
@@ -232,7 +232,7 @@
             }, 4000);
         };
 
-        // ── Helpers ──────────────────────────────────────────────
+        // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         function esc(s) {
             return String(s)
                 .replace(/&/g,'&amp;').replace(/</g,'&lt;')
@@ -246,7 +246,7 @@
             } catch { return iso; }
         }
 
-        // ── Identity / Visitor Card ───────────────────────────────
+        // â”€â”€ Identity / Visitor Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         function refreshVCName() {
             const el   = document.getElementById('vcName');
             const name = getUsername();
@@ -308,21 +308,21 @@
             }
             const btn = document.querySelector('.vc-sign-btn');
             btn.disabled = true;
-            btn.textContent = '⏳ Saving…';
+            btn.textContent = 'â³ Savingâ€¦';
             await addLogbookEntry(msg, name);
             document.getElementById('vcMessage').value = '';
             document.getElementById('vcCharCount').textContent = '0';
             btn.disabled = false;
-            btn.textContent = '✍️ Sign the Logbook';
+            btn.textContent = 'âœï¸ Sign the Logbook';
             refreshVCName();
             logbookPage = 0;
             await renderLogbookEntries(true);
-            showToast('Signed the logbook! ✍️', 'success');
+            showToast('Signed the logbook! âœï¸', 'success');
             document.getElementById('logbookEntries')
                 .scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
 
-        // ── Logbook entries ───────────────────────────────────────
+        // â”€â”€ Logbook entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         const LOG_PAGE_SIZE = 15;
         let logbookPage = 0;
 
@@ -341,8 +341,8 @@
             if (!entries.length) {
                 el.innerHTML = `
                     <div class="logbook-empty">
-                        <span class="logbook-empty-icon">📜</span>
-                        <p>No entries yet — be the first to sign!</p>
+                        <span class="logbook-empty-icon">ðŸ“œ</span>
+                        <p>No entries yet â€” be the first to sign!</p>
                     </div>`;
                 moreBtn.style.display = 'none';
                 return;
@@ -356,10 +356,10 @@
                 card.innerHTML = `
                     <div class="logbook-entry-header">
                         <span class="logbook-entry-name">${esc(entry.name)}</span>
-                        <span class="logbook-entry-date">${entry.date} · ${entry.time}</span>
+                        <span class="logbook-entry-date">${entry.date} Â· ${entry.time}</span>
                     </div>
                     <div class="logbook-entry-msg logbook-msg-clamped" data-clamped="true">${esc(entry.message)}</div>
-                    <button class="logbook-expand-btn" style="display:none;">Show more ▼</button>
+                    <button class="logbook-expand-btn" style="display:none;">Show more â–¼</button>
                 `;
 
                 // After insertion, check if msg is taller than 3 lines and show toggle
@@ -374,7 +374,7 @@
                             const clamped = msgEl.dataset.clamped === 'true';
                             msgEl.classList.toggle('logbook-msg-clamped', !clamped);
                             msgEl.dataset.clamped = (!clamped).toString();
-                            btn.textContent = !clamped ? 'Show more ▼' : 'Show less ▲';
+                            btn.textContent = !clamped ? 'Show more â–¼' : 'Show less â–²';
                         });
                     }
                 });
@@ -393,7 +393,7 @@
             await renderLogbookEntries(false);
         });
 
-        // ── Leaderboard ───────────────────────────────────────────
+        // â”€â”€ Leaderboard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         let lbCurrentPage = 0;
         const LB_PAGE_SIZE = 20;
 
@@ -410,7 +410,7 @@
             tbody.innerHTML = '';
 
             try {
-                // Both calls may throw if Supabase not configured — catch gracefully
+                // Both calls may throw if Supabase not configured â€” catch gracefully
                 const [data, stats] = await Promise.all([
                     getLeaderboard({
                         gameType: game, gameMode: mode, period,
@@ -422,28 +422,28 @@
                 ]);
 
                 // Stats
-                document.getElementById('lbStatTotal').textContent  = stats?.totalEntries  ?? '–';
-                document.getElementById('lbStatTop').textContent    = stats?.topScore      ?? '–';
-                document.getElementById('lbStatPlayer').textContent = stats?.topPlayer     ?? '–';
+                document.getElementById('lbStatTotal').textContent  = stats?.totalEntries  ?? 'â€“';
+                document.getElementById('lbStatTop').textContent    = stats?.topScore      ?? 'â€“';
+                document.getElementById('lbStatPlayer').textContent = stats?.topPlayer     ?? 'â€“';
 
                 if (!data || !data.length) {
                     tbody.innerHTML = `
                         <tr><td colspan="4" class="lb-empty">
                             ${data === null
-                                ? '⚠️ Leaderboard not connected yet — configure Supabase to enable scores.'
+                                ? 'âš ï¸ Leaderboard not connected yet â€” configure Supabase to enable scores.'
                                 : 'No scores yet for this game!'}
                         </td></tr>`;
                 } else {
                     data.forEach((entry, i) => {
                         const rank  = lbCurrentPage * LB_PAGE_SIZE + i + 1;
-                        const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : rank;
+                        const medal = rank === 1 ? 'ðŸ¥‡' : rank === 2 ? 'ðŸ¥ˆ' : rank === 3 ? 'ðŸ¥‰' : rank;
                         const tr    = document.createElement('tr');
                         tr.className = 'lb-row';
                         tr.style.animationDelay = `${i * 30}ms`;
                         tr.innerHTML = `
                             <td class="lb-rank">${medal}</td>
                             <td class="lb-player">${esc(entry.player_name || 'Anonymous')}</td>
-                            <td class="lb-score">${entry.score ?? '–'}</td>
+                            <td class="lb-score">${entry.score ?? 'â€“'}</td>
                             <td class="lb-date lb-hide-sm">${formatDate(entry.date_played)}</td>
                         `;
                         tbody.appendChild(tr);
@@ -454,7 +454,7 @@
 
             } catch (err) {
                 console.error('Leaderboard error:', err);
-                tbody.innerHTML = `<tr><td colspan="4" class="lb-empty">⚠️ Could not load scores.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" class="lb-empty">âš ï¸ Could not load scores.</td></tr>`;
             } finally {
                 loading.style.display = 'none';
             }
@@ -465,9 +465,9 @@
             const prev = lbCurrentPage > 0;
             if (!prev && !hasMore) { el.innerHTML = ''; return; }
             el.innerHTML = `
-                ${prev ? '<button id="lbPrev" class="lb-page-btn">← Prev</button>' : ''}
+                ${prev ? '<button id="lbPrev" class="lb-page-btn">â† Prev</button>' : ''}
                 <span class="lb-page-num">Page ${lbCurrentPage + 1}</span>
-                ${hasMore ? '<button id="lbNext" class="lb-page-btn">Next →</button>' : ''}
+                ${hasMore ? '<button id="lbNext" class="lb-page-btn">Next â†’</button>' : ''}
             `;
             document.getElementById('lbPrev')?.addEventListener('click', () => {
                 lbCurrentPage--; loadLeaderboard(false);
@@ -482,7 +482,7 @@
         });
         document.getElementById('lbRefreshBtn').addEventListener('click', () => loadLeaderboard(true));
 
-        // ── Boot ──────────────────────────────────────────────────
+        // â”€â”€ Boot â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         document.addEventListener('DOMContentLoaded', async () => {
             setTimeout(() => {
                 document.getElementById('loading-screen').style.display = 'none';
