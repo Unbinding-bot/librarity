@@ -6,8 +6,8 @@
 // Supabase Configuration
 // IMPORTANT: Replace these with your actual Supabase project credentials
 const SUPABASE_CONFIG = {
-    url: 'YOUR_SUPABASE_URL', // e.g., 'https://xxxxx.supabase.co'
-    anonKey: 'YOUR_SUPABASE_ANON_KEY', // Public anon key (safe to expose)
+    url: 'https://supabase.com/dashboard/project/wiqwrrhlriyaqxrmitzo', // e.g., 'https://xxxxx.supabase.co'
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndpcXdycmhscml5YXF4cm1pdHpvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY4ODA3OTYsImV4cCI6MjEwMjQ1Njc5Nn0.pw9XCB806F0dNatpqaylbjVX4guT4pImE6KiOF8Pxak', // Public anon key (safe to expose)
 };
 
 // Initialize Supabase client
