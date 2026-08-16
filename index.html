@@ -1,4 +1,4 @@
-?<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,17 +10,15 @@
     <link rel="stylesheet" href="./css/animations.css">
     <link rel="stylesheet" href="./css/game-ui-fixes.css">
     <link rel="stylesheet" href="./css/library-home.css">
-    <!-- Theme toggle: only active in fallback view (no toggle on illustrated bg) -->
     <script src="./js/theme/theme-toggle.js"></script>
 </head>
 <body class="library-home-body">
 
-    <!-- �?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?�
-         ILLUSTRATED VIEW  (16:9 screens only �?? hidden on others)
-    �?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?� -->
+    <!-- ═══════════════════════════════════════════════════════
+         ILLUSTRATED VIEW  (16:9 screens only — hidden on others)
+    ═══════════════════════════════════════════════════════ -->
     <div id="illustratedView" class="illustrated-view" style="display:none;">
 
-        <!-- The library background image -->
         <div class="library-bg" id="libraryBg">
             <img
                 src="./assets/images/backgrounds/library.png"
@@ -28,45 +26,35 @@
                 id="libraryImg"
                 draggable="false"
             >
-
-            <!-- Hitbox overlays �?? positions loaded from data/hitboxes.json -->
-            <!-- Cursors change to pointer on hover via JS -->
             <div id="hitboxLayer" class="hitbox-layer" aria-hidden="true"></div>
         </div>
 
-        <!-- Fade-out overlay used during transition animation -->
         <div class="transition-overlay" id="transitionOverlay"></div>
-
-        <!-- �??�?? Section menus �??�?? each is a full-screen panel �??�??�??�??�??�??�??�??�??�?? -->
 
         <!-- GAMES menu -->
         <div class="section-menu" id="menuGames" data-section="games" style="display:none;">
             <div class="menu-inner">
-                <button class="menu-back-btn" data-target="games">�?� Back to Library</button>
+                <button class="menu-back-btn" data-target="games">← Back to Library</button>
                 <h1 class="menu-title">Games</h1>
                 <p class="menu-subtitle">Pick a game to play</p>
-                <div class="menu-grid" id="gamesGrid">
-                    <!-- injected by JS -->
-                </div>
+                <div class="menu-grid" id="gamesGrid"></div>
             </div>
         </div>
 
         <!-- TOOLS menu -->
         <div class="section-menu" id="menuTools" data-section="tools" style="display:none;">
             <div class="menu-inner">
-                <button class="menu-back-btn" data-target="tools">�?� Back to Library</button>
+                <button class="menu-back-btn" data-target="tools">← Back to Library</button>
                 <h1 class="menu-title">Learning Tools</h1>
-                <p class="menu-subtitle">Dictionary, Thesaurus & more</p>
-                <div class="menu-grid" id="toolsGrid">
-                    <!-- injected by JS -->
-                </div>
+                <p class="menu-subtitle">Dictionary, Thesaurus &amp; more</p>
+                <div class="menu-grid" id="toolsGrid"></div>
             </div>
         </div>
 
         <!-- LOGBOOK menu -->
         <div class="section-menu" id="menuLogbook" data-section="logbook" style="display:none;">
             <div class="menu-inner">
-                <button class="menu-back-btn" data-target="logbook">�?� Back to Library</button>
+                <button class="menu-back-btn" data-target="logbook">← Back to Library</button>
                 <h1 class="menu-title">Visitor Logbook</h1>
                 <p class="menu-subtitle">Sign in, leave a message, check the leaderboard</p>
                 <div class="menu-grid menu-grid-centered">
@@ -75,7 +63,7 @@
                             <img src="./assets/images/icons/menu-cards/placeholder-logbook.png"
                                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
                                  alt="Logbook" class="mc-img">
-                            <div class="mc-img-fallback" style="display:none;">�???</div>
+                            <div class="mc-img-fallback" style="display:none;">📖</div>
                         </div>
                         <div class="mc-label">Open Logbook</div>
                         <div class="mc-desc">Sign in &amp; leave a message</div>
@@ -87,27 +75,23 @@
         <!-- COMING SOON menu -->
         <div class="section-menu" id="menuComingSoon" data-section="coming-soon" style="display:none;">
             <div class="menu-inner">
-                <button class="menu-back-btn" data-target="coming-soon">�?� Back to Library</button>
+                <button class="menu-back-btn" data-target="coming-soon">← Back to Library</button>
                 <h1 class="menu-title">Coming Soon</h1>
                 <p class="menu-subtitle">Sneak peek at what's being added</p>
-                <div class="menu-grid" id="comingSoonGrid">
-                    <!-- injected by JS -->
-                </div>
+                <div class="menu-grid" id="comingSoonGrid"></div>
             </div>
         </div>
 
-        <!-- FACULTY menu (goes straight to admin) -->
+        <!-- FACULTY menu -->
         <div class="section-menu" id="menuFaculty" data-section="faculty" style="display:none;">
             <div class="menu-inner menu-inner-narrow">
-                <button class="menu-back-btn" data-target="faculty">�?� Back to Library</button>
-                <h1 class="menu-title">�??� Faculty Only</h1>
+                <button class="menu-back-btn" data-target="faculty">← Back to Library</button>
+                <h1 class="menu-title">🔐 Faculty Only</h1>
                 <p class="menu-subtitle">Staff &amp; admin access</p>
                 <div class="faculty-login-panel">
                     <div class="faculty-login-section">
                         <h3>GitHub Login</h3>
-                        <a href="admin.html" class="faculty-btn faculty-btn-github">
-                            Login with GitHub
-                        </a>
+                        <a href="admin.html" class="faculty-btn faculty-btn-github">Login with GitHub</a>
                         <p class="faculty-note">Requires repository collaborator access</p>
                     </div>
                 </div>
@@ -117,23 +101,21 @@
     </div><!-- /#illustratedView -->
 
 
-    <!-- �?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?�
+    <!-- ═══════════════════════════════════════════════════════
          FALLBACK VIEW  (no image / non-16:9 / small screens)
-         Shows the same section menus as the illustrated view but
-         triggered by clicking section cards instead of hitboxes
-    �?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?� -->
+    ═══════════════════════════════════════════════════════ -->
     <div id="fallbackView" class="fallback-view" style="display:none;">
 
-        <!-- Landing screen �?? section cards -->
+        <!-- Landing screen -->
         <div id="fbLanding" class="fb-landing">
 
             <header class="fb-header">
                 <div class="fb-brand">
-                    <span class="fb-brand-icon">�???</span>
+                    <span class="fb-brand-icon">📚</span>
                     <span class="fb-brand-text">School Library Games</span>
                 </div>
                 <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
-                    <span class="theme-icon">�???</span>
+                    <span class="theme-icon">🌙</span>
                 </button>
             </header>
 
@@ -144,31 +126,31 @@
                 <div class="fb-section-grid">
 
                     <button class="fb-section-card" data-open="games">
-                        <span class="fb-sc-icon">�??�</span>
+                        <span class="fb-sc-icon">🎮</span>
                         <span class="fb-sc-label">Games</span>
                         <span class="fb-sc-desc">Wordle, Spelling Bee, Trivia &amp; more</span>
                     </button>
 
                     <button class="fb-section-card" data-open="tools">
-                        <span class="fb-sc-icon">�??�</span>
+                        <span class="fb-sc-icon">🔧</span>
                         <span class="fb-sc-label">Learning Tools</span>
                         <span class="fb-sc-desc">Dictionary, Thesaurus &amp; Rhymes</span>
                     </button>
 
                     <button class="fb-section-card" data-open="logbook">
-                        <span class="fb-sc-icon">�???</span>
+                        <span class="fb-sc-icon">📖</span>
                         <span class="fb-sc-label">Visitor Logbook</span>
                         <span class="fb-sc-desc">Sign in &amp; check the leaderboard</span>
                     </button>
 
                     <button class="fb-section-card" data-open="coming-soon">
-                        <span class="fb-sc-icon">�???</span>
+                        <span class="fb-sc-icon">🚀</span>
                         <span class="fb-sc-label">Coming Soon</span>
                         <span class="fb-sc-desc">Sneak peek at upcoming features</span>
                     </button>
 
                     <button class="fb-section-card fb-section-card-faculty" data-open="faculty">
-                        <span class="fb-sc-icon">�??�</span>
+                        <span class="fb-sc-icon">🔐</span>
                         <span class="fb-sc-label">Faculty Only</span>
                         <span class="fb-sc-desc">Staff &amp; admin access</span>
                     </button>
@@ -177,25 +159,23 @@
             </main>
         </div>
 
-        <!-- Section panels �?? same content as illustrated menus, shown inline -->
+        <!-- Section panels -->
         <div id="fbPanel" class="fb-panel" style="display:none;">
 
             <header class="fb-header">
                 <div class="fb-brand">
-                    <span class="fb-brand-icon">�???</span>
+                    <span class="fb-brand-icon">📚</span>
                     <span class="fb-brand-text">School Library Games</span>
                 </div>
                 <div class="fb-header-right">
-                    <button class="fb-back-btn" id="fbBackBtn">�?� Back</button>
+                    <button class="fb-back-btn" id="fbBackBtn">← Back</button>
                     <button class="theme-toggle" aria-label="Toggle theme">
-                        <span class="theme-icon">�???</span>
+                        <span class="theme-icon">🌙</span>
                     </button>
                 </div>
             </header>
 
-            <div class="fb-panel-inner" id="fbPanelInner">
-                <!-- injected per section -->
-            </div>
+            <div class="fb-panel-inner" id="fbPanelInner"></div>
 
         </div>
 
@@ -205,38 +185,36 @@
     <script type="module">
         import { getUsername } from './js/components/visitor-logbook.js';
 
-        // �??�?? Section data �??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??
-
+        // Section data
         const GAMES = [
             { id: 'wordle',       label: 'Wordle',         desc: 'Guess the 5-letter word',       href: 'wordle.html',         img: 'assets/images/icons/menu-cards/menu-wordle.png' },
             { id: 'spelling-bee', label: 'Spelling Bee',   desc: 'Form words from the hive',      href: 'spelling-bee.html',   img: 'assets/images/icons/menu-cards/menu-spelling-bee.png' },
             { id: 'word-ladder',  label: 'Word Ladder',    desc: 'Transform one word to another', href: 'word-ladder.html',    img: 'assets/images/icons/menu-cards/menu-word-ladder.png' },
             { id: 'trivia',       label: 'Trivia',         desc: 'Test your knowledge',           href: 'trivia.html',         img: 'assets/images/icons/menu-cards/menu-trivia.png' },
-            { id: 'flashcards',   label: 'Flashcards',     desc: 'Study &amp; memorise',          href: 'flashcards.html',     img: 'assets/images/icons/menu-cards/menu-flashcards.png' },
-            { id: 'wiki-race',    label: 'Wikipedia Race', desc: 'Navigate between articles',    href: 'wikipedia-race.html', img: 'assets/images/icons/menu-cards/menu-wiki-race.png' },
+            { id: 'flashcards',   label: 'Flashcards',     desc: 'Study & memorise',              href: 'flashcards.html',     img: 'assets/images/icons/menu-cards/menu-flashcards.png' },
+            { id: 'wiki-race',    label: 'Wikipedia Race', desc: 'Navigate between articles',     href: 'wikipedia-race.html', img: 'assets/images/icons/menu-cards/menu-wiki-race.png' },
         ];
 
         const TOOLS = [
-            { id: 'dictionary',   label: 'Dictionary',   desc: 'Look up word definitions',         href: 'tools.html#dictionary', img: 'assets/images/icons/menu-cards/menu-dictionary.png' },
-            { id: 'thesaurus',    label: 'Thesaurus',    desc: 'Find synonyms &amp; antonyms',      href: 'tools.html#thesaurus',  img: 'assets/images/icons/menu-cards/menu-thesaurus.png' },
-            { id: 'rhyme-finder', label: 'Rhyme Finder', desc: 'Discover rhyming words',           href: 'tools.html#rhyme',      img: 'assets/images/icons/menu-cards/menu-rhyme-finder.png' },
+            { id: 'dictionary',   label: 'Dictionary',   desc: 'Look up word definitions',      href: 'tools.html#dictionary', img: 'assets/images/icons/menu-cards/menu-dictionary.png' },
+            { id: 'thesaurus',    label: 'Thesaurus',    desc: 'Find synonyms & antonyms',       href: 'tools.html#thesaurus',  img: 'assets/images/icons/menu-cards/menu-thesaurus.png' },
+            { id: 'rhyme-finder', label: 'Rhyme Finder', desc: 'Discover rhyming words',         href: 'tools.html#rhyme',      img: 'assets/images/icons/menu-cards/menu-rhyme-finder.png' },
         ];
 
         const COMING_SOON = [
             { id: 'book-list',   label: 'Book List',   desc: 'Browse the library catalogue', img: 'assets/images/icons/menu-cards/menu-coming-book-list.png' },
-            { id: 'crossword',   label: 'Crossword',   desc: 'Fill in the blanks',           img: 'assets/images/icons/menu-cards/menu-coming-crossword.png' },
-            { id: 'word-search', label: 'Word Search', desc: 'Find words in the grid',       img: 'assets/images/icons/menu-cards/menu-coming-word-search.png' },
+            { id: 'crossword',   label: 'Crossword',   desc: 'Fill in the blanks',            img: 'assets/images/icons/menu-cards/menu-coming-crossword.png' },
+            { id: 'word-search', label: 'Word Search', desc: 'Find words in the grid',        img: 'assets/images/icons/menu-cards/menu-coming-word-search.png' },
         ];
 
-        // �??�?? Helpers �??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??
-
+        // Helpers
         function menuCard(item, disabled = false) {
             const inner = `
                 <div class="mc-img-wrap">
                     <img src="${item.img}"
                          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
                          alt="${item.label}" class="mc-img" draggable="false">
-                    <div class="mc-img-fallback" style="display:none;">�??�</div>
+                    <div class="mc-img-fallback" style="display:none;">🎮</div>
                 </div>
                 <div class="mc-label">${item.label}</div>
                 <div class="mc-desc">${item.desc}</div>
@@ -253,24 +231,7 @@
             if (el) el.innerHTML = items.map(i => menuCard(i, disabled)).join('');
         }
 
-        function buildFbList(containerId, items, disabled = false) {
-            const el = document.getElementById(containerId);
-            if (!el) return;
-            el.innerHTML = items.map(item => {
-                if (disabled) {
-                    return `<div class="fb-item fb-item-disabled">
-                        <span class="fb-item-label">${item.label}</span>
-                        <span class="fb-item-soon">Soon</span>
-                    </div>`;
-                }
-                return `<a href="${item.href}" class="fb-item">
-                    <span class="fb-item-label">${item.label}</span>
-                    <span class="fb-item-desc">${item.desc}</span>
-                </a>`;
-            }).join('');
-        }
-
-        // �??�?? 16:9 detection �??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??
+        // 16:9 detection
         function is169() {
             const w = window.innerWidth;
             const h = window.innerHeight;
@@ -284,33 +245,17 @@
 
         let imageLoaded = false;
 
-        function showFallback() {
-            illustratedView.style.display = 'none';
-            fallbackView.style.display    = 'block';
-        }
-
-        function showIllustrated() {
-            illustratedView.style.display = 'block';
-            fallbackView.style.display    = 'none';
-        }
+        function showFallback()    { illustratedView.style.display = 'none';  fallbackView.style.display = 'block'; }
+        function showIllustrated() { illustratedView.style.display = 'block'; fallbackView.style.display = 'none';  }
 
         function applyView() {
-            if (imageLoaded && is169()) {
-                showIllustrated();
-            } else {
-                showFallback();
-            }
+            if (imageLoaded && is169()) { showIllustrated(); } else { showFallback(); }
         }
 
-        // Show fallback immediately while image loads
         showFallback();
 
-        function onImageReady() {
-            imageLoaded = true;
-            applyView();
-        }
+        function onImageReady() { imageLoaded = true; applyView(); }
 
-        // If image is already cached, .complete is true and 'load' won't fire
         if (libraryImg.complete && libraryImg.naturalWidth > 0) {
             onImageReady();
         } else {
@@ -320,20 +265,18 @@
 
         window.addEventListener('resize', applyView);
 
-        // �??�?? Build grids (illustrated menus) �??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??
+        // Build grids (illustrated menus)
         buildGrid('gamesGrid',      GAMES);
         buildGrid('toolsGrid',      TOOLS);
         buildGrid('comingSoonGrid', COMING_SOON, true);
 
-        // �??�?? Hitbox layer �??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??
-
+        // Hitbox layer
         async function loadHitboxes() {
             try {
                 const res  = await fetch('./data/hitboxes.json');
                 const data = await res.json();
                 return data.hitboxes || [];
             } catch {
-                // No hitboxes.json yet �?? use sensible defaults so page still works
                 return [
                     { name: 'games',       x: 10, y: 25, w: 20, h: 50 },
                     { name: 'tools',       x: 33, y: 25, w: 20, h: 50 },
@@ -363,36 +306,30 @@
         async function initHitboxes() {
             const hitboxes = await loadHitboxes();
             const layer    = document.getElementById('hitboxLayer');
-            const img      = document.getElementById('libraryImg');
 
             hitboxes.forEach(hb => {
                 const div = document.createElement('div');
-                div.className          = 'hitbox';
-                div.dataset.section    = hb.name;
-                div.style.left         = hb.x + '%';
-                div.style.top          = hb.y + '%';
-                div.style.width        = hb.w + '%';
-                div.style.height       = hb.h + '%';
-                div.style.cursor       = CURSOR_MAP[hb.name] || 'pointer';
-                div.setAttribute('role',        'button');
-                div.setAttribute('tabindex',    '0');
-                div.setAttribute('aria-label',  hb.name.replace(/-/g,' '));
-
+                div.className       = 'hitbox';
+                div.dataset.section = hb.name;
+                div.style.left      = hb.x + '%';
+                div.style.top       = hb.y + '%';
+                div.style.width     = hb.w + '%';
+                div.style.height    = hb.h + '%';
+                div.style.cursor    = CURSOR_MAP[hb.name] || 'pointer';
+                div.setAttribute('role',       'button');
+                div.setAttribute('tabindex',   '0');
+                div.setAttribute('aria-label', hb.name.replace(/-/g,' '));
                 div.addEventListener('click',   () => openSection(hb.name));
                 div.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openSection(hb.name); });
-
-                // Hover glow
                 div.addEventListener('mouseenter', () => div.classList.add('hitbox-hover'));
                 div.addEventListener('mouseleave', () => div.classList.remove('hitbox-hover'));
-
                 layer.appendChild(div);
             });
         }
 
         initHitboxes();
 
-        // �??�?? Section open/close �??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??
-
+        // Section open/close
         const overlay = document.getElementById('transitionOverlay');
         let activeMenu = null;
 
@@ -400,17 +337,13 @@
             const menuId = SECTION_MAP[name];
             if (!menuId) return;
 
-            // Fade out library
             overlay.classList.add('overlay-fade-in');
-
             setTimeout(() => {
-                // Hide library bg, show menu
                 document.getElementById('libraryBg').style.visibility = 'hidden';
                 const menu = document.getElementById(menuId);
                 if (menu) {
                     menu.style.display = 'flex';
                     activeMenu = menu;
-                    // Trigger enter animation
                     requestAnimationFrame(() => menu.classList.add('menu-visible'));
                 }
                 overlay.classList.remove('overlay-fade-in');
@@ -421,15 +354,11 @@
 
         function closeSection() {
             if (!activeMenu) return;
-
             overlay.classList.add('overlay-fade-in');
             setTimeout(() => {
                 activeMenu.classList.remove('menu-visible');
                 setTimeout(() => {
-                    if (activeMenu) {
-                        activeMenu.style.display = 'none';
-                        activeMenu = null;
-                    }
+                    if (activeMenu) { activeMenu.style.display = 'none'; activeMenu = null; }
                     document.getElementById('libraryBg').style.visibility = 'visible';
                     overlay.classList.remove('overlay-fade-in');
                     overlay.classList.add('overlay-fade-out');
@@ -438,68 +367,43 @@
             }, 250);
         }
 
-        // Back buttons
         document.querySelectorAll('.menu-back-btn').forEach(btn => {
             btn.addEventListener('click', closeSection);
         });
 
-        // Escape key
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') closeSection();
-        });
-
-        // �??�?? Faculty password �??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??
-
-        document.getElementById('facultyPasswordForm')?.addEventListener('submit', e => {
-            e.preventDefault();
-            const pw  = document.getElementById('facultyPassword').value;
-            const err = document.getElementById('facultyError');
-            // Simple client-side check �?? real auth is handled by admin.html
-            const correct = localStorage.getItem('faculty_password') || 'library2026';
-            if (pw === correct) {
-                window.location.href = 'admin.html';
-            } else {
-                err.style.display = 'block';
-                document.getElementById('facultyPassword').value = '';
-                document.getElementById('facultyPassword').focus();
-                setTimeout(() => { err.style.display = 'none'; }, 3000);
-            }
-        });
-
-        // �??�?? Fallback panel system �??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??
-
+        // Fallback panel system
         const FALLBACK_PANELS = {
             games: {
-                title: '�??� Games',
+                title:    '🎮 Games',
                 subtitle: 'Pick a game to play',
-                build: () => buildGrid('fbPanelGrid', GAMES),
-                html: () => `<div class="menu-grid" id="fbPanelGrid"></div>`,
+                build:    () => buildGrid('fbPanelGrid', GAMES),
+                html:     () => `<div class="menu-grid" id="fbPanelGrid"></div>`,
             },
             tools: {
-                title: '�??� Learning Tools',
+                title:    '🔧 Learning Tools',
                 subtitle: 'Dictionary, Thesaurus &amp; more',
-                build: () => buildGrid('fbPanelGrid', TOOLS),
-                html: () => `<div class="menu-grid" id="fbPanelGrid"></div>`,
+                build:    () => buildGrid('fbPanelGrid', TOOLS),
+                html:     () => `<div class="menu-grid" id="fbPanelGrid"></div>`,
             },
             logbook: {
-                title: '�??? Visitor Logbook',
+                title:    '📖 Visitor Logbook',
                 subtitle: 'Sign in &amp; check the leaderboard',
-                build: () => buildGrid('fbPanelGrid', [
-                    { id: 'logbook', label: 'Open Logbook', desc: 'Sign in & leave a message', href: 'leaderboard.html', img: 'assets/images/icons/placeholder-logbook.png' }
+                build:    () => buildGrid('fbPanelGrid', [
+                    { id: 'logbook', label: 'Open Logbook', desc: 'Sign in & leave a message', href: 'leaderboard.html', img: 'assets/images/icons/menu-cards/placeholder-logbook.png' }
                 ]),
                 html: () => `<div class="menu-grid" id="fbPanelGrid"></div>`,
             },
             'coming-soon': {
-                title: '�??? Coming Soon',
+                title:    '🚀 Coming Soon',
                 subtitle: 'Sneak peek at upcoming features',
-                build: () => buildGrid('fbPanelGrid', COMING_SOON, true),
-                html: () => `<div class="menu-grid" id="fbPanelGrid"></div>`,
+                build:    () => buildGrid('fbPanelGrid', COMING_SOON, true),
+                html:     () => `<div class="menu-grid" id="fbPanelGrid"></div>`,
             },
             faculty: {
-                title: '�??� Faculty Only',
+                title:    '🔐 Faculty Only',
                 subtitle: 'Staff &amp; admin access',
-                build: () => {},
-                html: () => `
+                build:    () => {},
+                html:     () => `
                     <div class="faculty-login-panel">
                         <div class="faculty-login-section">
                             <h3>GitHub Login</h3>
@@ -520,7 +424,6 @@
             if (!panel) return;
             fbActive = name;
 
-            // Build content
             fbPanelInner.innerHTML = `
                 <h1 class="menu-title">${panel.title}</h1>
                 <p class="menu-subtitle">${panel.subtitle}</p>
@@ -528,26 +431,6 @@
             `;
             panel.build();
 
-            // Wire faculty form if shown
-            const form = document.getElementById('fbFacultyForm');
-            if (form) {
-                form.addEventListener('submit', e => {
-                    e.preventDefault();
-                    const pw      = document.getElementById('fbFacultyPw').value;
-                    const correct = localStorage.getItem('faculty_password') || 'library2026';
-                    if (pw === correct) {
-                        window.location.href = 'admin.html';
-                    } else {
-                        const err = document.getElementById('fbFacultyErr');
-                        err.style.display = 'block';
-                        document.getElementById('fbFacultyPw').value = '';
-                        document.getElementById('fbFacultyPw').focus();
-                        setTimeout(() => { err.style.display = 'none'; }, 3000);
-                    }
-                });
-            }
-
-            // Slide transition
             fbLanding.style.display = 'none';
             fbPanel.style.display   = 'block';
             fbPanel.classList.add('fb-panel-visible');
@@ -562,23 +445,18 @@
             }, 250);
         }
 
-        // Section card clicks
         document.querySelectorAll('.fb-section-card').forEach(card => {
             card.addEventListener('click', () => openFbPanel(card.dataset.open));
         });
 
-        // Back button
         document.getElementById('fbBackBtn')?.addEventListener('click', closeFbPanel);
 
-        // Escape
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape') {
                 if (fbActive) closeFbPanel();
                 else closeSection();
             }
         });
-
-        function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
     </script>
 </body>

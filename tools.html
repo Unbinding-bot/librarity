@@ -1,4 +1,4 @@
-?<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -188,20 +188,20 @@
         <main class="main-content">
             <div class="tools-hub">
                 <div class="tools-header">
-                    <h1>�?�️ Writing Tools</h1>
+                    <h1>✏️ Writing Tools</h1>
                     <p>Powerful tools to enhance your vocabulary, improve your writing, and spark creativity.</p>
                 </div>
                 
                 <!-- Tool Tabs -->
                 <div class="tool-tabs">
                     <button class="tool-tab active" data-tool="dictionary">
-                        �??? Dictionary
+                        📖 Dictionary
                     </button>
                     <button class="tool-tab" data-tool="thesaurus">
-                        �??? Thesaurus
+                        📝 Thesaurus
                     </button>
                     <button class="tool-tab" data-tool="rhyme">
-                        �??� Rhyme Finder
+                        🎵 Rhyme Finder
                     </button>
                 </div>
                 
@@ -296,11 +296,11 @@
             toast.className = `toast toast-${type}`;
             
             const icon = {
-                success: '�??',
-                error: '�??',
-                warning: '�?�',
-                info: '�?�'
-            }[type] || '�?�';
+                success: '✓',
+                error:   '✗',
+                warning: '⚠',
+                info:    'ℹ'
+            }[type] || 'ℹ';
             
             toast.innerHTML = `
                 <span class="toast-icon">${icon}</span>
