@@ -2,6 +2,7 @@
 import { showToast } from '../main.js';
 import ModalSystem from '../components/modal-system.js';
 import { getDisplayName } from '../components/visitor-logbook.js';
+import { lockSubmitButtons, resetSubmitButtons } from '../utils/submit-lock.js';
 
 class WordleGame {
     constructor() {
@@ -16,6 +17,13 @@ class WordleGame {
         this.validWords = [];
         this.targetWords = [];
         this.keyboardState = {}; // Track letter states
+        this.isRevealing = false; // Block input during tile reveal animation
+
+        // Unlimited mode state (random mode across multiple rounds)
+        this.unlimitedActive = false;
+        this.unlimitedRound  = 0;
+        this.unlimitedScore  = 0;
+        this.unlimitedStreak = 0;
         
         this.init();
     }
@@ -115,8 +123,39 @@ class WordleGame {
         // Result buttons
         document.getElementById('shareBtn')?.addEventListener('click', () => this.shareResult());
         document.getElementById('playAgainBtn')?.addEventListener('click', () => this.playAgain());
+        document.getElementById('submitScoreBtn')?.addEventListener('click', () => {
+            // lastAttempts === null  → unlimited session ended
+            // lastAttempts === number → single game (win or lose)
+            // lastAttempts === undefined → game not finished yet, block
+            if (this.lastAttempts !== undefined) {
+                this.submitScore(this.lastAttempts);
+            } else {
+                showToast('Finish the game first!', 'error');
+            }
+        });
         document.getElementById('resultClose')?.addEventListener('click', () => {
             ModalSystem.closeResult('gameResult');
+            this.showActionBar();
+        });
+
+        // Action bar buttons
+        document.getElementById('actionBarShareBtn')?.addEventListener('click', () => this.shareResult());
+        document.getElementById('actionBarPlayAgainBtn')?.addEventListener('click', () => {
+            this.hideActionBar();
+            this.playAgain();
+        });
+        document.getElementById('actionBarRestartBtn')?.addEventListener('click', () => {
+            if (confirm('Restart the game? Current progress will be lost.')) {
+                this.hideActionBar();
+                this.startGame();
+            }
+        });
+
+        // End unlimited session
+        document.getElementById('endSessionBtn')?.addEventListener('click', () => {
+            if (this.unlimitedActive) {
+                this.endUnlimitedSession();
+            }
         });
         
         // Toggle guess distribution
@@ -180,29 +219,50 @@ class WordleGame {
     }
 
     async startGame() {
-        // Reset game state
+        // Reset per-round state
         this.guesses = [];
         this.currentGuess = '';
         this.currentRow = 0;
         this.gameOver = false;
         this.keyboardState = {};
-        
+        this.isRevealing = false;
+
+        // Only hide action bar and reset submit on fresh starts (not mid-session rounds)
+        if (!this.unlimitedActive) {
+            this.hideActionBar();
+            resetSubmitButtons();
+        }
+
         // Get word based on mode
         if (this.mode === 'daily') {
             this.word = await this.getDailyWord();
         } else {
+            // Start or continue unlimited session
+            if (!this.unlimitedActive) {
+                this.unlimitedActive = true;
+                this.unlimitedRound  = 0;
+                this.unlimitedScore  = 0;
+                this.unlimitedStreak = 0;
+            }
+            this.unlimitedRound++;
             this.word = this.getRandomWord();
+            this.updateUnlimitedBar();
+            document.getElementById('unlimitedBar').style.display = 'flex';
         }
-        
-        console.log('Game started. Word:', this.word); // Debug only - remove in production
-        
+
         // Reset board
         this.createBoard();
         this.resetKeyboard();
         this.updateDisplay();
-        
+
         // Hide result overlay
         document.getElementById('gameResult').style.display = 'none';
+    }
+
+    updateUnlimitedBar() {
+        document.getElementById('unlimitedRound').textContent  = this.unlimitedRound;
+        document.getElementById('unlimitedScore').textContent  = this.unlimitedScore;
+        document.getElementById('unlimitedStreak').textContent = this.unlimitedStreak;
     }
 
     async getDailyWord() {
@@ -247,6 +307,7 @@ class WordleGame {
 
     handleInput(key) {
         if (this.gameOver) return;
+        if (this.isRevealing) return; // block input during tile reveal animation
         
         if (key === 'Enter') {
             this.submitGuess();
@@ -274,6 +335,15 @@ class WordleGame {
     }
 
     async submitGuess() {
+        // Guard against any path that bypasses handleInput checks
+        if (this.gameOver) return;
+        if (this.isRevealing) return;
+
+        if (this.currentGuess.length === 0) {
+            showToast('Type a word first', 'error');
+            return;
+        }
+
         if (this.currentGuess.length !== this.wordLength) {
             this.shakeTiles();
             showToast('Not enough letters', 'error');
@@ -290,7 +360,9 @@ class WordleGame {
         this.guesses.push(this.currentGuess);
         
         // Reveal tiles with animation
+        this.isRevealing = true;
         await this.revealTiles();
+        this.isRevealing = false;
         
         // Update keyboard
         this.updateKeyboard();
@@ -399,34 +471,93 @@ class WordleGame {
         // Animate winning tiles
         const tiles = document.querySelectorAll(`[data-row="${this.currentRow}"] .tile`);
         tiles.forEach((tile, index) => {
-            setTimeout(() => {
-                tile.classList.add('win');
-            }, index * 100);
+            setTimeout(() => { tile.classList.add('win'); }, index * 100);
         });
-        
-        // Update stats
+
         const attempts = this.currentRow + 1;
+        this.lastAttempts = attempts;
         this.updateStats(true, attempts);
-        
-        // Submit score to leaderboard (daily mode only)
+
         if (this.mode === 'daily') {
             await this.submitScore(attempts);
+            setTimeout(() => { this.showResult(true, attempts); }, 1000);
+        } else {
+            // Unlimited session — add points and auto-continue
+            const roundPoints = (7 - attempts) * 100; // 600 for 1-guess, 100 for 6-guess
+            const streakBonus = this.unlimitedStreak * 50;
+            const earned = roundPoints + streakBonus;
+
+            this.unlimitedScore  += earned;
+            this.unlimitedStreak++;
+            this.updateUnlimitedBar();
+
+            showToast(`+${earned} pts (${roundPoints} base + ${streakBonus} streak bonus)`, 'success');
+
+            // Brief pause then auto-start next round
+            setTimeout(() => {
+                this.startGame();
+            }, 1800);
         }
-        
-        // Show result after animation
-        setTimeout(() => {
-            this.showResult(true, attempts);
-        }, 1000);
     }
 
     async handleLose() {
-        // Update stats
         this.updateStats(false, this.maxGuesses + 1);
-        
-        // Show result
-        setTimeout(() => {
-            this.showResult(false, this.maxGuesses + 1);
-        }, 500);
+        this.lastAttempts = this.maxGuesses + 1; // enable submit button after loss
+
+        if (this.unlimitedActive) {
+            this.unlimitedStreak = 0;
+            this.updateUnlimitedBar();
+            // End the session and show total score
+            setTimeout(() => { this.endUnlimitedSession(); }, 600);
+        } else {
+            setTimeout(() => { this.showResult(false, this.maxGuesses + 1); }, 500);
+        }
+    }
+
+    endUnlimitedSession() {
+        this.gameOver = true;
+
+        // Show the result overlay with session totals
+        const titleEl   = document.getElementById('resultTitle');
+        const messageEl = document.getElementById('resultMessage');
+        const statsEl   = document.getElementById('resultStats');
+        const sessionEl = document.getElementById('unlimitedSessionScore');
+        const scoreVal  = document.getElementById('sessionScoreValue');
+        const roundsVal = document.getElementById('sessionRoundsValue');
+
+        titleEl.textContent   = this.unlimitedRound > 1 ? '🎉 Session Over!' : '😔 Unlucky!';
+        messageEl.textContent = `The word was: ${this.word}`;
+
+        if (sessionEl) {
+            sessionEl.style.display = 'block';
+            scoreVal.textContent    = this.unlimitedScore;
+            roundsVal.textContent   = `${this.unlimitedRound - 1} word${this.unlimitedRound - 1 !== 1 ? 's' : ''} solved`;
+        }
+
+        // Standard stats row
+        const stats = this.loadStats();
+        statsEl.innerHTML = `
+            <div class="result-stat">
+                <div class="result-stat-value">${stats.gamesPlayed}</div>
+                <div class="result-stat-label">Played</div>
+            </div>
+            <div class="result-stat">
+                <div class="result-stat-value">${stats.winRate}%</div>
+                <div class="result-stat-label">Win Rate</div>
+            </div>
+            <div class="result-stat">
+                <div class="result-stat-value">${stats.currentStreak}</div>
+                <div class="result-stat-label">Streak</div>
+            </div>
+        `;
+
+        // Set the score for submission
+        this.lastAttempts = null; // mark as unlimited session
+        ModalSystem.showResult('gameResult');
+
+        // Reset unlimited state
+        this.unlimitedActive = false;
+        document.getElementById('unlimitedBar').style.display = 'none';
     }
 
     showResult(won, attempts) {
@@ -461,6 +592,24 @@ class WordleGame {
         `;
         
         ModalSystem.showResult('gameResult');
+
+        // Also prep the action bar label so it's ready when popup is closed
+        const label = won
+            ? `Word: ${this.word} — solved in ${attempts} ${attempts === 1 ? 'try' : 'tries'}`
+            : `The word was: ${this.word}`;
+        const bar = document.getElementById('gameActionBar');
+        const barLabel = document.getElementById('gameActionBarLabel');
+        if (bar && barLabel) barLabel.textContent = label;
+    }
+
+    showActionBar() {
+        const bar = document.getElementById('gameActionBar');
+        if (bar) bar.style.display = 'flex';
+    }
+
+    hideActionBar() {
+        const bar = document.getElementById('gameActionBar');
+        if (bar) bar.style.display = 'none';
     }
 
     shareResult() {
@@ -484,35 +633,44 @@ class WordleGame {
         
         // Copy to clipboard
         navigator.clipboard.writeText(text).then(() => {
-            showToast('Result copied to clipboard!', 'success');
+            showToast('Score copied! 📋', 'success');
         }).catch(() => {
-            showToast('Failed to copy result', 'error');
+            showToast('Failed to copy', 'error');
         });
     }
 
     playAgain() {
-        // Hide result overlay first
         ModalSystem.closeResult('gameResult');
-        
+
+        // End any in-progress unlimited session cleanly
+        this.unlimitedActive = false;
+        document.getElementById('unlimitedBar').style.display = 'none';
+
         if (this.mode === 'daily') {
-            // Check if already played today
             const stats = this.loadStats();
             const today = this.getTodayString();
-            
             if (stats.lastPlayedDaily === today) {
-                // Already played today - switch to random mode
                 showToast('Switching to Random Word mode', 'info');
                 this.changeMode('random');
                 return;
             }
         }
-        
+
+        this.hideActionBar();
+        resetSubmitButtons();
         this.startGame();
     }
 
     changeMode(mode) {
         if (this.mode === mode) return;
-        
+
+        // Reset unlimited session when switching modes
+        this.unlimitedActive = false;
+        this.unlimitedRound  = 0;
+        this.unlimitedScore  = 0;
+        this.unlimitedStreak = 0;
+        document.getElementById('unlimitedBar').style.display = 'none';
+
         this.mode = mode;
         
         // Update UI
@@ -627,14 +785,17 @@ class WordleGame {
 
     async submitScore(attempts) {
         try {
-            // Use globally stored username from visitor logbook
-            const username = getDisplayName();
+            const { askForName } = await import('../components/visitor-logbook.js');
+            const username = await askForName();
+            if (!username) return; // user cancelled
 
-            // Import and use the Supabase submit function
             const { submitScore } = await import('../api/supabase.js');
 
-            // Score: (7 - attempts) * 100, higher = better
-            const score = (7 - attempts) * 100;
+            // For unlimited session: submit the total session score
+            // For daily/random: score based on guesses (max 600, min 50 even on loss)
+            const score = (this.lastAttempts === null)
+                ? this.unlimitedScore
+                : Math.max(50, (7 - Math.min(attempts, 6)) * 100);
 
             await submitScore({
                 gameType: 'wordle',
@@ -644,7 +805,8 @@ class WordleGame {
                 timeTaken: null
             });
 
-            showToast(`Score submitted as "${username}"!`, 'success');
+            showToast(`Score submitted as "${username}"! ✅`, 'success');
+            lockSubmitButtons();
         } catch (error) {
             console.error('Error submitting score:', error);
         }

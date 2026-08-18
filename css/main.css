@@ -3,18 +3,21 @@
    Earthy Olive-Green Library Theme
    ================================================ */
 
+/* Google Fonts — Caveat for handwritten, Inter for UI */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
 /* CSS Variables */
 :root {
     /* Color Palette — warm earthy olive-green */
-    --primary-color: #5C6B3A;       /* olive moss — main green */
-    --secondary-color: #8A9A5B;     /* sage green */
-    --accent-color: #B5C08A;        /* pale sage */
-    --background-color: #F4EFE4;    /* warm parchment */
-    --surface-color: #FDFAF4;       /* off-white with warm tint */
-    --text-color: #1E1C14;          /* warm near-black */
-    --text-secondary: #5A5340;      /* warm mid-brown */
-    --text-light: #8A7F68;          /* warm light brown */
-    --border-color: #C8B99A;        /* warm tan */
+    --primary-color: #5C6B3A;
+    --secondary-color: #8A9A5B;
+    --accent-color: #B5C08A;
+    --background-color: #F4EFE4;
+    --surface-color: #FDFAF4;
+    --text-color: #1E1C14;
+    --text-secondary: #5A5340;
+    --text-light: #8A7F68;
+    --border-color: #C8B99A;
     --shadow-color: rgba(92, 107, 58, 0.15);
     --overlay-color: rgba(0, 0, 0, 0.6);
 
@@ -51,8 +54,8 @@
     --spacing-xxl: 3rem;
     
     /* Typography */
-    --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    --font-handwritten: 'Comic Sans MS', 'Chalkboard SE', cursive;
+    --font-primary: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --font-handwritten: 'Caveat', 'Segoe UI', sans-serif;
     --font-size-xs: 0.75rem;
     --font-size-sm: 0.875rem;
     --font-size-base: 1rem;
@@ -137,7 +140,8 @@ body {
             rgba(45, 80, 22, 0.02) 2px,
             rgba(45, 80, 22, 0.02) 4px
         );
-    overflow-x: hidden;
+    /* Don't clip body — use page-level containers for overflow control */
+    overflow-x: clip;
 }
 
 /* ================================================

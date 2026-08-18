@@ -355,8 +355,10 @@ function setupRoutes() {
     
     console.log('✓ Routes configured');
     
-    // Trigger initial route now that all routes are registered
-    router.ready();
+    // Only trigger routing on index.html — game pages don't use the router
+    if (document.getElementById('main-content')) {
+        router.ready();
+    }
 }
 
 /**
@@ -506,7 +508,8 @@ function createSpotlight() {
  * Show toast notification
  */
 function showToast(message, type = 'info') {
-    const container = document.getElementById('toast-container');
+    // Support both id="toast-container" (index/leaderboard) and id="toast" (game pages)
+    const container = document.getElementById('toast-container') || document.getElementById('toast');
     if (!container) return;
     
     const toast = document.createElement('div');
@@ -520,7 +523,8 @@ function showToast(message, type = 'info') {
     
     // Auto-remove after 5 seconds
     setTimeout(() => {
-        toast.style.animation = 'fadeOut 0.3s ease';
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s';
         setTimeout(() => toast.remove(), 300);
     }, 5000);
 }

@@ -1,6 +1,7 @@
 // Word Ladder Game Implementation
 import { showToast } from '../main.js';
 import { getDisplayName } from '../components/visitor-logbook.js';
+import { lockSubmitButtons, resetSubmitButtons } from '../utils/submit-lock.js';
 class WordLadderGame {
     constructor() {
         this.startWord = '';
@@ -19,6 +20,16 @@ class WordLadderGame {
     async init() {
         await this.loadWordList();
         this.setupEventListeners();
+
+        // Check if daily already played today — auto-switch to random
+        const stats = this.loadStats();
+        const today = new Date().toISOString().split('T')[0];
+        if (this.mode === 'daily' && stats.lastPlayedDaily === today) {
+            this.mode = 'random';
+            document.getElementById('dailyModeBtn')?.classList.remove('active');
+            document.getElementById('randomModeBtn')?.classList.add('active');
+        }
+
         await this.startGame();
         
         // Hide loading screen
@@ -82,34 +93,70 @@ class WordLadderGame {
         
         // Result buttons
         document.getElementById('shareResultBtn')?.addEventListener('click', () => this.shareResult());
-        document.getElementById('newPuzzleBtn')?.addEventListener('click', () => this.startGame());
+        document.getElementById('submitScoreBtn')?.addEventListener('click', () => {
+            if (this.lastSteps !== undefined && this.lastTime !== undefined) {
+                this.submitScore(this.lastSteps, this.lastTime);
+            }
+        });
+        document.getElementById('newPuzzleBtn')?.addEventListener('click', () => {
+            this.hideActionBar();
+            this.startGame();
+        });
+
+        // Close result modal — show action bar
+        document.querySelectorAll('.modal-close').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const modalId = btn.getAttribute('data-modal');
+                if (modalId === 'resultModal') this.showActionBar();
+            });
+        });
+
+        // Action bar buttons
+        document.getElementById('actionBarShareBtn')?.addEventListener('click', () => this.shareResult());
+        document.getElementById('actionBarPlayAgainBtn')?.addEventListener('click', () => {
+            this.hideActionBar();
+            this.startGame();
+        });
+        document.getElementById('actionBarRestartBtn')?.addEventListener('click', () => {
+            if (confirm('Start a new puzzle? Current progress will be lost.')) {
+                this.hideActionBar();
+                this.startGame();
+            }
+        });
     }
 
     async startGame() {
+        this.hideActionBar();
+        resetSubmitButtons();
+
         // Get puzzle based on mode
         if (this.mode === 'daily') {
             await this.loadDailyPuzzle();
         } else {
             this.generateRandomPuzzle();
         }
-        
-        // Solve puzzle to get minimum steps
-        this.solution = this.solvePuzzle(this.startWord, this.endWord);
-        this.minSteps = this.solution.length - 1;
-        
-        // Reset game state
+
+        // Reset game state immediately — don't block on BFS
+        this.solution  = [];
+        this.minSteps  = '?';
         this.currentPath = [this.startWord];
-        this.hintsUsed = 0;
-        this.startTime = Date.now();
-        
-        // Update UI
+        this.hintsUsed   = 0;
+        this.startTime   = Date.now();
+
+        // Render UI right away so player can start
         this.updateDisplay();
         this.renderLadder();
         this.clearInput();
         this.clearMessage();
-        
-        console.log('Puzzle:', this.startWord, '→', this.endWord, 'Min steps:', this.minSteps);
-        console.log('Solution:', this.solution);
+
+        // Solve in background — update minSteps once ready
+        setTimeout(() => {
+            this.solution  = this.solvePuzzle(this.startWord, this.endWord);
+            this.minSteps  = this.solution.length > 0 ? this.solution.length - 1 : '?';
+            // Refresh any visible step counter
+            const minEl = document.getElementById('minStepsValue');
+            if (minEl) minEl.textContent = this.minSteps;
+        }, 50);
     }
 
     async loadDailyPuzzle() {
@@ -402,6 +449,8 @@ class WordLadderGame {
         if (this.mode === 'daily') {
             this.submitScore(steps, elapsedTime);
         }
+        this.lastSteps = steps;
+        this.lastTime  = elapsedTime;
         
         // Show result modal
         this.showResult(rating, message, steps, elapsedTime);
@@ -447,9 +496,9 @@ class WordLadderGame {
         text += `\nBy Unbinding`;
         
         navigator.clipboard.writeText(text).then(() => {
-            showToast('Result copied to clipboard!', 'success');
+            showToast('Score copied! 📋', 'success');
         }).catch(() => {
-            showToast('Failed to copy result', 'error');
+            showToast('Failed to copy', 'error');
         });
     }
 
@@ -540,7 +589,17 @@ class WordLadderGame {
 
     changeMode(mode) {
         if (this.mode === mode) return;
-        
+
+        // Block switching to daily if already played today
+        if (mode === 'daily') {
+            const stats = this.loadStats();
+            const today = new Date().toISOString().split('T')[0];
+            if (stats.lastPlayedDaily === today) {
+                showToast("You've already played today's challenge! Come back tomorrow.", 'info');
+                return;
+            }
+        }
+
         this.mode = mode;
         
         // Update UI
@@ -566,7 +625,8 @@ class WordLadderGame {
             totalSteps: 0,
             totalTime: 0,
             bestTime: null,
-            efficiency: { perfect: 0, good: 0, okay: 0, other: 0 }
+            efficiency: { perfect: 0, good: 0, okay: 0, other: 0 },
+            lastPlayedDaily: null
         };
         
         const saved = localStorage.getItem('word_ladder_stats');
@@ -600,6 +660,11 @@ class WordLadderGame {
         
         if (!stats.bestTime || time < stats.bestTime) {
             stats.bestTime = time;
+        }
+
+        // Mark daily as played
+        if (this.mode === 'daily') {
+            stats.lastPlayedDaily = new Date().toISOString().split('T')[0];
         }
         
         this.saveStats(stats);
@@ -683,9 +748,27 @@ class WordLadderGame {
         }
     }
 
+    showActionBar() {
+        const bar   = document.getElementById('gameActionBar');
+        const label = document.getElementById('gameActionBarLabel');
+        if (bar && label) {
+            const steps = this.lastSteps ?? 0;
+            const time  = this.lastTime  ?? 0;
+            label.textContent = `Completed in ${steps} steps · ${this.formatTime(time)}`;
+            bar.style.display = 'flex';
+        }
+    }
+
+    hideActionBar() {
+        const bar = document.getElementById('gameActionBar');
+        if (bar) bar.style.display = 'none';
+    }
+
     async submitScore(steps, time) {
         try {
-            const username = getDisplayName();
+            const { askForName } = await import('../components/visitor-logbook.js');
+            const username = await askForName();
+            if (!username) return;
             
             const { submitScore } = await import('../api/supabase.js');
             
@@ -701,7 +784,8 @@ class WordLadderGame {
                 timeTaken: time
             });
             
-            showToast(`Score submitted as "${username}"!`, 'success');
+            showToast(`Score submitted as "${username}"! ✅`, 'success');
+            lockSubmitButtons();
         } catch (error) {
             console.error('Error submitting score:', error);
         }

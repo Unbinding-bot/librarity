@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/game-ui-fixes.css">
+    <link rel="stylesheet" href="css/mobile.css">
     <link rel="stylesheet" href="css/spelling-bee.css">
     <!-- Theme toggle: runs before body renders to avoid flash -->
     <script src="js/theme/theme-toggle.js"></script>
@@ -258,15 +259,27 @@
                 </div>
                 <div class="result-actions">
                     <button id="shareResultBtn" class="btn btn-primary">📋 Share</button>
+                    <button id="submitScoreBtn" class="btn btn-secondary">🏆 Submit Score</button>
                     <button id="playAgainBtn" class="btn btn-secondary">🔄 New Puzzle</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Persistent action bar -->
+    <div class="game-action-bar" id="gameActionBar" style="display:none;">
+        <span class="game-action-bar-label" id="gameActionBarLabel"></span>
+        <div class="game-action-bar-btns">
+            <button id="actionBarShareBtn" class="btn btn-sm btn-primary">📋 Share</button>
+            <button id="actionBarPlayAgainBtn" class="btn btn-sm btn-secondary">🔄 New Puzzle</button>
+            <button id="actionBarRestartBtn" class="btn btn-sm btn-outline">↺ Restart</button>
+        </div>
+    </div>
+
     <!-- Toast Notification -->
     <div id="toast" class="toast"></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script type="module" src="js/main.js"></script>
     <script type="module" src="js/games/spelling-bee.js"></script>
 </body>

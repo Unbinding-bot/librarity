@@ -71,7 +71,6 @@
     pointer-events: none;
     z-index: 10;
 }
-
 .transition-overlay.overlay-fade-in {
     animation: overlayIn 0.35s ease forwards;
 }
@@ -95,9 +94,8 @@
     justify-content: center;
     overflow-y: auto;
     padding: 2rem 1rem 3rem;
-    /* Warm parchment background */
-    background:
-        linear-gradient(180deg, rgba(26,18,10,0.97) 0%, rgba(40,25,12,0.98) 100%);
+    /* Warm parchment background — respects light/dark theme */
+    background: var(--background-color, #F4EFE4);
     opacity: 0;
     transform: translateY(16px);
     pointer-events: none;
@@ -608,4 +606,121 @@
 
     .mc-label { font-size: 0.88rem; }
     .mc-desc  { font-size: 0.73rem; }
+}
+
+/* ================================================================
+   THEME-AWARE OVERRIDES — section menus use CSS vars not hardcoded
+   ================================================================ */
+.menu-back-btn {
+    background: var(--bg-secondary, #F4EFE4);
+    border: 1px solid var(--border-color, #C8B99A);
+    color: var(--text-secondary, #5A5340);
+}
+
+.menu-back-btn:hover {
+    background: var(--border-color, #C8B99A);
+    color: var(--text-color, #1E1C14);
+}
+
+.menu-title {
+    color: var(--primary-color, #5C6B3A);
+    font-family: 'Caveat', Georgia, serif;
+}
+
+.menu-subtitle {
+    color: var(--text-secondary, #5A5340);
+}
+
+.menu-card {
+    background: var(--surface-color, #FDFAF4);
+    border-color: var(--border-color, #C8B99A);
+    color: var(--text-color, #1E1C14);
+}
+
+.menu-card:hover {
+    border-color: var(--primary-color, #5C6B3A);
+    background: var(--bg-secondary, #F4EFE4);
+    box-shadow: 0 8px 24px var(--shadow-color, rgba(92,107,58,.15));
+    transform: translateY(-4px);
+}
+
+.mc-label { color: var(--primary-color, #5C6B3A); }
+.mc-desc  { color: var(--text-secondary, #5A5340); }
+.mc-badge { background: rgba(92,107,58,0.12); color: var(--primary-color, #5C6B3A); }
+
+/* Dark mode overrides */
+[data-theme="dark"] .section-menu {
+    background: rgba(26, 26, 18, 0.97);
+}
+
+[data-theme="dark"] .menu-back-btn {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.15);
+    color: rgba(237,232,218,0.75);
+}
+
+[data-theme="dark"] .menu-back-btn:hover {
+    background: rgba(255,255,255,0.15);
+    color: #EDE8DA;
+}
+
+[data-theme="dark"] .menu-title    { color: #B5C08A; }
+[data-theme="dark"] .menu-subtitle { color: rgba(181,192,138,0.65); }
+
+[data-theme="dark"] .menu-card {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(181,192,138,0.15);
+    color: #EDE8DA;
+}
+
+[data-theme="dark"] .menu-card:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(181,192,138,0.5);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+[data-theme="dark"] .mc-label { color: #B5C08A; }
+[data-theme="dark"] .mc-desc  { color: rgba(181,192,138,0.6); }
+[data-theme="dark"] .mc-badge { background: rgba(181,192,138,0.15); color: #B5C08A; }
+
+/* Faculty panel light mode */
+.faculty-login-section {
+    background: var(--bg-secondary, #F4EFE4);
+    border-color: var(--border-color, #C8B99A);
+}
+
+.faculty-login-section h3 { color: var(--text-secondary, #5A5340); }
+
+.faculty-input {
+    background: var(--surface-color, #FDFAF4);
+    border-color: var(--border-color, #C8B99A);
+    color: var(--text-color, #1E1C14);
+}
+
+.faculty-btn {
+    background: var(--primary-color, #5C6B3A);
+    color: #FDFAF4;
+}
+
+.faculty-btn:hover { background: var(--secondary-color, #8A9A5B); }
+
+.faculty-btn-github { background: #24292e; color: white; }
+.faculty-btn-github:hover { background: #3a4046; }
+
+.faculty-divider { color: var(--text-secondary, #5A5340); }
+.faculty-divider::before,
+.faculty-divider::after { background: var(--border-color, #C8B99A); }
+.faculty-note { color: var(--text-secondary, #5A5340); }
+
+[data-theme="dark"] .faculty-login-section {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.1);
+}
+
+[data-theme="dark"] .faculty-login-section h3 { color: rgba(237,232,218,0.7); }
+
+[data-theme="dark"] .faculty-input {
+    background: rgba(0,0,0,0.3);
+    border-color: rgba(255,255,255,0.15);
+    color: #EDE8DA;
 }

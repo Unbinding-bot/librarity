@@ -1,6 +1,7 @@
 // Spelling Bee Game Implementation
 import { showToast } from '../main.js';
 import { getDisplayName } from '../components/visitor-logbook.js';
+import { lockSubmitButtons, resetSubmitButtons } from '../utils/submit-lock.js';
 class SpellingBeeGame {
     constructor() {
         this.centerLetter = '';
@@ -126,20 +127,31 @@ class SpellingBeeGame {
         
         // Result buttons
         document.getElementById('shareResultBtn')?.addEventListener('click', () => this.shareResult());
+        document.getElementById('submitScoreBtn')?.addEventListener('click', () => this.submitScore());
         document.getElementById('playAgainBtn')?.addEventListener('click', () => {
-            // Check if daily mode and already played today
             if (this.mode === 'daily') {
                 const stats = this.loadStats();
                 const today = this.getTodayString();
-                
                 if (stats.lastPlayedDaily === today) {
-                    // Auto-switch to random mode
                     showToast('Switching to Random Puzzle mode', 'info');
                     this.changeMode('random');
                     return;
                 }
             }
             this.startGame();
+        });
+
+        // Action bar buttons
+        document.getElementById('actionBarShareBtn')?.addEventListener('click', () => this.shareResult());
+        document.getElementById('actionBarPlayAgainBtn')?.addEventListener('click', () => {
+            this.hideActionBar();
+            this.startGame();
+        });
+        document.getElementById('actionBarRestartBtn')?.addEventListener('click', () => {
+            if (confirm('Start a new puzzle? Current progress will be lost.')) {
+                this.hideActionBar();
+                this.startGame();
+            }
         });
         
         // Toggle rank distribution
@@ -174,6 +186,8 @@ class SpellingBeeGame {
         this.currentInput = '';
         this.foundWords.clear();
         this.score = 0;
+        this.hideActionBar();
+        resetSubmitButtons();
         
         // Calculate valid words and max score
         this.calculateValidWords();
@@ -594,9 +608,9 @@ class SpellingBeeGame {
         text += `By Unbinding`;
         
         navigator.clipboard.writeText(text).then(() => {
-            showToast('Result copied to clipboard!', 'success');
+            showToast('Score copied! 📋', 'success');
         }).catch(() => {
-            showToast('Failed to copy result', 'error');
+            showToast('Failed to copy', 'error');
         });
     }
 
@@ -717,12 +731,33 @@ class SpellingBeeGame {
         const modal = document.getElementById(modalId);
         if (modal) {
             modal.style.display = 'none';
+            document.body.style.overflow = '';
         }
+        // Show action bar when result modal is closed
+        if (modalId === 'resultModal' && this.gameOver) {
+            this.showActionBar();
+        }
+    }
+
+    showActionBar() {
+        const bar = document.getElementById('gameActionBar');
+        const label = document.getElementById('gameActionBarLabel');
+        if (bar && label) {
+            label.textContent = `Score: ${this.score} · ${this.foundWords.size} words found`;
+            bar.style.display = 'flex';
+        }
+    }
+
+    hideActionBar() {
+        const bar = document.getElementById('gameActionBar');
+        if (bar) bar.style.display = 'none';
     }
 
     async submitScore() {
         try {
-            const username = getDisplayName();
+            const { askForName } = await import('../components/visitor-logbook.js');
+            const username = await askForName();
+            if (!username) return;
             
             const { submitScore } = await import('../api/supabase.js');
             
@@ -734,7 +769,8 @@ class SpellingBeeGame {
                 timeTaken: null
             });
             
-            showToast(`Score submitted as "${username}"!`, 'success');
+            showToast(`Score submitted as "${username}"! ✅`, 'success');
+            lockSubmitButtons();
         } catch (error) {
             console.error('Error submitting score:', error);
         }

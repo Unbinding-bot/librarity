@@ -1,34 +1,36 @@
 // Wikipedia Race Game
 import { showToast } from '../main.js';
 import ModalSystem from '../components/modal-system.js';
+import { getDisplayName } from '../components/visitor-logbook.js';
+import { lockSubmitButtons, resetSubmitButtons } from '../utils/submit-lock.js';
 
-// ── Built-in challenges ──────────────────────────────────────────────────────
+// ── Built-in challenges (all titles verified as real Wikipedia articles) ─────
 const CHALLENGES = [
-    // Easy
-    { start: 'Dog',            target: 'Piano',          difficulty: 'easy' },
-    { start: 'Moon',           target: 'Coffee',         difficulty: 'easy' },
-    { start: 'Cat',            target: 'Internet',       difficulty: 'easy' },
-    { start: 'Apple',          target: 'Football',       difficulty: 'easy' },
-    { start: 'Rain',           target: 'Library',        difficulty: 'easy' },
-    { start: 'Sun',            target: 'Book',           difficulty: 'easy' },
+    // Easy — short, obvious connections
+    { start: 'Dog',             target: 'Piano',             difficulty: 'easy' },
+    { start: 'Moon',            target: 'Coffee',            difficulty: 'easy' },
+    { start: 'Cat',             target: 'Internet',          difficulty: 'easy' },
+    { start: 'Apple',           target: 'Association football', difficulty: 'easy' },
+    { start: 'Rain',            target: 'Library',           difficulty: 'easy' },
+    { start: 'Sun',             target: 'Book',              difficulty: 'easy' },
     // Medium
-    { start: 'Albert Einstein',  target: 'Pizza',          difficulty: 'medium' },
-    { start: 'Ancient Egypt',    target: 'Basketball',     difficulty: 'medium' },
-    { start: 'Volcano',          target: 'Jazz',           difficulty: 'medium' },
-    { start: 'Shark',            target: 'Democracy',      difficulty: 'medium' },
-    { start: 'Chocolate',        target: 'Olympic Games',  difficulty: 'medium' },
-    { start: 'Dinosaur',         target: 'Photography',    difficulty: 'medium' },
-    { start: 'Ocean',            target: 'Radio',          difficulty: 'medium' },
-    { start: 'Bicycle',          target: 'Shakespeare',    difficulty: 'medium' },
+    { start: 'Albert Einstein', target: 'Pizza',             difficulty: 'medium' },
+    { start: 'Ancient Egypt',   target: 'Basketball',        difficulty: 'medium' },
+    { start: 'Volcano',         target: 'Jazz',              difficulty: 'medium' },
+    { start: 'Shark',           target: 'Democracy',         difficulty: 'medium' },
+    { start: 'Chocolate',       target: 'Olympic Games',     difficulty: 'medium' },
+    { start: 'Dinosaur',        target: 'Photography',       difficulty: 'medium' },
+    { start: 'Ocean',           target: 'Radio',             difficulty: 'medium' },
+    { start: 'Bicycle',         target: 'William Shakespeare', difficulty: 'medium' },
     // Hard
-    { start: 'Leonardo da Vinci', target: 'Computer',       difficulty: 'hard' },
-    { start: 'Shakespeare',       target: 'Antarctica',     difficulty: 'hard' },
-    { start: 'Aristotle',         target: 'Baseball',       difficulty: 'hard' },
-    { start: 'Genghis Khan',      target: 'Telephone',      difficulty: 'hard' },
-    { start: 'Byzantine Empire',  target: 'Cinema',         difficulty: 'hard' },
-    { start: 'Plato',             target: 'Steam engine',   difficulty: 'hard' },
-    { start: 'Medieval',          target: 'Nuclear power',  difficulty: 'hard' },
-    { start: 'Cleopatra',         target: 'Saxophone',      difficulty: 'hard' },
+    { start: 'Leonardo da Vinci', target: 'Computer',        difficulty: 'hard' },
+    { start: 'William Shakespeare', target: 'Antarctica',    difficulty: 'hard' },
+    { start: 'Aristotle',       target: 'Baseball',          difficulty: 'hard' },
+    { start: 'Genghis Khan',    target: 'Telephone',         difficulty: 'hard' },
+    { start: 'Byzantine Empire', target: 'Cinema of the United States', difficulty: 'hard' },
+    { start: 'Plato',           target: 'Steam engine',      difficulty: 'hard' },
+    { start: 'Middle Ages',     target: 'Nuclear power',     difficulty: 'hard' },
+    { start: 'Cleopatra',       target: 'Saxophone',         difficulty: 'hard' },
 ];
 
 function getDailyChallenge() {
@@ -67,6 +69,10 @@ class WikipediaRace {
 
     init() {
         this.setupEventListeners();
+        // Auto-switch away from daily if already played today
+        if (this.mode === 'daily' && this.hasPlayedDaily()) {
+            this.mode = 'random';
+        }
         this.renderModeUI();
         this.hideLoading();
     }
@@ -104,8 +110,24 @@ class WikipediaRace {
         document.getElementById('hintBtn').addEventListener('click', () => this.showHint());
 
         document.getElementById('shareResultBtn').addEventListener('click', () => this.shareResult());
+        document.getElementById('submitScoreBtn')?.addEventListener('click', () => this.submitScoreManual());
         document.getElementById('playAgainBtn').addEventListener('click', () => this.reset());
-        document.getElementById('resultClose')?.addEventListener('click', () => this.reset());
+        document.getElementById('resultClose')?.addEventListener('click', () => {
+            this.reset();
+        });
+
+        // Action bar
+        document.getElementById('actionBarShareBtn')?.addEventListener('click', () => this.shareResult());
+        document.getElementById('actionBarPlayAgainBtn')?.addEventListener('click', () => {
+            this.hideActionBar();
+            this.reset();
+        });
+        document.getElementById('actionBarRestartBtn')?.addEventListener('click', () => {
+            if (confirm('Start a new race? Progress will be lost.')) {
+                this.hideActionBar();
+                this.reset();
+            }
+        });
 
         document.getElementById('linkSearch').addEventListener('input', e => this.filterLinks(e.target.value));
 
@@ -176,6 +198,15 @@ class WikipediaRace {
     }
 
     launchDaily() {
+        if (this.hasPlayedDaily()) {
+            showToast("You've already completed today's race! Come back tomorrow.", 'info');
+            // Auto-switch to random tab
+            this.mode = 'random';
+            document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector('.mode-tab[data-mode="random"]')?.classList.add('active');
+            this.renderModeUI();
+            return;
+        }
         this.currentChallenge = { ...getDailyChallenge(), isDaily: true };
         this.startGame();
     }
@@ -349,7 +380,20 @@ class WikipediaRace {
 
             this.attachLinkListeners();
 
-            if (actualTitle.toLowerCase() === this.currentChallenge.target.toLowerCase()) {
+            // Check for completion — handle Wikipedia redirects gracefully
+            // e.g. target "Shakespeare" should match actualTitle "William Shakespeare"
+            const targetLow = this.currentChallenge.target.toLowerCase();
+            const titleLow  = actualTitle.toLowerCase();
+            const isMatch   = titleLow === targetLow
+                           || titleLow.includes(targetLow)
+                           || targetLow.includes(titleLow);
+
+            if (isMatch) {
+                // Update path to use the real resolved title
+                if (this.path.length > 0 && this.path[this.path.length - 1].toLowerCase() !== titleLow) {
+                    this.path[this.path.length - 1] = actualTitle;
+                    this.updateBreadcrumb();
+                }
                 setTimeout(() => this.completeChallenge(), 300);
             }
         } catch (err) {
@@ -577,7 +621,7 @@ class WikipediaRace {
             'By Unbinding',
         ].join('\n');
         navigator.clipboard?.writeText(text)
-            .then(() => showToast('Result copied!', 'success'))
+            .then(() => showToast('Score copied! 📋', 'success'))
             .catch(() => showToast('Could not copy', 'error'));
     }
 
@@ -586,6 +630,30 @@ class WikipediaRace {
             this.stopTimer();
             this.reset();
         }
+    }
+
+    async submitScoreManual() {
+        const { askForName } = await import('../components/visitor-logbook.js');
+        const name = await askForName();
+        if (!name) return;
+        const score   = parseInt(document.getElementById('finalScore')?.textContent || '0');
+        const elapsed = this.getElapsed();
+        try {
+            const { submitScore } = await import('../api/supabase.js');
+            await submitScore({
+                gameType: 'wikipedia_race',
+                gameMode: this.currentChallenge?.isDaily ? 'daily' : 'random',
+                playerName: name,
+                score,
+                timeTaken: elapsed,
+            });
+            showToast(`Score submitted as "${name}"! ✅`, 'success');
+            lockSubmitButtons();
+        } catch (err) {
+            console.error('Score submit error:', err);
+            showToast('Could not submit — saved locally only', 'error');
+        }
+        this.saveStats(elapsed, score);
     }
 
     reset() {
@@ -598,7 +666,23 @@ class WikipediaRace {
             const el = document.getElementById(id); if (el) el.value = '';
         });
         this.currentChallenge = null;
+        this.hideActionBar();
+        resetSubmitButtons();
         this.renderModeUI();
+    }
+
+    showActionBar() {
+        const bar   = document.getElementById('gameActionBar');
+        const label = document.getElementById('gameActionBarLabel');
+        if (bar && label && this.currentChallenge) {
+            label.textContent = `${this.currentChallenge.start} → ${this.currentChallenge.target} · ${this.clickCount} clicks`;
+            bar.style.display = 'flex';
+        }
+    }
+
+    hideActionBar() {
+        const bar = document.getElementById('gameActionBar');
+        if (bar) bar.style.display = 'none';
     }
 }
 

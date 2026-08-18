@@ -44,6 +44,117 @@ export function getDisplayName() {
     return getUsername() || 'Anonymous';
 }
 
+/**
+ * Prompt the user for a name if one isn't already saved, then return it.
+ * Shows a small inline modal rather than a browser prompt().
+ * Returns a Promise that resolves to the name string, or null if cancelled.
+ * Also saves the name to localStorage so future submissions are instant.
+ */
+export function askForName() {
+    return new Promise(resolve => {
+        // Already have a name — resolve immediately
+        const existing = getUsername();
+        if (existing) { resolve(existing); return; }
+
+        // Build a minimal modal
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `
+            position:fixed;inset:0;background:rgba(0,0,0,0.7);
+            display:flex;align-items:center;justify-content:center;
+            z-index:99999;padding:1rem;
+        `;
+
+        overlay.innerHTML = `
+            <div style="
+                background:var(--surface-color,#fff);border-radius:12px;
+                padding:2rem;max-width:400px;width:100%;
+                box-shadow:0 8px 32px rgba(0,0,0,0.3);
+                font-family:var(--font-primary,sans-serif);
+            ">
+                <h2 style="margin:0 0 0.5rem;font-size:1.3rem;color:var(--primary-color,#5C6B3A);">
+                    What's your name?
+                </h2>
+                <p style="margin:0 0 1.25rem;font-size:0.9rem;color:var(--text-secondary,#666);">
+                    Your name will be saved for future score submissions.
+                    You can change it anytime in the Visitor Logbook.
+                </p>
+                <input
+                    id="_askNameInput"
+                    type="text"
+                    maxlength="40"
+                    placeholder="Enter your name…"
+                    autofocus
+                    style="
+                        width:100%;padding:0.65rem 0.9rem;
+                        border:2px solid var(--border-color,#C8B99A);
+                        border-radius:6px;font-size:1rem;
+                        background:var(--bg-primary,#fff);
+                        color:var(--text-color,#1a1a1a);
+                        box-sizing:border-box;outline:none;
+                        transition:border-color 0.2s;
+                    "
+                >
+                <div style="display:flex;gap:0.5rem;margin-top:1rem;justify-content:flex-end;">
+                    <button id="_askNameSkip" style="
+                        padding:0.55rem 1.1rem;background:none;
+                        border:2px solid var(--border-color,#ccc);
+                        border-radius:6px;cursor:pointer;
+                        font-size:0.9rem;color:var(--text-secondary,#666);
+                    ">Skip</button>
+                    <button id="_askNameSave" style="
+                        padding:0.55rem 1.4rem;
+                        background:var(--primary-color,#5C6B3A);
+                        color:white;border:none;border-radius:6px;
+                        cursor:pointer;font-size:0.9rem;font-weight:600;
+                    ">Save & Submit</button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        const input   = overlay.querySelector('#_askNameInput');
+        const saveBtn = overlay.querySelector('#_askNameSave');
+        const skipBtn = overlay.querySelector('#_askNameSkip');
+
+        // Focus the input
+        setTimeout(() => input.focus(), 50);
+
+        // Style focus ring
+        input.addEventListener('focus', () => {
+            input.style.borderColor = 'var(--primary-color,#5C6B3A)';
+        });
+        input.addEventListener('blur', () => {
+            input.style.borderColor = 'var(--border-color,#C8B99A)';
+        });
+
+        function close(name) {
+            document.body.removeChild(overlay);
+            resolve(name || null);
+        }
+
+        saveBtn.addEventListener('click', () => {
+            const val = input.value.trim();
+            if (!val) { input.style.borderColor = '#B04030'; input.focus(); return; }
+            setUsername(val);
+            close(val);
+        });
+
+        skipBtn.addEventListener('click', () => close(null));
+
+        // Enter to save
+        input.addEventListener('keydown', e => {
+            if (e.key === 'Enter') saveBtn.click();
+            if (e.key === 'Escape') close(null);
+        });
+
+        // Click backdrop to cancel
+        overlay.addEventListener('click', e => {
+            if (e.target === overlay) close(null);
+        });
+    });
+}
+
 // ── Logbook entries API ───────────────────────────────────────────────────────
 
 function loadLocalEntries() {

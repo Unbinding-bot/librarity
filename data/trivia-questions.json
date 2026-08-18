@@ -1,422 +1,86 @@
 [
-  {
-    "category": "history",
-    "difficulty": "easy",
-    "question": "In which year did World War II end?",
-    "answers": ["1945", "1944", "1946", "1943"],
-    "correct": "1945"
-  },
-  {
-    "category": "history",
-    "difficulty": "easy",
-    "question": "Who was the first President of the United States?",
-    "answers": ["George Washington", "Thomas Jefferson", "John Adams", "Benjamin Franklin"],
-    "correct": "George Washington"
-  },
-  {
-    "category": "history",
-    "difficulty": "medium",
-    "question": "The Renaissance began in which country?",
-    "answers": ["Italy", "France", "England", "Spain"],
-    "correct": "Italy"
-  },
-  {
-    "category": "history",
-    "difficulty": "medium",
-    "question": "Which ancient wonder of the world still stands today?",
-    "answers": ["Great Pyramid of Giza", "Hanging Gardens of Babylon", "Colossus of Rhodes", "Lighthouse of Alexandria"],
-    "correct": "Great Pyramid of Giza"
-  },
-  {
-    "category": "history",
-    "difficulty": "hard",
-    "question": "What year did the Berlin Wall fall?",
-    "answers": ["1989", "1987", "1991", "1985"],
-    "correct": "1989"
-  },
-  {
-    "category": "history",
-    "difficulty": "hard",
-    "question": "Who was the longest-reigning British monarch before Elizabeth II?",
-    "answers": ["Queen Victoria", "King George III", "King Henry VIII", "Queen Elizabeth I"],
-    "correct": "Queen Victoria"
-  },
-  {
-    "category": "history",
-    "difficulty": "easy",
-    "question": "Which empire built Machu Picchu?",
-    "answers": ["Inca Empire", "Aztec Empire", "Maya Empire", "Roman Empire"],
-    "correct": "Inca Empire"
-  },
-  {
-    "category": "history",
-    "difficulty": "medium",
-    "question": "The Hundred Years' War was fought between England and which country?",
-    "answers": ["France", "Spain", "Germany", "Scotland"],
-    "correct": "France"
-  },
-  {
-    "category": "history",
-    "difficulty": "hard",
-    "question": "What year was the Magna Carta signed?",
-    "answers": ["1215", "1315", "1115", "1415"],
-    "correct": "1215"
-  },
-  {
-    "category": "history",
-    "difficulty": "medium",
-    "question": "Who was the first woman to win a Nobel Prize?",
-    "answers": ["Marie Curie", "Rosa Parks", "Florence Nightingale", "Jane Austen"],
-    "correct": "Marie Curie"
-  },
-  {
-    "category": "science",
-    "difficulty": "easy",
-    "question": "What is the chemical symbol for gold?",
-    "answers": ["Au", "Ag", "Go", "Gd"],
-    "correct": "Au"
-  },
-  {
-    "category": "science",
-    "difficulty": "easy",
-    "question": "How many planets are in our solar system?",
-    "answers": ["8", "7", "9", "10"],
-    "correct": "8"
-  },
-  {
-    "category": "science",
-    "difficulty": "medium",
-    "question": "What is the hardest natural substance on Earth?",
-    "answers": ["Diamond", "Steel", "Titanium", "Quartz"],
-    "correct": "Diamond"
-  },
-  {
-    "category": "science",
-    "difficulty": "medium",
-    "question": "What is the speed of light in a vacuum?",
-    "answers": ["299,792,458 m/s", "300,000,000 m/s", "250,000,000 m/s", "350,000,000 m/s"],
-    "correct": "299,792,458 m/s"
-  },
-  {
-    "category": "science",
-    "difficulty": "hard",
-    "question": "What is the most abundant gas in Earth's atmosphere?",
-    "answers": ["Nitrogen", "Oxygen", "Carbon Dioxide", "Hydrogen"],
-    "correct": "Nitrogen"
-  },
-  {
-    "category": "science",
-    "difficulty": "hard",
-    "question": "Who developed the theory of general relativity?",
-    "answers": ["Albert Einstein", "Isaac Newton", "Niels Bohr", "Stephen Hawking"],
-    "correct": "Albert Einstein"
-  },
-  {
-    "category": "science",
-    "difficulty": "easy",
-    "question": "What is the largest organ in the human body?",
-    "answers": ["Skin", "Liver", "Heart", "Brain"],
-    "correct": "Skin"
-  },
-  {
-    "category": "science",
-    "difficulty": "medium",
-    "question": "What is the powerhouse of the cell?",
-    "answers": ["Mitochondria", "Nucleus", "Ribosome", "Chloroplast"],
-    "correct": "Mitochondria"
-  },
-  {
-    "category": "science",
-    "difficulty": "hard",
-    "question": "What is the pH level of pure water?",
-    "answers": ["7", "0", "14", "10"],
-    "correct": "7"
-  },
-  {
-    "category": "science",
-    "difficulty": "easy",
-    "question": "How many bones are in the adult human body?",
-    "answers": ["206", "195", "215", "180"],
-    "correct": "206"
-  },
-  {
-    "category": "literature",
-    "difficulty": "easy",
-    "question": "Who wrote 'Romeo and Juliet'?",
-    "answers": ["William Shakespeare", "Charles Dickens", "Jane Austen", "Mark Twain"],
-    "correct": "William Shakespeare"
-  },
-  {
-    "category": "literature",
-    "difficulty": "easy",
-    "question": "What is the first book in the Harry Potter series?",
-    "answers": ["Harry Potter and the Philosopher's Stone", "Harry Potter and the Chamber of Secrets", "Harry Potter and the Prisoner of Azkaban", "Harry Potter and the Goblet of Fire"],
-    "correct": "Harry Potter and the Philosopher's Stone"
-  },
-  {
-    "category": "literature",
-    "difficulty": "medium",
-    "question": "Who wrote '1984'?",
-    "answers": ["George Orwell", "Aldous Huxley", "Ray Bradbury", "H.G. Wells"],
-    "correct": "George Orwell"
-  },
-  {
-    "category": "literature",
-    "difficulty": "medium",
-    "question": "In 'The Great Gatsby', what is the name of the narrator?",
-    "answers": ["Nick Carraway", "Jay Gatsby", "Tom Buchanan", "Daisy Buchanan"],
-    "correct": "Nick Carraway"
-  },
-  {
-    "category": "literature",
-    "difficulty": "hard",
-    "question": "Which novel begins with the line 'Call me Ishmael'?",
-    "answers": ["Moby-Dick", "The Old Man and the Sea", "Treasure Island", "Robinson Crusoe"],
-    "correct": "Moby-Dick"
-  },
-  {
-    "category": "literature",
-    "difficulty": "hard",
-    "question": "Who wrote 'One Hundred Years of Solitude'?",
-    "answers": ["Gabriel García Márquez", "Pablo Neruda", "Jorge Luis Borges", "Isabel Allende"],
-    "correct": "Gabriel García Márquez"
-  },
-  {
-    "category": "literature",
-    "difficulty": "easy",
-    "question": "Who is the author of 'The Chronicles of Narnia'?",
-    "answers": ["C.S. Lewis", "J.R.R. Tolkien", "J.K. Rowling", "Roald Dahl"],
-    "correct": "C.S. Lewis"
-  },
-  {
-    "category": "literature",
-    "difficulty": "medium",
-    "question": "What is the name of the wizard in 'The Lord of the Rings'?",
-    "answers": ["Gandalf", "Merlin", "Dumbledore", "Saruman"],
-    "correct": "Gandalf"
-  },
-  {
-    "category": "literature",
-    "difficulty": "hard",
-    "question": "Which Shakespeare play features the characters Rosencrantz and Guildenstern?",
-    "answers": ["Hamlet", "Macbeth", "Othello", "King Lear"],
-    "correct": "Hamlet"
-  },
-  {
-    "category": "literature",
-    "difficulty": "easy",
-    "question": "Who wrote 'Pride and Prejudice'?",
-    "answers": ["Jane Austen", "Emily Brontë", "Charlotte Brontë", "George Eliot"],
-    "correct": "Jane Austen"
-  },
-  {
-    "category": "geography",
-    "difficulty": "easy",
-    "question": "What is the capital of France?",
-    "answers": ["Paris", "London", "Berlin", "Rome"],
-    "correct": "Paris"
-  },
-  {
-    "category": "geography",
-    "difficulty": "easy",
-    "question": "Which is the largest ocean on Earth?",
-    "answers": ["Pacific Ocean", "Atlantic Ocean", "Indian Ocean", "Arctic Ocean"],
-    "correct": "Pacific Ocean"
-  },
-  {
-    "category": "geography",
-    "difficulty": "medium",
-    "question": "What is the longest river in the world?",
-    "answers": ["Nile River", "Amazon River", "Mississippi River", "Yangtze River"],
-    "correct": "Nile River"
-  },
-  {
-    "category": "geography",
-    "difficulty": "medium",
-    "question": "Which country has the most time zones?",
-    "answers": ["France", "Russia", "United States", "China"],
-    "correct": "France"
-  },
-  {
-    "category": "geography",
-    "difficulty": "hard",
-    "question": "What is the smallest country in the world?",
-    "answers": ["Vatican City", "Monaco", "San Marino", "Liechtenstein"],
-    "correct": "Vatican City"
-  },
-  {
-    "category": "geography",
-    "difficulty": "hard",
-    "question": "Which desert is the largest hot desert in the world?",
-    "answers": ["Sahara Desert", "Arabian Desert", "Gobi Desert", "Kalahari Desert"],
-    "correct": "Sahara Desert"
-  },
-  {
-    "category": "geography",
-    "difficulty": "easy",
-    "question": "What is the tallest mountain in the world?",
-    "answers": ["Mount Everest", "K2", "Kangchenjunga", "Mount Kilimanjaro"],
-    "correct": "Mount Everest"
-  },
-  {
-    "category": "geography",
-    "difficulty": "medium",
-    "question": "Which country is home to the Great Barrier Reef?",
-    "answers": ["Australia", "Brazil", "Indonesia", "Philippines"],
-    "correct": "Australia"
-  },
-  {
-    "category": "geography",
-    "difficulty": "hard",
-    "question": "What is the capital of Mongolia?",
-    "answers": ["Ulaanbaatar", "Astana", "Bishkek", "Ashgabat"],
-    "correct": "Ulaanbaatar"
-  },
-  {
-    "category": "geography",
-    "difficulty": "medium",
-    "question": "Which African country was formerly known as Abyssinia?",
-    "answers": ["Ethiopia", "Somalia", "Sudan", "Kenya"],
-    "correct": "Ethiopia"
-  },
-  {
-    "category": "arts",
-    "difficulty": "easy",
-    "question": "Who painted the Mona Lisa?",
-    "answers": ["Leonardo da Vinci", "Michelangelo", "Raphael", "Donatello"],
-    "correct": "Leonardo da Vinci"
-  },
-  {
-    "category": "arts",
-    "difficulty": "easy",
-    "question": "What is the name of Beethoven's only opera?",
-    "answers": ["Fidelio", "The Magic Flute", "Carmen", "La Traviata"],
-    "correct": "Fidelio"
-  },
-  {
-    "category": "arts",
-    "difficulty": "medium",
-    "question": "Who sculpted 'The Thinker'?",
-    "answers": ["Auguste Rodin", "Michelangelo", "Donatello", "Bernini"],
-    "correct": "Auguste Rodin"
-  },
-  {
-    "category": "arts",
-    "difficulty": "medium",
-    "question": "Which art movement is Salvador Dalí associated with?",
-    "answers": ["Surrealism", "Cubism", "Impressionism", "Expressionism"],
-    "correct": "Surrealism"
-  },
-  {
-    "category": "arts",
-    "difficulty": "hard",
-    "question": "What is the name of the famous painting by Edvard Munch?",
-    "answers": ["The Scream", "The Kiss", "Starry Night", "The Persistence of Memory"],
-    "correct": "The Scream"
-  },
-  {
-    "category": "arts",
-    "difficulty": "hard",
-    "question": "Who composed 'The Four Seasons'?",
-    "answers": ["Antonio Vivaldi", "Johann Sebastian Bach", "Wolfgang Amadeus Mozart", "Ludwig van Beethoven"],
-    "correct": "Antonio Vivaldi"
-  },
-  {
-    "category": "arts",
-    "difficulty": "easy",
-    "question": "Which famous artist cut off part of his ear?",
-    "answers": ["Vincent van Gogh", "Pablo Picasso", "Claude Monet", "Paul Gauguin"],
-    "correct": "Vincent van Gogh"
-  },
-  {
-    "category": "arts",
-    "difficulty": "medium",
-    "question": "What is the art of Japanese paper folding called?",
-    "answers": ["Origami", "Ikebana", "Bonsai", "Sumi-e"],
-    "correct": "Origami"
-  },
-  {
-    "category": "arts",
-    "difficulty": "hard",
-    "question": "Which museum houses the painting 'The Starry Night'?",
-    "answers": ["Museum of Modern Art (MoMA)", "Louvre", "Metropolitan Museum of Art", "National Gallery"],
-    "correct": "Museum of Modern Art (MoMA)"
-  },
-  {
-    "category": "arts",
-    "difficulty": "medium",
-    "question": "Who wrote the play 'A Streetcar Named Desire'?",
-    "answers": ["Tennessee Williams", "Arthur Miller", "Eugene O'Neill", "Edward Albee"],
-    "correct": "Tennessee Williams"
-  },
-  {
-    "category": "general",
-    "difficulty": "easy",
-    "question": "How many continents are there?",
-    "answers": ["7", "5", "6", "8"],
-    "correct": "7"
-  },
-  {
-    "category": "general",
-    "difficulty": "easy",
-    "question": "What is the largest mammal in the world?",
-    "answers": ["Blue Whale", "African Elephant", "Giraffe", "Polar Bear"],
-    "correct": "Blue Whale"
-  },
-  {
-    "category": "general",
-    "difficulty": "medium",
-    "question": "What is the currency of Japan?",
-    "answers": ["Yen", "Won", "Yuan", "Rupee"],
-    "correct": "Yen"
-  },
-  {
-    "category": "general",
-    "difficulty": "medium",
-    "question": "How many days are in a leap year?",
-    "answers": ["366", "365", "364", "367"],
-    "correct": "366"
-  },
-  {
-    "category": "general",
-    "difficulty": "hard",
-    "question": "What is the smallest prime number?",
-    "answers": ["2", "1", "3", "0"],
-    "correct": "2"
-  },
-  {
-    "category": "general",
-    "difficulty": "hard",
-    "question": "In which year was the United Nations founded?",
-    "answers": ["1945", "1918", "1950", "1939"],
-    "correct": "1945"
-  },
-  {
-    "category": "general",
-    "difficulty": "easy",
-    "question": "What is the square root of 64?",
-    "answers": ["8", "6", "10", "4"],
-    "correct": "8"
-  },
-  {
-    "category": "general",
-    "difficulty": "medium",
-    "question": "How many keys are on a standard piano?",
-    "answers": ["88", "76", "100", "61"],
-    "correct": "88"
-  },
-  {
-    "category": "general",
-    "difficulty": "hard",
-    "question": "What is the rarest blood type?",
-    "answers": ["AB negative", "O negative", "B negative", "A negative"],
-    "correct": "AB negative"
-  },
-  {
-    "category": "general",
-    "difficulty": "easy",
-    "question": "How many sides does a hexagon have?",
-    "answers": ["6", "5", "7", "8"],
-    "correct": "6"
-  }
+  {"category":"history","difficulty":"easy","question":"Who was the first President of the United States?","answers":["George Washington","Thomas Jefferson","Abraham Lincoln","Benjamin Franklin"],"correct":"George Washington"},
+  {"category":"history","difficulty":"easy","question":"In which year did World War II end?","answers":["1943","1944","1945","1946"],"correct":"1945"},
+  {"category":"history","difficulty":"easy","question":"Which country built the Great Wall?","answers":["Japan","China","India","Korea"],"correct":"China"},
+  {"category":"history","difficulty":"easy","question":"Who was known as the Maid of Orléans?","answers":["Marie Curie","Joan of Arc","Catherine the Great","Cleopatra"],"correct":"Joan of Arc"},
+  {"category":"history","difficulty":"easy","question":"In which city was the Titanic built?","answers":["Liverpool","London","Belfast","Dublin"],"correct":"Belfast"},
+  {"category":"history","difficulty":"easy","question":"Which empire was ruled by Julius Caesar?","answers":["Greek","Ottoman","Roman","Persian"],"correct":"Roman"},
+  {"category":"history","difficulty":"easy","question":"The Berlin Wall fell in which year?","answers":["1987","1988","1989","1990"],"correct":"1989"},
+  {"category":"history","difficulty":"medium","question":"Which battle ended Napoleon's rule in 1815?","answers":["Battle of Trafalgar","Battle of Austerlitz","Battle of Waterloo","Battle of Borodino"],"correct":"Battle of Waterloo"},
+  {"category":"history","difficulty":"medium","question":"What was the name of the ship that carried the Pilgrims to America in 1620?","answers":["Santa Maria","Mayflower","Endeavour","Discovery"],"correct":"Mayflower"},
+  {"category":"history","difficulty":"medium","question":"The Magna Carta was signed in which year?","answers":["1066","1215","1348","1492"],"correct":"1215"},
+  {"category":"history","difficulty":"medium","question":"Which pharaoh is believed to have built the Great Sphinx?","answers":["Ramesses II","Tutankhamun","Khafre","Khufu"],"correct":"Khafre"},
+  {"category":"history","difficulty":"medium","question":"The Cuban Missile Crisis occurred in which year?","answers":["1958","1960","1962","1964"],"correct":"1962"},
+  {"category":"history","difficulty":"medium","question":"Who was the first woman to win a Nobel Prize?","answers":["Rosalind Franklin","Marie Curie","Dorothy Hodgkin","Lise Meitner"],"correct":"Marie Curie"},
+  {"category":"history","difficulty":"hard","question":"Which treaty ended the Thirty Years' War in 1648?","answers":["Treaty of Versailles","Peace of Westphalia","Treaty of Utrecht","Peace of Augsburg"],"correct":"Peace of Westphalia"},
+  {"category":"history","difficulty":"hard","question":"What was the name of the Byzantine emperor who ordered the construction of the Hagia Sophia?","answers":["Constantine I","Justinian I","Basil II","Heraclius"],"correct":"Justinian I"},
+  {"category":"history","difficulty":"hard","question":"In what year did the Meiji Restoration begin in Japan?","answers":["1853","1860","1868","1889"],"correct":"1868"},
+  {"category":"history","difficulty":"hard","question":"Which general defeated the Persian army at the Battle of Marathon in 490 BC?","answers":["Leonidas","Themistocles","Miltiades","Pericles"],"correct":"Miltiades"},
+  {"category":"history","difficulty":"hard","question":"The Sykes-Picot Agreement of 1916 divided which region between Britain and France?","answers":["North Africa","The Balkans","The Middle East","Central Asia"],"correct":"The Middle East"},
+
+  {"category":"science","difficulty":"easy","question":"What is the chemical symbol for water?","answers":["WA","H2O","HO","W2O"],"correct":"H2O"},
+  {"category":"science","difficulty":"easy","question":"How many planets are in our solar system?","answers":["7","8","9","10"],"correct":"8"},
+  {"category":"science","difficulty":"easy","question":"What gas do plants absorb from the air?","answers":["Oxygen","Nitrogen","Carbon Dioxide","Hydrogen"],"correct":"Carbon Dioxide"},
+  {"category":"science","difficulty":"easy","question":"What is the closest star to Earth?","answers":["Alpha Centauri","Sirius","Proxima Centauri","The Sun"],"correct":"The Sun"},
+  {"category":"science","difficulty":"easy","question":"What is the hardest natural substance on Earth?","answers":["Gold","Iron","Diamond","Quartz"],"correct":"Diamond"},
+  {"category":"science","difficulty":"medium","question":"What is the speed of light in a vacuum (approximately)?","answers":["150,000 km/s","300,000 km/s","450,000 km/s","600,000 km/s"],"correct":"300,000 km/s"},
+  {"category":"science","difficulty":"medium","question":"What is the powerhouse of the cell?","answers":["Nucleus","Ribosome","Mitochondria","Golgi apparatus"],"correct":"Mitochondria"},
+  {"category":"science","difficulty":"medium","question":"What is the most abundant gas in Earth's atmosphere?","answers":["Oxygen","Carbon Dioxide","Argon","Nitrogen"],"correct":"Nitrogen"},
+  {"category":"science","difficulty":"medium","question":"Who developed the theory of general relativity?","answers":["Isaac Newton","Niels Bohr","Albert Einstein","Max Planck"],"correct":"Albert Einstein"},
+  {"category":"science","difficulty":"medium","question":"What is the pH of pure water?","answers":["5","6","7","8"],"correct":"7"},
+  {"category":"science","difficulty":"medium","question":"What particle has a negative charge?","answers":["Proton","Neutron","Electron","Positron"],"correct":"Electron"},
+  {"category":"science","difficulty":"hard","question":"What is the Chandrasekhar limit?","answers":["The max mass of a neutron star","The max mass of a white dwarf","The speed at which a black hole forms","The min mass for nuclear fusion"],"correct":"The max mass of a white dwarf"},
+  {"category":"science","difficulty":"hard","question":"Which protein is responsible for carrying oxygen in red blood cells?","answers":["Myosin","Insulin","Hemoglobin","Keratin"],"correct":"Hemoglobin"},
+  {"category":"science","difficulty":"hard","question":"What is the Pauli Exclusion Principle?","answers":["No two photons can occupy the same energy level","No two fermions can occupy the same quantum state","Matter and energy are equivalent","Observation changes a quantum system"],"correct":"No two fermions can occupy the same quantum state"},
+  {"category":"science","difficulty":"hard","question":"What is the name of the process by which cells engulf foreign particles?","answers":["Osmosis","Phagocytosis","Endocytosis","Exocytosis"],"correct":"Phagocytosis"},
+
+  {"category":"literature","difficulty":"easy","question":"Who wrote 'Romeo and Juliet'?","answers":["Charles Dickens","William Shakespeare","Jane Austen","Mark Twain"],"correct":"William Shakespeare"},
+  {"category":"literature","difficulty":"easy","question":"In which book does the character Hermione Granger appear?","answers":["The Hobbit","Narnia","Harry Potter","Percy Jackson"],"correct":"Harry Potter"},
+  {"category":"literature","difficulty":"easy","question":"Who wrote '1984'?","answers":["Aldous Huxley","George Orwell","Ray Bradbury","H.G. Wells"],"correct":"George Orwell"},
+  {"category":"literature","difficulty":"easy","question":"What is the name of the whale in 'Moby-Dick'?","answers":["Moby","The Great White","Moby-Dick","Leviathan"],"correct":"Moby-Dick"},
+  {"category":"literature","difficulty":"medium","question":"Who wrote 'Pride and Prejudice'?","answers":["Charlotte Brontë","Emily Brontë","Jane Austen","George Eliot"],"correct":"Jane Austen"},
+  {"category":"literature","difficulty":"medium","question":"In which Dickens novel does the character Ebenezer Scrooge appear?","answers":["Oliver Twist","David Copperfield","A Christmas Carol","Great Expectations"],"correct":"A Christmas Carol"},
+  {"category":"literature","difficulty":"medium","question":"What is the real name of the author who wrote under the pen name Mark Twain?","answers":["Samuel Langhorne Clemens","John Henry Adams","William Thomas Hart","James Cooper Lee"],"correct":"Samuel Langhorne Clemens"},
+  {"category":"literature","difficulty":"medium","question":"Which Shakespeare play features the characters Oberon and Titania?","answers":["The Tempest","A Midsummer Night's Dream","As You Like It","The Winter's Tale"],"correct":"A Midsummer Night's Dream"},
+  {"category":"literature","difficulty":"hard","question":"Which novel begins with the line 'It was the best of times, it was the worst of times'?","answers":["Bleak House","A Tale of Two Cities","David Copperfield","Great Expectations"],"correct":"A Tale of Two Cities"},
+  {"category":"literature","difficulty":"hard","question":"Who wrote 'The Brothers Karamazov'?","answers":["Leo Tolstoy","Ivan Turgenev","Fyodor Dostoevsky","Anton Chekhov"],"correct":"Fyodor Dostoevsky"},
+  {"category":"literature","difficulty":"hard","question":"In Homer's Odyssey, what is the name of the island where Odysseus is kept by the nymph Calypso?","answers":["Ithaca","Ogygia","Aeaea","Scheria"],"correct":"Ogygia"},
+  {"category":"literature","difficulty":"hard","question":"Which poet wrote 'The Waste Land' in 1922?","answers":["Ezra Pound","W.B. Yeats","T.S. Eliot","W.H. Auden"],"correct":"T.S. Eliot"},
+
+  {"category":"geography","difficulty":"easy","question":"What is the capital of France?","answers":["London","Berlin","Madrid","Paris"],"correct":"Paris"},
+  {"category":"geography","difficulty":"easy","question":"What is the longest river in the world?","answers":["Amazon","Mississippi","Congo","Nile"],"correct":"Nile"},
+  {"category":"geography","difficulty":"easy","question":"On which continent is Egypt located?","answers":["Asia","Europe","South America","Africa"],"correct":"Africa"},
+  {"category":"geography","difficulty":"easy","question":"What is the smallest country in the world?","answers":["Monaco","San Marino","Liechtenstein","Vatican City"],"correct":"Vatican City"},
+  {"category":"geography","difficulty":"medium","question":"Which country has the most natural lakes?","answers":["Russia","USA","Brazil","Canada"],"correct":"Canada"},
+  {"category":"geography","difficulty":"medium","question":"The Strait of Magellan connects which two bodies of water?","answers":["Pacific and Indian Oceans","Atlantic and Pacific Oceans","Atlantic and Arctic Oceans","Indian and Pacific Oceans"],"correct":"Atlantic and Pacific Oceans"},
+  {"category":"geography","difficulty":"medium","question":"What is the capital of Australia?","answers":["Sydney","Melbourne","Brisbane","Canberra"],"correct":"Canberra"},
+  {"category":"geography","difficulty":"medium","question":"Mount Kilimanjaro is located in which country?","answers":["Kenya","Uganda","Tanzania","Ethiopia"],"correct":"Tanzania"},
+  {"category":"geography","difficulty":"hard","question":"Which country has the most time zones?","answers":["Russia","USA","China","France"],"correct":"France"},
+  {"category":"geography","difficulty":"hard","question":"What is the name of the deepest lake in the world?","answers":["Lake Superior","Caspian Sea","Lake Tanganyika","Lake Baikal"],"correct":"Lake Baikal"},
+  {"category":"geography","difficulty":"hard","question":"The Atacama Desert is located primarily in which country?","answers":["Peru","Argentina","Bolivia","Chile"],"correct":"Chile"},
+  {"category":"geography","difficulty":"hard","question":"Which African country is the most northerly?","answers":["Morocco","Algeria","Egypt","Tunisia"],"correct":"Tunisia"},
+
+  {"category":"arts","difficulty":"easy","question":"Who painted the Mona Lisa?","answers":["Michelangelo","Leonardo da Vinci","Raphael","Donatello"],"correct":"Leonardo da Vinci"},
+  {"category":"arts","difficulty":"easy","question":"How many strings does a standard guitar have?","answers":["4","5","6","7"],"correct":"6"},
+  {"category":"arts","difficulty":"easy","question":"Which artist cut off part of his own ear?","answers":["Pablo Picasso","Salvador Dalí","Vincent van Gogh","Paul Gauguin"],"correct":"Vincent van Gogh"},
+  {"category":"arts","difficulty":"medium","question":"Which composer wrote the 'Moonlight Sonata'?","answers":["Mozart","Bach","Beethoven","Chopin"],"correct":"Beethoven"},
+  {"category":"arts","difficulty":"medium","question":"In what art movement is Salvador Dalí primarily associated?","answers":["Cubism","Impressionism","Surrealism","Expressionism"],"correct":"Surrealism"},
+  {"category":"arts","difficulty":"medium","question":"Who sculpted 'The Thinker'?","answers":["Michelangelo","Bernini","Rodin","Brancusi"],"correct":"Rodin"},
+  {"category":"arts","difficulty":"medium","question":"What nationality was the painter Frida Kahlo?","answers":["Brazilian","Colombian","Argentine","Mexican"],"correct":"Mexican"},
+  {"category":"arts","difficulty":"hard","question":"Which Italian Baroque painter was also known for her dramatic use of light and was the first woman admitted to the Accademia di Arte del Disegno?","answers":["Lavinia Fontana","Sofonisba Anguissola","Artemisia Gentileschi","Rosalba Carriera"],"correct":"Artemisia Gentileschi"},
+  {"category":"arts","difficulty":"hard","question":"What is the name of Beethoven's only opera?","answers":["Don Giovanni","The Magic Flute","Fidelio","Così fan tutte"],"correct":"Fidelio"},
+  {"category":"arts","difficulty":"hard","question":"Which movement in art is associated with artists like Mondrian and van Doesburg who used only primary colours and straight lines?","answers":["Bauhaus","De Stijl","Constructivism","Suprematism"],"correct":"De Stijl"},
+
+  {"category":"general","difficulty":"easy","question":"How many sides does a hexagon have?","answers":["5","6","7","8"],"correct":"6"},
+  {"category":"general","difficulty":"easy","question":"What colour is the sky on a clear day?","answers":["Green","White","Blue","Grey"],"correct":"Blue"},
+  {"category":"general","difficulty":"easy","question":"How many days are in a leap year?","answers":["364","365","366","367"],"correct":"366"},
+  {"category":"general","difficulty":"easy","question":"What is the largest ocean on Earth?","answers":["Atlantic","Indian","Arctic","Pacific"],"correct":"Pacific"},
+  {"category":"general","difficulty":"easy","question":"How many minutes are in one hour?","answers":["30","60","90","100"],"correct":"60"},
+  {"category":"general","difficulty":"medium","question":"If a doctor is a 'physician', what is a doctor who performs operations called?","answers":["Neurologist","Surgeon","Radiologist","Pathologist"],"correct":"Surgeon"},
+  {"category":"general","difficulty":"medium","question":"What does the 'www' in a website address stand for?","answers":["World Wide Web","Wide World Web","World Web Wide","Web World Wide"],"correct":"World Wide Web"},
+  {"category":"general","difficulty":"medium","question":"In which sport would you perform a 'slam dunk'?","answers":["Volleyball","Football","Tennis","Basketball"],"correct":"Basketball"},
+  {"category":"general","difficulty":"medium","question":"How many zeros are in one million?","answers":["5","6","7","8"],"correct":"6"},
+  {"category":"general","difficulty":"hard","question":"What is the Fibonacci sequence?","answers":["Each number is double the previous","Each number is the sum of the two before it","Each number is a prime","Each number is a perfect square"],"correct":"Each number is the sum of the two before it"},
+  {"category":"general","difficulty":"hard","question":"What is the name of the logical paradox where a barber shaves all those who do not shave themselves?","answers":["Zeno's Paradox","Russell's Paradox","Gödel's Paradox","Cantor's Paradox"],"correct":"Russell's Paradox"},
+  {"category":"general","difficulty":"hard","question":"In computer science, what does 'Big O notation' describe?","answers":["Memory usage only","Time complexity of an algorithm","Size of a program","Number of bugs in code"],"correct":"Time complexity of an algorithm"}
 ]

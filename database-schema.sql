@@ -1,6 +1,11 @@
 -- ================================================
 -- Library Games - Supabase Database Schema
 -- PostgreSQL Schema for Leaderboards + Visitor Logbook
+--
+-- HOW TO APPLY UPDATES:
+-- Run this entire file in the Supabase SQL Editor.
+-- All statements use IF NOT EXISTS / CREATE OR REPLACE
+-- so it is safe to re-run at any time.
 -- ================================================
 
 -- Create leaderboards table
@@ -34,6 +39,37 @@ CREATE INDEX IF NOT EXISTS idx_score ON leaderboards(score DESC);
 -- Create composite index for common queries
 CREATE INDEX IF NOT EXISTS idx_game_type_mode_score 
   ON leaderboards(game_type, game_mode, score DESC, time_taken ASC);
+
+-- ================================================
+-- Unique constraint: one best score per player per game per mode per day
+-- ON CONFLICT will update the score only if the new score is HIGHER
+-- ================================================
+CREATE UNIQUE INDEX IF NOT EXISTS idx_leaderboard_best_score
+  ON leaderboards(game_type, game_mode, player_name, date_played);
+
+-- Function used by upsert: only update when new score beats old score
+CREATE OR REPLACE FUNCTION leaderboards_keep_best()
+RETURNS TRIGGER LANGUAGE plpgsql AS $$
+BEGIN
+  -- If a row already exists with a higher or equal score, keep it unchanged
+  IF EXISTS (
+    SELECT 1 FROM leaderboards
+    WHERE game_type   = NEW.game_type
+      AND game_mode   = NEW.game_mode
+      AND player_name = NEW.player_name
+      AND date_played = NEW.date_played
+      AND score       >= NEW.score
+  ) THEN
+    RETURN NULL; -- skip the insert/update
+  END IF;
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS trg_keep_best_score ON leaderboards;
+CREATE TRIGGER trg_keep_best_score
+  BEFORE INSERT OR UPDATE ON leaderboards
+  FOR EACH ROW EXECUTE FUNCTION leaderboards_keep_best();
 
 -- ================================================
 -- Views for Common Queries
@@ -79,6 +115,15 @@ FROM leaderboards
 ORDER BY game_type, game_mode, score DESC, time_taken ASC;
 
 COMMENT ON VIEW alltime_leaderboards IS 'All-time leaderboard with rankings';
+
+-- View: best score per player per game (deduplicates multiple submissions)
+CREATE OR REPLACE VIEW leaderboards_best AS
+SELECT DISTINCT ON (game_type, game_mode, player_name)
+  id, game_type, game_mode, player_name, score, time_taken, created_at, date_played
+FROM leaderboards
+ORDER BY game_type, game_mode, player_name, score DESC, time_taken ASC NULLS LAST;
+
+COMMENT ON VIEW leaderboards_best IS 'One row per player per game — their best score only';
 
 -- ================================================
 -- Row Level Security (RLS) Policies

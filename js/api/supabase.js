@@ -79,15 +79,39 @@ async function submitScore({ gameType, gameMode, playerName = 'Anonymous', score
             date_played: new Date().toISOString().split('T')[0] // YYYY-MM-DD
         };
         
-        // Insert into database
+        // Check-then-insert: fetch existing best score for this player/game/day,
+        // only insert if new score is strictly better (or no existing row).
+        const today = new Date().toISOString().split('T')[0];
+
+        const { data: existing } = await client
+            .from('leaderboards')
+            .select('id, score')
+            .eq('game_type', gameType)
+            .eq('game_mode', gameMode)
+            .eq('player_name', playerName || 'Anonymous')
+            .eq('date_played', today)
+            .order('score', { ascending: false })
+            .limit(1)
+            .maybeSingle();
+
+        if (existing && existing.score >= scoreValue) {
+            // Already have a better or equal score — skip silently
+            console.log(`Score ${scoreValue} not better than existing ${existing.score}, skipping.`);
+            return null;
+        }
+
+        // Delete old row if it exists (so we can insert fresh)
+        if (existing) {
+            await client.from('leaderboards').delete().eq('id', existing.id);
+        }
+
+        // Insert new best score
         const { data: result, error } = await client
             .from('leaderboards')
             .insert([data])
             .select();
-        
-        if (error) {
-            throw error;
-        }
+
+        if (error) throw error;
         
         console.log('✓ Score submitted:', result);
         return result[0];
@@ -121,7 +145,8 @@ async function getLeaderboard({
     }
     
     try {
-        let query = client.from('leaderboards').select('*');
+        // Query the best-score view — one entry per player per game
+        let query = client.from('leaderboards_best').select('*');
         
         // Apply filters
         if (gameType) {

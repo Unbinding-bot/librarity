@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/game-ui-fixes.css">
+    <link rel="stylesheet" href="css/mobile.css">
     <link rel="stylesheet" href="css/trivia.css">
     <!-- Theme toggle: runs before body renders to avoid flash -->
     <script src="js/theme/theme-toggle.js"></script>
@@ -167,7 +168,9 @@
 
                 <div class="results-actions">
                     <button id="shareBtn" class="btn btn-primary">📋 Share</button>
+                    <button id="submitScoreBtn" class="btn btn-secondary">🏆 Submit Score</button>
                     <button id="playAgainBtn" class="btn btn-secondary">🔄 Play Again</button>
+                    <button class="result-close" id="resultsClose" style="position:static;font-size:1rem;width:auto;height:auto;border-radius:6px;padding:0.5rem 1rem;border:2px solid var(--border-color);background:none;cursor:pointer;">✕ Close</button>
                 </div>
             </div>
         </div>
@@ -251,6 +254,17 @@
     <!-- Toast Notification -->
     <div id="toast" class="toast"></div>
 
+    <!-- Persistent action bar -->
+    <div class="game-action-bar" id="gameActionBar" style="display:none;">
+        <span class="game-action-bar-label" id="gameActionBarLabel"></span>
+        <div class="game-action-bar-btns">
+            <button id="actionBarShareBtn" class="btn btn-sm btn-primary">📋 Share</button>
+            <button id="actionBarPlayAgainBtn" class="btn btn-sm btn-secondary">🔄 Play Again</button>
+            <button id="actionBarRestartBtn" class="btn btn-sm btn-outline">↺ Restart</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script type="module" src="js/main.js"></script>
     <script type="module" src="js/games/trivia.js"></script>
 </body>

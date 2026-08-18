@@ -1,7 +1,7 @@
 // Trivia Game
 import { showToast } from '../main.js';
-import { submitScore } from '../api/supabase.js';
 import { getDisplayName } from '../components/visitor-logbook.js';
+import { lockSubmitButtons, resetSubmitButtons } from '../utils/submit-lock.js';
 
 class TriviaGame {
     constructor() {
@@ -52,8 +52,22 @@ class TriviaGame {
         // Results screen
         document.getElementById('shareBtn').addEventListener('click', () => this.shareResult());
         document.getElementById('playAgainBtn').addEventListener('click', () => this.resetGame());
+        document.getElementById('submitScoreBtn')?.addEventListener('click', () => this.submitScore());
         document.getElementById('resultsClose')?.addEventListener('click', () => {
-            document.getElementById('resultsScreen').style.display = 'none';
+            this.resetGame();
+        });
+
+        // Action bar buttons
+        document.getElementById('actionBarShareBtn')?.addEventListener('click', () => this.shareResult());
+        document.getElementById('actionBarPlayAgainBtn')?.addEventListener('click', () => {
+            this.hideActionBar();
+            this.resetGame();
+        });
+        document.getElementById('actionBarRestartBtn')?.addEventListener('click', () => {
+            if (confirm('Start a new quiz? Current progress will be lost.')) {
+                this.hideActionBar();
+                this.resetGame();
+            }
         });
         
         // Modal close buttons
@@ -254,7 +268,6 @@ class TriviaGame {
         // Hide game screen, show results
         document.getElementById('gameScreen').style.display = 'none';
         document.getElementById('resultsScreen').style.display = 'block';
-        
         // Calculate grade
         const accuracy = (this.correctCount / this.questions.length) * 100;
         const grade = this.calculateGrade(accuracy);
@@ -283,9 +296,7 @@ class TriviaGame {
         
         // Save stats
         this.saveStats();
-        
-        // Submit score to leaderboard
-        this.submitScore();
+        // Score submission is manual via the Submit Score button
     }
 
     displayBreakdown() {
@@ -337,9 +348,19 @@ class TriviaGame {
 
     async submitScore() {
         try {
-            const username = getDisplayName();
-            await submitScore('trivia', username, this.score);
-            showToast(`Score submitted as "${username}"!`, 'success');
+            const { askForName } = await import('../components/visitor-logbook.js');
+            const username = await askForName();
+            if (!username) return;
+            const { submitScore } = await import('../api/supabase.js');
+            await submitScore({
+                gameType: 'trivia',
+                gameMode: this.selectedDifficulty === 'mixed' ? 'random' : this.selectedDifficulty,
+                playerName: username,
+                score: this.score,
+                timeTaken: this.timer
+            });
+            showToast(`Score submitted as "${username}"! ✅`, 'success');
+            lockSubmitButtons();
         } catch (error) {
             console.error('Error submitting score:', error);
         }
@@ -349,11 +370,11 @@ class TriviaGame {
         const accuracy = (this.correctCount / this.questions.length) * 100;
         const grade = this.calculateGrade(accuracy);
         
-        const text = `🎯 Trivia Challenge\n\nScore: ${this.score}\nCorrect: ${this.correctCount}/${this.questions.length}\nGrade: ${grade}\nStreak: ${this.maxStreak}\n\nPlay at: ${window.location.origin}`;
+        const text = `🎯 Trivia Challenge\n\nScore: ${this.score}\nCorrect: ${this.correctCount}/${this.questions.length}\nGrade: ${grade}\nStreak: ${this.maxStreak}\n\nBy Unbinding`;
         
         if (navigator.clipboard) {
             navigator.clipboard.writeText(text).then(() => {
-                showToast('Result copied to clipboard!', 'success');
+                showToast('Score copied! 📋', 'success');
             }).catch(() => {
                 showToast('Failed to copy result', 'error');
             });
@@ -374,6 +395,25 @@ class TriviaGame {
         document.getElementById('gameScreen').style.display = 'none';
         document.getElementById('resultsScreen').style.display = 'none';
         document.getElementById('setupScreen').style.display = 'block';
+        this.hideActionBar();
+        resetSubmitButtons();
+    }
+
+    showActionBar() {
+        const bar = document.getElementById('gameActionBar');
+        const label = document.getElementById('gameActionBarLabel');
+        if (bar && label) {
+            const accuracy = this.answers.length > 0
+                ? Math.round((this.correctCount / this.answers.length) * 100)
+                : 0;
+            label.textContent = `Score: ${this.score} · ${this.correctCount}/${this.answers.length} correct · ${accuracy}%`;
+            bar.style.display = 'flex';
+        }
+    }
+
+    hideActionBar() {
+        const bar = document.getElementById('gameActionBar');
+        if (bar) bar.style.display = 'none';
     }
 
     // Statistics
