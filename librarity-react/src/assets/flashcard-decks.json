@@ -1,0 +1,104 @@
+[
+  {
+    "id": "vocab_basic",
+    "name": "Basic Vocabulary",
+    "category": "vocabulary",
+    "icon": "📖",
+    "cards": [
+      { "front": "Abundant", "back": "Existing or available in large quantities; plentiful" },
+      { "front": "Benevolent", "back": "Well meaning and kindly" },
+      { "front": "Candid", "back": "Truthful and straightforward; frank" },
+      { "front": "Diligent", "back": "Having or showing care and conscientiousness" },
+      { "front": "Eloquent", "back": "Fluent or persuasive in speaking or writing" },
+      { "front": "Frugal", "back": "Sparing or economical with money or food" },
+      { "front": "Gregarious", "back": "Fond of company; sociable" },
+      { "front": "Humble", "back": "Having or showing a modest view of one's importance" },
+      { "front": "Innovative", "back": "Featuring new methods; advanced and original" },
+      { "front": "Jubilant", "back": "Feeling or expressing great happiness and triumph" }
+    ]
+  },
+  {
+    "id": "science_biology",
+    "name": "Biology Basics",
+    "category": "science",
+    "icon": "🧬",
+    "cards": [
+      { "front": "What is a cell?", "back": "The basic structural and functional unit of all living organisms" },
+      { "front": "What is photosynthesis?", "back": "The process by which plants convert light energy into chemical energy (glucose)" },
+      { "front": "What is DNA?", "back": "Deoxyribonucleic acid - the molecule that carries genetic instructions" },
+      { "front": "What is mitosis?", "back": "The process of cell division that results in two identical daughter cells" },
+      { "front": "What are enzymes?", "back": "Proteins that act as biological catalysts to speed up chemical reactions" },
+      { "front": "What is an ecosystem?", "back": "A community of living organisms interacting with their environment" },
+      { "front": "What is ATP?", "back": "Adenosine triphosphate - the primary energy currency of cells" },
+      { "front": "What is evolution?", "back": "The gradual change in species over time through natural selection" }
+    ]
+  },
+  {
+    "id": "history_presidents",
+    "name": "U.S. Presidents",
+    "category": "history",
+    "icon": "🏛️",
+    "cards": [
+      { "front": "First President of the United States", "back": "George Washington (1789-1797)" },
+      { "front": "President during the Civil War", "back": "Abraham Lincoln (1861-1865)" },
+      { "front": "President who wrote the Declaration of Independence", "back": "Thomas Jefferson (3rd President)" },
+      { "front": "President during the Great Depression and WWII", "back": "Franklin D. Roosevelt (1933-1945)" },
+      { "front": "First President to resign from office", "back": "Richard Nixon (1974)" },
+      { "front": "President known for the New Deal", "back": "Franklin D. Roosevelt" },
+      { "front": "President who abolished slavery", "back": "Abraham Lincoln (Emancipation Proclamation)" },
+      { "front": "Youngest elected President", "back": "John F. Kennedy (43 years old)" }
+    ]
+  },
+  {
+    "id": "math_algebra",
+    "name": "Algebra Formulas",
+    "category": "math",
+    "icon": "➗",
+    "cards": [
+      { "front": "Slope formula", "back": "m = (y₂ - y₁) / (x₂ - x₁)" },
+      { "front": "Quadratic formula", "back": "x = (-b ± √(b² - 4ac)) / 2a" },
+      { "front": "Pythagorean theorem", "back": "a² + b² = c²" },
+      { "front": "Distance formula", "back": "d = √((x₂ - x₁)² + (y₂ - y₁)²)" },
+      { "front": "Point-slope form", "back": "y - y₁ = m(x - x₁)" },
+      { "front": "Slope-intercept form", "back": "y = mx + b" },
+      { "front": "Standard form of a line", "back": "Ax + By = C" },
+      { "front": "Area of a circle", "back": "A = πr²" }
+    ]
+  },
+  {
+    "id": "spanish_basics",
+    "name": "Spanish Basics",
+    "category": "languages",
+    "icon": "🇪🇸",
+    "cards": [
+      { "front": "Hello", "back": "Hola" },
+      { "front": "Goodbye", "back": "Adiós" },
+      { "front": "Please", "back": "Por favor" },
+      { "front": "Thank you", "back": "Gracias" },
+      { "front": "Yes", "back": "Sí" },
+      { "front": "No", "back": "No" },
+      { "front": "Good morning", "back": "Buenos días" },
+      { "front": "Good night", "back": "Buenas noches" },
+      { "front": "How are you?", "back": "¿Cómo estás?" },
+      { "front": "My name is...", "back": "Me llamo..." }
+    ]
+  },
+  {
+    "id": "geography_capitals",
+    "name": "World Capitals",
+    "category": "geography",
+    "icon": "🌍",
+    "cards": [
+      { "front": "Capital of France", "back": "Paris" },
+      { "front": "Capital of Japan", "back": "Tokyo" },
+      { "front": "Capital of Brazil", "back": "Brasília" },
+      { "front": "Capital of Australia", "back": "Canberra" },
+      { "front": "Capital of Egypt", "back": "Cairo" },
+      { "front": "Capital of Canada", "back": "Ottawa" },
+      { "front": "Capital of India", "back": "New Delhi" },
+      { "front": "Capital of Russia", "back": "Moscow" },
+      { "front": "Capital of Germany", "back": "Berlin" },
+      { "front": "Capital of Italy", "back": "Rome" }
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "wordle": {
+    "wordList": [],
+    "dailyWords": []
+  },
+  "spelling_bee": {
+    "puzzles": []
+  },
+  "word_ladder": {
+    "puzzles": []
+  },
+  "trivia": {
+    "categories": [],
+    "questions": []
+  },
+  "flashcards": {
+    "decks": []
+  },
+  "wikipedia_race": {
+    "challenges": []
+  }
+}

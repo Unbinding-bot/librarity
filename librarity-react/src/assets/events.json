@@ -1,0 +1,23 @@
+{
+  "events": [
+    {
+      "id": "halloween_2024",
+      "name": "Halloween",
+      "description": "Spooky season celebration",
+      "startDate": "2024-10-20",
+      "endDate": "2024-11-01",
+      "active": false,
+      "theme": {
+        "primaryColor": "#ff6b35",
+        "secondaryColor": "#1a1a1a",
+        "accentColor": "#ffd700",
+        "backgroundImage": null
+      },
+      "bannerOverrides": {
+        "backgroundColor": "#1a1a1a",
+        "icon": "🎃"
+      },
+      "customCSS": ""
+    }
+  ]
+}

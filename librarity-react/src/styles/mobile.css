@@ -1,0 +1,672 @@
+/* ================================================================
+   LIBRARY GAMES — MOBILE & RESPONSIVE FIXES
+   Loaded on every page after main.css, theme.css, game-ui-fixes.css
+   ================================================================ */
+
+/* ── Global base fixes ───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+    /* Prevent layout shifts from scrollbar appearing */
+    scrollbar-gutter: stable;
+}
+
+body {
+    /* Prevent horizontal overflow without breaking positioned elements */
+    overflow-x: clip;
+    /* Ensure body fills viewport so pages with little content don't look short */
+    min-height: 100dvh;
+}
+
+/* Safe readable width for all inline content */
+.game-container,
+.main-content,
+.tools-hub,
+.lb-page-main {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* ── Fix Wordle keyboard overflow ────────────────────────────── */
+.keyboard {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px; /* room for scrollbar */
+}
+
+.keyboard-row {
+    min-width: max-content; /* let row be its natural width */
+}
+
+/* ── Fix book-page-panel clipping ────────────────────────────── */
+/* Was overflow:hidden — content was getting clipped on small screens */
+.book-page-panel {
+    overflow: visible;
+}
+
+/* Keep the inner scroll containers bounded */
+.lb-table-wrap,
+.logbook-entries {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ── Wikipedia breadcrumb overflow ───────────────────────────── */
+.breadcrumb-trail {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ── Fix game-board scale clipping ───────────────────────────── */
+/* responsive.css uses transform:scale(0.9) which clips the bottom */
+@media (max-width: 768px) {
+    .game-board {
+        transform: none; /* remove scale — use padding reduction instead */
+        padding: 0 0.25rem;
+    }
+}
+
+/* ── Article content in Wikipedia Race ───────────────────────── */
+.article-content {
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    max-height: 60vh;
+}
+
+@media (max-width: 768px) {
+    .article-content {
+        max-height: 45vh;
+        font-size: 0.95rem;
+    }
+}
+
+/* ── Leaderboard page — prevent triple nested scroll ─────────── */
+/* Body scrolls; inner panels have their own bounded scrolls */
+.lb-page-main {
+    overflow: visible;
+}
+
+@media (max-width: 860px) {
+    .lb-table-wrap  { max-height: 280px; }
+    .logbook-entries { max-height: 300px; }
+}
+
+@media (max-width: 480px) {
+    .lb-table-wrap  { max-height: 240px; }
+    .logbook-entries { max-height: 260px; }
+}
+
+/* ── Fix modal body scroll on iOS ────────────────────────────── */
+.modal-body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+}
+
+/* ── General mobile spacing ──────────────────────────────────── */
+@media (max-width: 768px) {
+    /* Smaller headings so they don't overflow */
+    h1 { font-size: clamp(1.5rem, 6vw, 2.5rem); }
+    h2 { font-size: clamp(1.25rem, 5vw, 2rem); }
+    h3 { font-size: clamp(1rem, 4vw, 1.5rem); }
+
+    /* Generous tap targets */
+    .btn, button {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Prevent text overflow in stat boxes */
+    .stat-value, .result-stat-value {
+        font-size: clamp(1.2rem, 5vw, 2rem);
+        word-break: break-all;
+    }
+
+    /* Game containers */
+    .game-container {
+        padding: 0.5rem;
+        margin: 0;
+    }
+
+    /* Navbar text wrapping */
+    .brand-text, .nav-brand span {
+        font-size: 0.95rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 55vw;
+    }
+
+    /* Result actions stack on mobile */
+    .result-actions, .results-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .result-actions .btn,
+    .results-actions .btn {
+        width: 100%;
+    }
+
+    /* Game action bar stacks */
+    .game-action-bar {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+    }
+
+    .game-action-bar-btns {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ================================================================
+   TASK 3 — LOGBOOK VISITOR CARD — MOBILE REDESIGN
+   ================================================================ */
+
+/* On mobile: stack into clear sections with labels */
+@media (max-width: 700px) {
+    .visitor-card-inner {
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+    }
+
+    /* Section 1: Who you are */
+    .visitor-card-identity {
+        width: 100%;
+        min-width: 0;
+        padding: 0.85rem 1rem 0.75rem;
+        border-bottom: 1px solid var(--border-color, #C8B99A);
+        justify-content: space-between;
+    }
+
+    .visitor-card-identity::after {
+        display: none; /* remove vertical divider */
+    }
+
+    /* Section 2: Sign the logbook */
+    .visitor-card-form {
+        width: 100%;
+        min-width: 0;
+        padding: 0.85rem 1rem 0.75rem;
+    }
+
+    .vc-field-row {
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+
+    .vc-input {
+        flex: none;
+        width: 100%;
+    }
+
+    .vc-textarea {
+        min-width: 0;
+        width: 100%;
+        min-height: 70px;
+    }
+
+    .vc-form-actions {
+        justify-content: space-between;
+    }
+
+    .vc-sign-btn {
+        flex: 1;
+        justify-content: center;
+    }
+
+    /* Section 3: Edit name panel */
+    .visitor-card-edit {
+        width: 100%;
+        min-width: 0;
+        border-left: none;
+        border-top: 1px dashed var(--border-color, #C8B99A);
+        padding: 0.85rem 1rem;
+    }
+
+    .vc-edit-actions {
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+
+    .vc-btn-save,
+    .vc-btn-anon {
+        flex: 1;
+        text-align: center;
+    }
+}
+
+/* ================================================================
+   TASK 4 — FIX ILLUSTRATED HOMEPAGE COLOUR PALETTE
+   ================================================================ */
+
+/* The .library-home-body class strips background — reapply palette
+   so dark/light mode variables still apply to overlay panels */
+.library-home-body {
+    background-color: #1a120a; /* dark warm neutral for letterboxing */
+}
+
+/* Section menus sit over the illustration — use theme vars properly */
+.section-menu {
+    background: var(--background-color, #F4EFE4);
+    color: var(--text-color, #1E1C14);
+}
+
+[data-theme="dark"] .section-menu {
+    background: rgba(26, 26, 18, 0.97);
+    color: var(--text-color, #EDE8DA);
+}
+
+.menu-title {
+    color: var(--primary-color, #5C6B3A);
+}
+
+[data-theme="dark"] .menu-title {
+    color: #B5C08A;
+}
+
+.menu-subtitle {
+    color: var(--text-secondary, #5A5340);
+}
+
+[data-theme="dark"] .menu-subtitle {
+    color: rgba(181, 192, 138, 0.65);
+}
+
+.menu-card {
+    background: var(--surface-color, #FDFAF4);
+    border-color: var(--border-color, #C8B99A);
+    color: var(--text-color, #1E1C14);
+}
+
+[data-theme="dark"] .menu-card {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(181,192,138,0.15);
+    color: #EDE8DA;
+}
+
+.menu-card:hover {
+    border-color: var(--primary-color, #5C6B3A);
+    background: var(--bg-secondary, #F4EFE4);
+}
+
+[data-theme="dark"] .menu-card:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(181,192,138,0.5);
+}
+
+.mc-label { color: var(--primary-color, #5C6B3A); }
+[data-theme="dark"] .mc-label { color: #B5C08A; }
+
+.mc-desc { color: var(--text-secondary, #5A5340); }
+[data-theme="dark"] .mc-desc { color: rgba(181,192,138,0.6); }
+
+/* Fallback view palette */
+.fb-title { color: var(--primary-color, #5C6B3A); }
+.fb-sc-label { color: var(--primary-color, #5C6B3A); }
+.fb-sc-desc { color: var(--text-secondary, #5A5340); }
+
+/* ================================================================
+   TASK 5 — MOBILE LAYOUTS: WIKIPEDIA RACE, TRIVIA, TOOLS
+   ================================================================ */
+
+/* ── Wikipedia Race mobile ────────────────────────────────────── */
+@media (max-width: 768px) {
+    /* Game header: stack route + stats */
+    .game-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+        padding: 0.75rem;
+    }
+
+    .route-display {
+        flex-wrap: wrap;
+        gap: 0.25rem;
+        font-size: 0.9rem;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .route-start,
+    .route-target {
+        font-size: 0.95rem;
+        max-width: 35vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block;
+    }
+
+    .game-stats {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    /* Sticky top bar on mobile */
+    .wikipedia-container {
+        min-height: unset;
+    }
+
+    .article-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: var(--surface-color, #FDFAF4);
+        padding: 0.6rem 0.75rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+        border-bottom: 2px solid var(--border-color, #C8B99A);
+    }
+
+    [data-theme="dark"] .article-header {
+        background: var(--surface-color, #23221A);
+    }
+
+    .article-header h2 {
+        font-size: 1.1rem;
+        margin: 0;
+    }
+
+    .hints-panel {
+        padding: 0.5rem;
+        text-align: center;
+    }
+
+    /* Mode tabs scroll on mobile */
+    .mode-tabs {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        padding-bottom: 0.25rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .mode-tab {
+        flex-shrink: 0;
+        padding: 0.5rem 0.85rem;
+        font-size: 0.82rem;
+    }
+
+    /* Challenge cards single column */
+    .challenges-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Path display compact */
+    .path-item {
+        padding: 0.5rem 0.6rem;
+    }
+
+    .path-number {
+        width: 24px;
+        height: 24px;
+        font-size: 0.75rem;
+    }
+}
+
+/* ── Trivia mobile ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    /* Header: progress bar full width, stats in a row below */
+    .game-header .progress-bar {
+        order: -1;
+        margin-bottom: 0.5rem;
+    }
+
+    .game-header .game-stats {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        font-size: 0.9rem;
+    }
+
+    /* Question text readable size */
+    .question-text {
+        font-size: clamp(1rem, 4vw, 1.4rem);
+        line-height: 1.4;
+    }
+
+    /* Answer buttons: single column, full width, large tap targets */
+    #answersGrid,
+    .answers-grid {
+        display: flex !important;
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+
+    #answersGrid .answer-btn,
+    .answers-grid button,
+    .answer-option {
+        width: 100%;
+        min-height: 52px;
+        text-align: left;
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+        border-radius: 8px;
+        white-space: normal;
+        word-wrap: break-word;
+    }
+
+    /* Setup screen: options stack */
+    .setup-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .option-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+
+    .form-select {
+        width: 100%;
+        padding: 0.65rem 0.75rem;
+        font-size: 1rem;
+    }
+
+    .setup-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .setup-actions .btn {
+        width: 100%;
+    }
+
+    /* Results: stats 2-col */
+    .results-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+
+    .results-grade {
+        font-size: 3rem;
+    }
+}
+
+/* ── Tools page mobile ────────────────────────────────────────── */
+@media (max-width: 768px) {
+    /* Tabs: scrollable row, no wrap */
+    .tool-tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 0;
+        border-bottom: 2px solid var(--border-color, #C8B99A);
+        padding-bottom: 0;
+        margin-bottom: 1rem;
+    }
+
+    .tool-tab {
+        flex-shrink: 0;
+        border-bottom: 3px solid transparent;
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+        border-radius: 0;
+        white-space: nowrap;
+    }
+
+    .tool-tab.active {
+        border-bottom-color: var(--primary-color, #5C6B3A);
+        color: var(--primary-color, #5C6B3A);
+    }
+
+    /* Tool results: word definition lists, synonym chips etc */
+    .definition-card,
+    .word-result,
+    .result-card {
+        padding: 0.85rem;
+        border-radius: 8px;
+    }
+
+    /* Dictionary search input */
+    .search-container,
+    .tool-search {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .search-container input,
+    .tool-search input {
+        width: 100%;
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+    }
+
+    .search-container .btn,
+    .tool-search .btn {
+        width: 100%;
+    }
+
+    /* Word chips / synonym list: wrap properly */
+    .word-chips,
+    .synonyms-list,
+    .rhymes-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+}
+
+/* ── Coming Soon mobile ───────────────────────────────────────── */
+@media (max-width: 768px) {
+    .fb-section-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.65rem;
+    }
+
+    .fb-section-card {
+        padding: 1rem 0.75rem;
+    }
+
+    .fb-sc-icon { font-size: 1.6rem; }
+    .fb-sc-label { font-size: 0.88rem; }
+    .fb-sc-desc { font-size: 0.72rem; }
+}
+
+@media (max-width: 380px) {
+    .fb-section-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ── Spelling Bee mobile ──────────────────────────────────────── */
+@media (max-width: 768px) {
+    .honeycomb-container {
+        transform: scale(0.88);
+        transform-origin: top center;
+        margin-bottom: -1rem; /* compensate for scale gap */
+    }
+
+    .word-list-section {
+        margin-top: 0.5rem;
+    }
+}
+
+/* ── Word Ladder mobile ───────────────────────────────────────── */
+@media (max-width: 768px) {
+    .ladder-container {
+        padding: 0 0.5rem;
+    }
+
+    .rung-input {
+        font-size: 1.1rem;
+        letter-spacing: 0.15em;
+    }
+}
+
+/* ── Flashcards mobile ────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .flashcard {
+        height: 50vh;
+        min-height: 220px;
+    }
+
+    .deck-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ── Leaderboard page mobile (book to stack) ─────────────────── */
+@media (max-width: 860px) {
+    /* Reduce padding so content fits without scrolling */
+    .book-page-panel {
+        padding: 1rem;
+    }
+
+    .page-heading {
+        font-size: 1.2rem;
+    }
+
+    /* Filter bar: 2-row layout */
+    .lb-filter-bar {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.4rem;
+    }
+
+    .lb-filter-bar .lb-icon-btn {
+        grid-column: span 2;
+        width: 100%;
+    }
+
+    /* Stats row: no min-width boxes */
+    .lb-stat {
+        min-width: 0;
+        flex: 1;
+    }
+
+    /* Hide date on mobile table */
+    .lb-date,
+    .lb-hide-sm { display: none; }
+}
+
+/* ================================================================
+   SCROLLBAR POLISH
+   ================================================================ */
+/* Thin, on-brand scrollbars everywhere */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color, #5C6B3A) transparent;
+}
+
+*::-webkit-scrollbar { width: 6px; height: 6px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+    background: var(--secondary-color, #8A9A5B);
+    border-radius: 3px;
+}
+*::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color, #5C6B3A);
+}

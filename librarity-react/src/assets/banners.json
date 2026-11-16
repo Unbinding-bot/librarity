@@ -1,0 +1,46 @@
+{
+  "banners": [
+    {
+      "id": "welcome",
+      "title": "Welcome to Library Games!",
+      "description": "Challenge yourself with word games, trivia, and more. Compete on the leaderboards!",
+      "icon": "📚",
+      "backgroundColor": "#2d5016",
+      "image": null,
+      "link": {
+        "text": "Start Playing",
+        "url": "#/games"
+      },
+      "active": true,
+      "priority": 1
+    },
+    {
+      "id": "daily-challenge",
+      "title": "Daily Challenge Available!",
+      "description": "Try today's word puzzle and see how you rank against other players.",
+      "icon": "🎯",
+      "backgroundColor": "#7cb342",
+      "image": null,
+      "link": {
+        "text": "Play Now",
+        "url": "#/games/wordle"
+      },
+      "active": true,
+      "priority": 2
+    },
+    {
+      "id": "leaderboard",
+      "title": "Climb the Leaderboard",
+      "description": "Submit your scores and compete with players worldwide. Can you reach the top?",
+      "icon": "🏆",
+      "backgroundColor": "#558b2f",
+      "image": null,
+      "link": {
+        "text": "View Rankings",
+        "url": "leaderboard.html"
+      },
+      "active": true,
+      "priority": 3
+    }
+  ]
+}

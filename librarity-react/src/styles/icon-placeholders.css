@@ -1,0 +1,443 @@
+/**
+ * CSS Icon Placeholders
+ * Temporary placeholders until custom doodle-style SVG icons are added
+ * Uses CSS gradients, shapes, and Unicode symbols
+ */
+
+/* ========================================
+   GAME ICONS (96x96px)
+   ======================================== */
+
+.icon-wordle {
+    width: 96px;
+    height: 96px;
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.icon-wordle::before {
+    content: 'W';
+}
+
+.icon-spelling-bee {
+    width: 96px;
+    height: 96px;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    color: #333;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.icon-spelling-bee::before {
+    content: '🐝';
+}
+
+.icon-word-ladder {
+    width: 96px;
+    height: 96px;
+    background: linear-gradient(135deg, #4682B4 0%, #5F9EA0 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.icon-word-ladder::before {
+    content: '≡';
+}
+
+.icon-trivia {
+    width: 96px;
+    height: 96px;
+    background: linear-gradient(135deg, #9370DB 0%, #BA55D3 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.icon-trivia::before {
+    content: '?';
+}
+
+.icon-flashcards {
+    width: 96px;
+    height: 96px;
+    background: linear-gradient(135deg, #CD853F 0%, #DEB887 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.icon-flashcards::before {
+    content: '📇';
+}
+
+.icon-wikipedia {
+    width: 96px;
+    height: 96px;
+    background: linear-gradient(135deg, #228B22 0%, #32CD32 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.icon-wikipedia::before {
+    content: 'W';
+    font-weight: bold;
+}
+
+/* ========================================
+   TOOL ICONS (64x64px)
+   ======================================== */
+
+.icon-dictionary {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: white;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+.icon-dictionary::before {
+    content: '📖';
+}
+
+.icon-thesaurus {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #4B0082 0%, #8A2BE2 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: white;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+.icon-thesaurus::before {
+    content: '📕';
+}
+
+.icon-rhyme {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #FF69B4 0%, #FF1493 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: white;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+.icon-rhyme::before {
+    content: '🎵';
+}
+
+/* ========================================
+   UI ELEMENT ICONS (48x48px)
+   ======================================== */
+
+.icon-entrance {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.icon-entrance::before {
+    content: '🚪';
+}
+
+.icon-bookshelf {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #654321 0%, #8B4513 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.icon-bookshelf::before {
+    content: '📚';
+}
+
+.icon-leaderboard {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.icon-leaderboard::before {
+    content: '🏆';
+}
+
+.icon-admin {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #696969 0%, #808080 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.icon-admin::before {
+    content: '🔑';
+}
+
+.icon-theme-light {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+}
+
+.icon-theme-light::before {
+    content: '☀️';
+}
+
+.icon-theme-dark {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #191970 0%, #000080 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+}
+
+.icon-theme-dark::before {
+    content: '🌙';
+}
+
+/* ========================================
+   NAVIGATION ICONS (32x32px)
+   ======================================== */
+
+.icon-home {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #4682B4 0%, #5F9EA0 100%);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: white;
+}
+
+.icon-home::before {
+    content: '🏠';
+}
+
+.icon-games {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #FF6347 0%, #FF4500 100%);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: white;
+}
+
+.icon-games::before {
+    content: '🎮';
+}
+
+.icon-tools {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #708090 0%, #778899 100%);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: white;
+}
+
+.icon-tools::before {
+    content: '🔧';
+}
+
+.icon-books {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: white;
+}
+
+.icon-books::before {
+    content: '📚';
+}
+
+.icon-coming-soon {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: white;
+}
+
+.icon-coming-soon::before {
+    content: '⏳';
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+.icon-placeholder {
+    position: relative;
+    transition: transform 0.2s ease;
+}
+
+.icon-placeholder:hover {
+    transform: scale(1.05);
+}
+
+.icon-with-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.icon-label {
+    font-size: 14px;
+    color: var(--text-color);
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .icon-label {
+    color: var(--text-color-dark);
+}
+
+/* ========================================
+   ANIMATION CLASSES
+   ======================================== */
+
+@keyframes iconPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.icon-pulse {
+    animation: iconPulse 2s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.icon-bounce {
+    animation: iconBounce 1s ease-in-out infinite;
+}
+
+/* ========================================
+   RESPONSIVE ADJUSTMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+    .icon-wordle,
+    .icon-spelling-bee,
+    .icon-word-ladder,
+    .icon-trivia,
+    .icon-flashcards,
+    .icon-wikipedia {
+        width: 72px;
+        height: 72px;
+        font-size: 36px;
+    }
+    
+    .icon-dictionary,
+    .icon-thesaurus,
+    .icon-rhyme {
+        width: 48px;
+        height: 48px;
+        font-size: 24px;
+    }
+}

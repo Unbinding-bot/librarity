@@ -1,0 +1,504 @@
+/* ================================================
+   Library Games - Leaderboard Component Styles
+   ================================================ */
+
+/* Leaderboard Container */
+.leaderboard-component {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* Filters */
+.leaderboard-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 150px;
+}
+
+.filter-group label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.filter-select {
+    padding: 0.625rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.filter-select:hover {
+    border-color: var(--primary);
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-alpha);
+}
+
+/* Refresh button in filters */
+.leaderboard-filters .btn-icon {
+    margin-left: auto;
+    padding: 0.625rem 1rem;
+}
+
+/* Statistics Cards */
+.leaderboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Table Container */
+.leaderboard-table-container {
+    position: relative;
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+/* Loading State */
+.leaderboard-loading {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+}
+
+.leaderboard-loading .skeleton-loader {
+    width: 100px;
+    height: 100px;
+    border: 4px solid var(--border-color);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Table */
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+}
+
+.leaderboard-table thead {
+    background: var(--primary);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+.leaderboard-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.875rem;
+}
+
+.leaderboard-table th:first-child {
+    text-align: center;
+    width: 80px;
+}
+
+.leaderboard-table tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s;
+}
+
+.leaderboard-table tbody tr:hover {
+    background-color: var(--primary-alpha);
+}
+
+.leaderboard-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.leaderboard-table td {
+    padding: 1rem;
+}
+
+/* Table Cells */
+.rank-cell {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.player-cell {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.score-cell {
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--primary);
+}
+
+.time-cell {
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+}
+
+.date-cell {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Leaderboard Row Animation */
+.leaderboard-row {
+    animation: slideInLeft 0.4s ease-out both;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* No Data State */
+.no-data td {
+    padding: 3rem;
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Error State */
+.error-message td {
+    padding: 2rem;
+    text-align: center;
+    color: var(--error);
+    font-weight: 600;
+}
+
+/* Pagination */
+.leaderboard-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.page-info {
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding: 0 1rem;
+}
+
+/* Submit Button */
+.leaderboard-actions {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.leaderboard-actions .btn {
+    min-width: 200px;
+}
+
+/* Submit Score Modal Form */
+#submit-score-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+#submit-score-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+#submit-score-form input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+#submit-score-form input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-alpha);
+}
+
+#submit-score-form input:invalid {
+    border-color: var(--error);
+}
+
+#submit-score-form .form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .leaderboard-component {
+        padding: 1rem 0.5rem;
+    }
+    
+    .leaderboard-filters {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    .filter-group {
+        width: 100%;
+    }
+    
+    .leaderboard-filters .btn-icon {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    .leaderboard-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+    
+    .stat-card {
+        padding: 1rem;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
+    }
+    
+    /* Make table scrollable on mobile */
+    .leaderboard-table-container {
+        overflow-x: auto;
+    }
+    
+    .leaderboard-table {
+        font-size: 0.875rem;
+    }
+    
+    .leaderboard-table th,
+    .leaderboard-table td {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .leaderboard-table th:first-child {
+        width: 60px;
+    }
+    
+    /* Hide date column on very small screens */
+    .date-cell {
+        display: none;
+    }
+    
+    .leaderboard-table thead th:last-child {
+        display: none;
+    }
+    
+    .leaderboard-pagination {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .leaderboard-pagination .btn {
+        width: 100%;
+    }
+    
+    .leaderboard-actions .btn {
+        width: 100%;
+        min-width: unset;
+    }
+}
+
+@media (max-width: 480px) {
+    .leaderboard-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Hide time column on extra small screens */
+    .time-cell {
+        display: none;
+    }
+    
+    .leaderboard-table thead th:nth-child(4) {
+        display: none;
+    }
+}
+
+/* Tablet */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .leaderboard-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Smartwatch (very small devices) */
+@media (max-width: 320px) {
+    .leaderboard-component {
+        padding: 0.5rem 0.25rem;
+    }
+    
+    .stat-value {
+        font-size: 1.25rem;
+    }
+    
+    .stat-label {
+        font-size: 0.75rem;
+    }
+    
+    .leaderboard-table {
+        font-size: 0.75rem;
+    }
+    
+    .rank-cell {
+        font-size: 1rem;
+    }
+    
+    .score-cell {
+        font-size: 1rem;
+    }
+}
+
+/* TV/Large Desktop (1920px+) */
+@media (min-width: 1921px) {
+    .leaderboard-component {
+        max-width: 1600px;
+    }
+    
+    .leaderboard-table {
+        font-size: 1.125rem;
+    }
+    
+    .stat-value {
+        font-size: 2.5rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .leaderboard-filters,
+    .leaderboard-actions,
+    .leaderboard-pagination {
+        display: none;
+    }
+    
+    .leaderboard-table-container {
+        box-shadow: none;
+    }
+    
+    .leaderboard-table tbody tr:hover {
+        background-color: transparent;
+    }
+}
+
+/* Dark Mode Support (if implemented later) */
+@media (prefers-color-scheme: dark) {
+    .leaderboard-table thead {
+        background: var(--primary-dark, var(--primary));
+    }
+    
+    .leaderboard-loading {
+        background: rgba(0, 0, 0, 0.9);
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .leaderboard-row {
+        animation: none;
+    }
+    
+    .stat-card {
+        transition: none;
+    }
+    
+    .leaderboard-table tbody tr {
+        transition: none;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .leaderboard-table thead {
+        border: 2px solid currentColor;
+    }
+    
+    .leaderboard-table tbody tr {
+        border-bottom: 2px solid currentColor;
+    }
+    
+    .filter-select {
+        border-width: 3px;
+    }
+}

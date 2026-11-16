@@ -1,0 +1,14 @@
+{
+  "overrides": [
+    {
+      "id": "sample_override_1",
+      "date": "2024-12-25",
+      "gameType": "wordle",
+      "challenge": {
+        "word": "GIFTS",
+        "hint": "What you receive on Christmas"
+      },
+      "active": true
+    }
+  ]
+}

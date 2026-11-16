@@ -1,0 +1,14 @@
+{
+  "items": [
+    {
+      "id": "sample_feature_1",
+      "title": "Math Puzzle Challenge",
+      "description": "Solve exciting math puzzles and compete with friends",
+      "icon": "🧮",
+      "category": "game",
+      "estimatedDate": "2025-01-15",
+      "priority": 1,
+      "active": true
+    }
+  ]
+}

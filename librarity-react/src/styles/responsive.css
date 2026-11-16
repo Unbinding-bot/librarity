@@ -1,0 +1,539 @@
+/* ================================================
+   Library Games - Responsive Design
+   Mobile-First Approach
+   ================================================ */
+
+/* ================================================
+   Base (Mobile First - 0-320px Smartwatch)
+   ================================================ */
+
+/* Already defined in main.css as base styles */
+
+/* ================================================
+   Small Devices (321px - 768px Mobile)
+   ================================================ */
+
+@media (min-width: 321px) {
+    html {
+        font-size: 16px;
+    }
+    
+    .main-content {
+        padding: var(--spacing-lg);
+    }
+    
+    .grid-cols-2-sm {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ================================================
+   Medium Devices (769px - 1024px Tablet)
+   ================================================ */
+
+@media (min-width: 769px) {
+    html {
+        font-size: 17px;
+    }
+    
+    .main-content {
+        padding: var(--spacing-xl);
+    }
+    
+    .grid-cols-2-md {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .grid-cols-3-md {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    /* Two-column layouts for tablet */
+    .two-col-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-lg);
+    }
+    
+    /* Tablet navigation adjustments */
+    .navbar {
+        padding: var(--spacing-md) var(--spacing-xl);
+    }
+}
+
+/* ================================================
+   Large Devices (1025px - 1920px Desktop)
+   ================================================ */
+
+@media (min-width: 1025px) {
+    html {
+        font-size: 18px;
+    }
+    
+    .main-content {
+        padding: var(--spacing-xxl) var(--spacing-xl);
+    }
+    
+    .grid-cols-3-lg {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .grid-cols-4-lg {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    /* Desktop hover effects enabled */
+    .hover-lift:hover {
+        transform: translateY(-8px);
+    }
+    
+    /* Multi-column layouts */
+    .three-col-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: var(--spacing-xl);
+    }
+    
+    /* Desktop modals larger */
+    .modal {
+        max-width: 800px;
+    }
+    
+    .modal-wide {
+        max-width: 1200px;
+    }
+}
+
+/* ================================================
+   Extra Large Devices (1921px+ TV/Large Screens)
+   ================================================ */
+
+@media (min-width: 1921px) {
+    html {
+        font-size: 20px;
+    }
+    
+    .main-content {
+        max-width: 1800px;
+        padding: var(--spacing-xxl);
+    }
+    
+    /* Extra large text for TV viewing */
+    h1 { font-size: 4rem; }
+    h2 { font-size: 3rem; }
+    h3 { font-size: 2.5rem; }
+    
+    .btn-lg {
+        padding: var(--spacing-xl) var(--spacing-xxl);
+        font-size: var(--font-size-xl);
+    }
+    
+    /* TV-specific: Focus indicators more prominent */
+    *:focus-visible {
+        outline-width: 5px;
+        outline-offset: 4px;
+    }
+}
+
+/* ================================================
+   Smartwatch Specific (0-320px)
+   ================================================ */
+
+@media (max-width: 320px) {
+    html {
+        font-size: 12px;
+    }
+    
+    body {
+        padding: var(--spacing-xs);
+    }
+    
+    .main-content {
+        padding: var(--spacing-sm);
+    }
+    
+    /* Single column only */
+    .grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* Large tap targets for small screens */
+    .btn {
+        min-height: 44px;
+        padding: var(--spacing-md);
+    }
+    
+    /* Hide non-essential elements */
+    .hide-smartwatch {
+        display: none !important;
+    }
+    
+    /* Simplify cards */
+    .card {
+        padding: var(--spacing-md);
+        border-radius: var(--radius-md);
+    }
+    
+    /* Minimal navbar */
+    .navbar {
+        padding: var(--spacing-sm);
+    }
+}
+
+/* ================================================
+   Mobile Specific Adjustments
+   ================================================ */
+
+@media (max-width: 768px) {
+    /* Convert tables to cards on mobile */
+    .table-responsive {
+        display: block;
+    }
+    
+    .table-responsive table {
+        display: none;
+    }
+    
+    .table-cards {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+    
+    /* Stack form inputs vertically */
+    .form-row {
+        flex-direction: column;
+    }
+    
+    /* Full-width buttons on mobile */
+    .btn-mobile-full {
+        width: 100%;
+    }
+    
+    /* Modal takes more screen space */
+    .modal {
+        max-width: 95vw;
+        max-height: 95vh;
+    }
+    
+    /* Toast notifications smaller */
+    .toast-container {
+        left: var(--spacing-md);
+        right: var(--spacing-md);
+        max-width: none;
+    }
+    
+    /* Bookshelf converts to grid */
+    .bookshelf {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
+    }
+    
+    .book-spine {
+        width: 100%;
+        height: 150px;
+    }
+    
+    /* Admin sidebar becomes top tabs */
+    .admin-sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        overflow-x: auto;
+        overflow-y: visible;
+    }
+    
+    .admin-nav {
+        display: flex;
+        flex-direction: row;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-md) 0;
+    }
+    
+    /* Game boards compact */
+    .game-board {
+        transform: scale(0.9);
+        transform-origin: top center;
+    }
+    
+    /* Flashcards full screen */
+    .flashcard {
+        width: 100%;
+        height: 60vh;
+    }
+}
+
+/* ================================================
+   Touch Device Optimizations
+   ================================================ */
+
+@media (hover: none) and (pointer: coarse) {
+    /* Remove hover effects on touch devices */
+    .hover-effect:hover {
+        transform: none;
+    }
+    
+    /* Larger tap targets */
+    button, a, input[type="button"], input[type="submit"] {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Remove hover-only tooltips */
+    .hover-tooltip {
+        display: none;
+    }
+    
+    /* Touch feedback */
+    button:active, .btn:active {
+        transform: scale(0.95);
+    }
+}
+
+/* ================================================
+   Landscape Orientation
+   ================================================ */
+
+@media (orientation: landscape) and (max-height: 600px) {
+    /* Reduce vertical padding in landscape */
+    .main-content {
+        padding-top: var(--spacing-md);
+        padding-bottom: var(--spacing-md);
+    }
+    
+    /* Compact headers */
+    h1 { font-size: var(--font-size-xxl); }
+    h2 { font-size: var(--font-size-xl); }
+    
+    /* Shorter modals */
+    .modal {
+        max-height: 85vh;
+    }
+    
+    /* Side-by-side game layouts */
+    .game-landscape {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-lg);
+    }
+}
+
+/* ================================================
+   Print Styles
+   ================================================ */
+
+@media print {
+    /* Remove non-printable elements */
+    .navbar,
+    .footer,
+    .banner-carousel,
+    .toast-container,
+    .modal-backdrop,
+    .no-print {
+        display: none !important;
+    }
+    
+    /* Optimize for print */
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        page-break-inside: avoid;
+    }
+    
+    a {
+        text-decoration: underline;
+    }
+    
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+}
+
+/* ================================================
+   Dark Mode Support (Future Enhancement)
+   ================================================ */
+
+@media (prefers-color-scheme: dark) {
+    /* Dark mode variables can be added here if needed */
+    /* Currently using light theme only as specified */
+}
+
+/* ================================================
+   High Contrast Mode
+   ================================================ */
+
+@media (prefers-contrast: high) {
+    :root {
+        --border-color: #000000;
+        --text-color: #000000;
+    }
+    
+    .btn {
+        border: 2px solid currentColor;
+    }
+    
+    *:focus-visible {
+        outline-width: 4px;
+    }
+}
+
+/* ================================================
+   Specific Component Responsive Adjustments
+   ================================================ */
+
+/* Wordle Grid */
+@media (max-width: 768px) {
+    .wordle-grid {
+        gap: var(--spacing-xs);
+    }
+    
+    .wordle-tile {
+        width: 50px;
+        height: 50px;
+        font-size: var(--font-size-xl);
+    }
+    
+    .wordle-keyboard {
+        gap: var(--spacing-xs);
+    }
+    
+    .wordle-key {
+        padding: var(--spacing-md);
+        font-size: var(--font-size-sm);
+    }
+}
+
+/* Spelling Bee Hexagon */
+@media (max-width: 768px) {
+    .spelling-bee-hexagon {
+        transform: scale(0.8);
+    }
+    
+    .hex-letter {
+        width: 60px;
+        height: 60px;
+        font-size: var(--font-size-xl);
+    }
+}
+
+/* Trivia Question */
+@media (max-width: 768px) {
+    .trivia-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .trivia-timer {
+        font-size: var(--font-size-lg);
+    }
+}
+
+/* Wikipedia Race */
+@media (max-width: 768px) {
+    .wikipedia-game {
+        flex-direction: column;
+    }
+    
+    .wikipedia-sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        order: -1;
+    }
+    
+    .wikipedia-content {
+        width: 100%;
+    }
+}
+
+/* Leaderboard */
+@media (max-width: 768px) {
+    .leaderboard-filters {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    .leaderboard-filter {
+        width: 100%;
+    }
+}
+
+/* Book Cards */
+@media (max-width: 768px) {
+    .book-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .book-card {
+        max-width: 100%;
+    }
+}
+
+/* Admin Panel */
+@media (max-width: 768px) {
+    .admin-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .admin-sidebar {
+        position: static;
+        width: 100%;
+    }
+    
+    .admin-content {
+        width: 100%;
+    }
+}
+
+/* ================================================
+   Accessibility - Reduced Motion
+   ================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    /* Disable complex animations */
+    .book-spine:hover {
+        transform: none;
+    }
+    
+    .page-transition-enter,
+    .page-transition-exit {
+        animation: none;
+    }
+    
+    /* Keep essential animations but simplify */
+    .stagger-item {
+        animation: simpleFadeIn 0.3s forwards;
+    }
+    
+    @keyframes simpleFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+}
+
+/* ================================================
+   Container Queries (Modern Browsers)
+   ================================================ */
+
+@supports (container-type: inline-size) {
+    .responsive-container {
+        container-type: inline-size;
+    }
+    
+    @container (min-width: 400px) {
+        .responsive-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @container (min-width: 700px) {
+        .responsive-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+}
