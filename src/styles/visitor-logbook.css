@@ -1,0 +1,266 @@
+/* ================================================================
+   Visitor Logbook — Neo-Brutalism (React port)
+   ================================================================ */
+
+/* ── Visitor card (identity + sign form) ─────────────────────── */
+.visitor-card {
+  background: var(--color-surface);
+  border: 3px solid var(--color-border);
+  border-radius: 0;
+  box-shadow: 5px 5px 0 0 var(--nb-black);
+  margin-bottom: 1.75rem;
+  padding: 1.1rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  width: 100%;
+}
+
+.visitor-card-identity {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.vc-label {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.vc-name {
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-weight: 400;
+  font-size: 1.05rem;
+  color: var(--color-text);
+  white-space: nowrap;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vc-name.vc-name-anon {
+  color: var(--color-text-muted);
+  font-style: italic;
+  font-family: var(--font-body, system-ui, sans-serif);
+  font-weight: 500;
+}
+
+.vc-edit-btn {
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: 0;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: none;
+  white-space: nowrap;
+  font-family: inherit;
+  box-shadow: 2px 2px 0 0 var(--nb-black);
+  text-transform: uppercase;
+}
+
+.vc-edit-btn:hover {
+  background: var(--nb-yellow, #FFD23F);
+  color: var(--text-on-accent, var(--nb-black));
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 0 var(--nb-black);
+}
+
+.visitor-card-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 3px dashed var(--color-border);
+  border-radius: 0;
+  background: var(--color-bg, transparent);
+}
+
+.vc-edit-actions {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.visitor-card-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.vc-field-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+
+.vc-input {
+  flex: 0 0 200px;
+  font-family: inherit;
+}
+
+.vc-textarea {
+  flex: 1;
+  min-width: 220px;
+  min-height: 60px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.vc-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.vc-char-count {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  font-weight: 700;
+  font-family: var(--font-mono, "Space Mono", monospace);
+}
+
+.vc-sign-btn {
+  white-space: nowrap;
+}
+
+/* ── Entries list ────────────────────────────────────────────── */
+.logbook-entries-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid var(--color-border);
+}
+
+.logbook-entry-count {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* One scrollable page like the leaderboard: the visitor card sits at the
+   top of the same container and the entries flow below it, all in a single
+   scroll. The entries wrapper itself does not scroll. */
+.logbook-entries {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  padding-right: 4px;
+}
+
+/* every entry renders at the same fixed height — long messages scroll
+   inside their box instead of stretching the row */
+.logbook-entry {
+  height: 128px;
+  padding: 0.7rem 0.95rem;
+  margin-bottom: 0.6rem;
+  border: 2px solid var(--color-border);
+  border-radius: 0;
+  /* Accent stripe as an inset shadow: an 8px border-left against a 2px border
+     miter-joins with diagonal seams at the corners. 6px stripe + 2px border
+     = the same 8px left weight. */
+  box-shadow: inset 6px 0 0 0 var(--entry-stripe, var(--nb-lavender, #B8A9FA));
+  background: var(--color-surface);
+  overflow-y: auto;
+  animation: vl-entry-in 0.3s ease-out both;
+  transition: none;
+}
+
+.logbook-entry:hover { transform: translateX(2px); }
+
+.logbook-entry:nth-child(3n+2) { --entry-stripe: var(--nb-yellow, #FFD23F); }
+.logbook-entry:nth-child(3n+3) { --entry-stripe: var(--nb-sky, #74B9FF); }
+
+@keyframes vl-entry-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.logbook-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.25rem;
+}
+
+.logbook-entry-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+.logbook-entry-date {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono, "Space Mono", monospace);
+  white-space: nowrap;
+}
+
+.logbook-entry-msg {
+  font-size: 0.9rem;
+  color: var(--color-text);
+  line-height: 1.5;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.logbook-empty {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 3px dashed var(--color-border);
+}
+
+.logbook-empty-icon {
+  display: block;
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+.logbook-more { text-align: center; margin-top: 0.75rem; }
+
+/* ── Pagination (Next/Prev, like the leaderboard) ────────────── */
+.logbook-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.logbook-page-info {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 580px) {
+  .vc-field-row { flex-direction: column; }
+  .vc-input { flex: none; width: 100%; }
+  .vc-form-actions { justify-content: stretch; }
+  .vc-sign-btn { flex: 1; }
+}

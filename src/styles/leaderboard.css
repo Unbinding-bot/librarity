@@ -1,0 +1,227 @@
+/* Leaderboard styles — Neo-Brutalism */
+
+.lb-filters {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.lb-filter {
+  width: auto;
+  min-width: 170px;
+}
+
+.lb-stats {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.lb-top-player {
+  font-size: 1.1rem !important;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.lb-table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 3px solid var(--color-border);
+  border-radius: 0;
+  background: var(--color-surface);
+  box-shadow: 5px 5px 0 0 var(--nb-black);
+}
+
+.lb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.lb-table th {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  /* Lavender is an accent fill: text follows --text-on-accent (dark: Deep Forest). */
+  color: var(--text-on-accent, var(--nb-black));
+  background: var(--nb-lavender, #B8A9FA);
+  border-bottom: 3px solid var(--color-border);
+  border-right: none;
+  white-space: nowrap;
+}
+
+.lb-table th,
+.lb-table td {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.lb-table td {
+  padding: 0.7rem 1rem;
+  border-bottom: 2px solid var(--color-border);
+  border-right: none;
+  color: var(--color-text);
+  overflow: visible;
+}
+
+.lb-table th {
+  overflow: visible;
+}
+
+.lb-col-player,
+.lb-col-date,
+.lb-col-time,
+.lb-col-score,
+.lb-col-game,
+.lb-col-mode {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.lb-col-player,
+.lb-col-date,
+.lb-col-time,
+.lb-col-game,
+.lb-col-mode {
+  white-space: normal;
+}
+
+.lb-col-player {
+  width: 34%;
+}
+.lb-col-game,
+.lb-col-mode {
+  width: 13%;
+}
+.lb-col-score {
+  width: 14%;
+}
+.lb-col-time,
+.lb-col-date {
+  width: 13%;
+}
+
+.lb-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Top-3 ranked rows — solid fills, no inner borders.
+   NOTE: --nb-black flips to Off-White in dark mode (it's the border token),
+   so text on these accent fills must use --text-on-accent instead. */
+.lb-row-1,
+.lb-row-2,
+.lb-row-3 {
+  color: var(--text-on-accent, var(--nb-black));
+  font-weight: 700;
+}
+
+.lb-row-1 { background: var(--nb-yellow, #FFD23F); }
+.lb-row-2 { background: var(--nb-sky,   #74B9FF); }
+.lb-row-3 { background: var(--nb-orange,#FFA552); }
+
+.lb-row-1 td,
+.lb-row-2 td,
+.lb-row-3 td {
+  border-right: none;
+}
+
+.lb-col-rank {
+  width: 52px;
+  font-weight: 700;
+  text-align: center !important;
+  white-space: nowrap;
+  overflow: visible;
+}
+
+.lb-col-score {
+  font-weight: 700;
+  color: var(--text-on-accent, var(--nb-black)) !important;
+}
+
+.lb-col-time,
+.lb-col-date {
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.lb-col-player {
+  font-weight: 700;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lb-col-mode {
+  text-transform: capitalize;
+  color: var(--color-text-muted);
+}
+
+.lb-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.lb-page-info {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+
+/* Submit form */
+.lb-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.9rem;
+}
+
+.lb-form-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+
+.lb-form-label .form-input,
+.lb-form-label .form-select {
+  font-size: 0.95rem;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.lb-form-actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .lb-table th,
+  .lb-table td {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.8rem;
+  }
+  .lb-col-date,
+  .lb-col-time {
+    display: none;
+  }
+  .lb-form-grid {
+    grid-template-columns: 1fr;
+  }
+}

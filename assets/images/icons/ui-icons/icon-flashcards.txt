@@ -1,5 +1,0 @@
-Icon: Flashcards game
-Emoji placeholder: 📇
-Dimensions: 32x32px
-Usage: Flashcards game title heading; game cards
-Replace with: Drop icon-flashcards.svg or icon-flashcards.png in this same folder

@@ -1,0 +1,289 @@
+/* Shared tools styles (Dictionary, Thesaurus, Rhyme Finder) — Neo-Brutalism */
+
+.tool-search-row {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  flex-wrap: wrap;
+}
+
+.tool-search-row .form-input {
+  flex: 1 1 200px;
+  min-width: 0;
+  font-size: 1.05rem;
+}
+
+.tool-search-row .btn {
+  flex: 0 0 auto;
+}
+
+.tool-history {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  padding: 0 0.5rem;
+}
+
+.tool-history-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+
+.tool-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0.5rem 0;
+}
+
+.tool-chip {
+  padding: 0.4rem 0.85rem;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: 0;
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: none;
+  font-family: inherit;
+  text-transform: lowercase;
+  box-shadow: 2px 2px 0 0 var(--nb-black);
+}
+
+.tool-chip:hover {
+  background: var(--nb-yellow, #FFD23F);
+  color: var(--text-on-accent, var(--nb-black));
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 0 var(--nb-black);
+}
+
+.tool-chip small {
+  color: var(--color-text-muted);
+  font-weight: 500;
+  font-size: 0.72rem;
+}
+
+.tool-loading,
+.tool-empty {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: 2.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.tool-error {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-on-accent, var(--nb-black));
+  font-size: 1rem;
+  background: var(--nb-pink, #FF6B6B);
+  border: 3px solid var(--color-border);
+  box-shadow: 5px 5px 0 0 var(--nb-black);
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.tool-error-hint {
+  /* Sits inside the pink .tool-error fill — muted green-gray would drop below
+     contrast there; follow the fill's text token instead. */
+  color: var(--text-on-accent, var(--nb-black));
+  font-size: 0.85rem;
+}
+
+.tool-empty-list {
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin: 0.5rem 0;
+}
+
+/* Results */
+.tool-results {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.tool-entry {
+  background: var(--color-surface);
+  border: 3px solid var(--color-border);
+  border-radius: 0;
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 5px 5px 0 0 var(--nb-black);
+}
+
+.tool-entry-head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  border-bottom: 3px solid var(--color-border);
+  padding-bottom: 0.75rem;
+}
+
+.tool-entry-word {
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: var(--color-text);
+  margin: 0;
+  text-transform: lowercase;
+}
+
+.tool-entry-phonetic {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  font-family: var(--font-mono, "Space Mono", monospace);
+}
+
+.tool-meaning {
+  margin-bottom: 1.25rem;
+}
+
+.tool-meaning:last-child {
+  margin-bottom: 0;
+}
+
+.tool-meaning-pos {
+  color: var(--text-on-accent, var(--nb-black));
+  background: var(--nb-green, #88D498);
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border: 2px solid var(--color-border);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem;
+  box-shadow: 2px 2px 0 0 var(--nb-black);
+}
+
+.tool-definition-list {
+  margin: 0 0 0.75rem;
+  padding-left: 1.5rem;
+}
+
+.tool-definition {
+  margin-bottom: 0.6rem;
+  color: var(--color-text);
+  line-height: 1.55;
+}
+
+.tool-definition p {
+  margin: 0;
+}
+
+.tool-example {
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-top: 0.25rem !important;
+  font-size: 0.9rem;
+}
+
+.tool-related {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  margin-top: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.tool-related-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  font-weight: 700;
+  padding-top: 0.4rem;
+}
+
+.tool-related .tool-chip-row {
+  margin: 0;
+}
+
+/* Tabs (thesaurus) */
+.tool-tabs {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.tool-tab {
+  padding: 0.55rem 1.2rem;
+  border: 3px solid var(--color-border);
+  border-radius: 0;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: none;
+  font-family: inherit;
+  box-shadow: 3px 3px 0 0 var(--nb-black);
+}
+
+.tool-tab:hover {
+  background: var(--nb-lavender, #B8A9FA);
+  color: var(--text-on-accent, var(--nb-black));
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 0 var(--nb-black);
+}
+
+.tool-tab.active {
+  background: var(--color-primary);
+  border-color: var(--color-border);
+  color: var(--text-on-accent, var(--nb-black));
+}
+
+/* Rhyme sections */
+.tool-section {
+  background: var(--color-surface);
+  border: 3px solid var(--color-border);
+  border-radius: 0;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 3px 3px 0 0 var(--nb-black);
+}
+
+.tool-section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 0.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 3px solid var(--color-border);
+}
+
+.tool-rhyme-group {
+  margin-bottom: 1rem;
+}
+
+.tool-rhyme-group:last-child {
+  margin-bottom: 0;
+}
+
+.tool-rhyme-syllables {
+  font-size: 0.85rem;
+  color: var(--text-on-accent, var(--nb-black));
+  background: var(--nb-sky, #74B9FF);
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border: 2px solid var(--color-border);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.25rem;
+}

@@ -1,0 +1,13 @@
+/* GameShell page wrapper styles — see games.css for full game styles */
+
+.game-container {
+  width: 100%;
+}
+
+.game-back-row {
+  margin-top: 2rem;
+}
+
+.game-back-row .btn {
+  text-decoration: none;
+}

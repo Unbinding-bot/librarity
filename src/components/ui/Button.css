@@ -1,0 +1,65 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--btn-padding-y, 0.75rem) var(--btn-padding-x, 1.5rem);
+  border-radius: 0;
+  border: 3px solid var(--color-border, #000000);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: var(--btn-font-size, 0.875rem);
+  font-family: var(--btn-font, "Space Grotesk", system-ui, sans-serif);
+  transition: none;
+  text-decoration: none;
+  min-height: 24px;
+}
+
+.btn--primary {
+  background: var(--btn-primary-bg, #FFD23F);
+  color: var(--btn-primary-text, #000000);
+  box-shadow: var(--btn-primary-shadow, 5px 5px 0 0 #000000);
+}
+
+.btn--primary:hover {
+  background: var(--btn-primary-hover-bg, #FFA552);
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 0 var(--nb-black, #000000);
+}
+
+.btn--primary:active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
+}
+
+.btn--primary:disabled,
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--btn-primary-shadow, 5px 5px 0 0 #000000);
+}
+
+.btn--ghost {
+  background: var(--btn-ghost-bg, #FFFFFF);
+  color: var(--btn-ghost-text, #000000);
+  border: 3px solid var(--btn-ghost-border, #000000);
+  box-shadow: var(--btn-ghost-shadow, 5px 5px 0 0 #000000);
+}
+
+.btn--ghost:hover {
+  background: var(--btn-ghost-hover-bg, #74B9FF);
+  color: var(--btn-ghost-hover-text, #000000);
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 0 var(--nb-black, #000000);
+}
+
+.btn--ghost:active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
+}
+
+/* Dark mode: ghost button text must be Off-White — Deep Forest (#0B2B23)
+   on the Pine Slate (#235A46) ghost background is 1.89:1, invisible. */
+[data-theme="dark"] .btn--ghost {
+  color: var(--color-text, #FFFDF5);
+}

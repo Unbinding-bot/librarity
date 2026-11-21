@@ -1,0 +1,247 @@
+/* Spelling Bee styles — Neo-Brutalism */
+
+.sb-rank-bar {
+  margin: 0 auto 1.25rem;
+  max-width: 560px;
+}
+
+.sb-rank-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+
+.sb-rank-name {
+  font-weight: 700;
+  color: var(--color-text);
+  font-size: 1.1rem;
+  text-transform: uppercase;
+}
+
+.sb-rank-score {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.sb-rank-track {
+  position: relative;
+  height: 14px;
+  background: var(--color-surface);
+  border: 3px solid var(--color-border);
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.sb-rank-tick {
+  position: absolute;
+  top: -4px;
+  width: 3px;
+  height: 20px;
+  background: var(--color-text-muted);
+  opacity: 0.4;
+}
+
+.sb-rank-tick.reached {
+  background: var(--nb-green, #88D498);
+  opacity: 1;
+}
+
+.sb-rank-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--nb-green, #88D498);
+  transition: width 0.4s ease;
+}
+
+/* Current input */
+.sb-current {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  min-height: 36px;
+  align-items: center;
+}
+
+.sb-current span {
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--color-text);
+  min-width: 24px;
+  text-align: center;
+}
+
+.sb-current .sb-center-letter {
+  color: var(--text-on-accent, var(--nb-black));
+  background: var(--nb-yellow, #FFD23F);
+  border: 2px solid var(--color-border);
+  padding: 0 0.2rem;
+}
+
+.sb-placeholder {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
+.sb-current.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Honeycomb */
+.sb-hive {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 1.5rem;
+  width: fit-content;
+}
+
+.sb-hive-row {
+  display: flex;
+  gap: 0;
+  justify-content: center;
+  /* pointy-topped hexagons (W=84, H=96 incl. border) tile the plane when
+     rows overlap vertically by H/4 = 24px: the bottom point of one row
+     meets the top point of the next, and the slanted edges align. */
+  margin-top: -24px;
+}
+
+.sb-hive-row:first-child {
+  margin-top: 0;
+}
+
+/* No per-row transform: the 3-cell middle row (252px) is naturally 42px
+   wider than the 2-cell rows (168px), so justify-content:center already
+   offsets the middle row by half a hex — exactly the stagger that makes
+   pointy-topped hexagons nest. The old transform pushed the bottom row
+   too far right and overlapped it onto the middle row. */
+
+.hex-cell {
+  position: relative;
+  /* 84×96 = the SVG viewBox; the polygon's stroke draws inside this box */
+  width: 84px;
+  height: 96px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  transition: transform 0.15s ease;
+  /* pointy-topped hexagon: points at top/bottom, flat sides left/right —
+     nests properly in a honeycomb so row points fit into adjacent-row gaps */
+}
+
+.hex-cell:hover {
+  transform: scale(1.06);
+}
+
+.hex-cell:active {
+  transform: scale(0.95);
+}
+
+/* hex-shape is now an inline SVG <polygon> — a CSS border on a clipped
+   rectangle only ever draws along the flat sides and leaves the diagonals
+   and points bare, which is why the hive looked like a broken outline.
+   SVG stroke follows the polygon edges exactly. */
+.hex-shape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.hex-shape polygon {
+  fill: var(--color-surface);
+  stroke: var(--color-border);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+.hex-center .hex-shape polygon {
+  fill: var(--nb-yellow, #FFD23F);
+}
+
+.hex-letter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--color-text);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hex-center .hex-letter {
+  color: var(--color-text);
+}
+
+/* Actions */
+.sb-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+/* Found words list */
+.sb-found-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.sb-found-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  padding: 0.4rem 0.75rem;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: 0;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  color: var(--color-text);
+  box-shadow: 3px 3px 0 0 var(--nb-black);
+}
+
+.sb-found-chip small {
+  font-weight: 500;
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+}
+
+.sb-found-chip.sb-pangram {
+  background: var(--nb-lavender, #B8A9FA);
+  color: var(--text-on-accent, var(--nb-black));
+  border-color: var(--color-border);
+}
+
+/* The score <small> inside a pangram chip sits on the lavender fill too —
+   muted text on it would drop below contrast. */
+.sb-found-chip.sb-pangram small {
+  color: var(--text-on-accent, var(--nb-black));
+}
+
+@media (max-width: 480px) {
+  .hex-cell { width: 64px; height: 72px; }
+  .hex-letter { font-size: 1.5rem; }
+  .sb-current span { font-size: 1.4rem; }
+  .sb-rank-track { height: 12px; }
+  .sb-hive-row:nth-child(odd):not(:first-child) {
+    transform: translateX(32px);
+  }
+}

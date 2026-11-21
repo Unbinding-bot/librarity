@@ -1,31 +1,58 @@
 name: Keep Supabase Alive
 
-# Runs every 3 days at midnight UTC
-# Prevents Supabase free tier from pausing due to inactivity
+# Supabase pauses free-tier projects after ~7 days of inactivity.
+# This workflow pings the REST API twice a week to keep it awake.
+#
+# No repository secrets are required: the Supabase URL and anon key are
+# public by design (they ship with the frontend bundle in
+# src/lib/supabase.js, and Row Level Security protects the data).
+
 on:
   schedule:
-    - cron: '0 0 */3 * *'
-  # Also lets you trigger it manually from the Actions tab
+    # 02:07 UTC every Monday and Thursday
+    - cron: '7 2 * * 1,4'
+  # Lets you trigger it manually from the Actions tab
   workflow_dispatch:
 
 jobs:
   ping:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
     steps:
-      - name: Ping Supabase
+      - name: Ping Supabase REST API
         env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_URL: 'https://wiqwrrhlriyaqxrmitzo.supabase.co'
+          SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndpcXdycmhscml5YXF4cm1pdHpvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY4ODA3OTYsImV4cCI6MjEwMjQ1Njc5Nn0.pw9XCB806F0dNatpqaylbjVX4guT4pImE6KiOF8Pxak'
         run: |
-          echo "Pinging Supabase at $SUPABASE_URL..."
+          set -euo pipefail
+
+          echo "Pinging $SUPABASE_URL ..."
+
+          # 1) Plain REST read on the leaderboards table.
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             "$SUPABASE_URL/rest/v1/leaderboards?select=id&limit=1" \
             -H "apikey: $SUPABASE_ANON_KEY" \
             -H "Authorization: Bearer $SUPABASE_ANON_KEY")
-          echo "Response status: $STATUS"
-          if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 300 ]; then
-            echo "✓ Supabase is alive"
+          echo "leaderboards read: HTTP $STATUS"
+
+          # 2) RPC call — a second, different kind of query so the
+          #    project sees real database activity.
+          RPC_STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+            "$SUPABASE_URL/rest/v1/rpc/health_check" \
+            -H "apikey: $SUPABASE_ANON_KEY" \
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY" \
+            -H "Content-Type: application/json")
+          echo "health_check rpc: HTTP $RPC_STATUS"
+
+          OK=0
+          case "$STATUS" in 2*) OK=1;; esac
+          case "$RPC_STATUS" in 2*) OK=$((OK+1));; esac
+
+          if [ "$OK" -ge 1 ]; then
+            echo "✓ Supabase is alive (at least one check passed)"
           else
-            echo "⚠ Unexpected status $STATUS (project may be paused or misconfigured)"
+            echo "✗ Both checks failed (HTTP $STATUS / $RPC_STATUS) — project may be paused"
             exit 1
           fi

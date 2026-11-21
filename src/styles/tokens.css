@@ -1,0 +1,431 @@
+/*
+ * Librarity Design Tokens — Neo-Brutalism
+ * Spec: neubrutalism.com — flat fills, thick black borders, zero-blur offset
+ * shadows, square corners. Three-layer system: Primitive → Semantic → Component.
+ * All variable names from the previous theme are preserved so downstream
+ * stylesheets resolve unchanged.
+ */
+
+/* ============================================
+ * PRIMITIVE LAYER (Raw values)
+ * ============================================ */
+:root {
+  /* Neo-brutalist palette */
+  --nb-black: #000000;
+  --nb-off-white: #FFFDF5;
+  --nb-yellow: #FFD23F;
+  --nb-pink: #FF6B6B;
+  --nb-sky: #74B9FF;
+  --nb-green: #88D498;
+  --nb-orange: #FFA552;
+  --nb-lavender: #B8A9FA;
+  --nb-gray: #BDBDBD;
+
+  /* Neutrals (kept names) */
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-gray-50: #FAFAFA;
+  --color-gray-100: #F5F5F5;
+  --color-gray-200: #EEEEEE;
+  --color-gray-300: #E0E0E0;
+  --color-gray-400: #BDBDBD;
+  --color-gray-500: #9E9E9E;
+  --color-gray-600: #616161;
+  --color-gray-700: #424242;
+  --color-gray-800: #2A2A2A;
+  --color-gray-900: #111111;
+
+  /* Legacy aliases (aqua/iridescent/glass names kept, values flat) */
+  --color-aqua-400: var(--nb-sky);
+  --color-aqua-500: var(--nb-yellow);
+  --color-aqua-600: var(--nb-yellow);
+  --color-aqua-700: var(--nb-yellow);
+  --color-iridescent-start: var(--nb-sky);
+  --color-glass-white: var(--nb-off-white);
+
+  /* Legacy compat names (used by Footer.jsx) */
+  --gray-100: #F5F5F5;
+  --gray-600: #616161;
+
+  /* Semantic Colors */
+  --color-primary: var(--nb-yellow);
+  --color-primary-hover: var(--nb-orange);
+  --color-primary-active: var(--nb-orange);
+  --color-secondary: var(--nb-sky);
+  --color-accent: var(--nb-pink);
+  --color-surface: #FFFDF5;
+  --color-bg: var(--nb-green);
+  --color-bg-elevated: #FFFDF5;
+  --color-border: var(--nb-black);
+  --color-primary-light: var(--nb-yellow);
+
+  /* Status Colors */
+  --color-success: var(--nb-green);
+  --color-warning: var(--nb-orange);
+  --color-error: var(--nb-pink);
+  --color-info: var(--nb-sky);
+
+  /* Text Colors */
+  --color-text: var(--nb-black);
+  --color-text-muted: #333333;
+  --color-text-inverse: var(--nb-off-white);
+  --color-text-secondary: #333333;
+
+  /* Text sitting ON an accent fill (yellow/sky/green/orange/pink/lavender).
+     Light: black, same as --color-text. Dark: ink — the accents are unified
+     with light mode in dark, so white on those fills would score 1.3-2.3:1;
+     ink on them scores 6.2-12.0:1. */
+  --text-on-accent: var(--nb-black);
+}
+
+/* Dark theme "Black & Green" (v6): the user's call — "its fine for the main
+   color to be black as long as the accent is green, so its black and green"
+   — plus "i dont like that green it doesnt fit it" about the v5 green cards.
+   The fix mirrors light mode's logic (mint canvas + NEUTRAL cream cards):
+   black canvas #08120C with NEUTRAL dark cards #1A231D; green is carried by
+   the mint wireframe (#88D498 — all borders, hard shadows, scrollbar, nav
+   rule) and the light-mode-verbatim accents. This also gives the theme's
+   best contrast headroom: text 15.8-18.7:1, muted 9.8-11.5:1, mint wireframe
+   9.2-10.8:1, ink-on-accents 6.2-12.0:1, pink-as-text 5.8:1 on cards. */
+[data-theme="dark"] {
+  /* The wireframe token flips to mint green — borders, shadows, rules */
+  --nb-black: #88D498;
+  --nb-off-white: #FFFDF5;
+
+  /* Accents — identical to light mode (harmony across themes) */
+  --nb-yellow: #FFD23F;
+  --nb-pink: #FF6B6B;
+  --nb-sky: #74B9FF;
+  --nb-green: #88D498;
+  --nb-orange: #FFA552;
+  --nb-lavender: #B8A9FA;
+
+  /* Borders flip to mint */
+  --nb-border: 3px solid #88D498;
+  --nb-border-thin: 2px solid #88D498;
+  --nb-border-thick: 4px solid #88D498;
+  --border-thin: var(--nb-border-thin);
+  --border-thick: var(--nb-border-thick);
+  --glass-border: #88D498;
+
+  /* Surfaces + type. Canvas is black; cards are NEUTRAL dark panels (the
+     mirror of light mode's cream cards on mint — green belongs to the
+     wireframe and accents, not the card fill). Muted is a sage gray-green,
+     9.8:1 on card, 11.5:1 on canvas. */
+  --color-black: #FFFDF5;
+  --color-white: #071F17;
+  --color-surface: #1A231D;
+  --color-bg: #08120C;
+  --color-bg-elevated: #1A231D;
+  --color-border: #88D498;
+  --color-text: #FFFDF5;
+  --color-text-muted: #B4D0C0;
+  --color-text-inverse: #071F17;
+  --color-text-secondary: #B4D0C0;
+  --color-primary-light: #FFD23F;
+  --text-on-accent: #071F17;
+
+  /* Skeleton shimmer: near-neutral dark stops (faint green cast to sit with
+     the theme) that wave subtly over the neutral cards without a strobe.
+     #5E6662 is 2.73:1 on the card — the old #2A704E scored 2.71:1. */
+  --color-gray-200: #5E6662;
+
+  /* Accent buttons keep INK text — white would fail on the light-mode
+     accent fills (1.3-2.3:1); ink scores 6.2-12.0:1. */
+  --btn-primary-text: #071F17;
+  --btn-ghost-text: #FFFDF5;
+
+  --color-gray-100: #313834;
+  --color-gray-300: #5E6662;
+}
+
+/* ============================================
+ * SEMANTIC LAYER (Purpose aliases)
+ * ============================================ */
+
+:root {
+  /* Spacing Scale (8px base) */
+  --space-0: 0px;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 2.5rem;
+  --space-6: 3rem;
+  --space-7: 4rem;
+  --space-8: 5rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+  --space-12: 6rem;
+
+  /* Border Radius — square corners mandatory */
+  --radius-none: 0px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-full: 0px;
+  --radius-bubble: 0px;
+  --radius-pill: 0px;
+
+  /* Borders */
+  --nb-border: 3px solid var(--nb-black);
+  --nb-border-thin: 2px solid var(--nb-black);
+  --nb-border-thick: 4px solid var(--nb-black);
+  --border-thin: var(--nb-border-thin);
+  --border-thick: var(--nb-border-thick);
+
+  /* Shadows — zero blur, hard offsets */
+  --shadow-xs: 2px 2px 0 0 var(--nb-black);
+  --shadow-sm: 3px 3px 0 0 var(--nb-black);
+  --shadow-md: 5px 5px 0 0 var(--nb-black);
+  --shadow-lg: 8px 8px 0 0 var(--nb-black);
+  --shadow-xl: 12px 12px 0 0 var(--nb-black);
+  --shadow: 5px 5px 0 0 var(--nb-black);
+  --shadow-btn-hover: 7px 7px 0 0 var(--nb-black);
+  --shadow-btn-active: 0 0 0 0 var(--nb-black);
+
+  /* Glass tokens (names kept; now opaque) */
+  --glass-bg: var(--color-surface);
+  --glass-bg-dark: #1E1E1E;
+  --glass-blur: none;
+  --glass-border: var(--nb-black);
+  --glass-border-dark: #FFFDF5;
+
+  /* Focus */
+  --color-focus-alpha: var(--nb-sky);
+  --focus-outline: 3px solid var(--nb-sky);
+
+  /* Row separators (dashed leaderboard rows, admin list rows). A literal
+     rgba(0,0,0,X) vanishes on the dark Pine Slate surface (~1.1:1), so the
+     separator flips to translucent Off-White in dark. */
+  --row-separator: rgba(0, 0, 0, 0.25);
+  --row-separator-strong: rgba(0, 0, 0, 0.15);
+
+  /* Navigation */
+  --nav-height: 64px;
+  --nav-bg: var(--nb-off-white);
+  --nav-backdrop: none;
+  --nav-border: var(--nb-black);
+
+  /* Layout */
+  --max-width: 1200px;
+}
+
+[data-theme="dark"] {
+  --glass-bg: #121A15;
+  --glass-border: #88D498;
+  --nav-bg: #08120C;
+  --nav-border: #88D498;
+  /* Hard shadows flip to mint on the emerald canvas */
+  --shadow-xs: 2px 2px 0 0 #88D498;
+  --shadow-sm: 3px 3px 0 0 #88D498;
+  --shadow-md: 5px 5px 0 0 #88D498;
+  --shadow-lg: 8px 8px 0 0 #88D498;
+  --shadow-xl: 12px 12px 0 0 #88D498;
+  --shadow: 5px 5px 0 0 #88D498;
+  --shadow-btn-hover: 7px 7px 0 0 #88D498;
+  --card-shadow: 5px 5px 0 0 #88D498;
+  --card-hover-shadow: 7px 7px 0 0 #88D498;
+  --panel-shadow: 8px 8px 0 0 #88D498;
+  --btn-primary-shadow: 5px 5px 0 0 #88D498;
+  --btn-ghost-shadow: 5px 5px 0 0 #88D498;
+  --input-shadow-focus: 5px 5px 0 0 #88D498;
+}
+
+/* ============================================
+ * COMPONENT LAYER (Token variables by component)
+ * ============================================ */
+
+/* Buttons */
+:root {
+  --btn-primary-bg: var(--nb-yellow);
+  --btn-primary-text: var(--nb-black);
+  --btn-primary-border: var(--nb-black);
+  --btn-primary-shadow: 5px 5px 0 0 var(--nb-black);
+  --btn-primary-hover-bg: var(--nb-orange);
+  --btn-primary-active-bg: var(--nb-orange);
+  --btn-primary-radius: 0px;
+  --btn-primary-padding-y: 0.75rem;
+  --btn-primary-padding-x: 1.5rem;
+  --btn-primary-transition: none;
+  --btn-primary-font: "Space Grotesk", system-ui, sans-serif;
+  --btn-primary-font-weight: 700;
+  --btn-primary-font-size: 0.875rem;
+
+  --btn-ghost-bg: var(--color-surface);
+  --btn-ghost-text: var(--nb-black);
+  --btn-ghost-border: 3px solid var(--nb-black);
+  --btn-ghost-shadow: 5px 5px 0 0 var(--nb-black);
+  --btn-ghost-hover-bg: var(--nb-sky);
+  --btn-ghost-hover-text: var(--nb-black);
+  --btn-ghost-radius: 0px;
+  --btn-ghost-padding-y: 0.75rem;
+  --btn-ghost-padding-x: 1.5rem;
+  --btn-ghost-transition: none;
+
+  --btn-radius: 0px;
+  --btn-padding-y: 0.65rem;
+  --btn-padding-x: 1.25rem;
+  --btn-font: "Space Grotesk", system-ui, sans-serif;
+  --btn-font-size: 0.9rem;
+}
+
+/* Cards */
+:root {
+  --card-bg: var(--color-surface);
+  --card-border: var(--nb-border);
+  --card-radius: 0px;
+  --card-padding: var(--space-4);
+  --card-shadow: 5px 5px 0 0 var(--nb-black);
+  --card-hover-lift: -2px;
+  --card-hover-shadow: 7px 7px 0 0 var(--nb-black);
+  --card-hover-border: var(--nb-black);
+  --card-transition: none;
+}
+
+/* Inputs */
+:root {
+  --input-bg: var(--color-surface);
+  --input-border: 3px solid var(--nb-black);
+  --input-border-focus: var(--nb-sky);
+  --input-border-disabled: var(--nb-gray);
+  --input-radius: 0px;
+  --input-padding: 0.7rem 1rem;
+  --input-shadow-focus: 5px 5px 0 0 var(--nb-black);
+  --input-font: "Space Grotesk", system-ui, sans-serif;
+  --input-font-size: 1rem;
+}
+
+/* Panels */
+:root {
+  --panel-bg: var(--color-surface);
+  --panel-border: var(--nb-border);
+  --panel-radius: 0px;
+  --panel-padding: var(--space-6);
+  --panel-shadow: 8px 8px 0 0 var(--nb-black);
+}
+
+/* Typography */
+:root {
+  --font-display: "Archivo Black", system-ui, sans-serif;
+  --font-body: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+
+  --typography-display: 2.5rem;
+  --typography-h1: 2rem;
+  --typography-h2: 1.5rem;
+  --typography-h3: 1.25rem;
+  --typography-body: 1rem;
+  --typography-small: 0.875rem;
+  --typography-label: 0.75rem;
+}
+
+/* Wordle tile + trivia difficulty colors (component tokens) */
+:root {
+  --correct-color: var(--nb-green);
+  --present-color: var(--nb-yellow);
+  --absent-color: #9E9E9E;
+
+  --trivia-easy: var(--nb-green);
+  --trivia-medium: var(--nb-orange);
+  --trivia-hard: var(--nb-pink);
+
+  /* Per-game accent — set by each game page via inline style on :root
+     (e.g. <div style={{ '--game-accent': 'var(--nb-yellow)' }}>) */
+  --game-accent: var(--nb-yellow);
+  --game-accent-text: var(--nb-black);
+
+  /* Section band fills — used by index.css .section-band-* utilities */
+  --band-yellow: var(--nb-yellow);
+  --band-pink: var(--nb-pink);
+  --band-sky: var(--nb-sky);
+  --band-green: var(--nb-green);
+  --band-orange: var(--nb-orange);
+  --band-lavender: var(--nb-lavender);
+}
+
+[data-theme="dark"] {
+  /* Absent tile = deep green-black: a recessed empty slot darker than the
+     card tiles around it, held by the 3px mint tile border (5.0:1).
+     Letter on it: 17.0:1. */
+  --absent-color: #061F10;
+}
+
+/* Scrollbar */
+:root {
+  --color-scrollbar-track: var(--nb-off-white);
+  --color-scrollbar-thumb: var(--nb-black);
+  --color-scrollbar-thumb-hover: var(--nb-yellow);
+}
+
+[data-theme="dark"] {
+  --color-scrollbar-track: #08120C;
+  --color-scrollbar-thumb: #88D498;
+  --color-scrollbar-thumb-hover: #FFD23F;
+}
+
+/* ============================================
+ * DARK-MODE FINAL OVERRIDES
+ * Placed at the END of the file on purpose: the component-layer :root blocks
+ * (Buttons/Cards/Inputs) are (0,1,0) selectors, the same specificity as this
+ * [data-theme="dark"] block, so they would otherwise win on source order and
+ * silently undo the dark overrides above. This block re-declares every token
+ * the component layer re-declares, plus the ones it never sets.
+ * ============================================ */
+[data-theme="dark"] {
+  /* Neutrals — never flipped by the component layer. --nb-black IS the mint
+     wireframe in dark (borders/shadows/rules); text tokens are separate. */
+  --nb-black: #88D498;
+  --nb-off-white: #FFFDF5;
+  --nb-gray: #4A4A4A;
+
+  --color-black: #FFFDF5;
+  --color-white: #071F17;
+  /* gray-100 joins the shimmer gradient (SkeletonLoader) — a near-white
+     here strobes in dark mode; #313834 is a neutral dark low stop (1.34:1
+     on the card, matching the old #123E27's 1.34:1). */
+  --color-gray-100: #313834;
+  --color-gray-200: #5E6662;
+  /* gray-300 is the disabled-input border (--input-border-disabled) and a
+     general hairline; on the neutral card it needs a mid-neutral, not
+     #E0E0E0. #5E6662 = 2.73:1 on the card. */
+  --color-gray-300: #5E6662;
+  --color-gray-400: #BDBDBD;
+  --color-gray-500: #9E9E9E;
+  --color-gray-600: #616161;
+  --color-gray-700: #424242;
+  --color-gray-800: #2A2A2A;
+  --color-gray-900: #111111;
+
+  /* Text-on-accent MUST stay ink (#071F17). The accent fills are IDENTICAL
+     to light mode, where near-black text is the standard — white text on
+     #FFD23F/#74B9FF/#88D498/#B8A9FA scores 1.3-2.3:1, invisible. Ink on the
+     same fills scores 6.2-12.0:1. Single systematic fix for ~35 selectors. */
+  --btn-primary-text: #071F17;
+  --btn-ghost-text: #FFFDF5;
+  --btn-ghost-hover-text: #071F17;
+  --game-accent-text: #071F17;
+  --text-on-accent: #071F17;
+
+  /* Scrollbar */
+  --color-scrollbar-track: #08120C;
+  --color-scrollbar-thumb: #88D498;
+  --color-scrollbar-thumb-hover: #FFD23F;
+
+  /* Row separators: translucent mint on green cards. 0.55 alpha ≈ 2.5:1 vs
+     surface — a visible hairline quieter than the full 3px mint border. */
+  --row-separator: rgba(136, 212, 152, 0.55);
+  --row-separator-strong: rgba(136, 212, 152, 0.35);
+}
+
+/* ============================================
+ * BREAKPOINTS
+ * ============================================ */
+
+:root {
+  --breakpoint-390: 390px;
+  --breakpoint-768: 768px;
+  --breakpoint-1024: 1024px;
+  --breakpoint-1440: 1440px;
+}
