@@ -12,7 +12,7 @@ export default function App() {
     <ThemeProvider>
       <ToastProvider>
         <GameStateProvider>
-          <BrowserRouter basename="/librarity-react">
+          <BrowserRouter basename="/librarity">
             <Navbar />
             <main id="main-content" className="main-content">
               <AppRouter />
