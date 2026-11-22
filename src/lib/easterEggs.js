@@ -158,6 +158,7 @@ const EGG_ENTRIES = {
     phonetic: '/ˈɡeɪ.ə/',
     phonetics: [{ text: '/ˈɡeɪ.ə/', audio: '' }],
     origin: 'Greek Gaîa — the earth goddess. Re-coined in 2026 as an acronym; see definition.',
+    color: 'green',
     meanings: [
       {
         partOfSpeech: 'noun',
@@ -243,6 +244,7 @@ const EGG_ENTRIES = {
     phonetic: '/ˈriː.ən/',
     phonetics: [{ text: '/ˈriː.ən/', audio: '' }],
     origin: 'Variant of Rhiannon; not to be mistaken for riane.',
+    color: 'blue',
     meanings: [
       {
         partOfSpeech: 'noun',
