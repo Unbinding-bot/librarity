@@ -36,6 +36,14 @@ jobs:
       - name: Build
         run: npm run build
 
+      # Pre-render a real static page per route (and per live event,
+      # fetched from Supabase) so link crawlers — facebookexternalhit,
+      # Twitterbot, Discord — see a 200 response with per-page OG tags.
+      # Facebook's crawler does not execute JavaScript, so the SPA's
+      # dynamic <meta> updates never reach it without this step.
+      - name: Pre-render route pages
+        run: node scripts/prerender.mjs
+
       # GitHub Pages has no server-side routing, so a direct visit to
       # /librarity/leaderboard would 404. Copying index.html to 404.html
       # lets the SPA router handle unknown paths instead.
