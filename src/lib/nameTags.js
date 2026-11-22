@@ -20,7 +20,7 @@
 export const NAME_TAGS = {
   claire: { color: 'pink' },
   bernz: { color: 'green' },
-  ownz: { symbol: '💎', color: 'green' },
+  ownz: { symbol: '👾', color: 'green' },
   owner: { aliasOf: 'ownz' },
 }
 
