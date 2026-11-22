@@ -9,13 +9,12 @@ import AppRouter from './router'
 import usePageMeta from './pages/usePageMeta'
 
 export default function App() {
-  // Per-route meta: title, description, og:image — updated on every navigation.
-  usePageMeta()
   return (
     <ThemeProvider>
       <ToastProvider>
         <GameStateProvider>
           <BrowserRouter basename="/librarity">
+            <Meta />
             <Navbar />
             <main id="main-content" className="main-content">
               <AppRouter />
@@ -26,4 +25,11 @@ export default function App() {
       </ToastProvider>
     </ThemeProvider>
   )
+}
+
+// Per-route meta: title, description, og:image — updated on every navigation.
+// Renders INSIDE <BrowserRouter> because usePageMeta() calls useLocation().
+function Meta() {
+  usePageMeta()
+  return null
 }
