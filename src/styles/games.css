@@ -75,7 +75,7 @@ body:has(.game-container-full) #root > footer {
 }
 
 .game-title {
-  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-family: var(--font-display, "Syne", sans-serif);
   font-size: 2.25rem;
   font-weight: 400;
   color: var(--color-text);
@@ -226,7 +226,7 @@ body:has(.game-container-full) #root > footer {
 }
 
 .stat-value {
-  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-family: var(--font-display, "Syne", sans-serif);
   font-size: 1.5rem;
   font-weight: 400;
   color: var(--color-text);
@@ -323,7 +323,7 @@ body:has(.game-container-full) #root > footer {
 }
 
 .modal-title {
-  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-family: var(--font-display, "Syne", sans-serif);
   font-size: 1.3rem;
   font-weight: 400;
   color: var(--color-text);
@@ -510,7 +510,7 @@ body:has(.game-container-full) #root > footer {
 }
 
 .result-title {
-  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-family: var(--font-display, "Syne", sans-serif);
   font-size: 1.7rem;
   font-weight: 400;
   color: var(--color-text);
@@ -545,7 +545,7 @@ body:has(.game-container-full) #root > footer {
 }
 
 .result-stat-value {
-  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-family: var(--font-display, "Syne", sans-serif);
   font-size: 1.8rem;
   font-weight: 400;
   color: var(--color-text);
@@ -575,7 +575,7 @@ body:has(.game-container-full) #root > footer {
 }
 
 .session-score-value {
-  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-family: var(--font-display, "Syne", sans-serif);
   font-size: 2.4rem;
   font-weight: 400;
   color: var(--color-text);

@@ -24,7 +24,7 @@
 }
 
 .vc-label {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--color-text-muted);
   font-weight: 700;
   text-transform: uppercase;
@@ -33,12 +33,12 @@
 }
 
 .vc-name {
-  font-family: var(--font-display, "Archivo Black", sans-serif);
-  font-weight: 400;
-  font-size: 1.05rem;
+  font-family: var(--font-display, "Syne", sans-serif);
+  font-weight: 600;
+  font-size: 1.25rem;
   color: var(--color-text);
   white-space: nowrap;
-  max-width: 180px;
+  max-width: 220px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -54,8 +54,8 @@
   background: var(--color-surface);
   border: 2px solid var(--color-border);
   border-radius: 0;
-  padding: 0.25rem 0.6rem;
-  font-size: 0.78rem;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: var(--color-text);
   cursor: pointer;
@@ -123,7 +123,7 @@
 }
 
 .vc-char-count {
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   color: var(--color-text-muted);
   font-weight: 700;
   font-family: var(--font-mono, "Space Mono", monospace);
@@ -145,7 +145,7 @@
 }
 
 .logbook-entry-count {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--color-text-muted);
   font-weight: 700;
   text-transform: uppercase;
@@ -163,10 +163,11 @@
 }
 
 /* every entry renders at the same fixed height — long messages scroll
-   inside their box instead of stretching the row */
+   inside their box instead of stretching the row. Height grown from 128px
+   to 160px to fit the larger entry type comfortably. */
 .logbook-entry {
-  height: 128px;
-  padding: 0.7rem 0.95rem;
+  height: 160px;
+  padding: 0.85rem 1.1rem;
   margin-bottom: 0.6rem;
   border: 2px solid var(--color-border);
   border-radius: 0;
@@ -196,26 +197,26 @@
   align-items: baseline;
   gap: 0.4rem;
   flex-wrap: wrap;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.35rem;
 }
 
 .logbook-entry-name {
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 1.15rem;
   color: var(--color-text);
 }
 
 .logbook-entry-date {
-  font-size: 0.72rem;
+  font-size: 0.85rem;
   color: var(--color-text-muted);
   font-family: var(--font-mono, "Space Mono", monospace);
   white-space: nowrap;
 }
 
 .logbook-entry-msg {
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   color: var(--color-text);
-  line-height: 1.5;
+  line-height: 1.55;
   word-break: break-word;
   overflow-wrap: break-word;
   white-space: pre-wrap;
@@ -231,7 +232,7 @@
 
 .logbook-empty-icon {
   display: block;
-  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-family: var(--font-display, "Syne", sans-serif);
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
   color: var(--color-text);

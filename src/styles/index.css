@@ -68,7 +68,7 @@ body {
 }
 
 .navbar__logo {
-  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-family: var(--font-display, "Syne", sans-serif);
   font-size: 1.5rem;
   font-weight: 400;
   text-decoration: none;
@@ -575,7 +575,7 @@ body::-webkit-scrollbar {
 .home__title {
   margin: 0;
   font-size: var(--typography-display, 2.5rem);
-  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-family: var(--font-display, "Syne", sans-serif);
   font-weight: 400;
   color: var(--color-text, #000000);
   line-height: 1.25; /* Archivo Black's em box is 1.25em tall — tighter clips its glyphs */
@@ -590,7 +590,7 @@ body::-webkit-scrollbar {
 .home__section-title {
   margin: 0 0 var(--space-3, 1.5rem) 0;
   font-size: var(--typography-h1, 2rem);
-  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-family: var(--font-display, "Syne", sans-serif);
   font-weight: 400;
 }
 
@@ -702,7 +702,7 @@ body::-webkit-scrollbar {
 
 .leaderboard-sidebar__title {
   margin: 0 0 1rem 0;
-  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-family: var(--font-display, "Syne", sans-serif);
   font-size: 1.05rem;
   text-transform: uppercase;
   border-bottom: 3px solid var(--band-yellow, #FFD23F);
@@ -735,7 +735,7 @@ body::-webkit-scrollbar {
 
 .leaderboard-sidebar__rank {
   grid-area: rank;
-  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-family: var(--font-display, "Syne", sans-serif);
   font-size: 0.9rem;
   min-width: 1.5rem;
 }
@@ -881,7 +881,7 @@ body::-webkit-scrollbar {
 .event-card__title {
   margin: 0;
   font-size: 1.1rem;
-  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-family: var(--font-display, "Syne", sans-serif);
   font-weight: 400;
   line-height: 1.25;
 }
@@ -936,7 +936,7 @@ body::-webkit-scrollbar {
 }
 
 .home__marquee-head span {
-  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-family: var(--font-display, "Syne", sans-serif);
   font-weight: 400;
   font-size: 1.4rem;
   text-transform: uppercase;
@@ -1137,7 +1137,7 @@ body::-webkit-scrollbar {
 
 .event-detail__title {
   margin: 0;
-  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-family: var(--font-display, "Syne", sans-serif);
   font-weight: 400;
   font-size: clamp(1.6rem, 4vw, 2.4rem);
   line-height: 1.15;
@@ -1154,7 +1154,6 @@ body::-webkit-scrollbar {
   margin: 0.5rem 0 0;
   font-size: 1rem;
   line-height: 1.65;
-  white-space: pre-wrap;
 }
 
 @media (max-width: 640px) {
@@ -1228,6 +1227,38 @@ body::-webkit-scrollbar {
   padding: 0.6rem 0.9rem;
   font-weight: 700;
   font-size: 0.85rem;
+}
+
+/* Rebuild-status chip (Admin → Events: "⟳ Refresh previews") */
+.admin-rebuild-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 2px solid var(--color-border, #000000);
+  padding: 0.3rem 0.65rem;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-family: var(--font-body, system-ui, sans-serif);
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.admin-rebuild-status--running {
+  background: var(--band-yellow, #FFD23F);
+  color: var(--text-on-accent, var(--nb-black));
+}
+
+.admin-rebuild-status--done {
+  background: var(--band-green, #88D498);
+  color: var(--text-on-accent, var(--nb-black));
+}
+
+.admin-rebuild-status--failed {
+  background: var(--band-pink, #FF6B6B);
+  color: var(--text-on-accent, var(--nb-black));
+  white-space: normal;
 }
 
 /* Aspect-ratio picker (admin form, dev/test feature) */
@@ -1506,4 +1537,118 @@ body::-webkit-scrollbar {
 
 .admin-list .admin-form--inline {
   border-bottom: 2px solid var(--row-separator-strong, rgba(0, 0, 0, 0.15));
+}
+
+/* ============================================================
+   Markdown body (.md-body) — event descriptions rendered from
+   markdown by src/lib/markdown.js. The card description keeps
+   its compact line-clamp (see .event-card__desc); this block
+   styles the elements markdown can produce inside either
+   container: bold/italic, links, lists, headings, code.
+   ============================================================ */
+.md-body {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.md-body p {
+  margin: 0 0 0.5em;
+}
+
+.md-body p:last-child {
+  margin-bottom: 0;
+}
+
+.md-body strong,
+.md-body b {
+  font-weight: 700;
+}
+
+.md-body a {
+  color: var(--color-text, #000000);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  font-weight: 600;
+}
+
+.md-body a:hover {
+  background: var(--nb-yellow, #FFD23F);
+}
+
+.md-body ul,
+.md-body ol {
+  margin: 0.35em 0 0.5em;
+  padding-left: 1.4em;
+}
+
+.md-body li {
+  margin: 0.15em 0;
+}
+
+.md-body h1,
+.md-body h2,
+.md-body h3,
+.md-body h4,
+.md-body h5,
+.md-body h6 {
+  font-family: var(--font-heading, "Space Grotesk", system-ui, sans-serif);
+  font-weight: 700;
+  margin: 0.6em 0 0.3em;
+  line-height: 1.3;
+}
+
+.md-body h1:first-child,
+.md-body h2:first-child,
+.md-body h3:first-child {
+  margin-top: 0;
+}
+
+.md-body blockquote {
+  margin: 0.5em 0;
+  padding: 0.25em 0 0.25em 0.8em;
+  border-left: 4px solid var(--color-border, #000000);
+  font-style: italic;
+}
+
+.md-body code {
+  font-family: var(--font-mono, "Space Mono", monospace);
+  font-size: 0.9em;
+  background: var(--color-gray-100, #F5F5F5);
+  padding: 0.1em 0.35em;
+}
+
+.md-body pre {
+  background: var(--color-gray-100, #F5F5F5);
+  padding: 0.6em 0.8em;
+  overflow-x: auto;
+  margin: 0.5em 0;
+}
+
+.md-body hr {
+  border: 0;
+  border-top: 2px solid var(--row-separator-strong, rgba(0, 0, 0, 0.15));
+  margin: 0.75em 0;
+}
+
+/* ============================================================
+   Name tags (#/claire, #/bernz, #/ownz …) — see src/lib/nameTags.js
+   Colors resolve through the neo-brutalist token palette so they
+   track theme changes. The classes apply to the <span> wrapping a
+   parsed name in the leaderboard table and the logbook entries.
+   ============================================================ */
+.name-tag-pink    { color: var(--nb-pink, #FF6B6B) !important; }
+.name-tag-green   { color: var(--nb-green, #88D498) !important; }
+.name-tag-sky     { color: var(--nb-sky, #74B9FF) !important; }
+.name-tag-yellow  { color: var(--nb-yellow, #FFD23F) !important; }
+.name-tag-orange  { color: var(--nb-orange, #FFA552) !important; }
+.name-tag-lavender{ color: var(--nb-lavender, #B8A9FA) !important; }
+
+/* The 💎 developer/creator badge appended by #/ownz */
+.name-tag-badge {
+  display: inline-block;
+  margin-left: 0.25rem;
+  font-size: 0.85em;
+  line-height: 1;
+  transform: translateY(0.05em);
 }

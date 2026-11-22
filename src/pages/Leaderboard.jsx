@@ -4,6 +4,7 @@ import SkeletonLoader from '../components/ui/SkeletonLoader'
 import { useToast } from '../contexts/ToastContext'
 import { getAnonClient as getClient } from '../lib/supabase'
 import { GAMES, gameTypeLabel } from '../lib/gamesRegistry'
+import { applyNameTag } from '../lib/nameTags'
 
 const PAGE_SIZE = 15
 
@@ -27,6 +28,16 @@ function formatTime(seconds) {
 
 function medalFor(rank) {
   return `${rank}`
+}
+
+/** Render a player name with easter-egg tags (e.g. "Claude#/bernz") applied. */
+function renderPlayerName(name) {
+  const tagged = applyNameTag(name)
+  return (
+    <span className={tagged.className}>
+      {tagged.displayName}
+    </span>
+  )
 }
 
 export default function Leaderboard() {
@@ -216,7 +227,7 @@ export default function Leaderboard() {
           <span className="stat-label">Top Score</span>
         </div>
         <div className="stat-box">
-          <span className="stat-value lb-top-player">{stats.topPlayer || '-'}</span>
+          <span className="stat-value lb-top-player">{stats.topPlayer ? renderPlayerName(stats.topPlayer) : '-'}</span>
           <span className="stat-label">Top Player</span>
         </div>
       </div>
@@ -257,7 +268,7 @@ export default function Leaderboard() {
                 return (
                   <tr key={e.id || i} className={isTop ? `lb-row-top lb-row-${rank}` : ''}>
                     <td className="lb-col-rank">{medalFor(rank)}</td>
-                    <td className="lb-col-player">{e.player_name}</td>
+                    <td className="lb-col-player">{renderPlayerName(e.player_name)}</td>
                     <td className="lb-col-game">{gameTypeLabel(e.game_type) || e.game_type}</td>
                     <td className="lb-col-mode">{e.game_mode}</td>
                     <td className="lb-col-score">{e.score}</td>

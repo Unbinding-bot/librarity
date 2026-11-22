@@ -4,8 +4,15 @@ import SkeletonLoader from '../components/ui/SkeletonLoader'
 import { useToast } from '../contexts/ToastContext'
 import { getAnonClient as getClient } from '../lib/supabase'
 import { getUsername, setUsername, getDisplayName, addLogbookEntry, getLogbookEntries } from '../lib/logbook'
+import { applyNameTag } from '../lib/nameTags'
 
 const PAGE_SIZE = 15
+
+/** Render a name with easter-egg tags (e.g. "Claude#/bernz") applied. */
+function TaggedName({ name }) {
+  const tagged = applyNameTag(name)
+  return <span className={tagged.className}>{tagged.displayName}</span>
+}
 
 export default function VisitorLogbook() {
   const { showToast } = useToast()
@@ -87,7 +94,7 @@ export default function VisitorLogbook() {
         <div className="visitor-card-identity">
           <span className="vc-label">Visiting as</span>
           <span className={`vc-name${identityName ? '' : ' vc-name-anon'}`} data-testid="vl-identity">
-            {identityName || 'Anonymous'}
+            {identityName ? <TaggedName name={identityName} /> : 'Anonymous'}
           </span>
           <button className="vc-edit-btn" data-testid="vl-change" onClick={() => { setEditName(identityName || ''); setShowEdit((s) => !s) }}>
             Change
@@ -166,7 +173,9 @@ export default function VisitorLogbook() {
           {visible.map((entry, i) => (
             <article key={entry.id} className="logbook-entry" style={{ animationDelay: `${Math.min(i, PAGE_SIZE) * 35}ms` }}>
               <div className="logbook-entry-header">
-                <span className="logbook-entry-name">{entry.name}</span>
+                <span className="logbook-entry-name">
+                  <TaggedName name={entry.name || 'Anonymous'} />
+                </span>
                 <span className="logbook-entry-date">{entry.date} · {entry.time}</span>
               </div>
               <div className="logbook-entry-msg">{entry.message}</div>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Card from './Card'
 import { useAspectParam } from '../../hooks/useAspect'
 import { formatEventDateRange, eventStatus } from '../../lib/events'
+import { renderMarkdown } from '../../lib/markdown'
 
 const STATUS_TONE = {
   green: 'event-card__badge--green',
@@ -77,7 +78,11 @@ export default function EventCard({ event, index, home = false }) {
           </span>
           <h3 className="event-card__title">{event.title}</h3>
           <p className="event-card__date">{dateStr}</p>
-          <p className="event-card__desc">{event.description}</p>
+          {/* Markdown-enabled description (sanitized in renderMarkdown) */}
+          <div
+            className="event-card__desc md-body"
+            dangerouslySetInnerHTML={{ __html: renderMarkdown(event.description) }}
+          />
           <span className="event-card__more">Read more →</span>
         </div>
       </Card>

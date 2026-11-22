@@ -32,7 +32,7 @@
 }
 
 .fc-deck-icon {
-  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-family: var(--font-display, "Syne", sans-serif);
   font-size: 0.8rem;
   line-height: 1;
   min-width: 44px;

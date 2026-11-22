@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { getAuthClient } from '../lib/supabase'
 import { fetchSiteItems, mergeSiteItems, createSiteItem, updateSiteItem, deleteSiteItem } from '../lib/siteItems'
 import { GAMES, TOOLS, gameTypeLabel } from '../lib/gamesRegistry'
+import { triggerRebuild } from '../lib/rebuild'
 
 const EMPTY_FORM = {
   title: '',
@@ -80,6 +81,26 @@ export default function Admin() {
 
   // delete confirm: holds the event id pending confirmation
   const [confirmDeleteId, setConfirmDeleteId] = useState(null)
+
+  // Preview refresh: regenerates the static link-preview pages
+  // (Facebook/Messenger cards). Fires automatically after an event is
+  // saved or deleted, and via the manual button next to the tab head.
+  const [rebuildState, setRebuildState] = useState('idle') // idle | running | done | failed
+  const [rebuildMessage, setRebuildMessage] = useState('')
+
+  const runRebuild = useCallback(async () => {
+    const sb = getAuthClient()
+    if (!sb) return
+    setRebuildState('running')
+    setRebuildMessage('Asking GitHub to rebuild…')
+    const { ok, message } = await triggerRebuild(sb)
+    setRebuildState(ok ? 'done' : 'failed')
+    setRebuildMessage(message)
+    if (ok) {
+      // Return the indicator to idle after it's had time to be read.
+      setTimeout(() => setRebuildState('idle'), 8000)
+    }
+  }, [])
 
   // ===== Leaderboard management state =====
   const [lbEntries, setLbEntries] = useState([])
@@ -239,6 +260,10 @@ export default function Admin() {
       setForm(EMPTY_FORM)
       setImageFile(null)
       loadEvents()
+      // Regenerate the static event pages so link previews (Facebook/
+      // Messenger) pick up the new/edited event. Fire-and-forget: the
+      // rebuild takes ~2 min; the indicator in the tab head shows state.
+      runRebuild()
     } catch (err) {
       setFormError(err?.message || 'Save failed')
     } finally {
@@ -257,6 +282,9 @@ export default function Admin() {
     } finally {
       setConfirmDeleteId(null)
       loadEvents()
+      // Refresh the static previews so the deleted event's page stops
+      // being served (its Messenger card dies on the next scrape).
+      runRebuild()
     }
   }
 
@@ -466,7 +494,7 @@ export default function Admin() {
     return (
       <section className="page" style={pageStyles}>
         <div className="admin-login">
-          <h1 style={{ margin: 0, fontFamily: 'var(--font-display, "Archivo Black", sans-serif)', fontWeight: 400 }}>
+          <h1 style={{ margin: 0, fontFamily: 'var(--font-display, "Syne", sans-serif)', fontWeight: 400 }}>
             Admin Login
           </h1>
           <p style={mutedStyles}>Sign in to manage library events.</p>
@@ -512,7 +540,7 @@ export default function Admin() {
   // row being edited; rendered at the bottom of the tab for new events.
   const renderEventForm = (inline) => (
     <form className={`admin-form${inline ? ' admin-form--inline' : ''}`} onSubmit={handleSave}>
-      <h2 style={{ margin: 0, fontFamily: 'var(--font-display, "Archivo Black", sans-serif)', fontWeight: 400 }}>
+      <h2 style={{ margin: 0, fontFamily: 'var(--font-display, "Syne", sans-serif)', fontWeight: 400 }}>
         {editingId ? 'Edit Event' : 'New Event'}
       </h2>
 
@@ -533,6 +561,9 @@ export default function Admin() {
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
         />
+        <span className="admin-field__hint">
+          Markdown supported: **bold**, *italic*, [links](https://…), and line breaks.
+        </span>
       </label>
 
       <div className="admin-form__row">
@@ -655,7 +686,7 @@ export default function Admin() {
   // editing an entry renders the form right under that entry's row.
   const renderLbForm = (inline) => (
     <form className={`admin-form${inline ? ' admin-form--inline' : ''}`} onSubmit={handleLbSave}>
-      <h2 style={{ margin: 0, fontFamily: 'var(--font-display, "Archivo Black", sans-serif)', fontWeight: 400 }}>
+      <h2 style={{ margin: 0, fontFamily: 'var(--font-display, "Syne", sans-serif)', fontWeight: 400 }}>
         {editingLbId ? 'Edit entry' : 'New entry'}
       </h2>
 
@@ -757,7 +788,7 @@ export default function Admin() {
     <section className="page" style={pageStyles}>
       <div className="admin-panel">
         <div className="admin-panel__head">
-          <h1 style={{ margin: 0, fontFamily: 'var(--font-display, "Archivo Black", sans-serif)', fontWeight: 400 }}>
+          <h1 style={{ margin: 0, fontFamily: 'var(--font-display, "Syne", sans-serif)', fontWeight: 400 }}>
             Admin
           </h1>
           <button className="btn btn--ghost" onClick={handleLogout}>
@@ -784,13 +815,41 @@ export default function Admin() {
         {activeTab === 'events' && (
           <>
             <div className="admin-panel__head">
-              <h2 style={{ margin: 0, fontFamily: 'var(--font-display, "Archivo Black", sans-serif)', fontWeight: 400 }}>
+              <h2 style={{ margin: 0, fontFamily: 'var(--font-display, "Syne", sans-serif)', fontWeight: 400 }}>
                 Events
               </h2>
-              <button className="btn btn--primary" onClick={openCreate}>
-                + New Event
-              </button>
+              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                {rebuildState !== 'idle' && (
+                  <span
+                    className={`admin-rebuild-status admin-rebuild-status--${rebuildState}`}
+                    role="status"
+                  >
+                    {rebuildState === 'running'
+                      ? '⟳ Rebuilding…'
+                      : rebuildState === 'done'
+                        ? '✓ Rebuild queued'
+                        : `✗ ${rebuildMessage}`}
+                  </span>
+                )}
+                <button
+                  className="btn btn--ghost"
+                  onClick={runRebuild}
+                  disabled={rebuildState === 'running'}
+                  title="Regenerate the static link-preview pages (Facebook/Messenger cards) without pushing a commit"
+                >
+                  ⟳ Refresh previews
+                </button>
+                <button className="btn btn--primary" onClick={openCreate}>
+                  + New Event
+                </button>
+              </div>
             </div>
+
+            <p className="admin-field__hint">
+              Saving or deleting an event automatically refreshes the link
+              previews (the card shown when the event link is shared on
+              Facebook/Messenger). The rebuild takes about two minutes.
+            </p>
 
             {listError && <p className="admin-error" role="alert">{listError}</p>}
 
@@ -868,7 +927,7 @@ export default function Admin() {
         {activeTab === 'leaderboard' && (
           <>
             <div className="admin-panel__head">
-              <h2 style={{ margin: 0, fontFamily: 'var(--font-display, "Archivo Black", sans-serif)', fontWeight: 400 }}>
+              <h2 style={{ margin: 0, fontFamily: 'var(--font-display, "Syne", sans-serif)', fontWeight: 400 }}>
                 Leaderboard entries
               </h2>
               <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
@@ -1042,7 +1101,7 @@ function GamesToolsTab({
   // being overridden); new teaser forms render under their section head.
   const renderSiteForm = () => (
     <form className="admin-form admin-form--inline" onSubmit={onSave}>
-      <h2 style={{ margin: 0, fontFamily: 'var(--font-display, "Archivo Black", sans-serif)', fontWeight: 400 }}>
+      <h2 style={{ margin: 0, fontFamily: 'var(--font-display, "Syne", sans-serif)', fontWeight: 400 }}>
         {editingId ? 'Edit site item' : 'New site item'}
       </h2>
 
@@ -1132,7 +1191,7 @@ function GamesToolsTab({
       {[['Games', 'games'], ['Tools', 'tools']].map(([label, section]) => (
         <div key={section}>
           <div className="admin-panel__head">
-            <h2 style={{ margin: 0, fontFamily: 'var(--font-display, "Archivo Black", sans-serif)', fontWeight: 400 }}>
+            <h2 style={{ margin: 0, fontFamily: 'var(--font-display, "Syne", sans-serif)', fontWeight: 400 }}>
               {label}
             </h2>
             <button className="btn btn--primary" onClick={() => onOpenCreate(section)}>

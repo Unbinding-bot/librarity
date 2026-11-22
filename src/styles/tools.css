@@ -134,7 +134,7 @@
 }
 
 .tool-entry-word {
-  font-family: var(--font-display, "Archivo Black", sans-serif);
+  font-family: var(--font-display, "Syne", sans-serif);
   font-size: 1.7rem;
   font-weight: 400;
   color: var(--color-text);

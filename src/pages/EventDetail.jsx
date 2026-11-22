@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { fetchEvent, eventStatus, formatEventDateRange } from '../lib/events'
 import { useAspectParam } from '../hooks/useAspect'
+import { renderMarkdown } from '../lib/markdown'
 
 const STATUS_TONE = {
   green: 'event-card__badge--green',
@@ -82,7 +83,10 @@ export default function EventDetail() {
             <h1 className="event-detail__title">{event.title}</h1>
             <p className="event-detail__date">{dateStr}</p>
             {event.description && (
-              <p className="event-detail__desc">{event.description}</p>
+              <div
+                className="event-detail__desc md-body"
+                dangerouslySetInnerHTML={{ __html: renderMarkdown(event.description) }}
+              />
             )}
           </div>
         </div>
