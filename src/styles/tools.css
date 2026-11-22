@@ -142,6 +142,91 @@
   text-transform: lowercase;
 }
 
+/* Easter-egg words with a color token get a themed heading + background */
+.tool-entry.word-color {
+  border-color: var(--egg-border, #88D498);
+  background: var(--egg-bg, #88D49833);
+}
+
+.tool-entry.word-color .tool-entry-head {
+  border-bottom-color: var(--egg-border, #88D498);
+}
+
+.tool-entry.word-color .tool-entry-word {
+  color: var(--egg-fg, #1a1a1a);
+}
+
+.tool-entry-word-tooltip {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.4rem;
+  background: var(--nb-lavender, #B8A9FA);
+  border: 2px solid var(--nb-black);
+  box-shadow: 2px 2px 0 0 var(--nb-black);
+  cursor: help;
+  white-space: nowrap;
+}
+
+/* ── Special egg: OWNER (Unbinding) — striped green, ⚡ badge ─────────
+   More than plain green: diagonal stripes over a green tint, thicker
+   colored border, and an amber ⚡ owner badge next to the word. */
+.tool-entry.egg-special-owner {
+  --egg-fg: #2E7D32;
+  --egg-border: var(--nb-green, #88D498);
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(136, 212, 152, 0.10) 0 10px,
+      rgba(136, 212, 152, 0.02) 10px 20px
+    ),
+    rgba(136, 212, 152, 0.12);
+  border-color: var(--nb-green, #88D498);
+  border-width: 4px;
+}
+
+.tool-entry.egg-special-owner .tool-entry-head {
+  border-bottom-color: var(--nb-green, #88D498);
+}
+
+.tool-entry.egg-special-owner .tool-entry-word {
+  color: var(--egg-fg);
+}
+
+.egg-badge-owner {
+  background: var(--nb-green, #88D498);
+  color: var(--nb-black, #000);
+  font-weight: 700;
+}
+
+/* ── Special egg: CLAIRE — polka-dot pink, ♡ badge ────────────────────
+   Cute one-off: polka-dot pattern over a pink tint, pink border, and a
+   pink ♡ badge next to the word. */
+.tool-entry.egg-special-claire {
+  --egg-fg: #E0407B;
+  --egg-border: var(--nb-pink, #FF6B6B);
+  background-color: rgba(255, 107, 176, 0.12);
+  background-image: radial-gradient(
+    rgba(255, 107, 176, 0.35) 2.5px,
+    transparent 2.5px
+  );
+  background-size: 18px 18px;
+  border-color: var(--nb-pink, #FF6B6B);
+  border-width: 4px;
+}
+
+.tool-entry.egg-special-claire .tool-entry-head {
+  border-bottom-color: var(--nb-pink, #FF6B6B);
+}
+
+.tool-entry.egg-special-claire .tool-entry-word {
+  color: var(--egg-fg);
+}
+
+.egg-badge-claire {
+  background: var(--nb-pink, #FF6B6B);
+  color: var(--nb-black, #000);
+  font-weight: 700;
+}
+
 .tool-entry-phonetic {
   color: var(--color-text-muted);
   font-size: 1rem;

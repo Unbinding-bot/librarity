@@ -28,15 +28,18 @@ export default function Home() {
   // Up to 6 featured events. Current events first (soonest first — the fetch
   // already orders by start_date ASC), then coming-soon ones to fill any
   // remaining slots. Six or more current events leave no room for coming-soon.
+  // TBD (undecided date) events only fill leftover slots after that.
   const current = events
     .filter((e) => eventStatus(e.start_date, e.end_date).label === 'Happening now')
     .sort((a, b) => (a.start_date > b.start_date ? 1 : -1))
   const comingSoon = events
     .filter((e) => eventStatus(e.start_date, e.end_date).label === 'Coming soon')
     .sort((a, b) => (a.start_date > b.start_date ? 1 : -1))
+  const tbd = events.filter((e) => eventStatus(e.start_date, e.end_date).label === 'TBD')
   const featured = [
     ...current.slice(0, FEATURED_COUNT),
     ...comingSoon.slice(0, Math.max(0, FEATURED_COUNT - current.length)),
+    ...tbd.slice(0, Math.max(0, FEATURED_COUNT - current.length - comingSoon.length)),
   ].slice(0, FEATURED_COUNT)
 
   return (

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import GameShell from '../../components/ui/GameShell'
 import { useToast } from '../../contexts/ToastContext'
-import { getEasterEgg, applyEasterEggs } from '../../lib/easterEggs'
+import { getEasterEgg, applyEasterEggs, resolveEggColor, resolveEggSpecial } from '../../lib/easterEggs'
 
 const API = 'https://api.dictionaryapi.dev/api/v2/entries/en'
 const HISTORY_KEY = 'dictionary-history'
-const HISTORY_MAX = 20
+const HISTORY_MAX = 7
 
 function loadHistory() {
   try {
@@ -28,6 +28,13 @@ export default function Dictionary() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [history, setHistory] = useState(() => loadHistory())
+
+  const clearHistory = useCallback(() => {
+    setHistory([])
+    try {
+      localStorage.removeItem(HISTORY_KEY)
+    } catch {}
+  }, [])
 
   const inputRef = useRef(null)
 
@@ -107,7 +114,11 @@ export default function Dictionary() {
       title="Dictionary"
       subtitle="Definitions, pronunciation, and more"
       controls={
-        <button className="icon-btn" title="History" onClick={() => setHistory(loadHistory())}>History</button>
+        history.length > 0 && (
+          <button className="btn btn-sm btn-secondary" title="Clear search history" onClick={clearHistory} data-testid="dict-clear">
+            Clear
+          </button>
+        )
       }
     >
       <div className="tool-search-row" data-testid="dict-search">
@@ -150,9 +161,24 @@ export default function Dictionary() {
             const audio = phonetics.find((p) => p.audio)
             const phoneticText = phonetics.find((p) => p.text)?.text
             return (
-              <div key={ei} className="tool-entry">
+              <div key={ei} className={`tool-entry${entry.color ? ' word-color' : ''} ${resolveEggSpecial(entry) || ''}`.trim()} style={entry.color ? { '--egg-fg': resolveEggColor(entry.color), '--egg-bg': `${resolveEggColor(entry.color)}22`, '--egg-border': resolveEggColor(entry.color) } : undefined}>
                 <div className="tool-entry-head">
                   <h2 className="tool-entry-word">{entry.word}</h2>
+                  {resolveEggSpecial(entry) === 'egg-special-owner' && (
+                    <span className="tool-entry-word-tooltip egg-badge-owner" title="⚡ OWNER — this site's creator has their own dictionary entry. Special green for a special person.">
+                      ⚡ owner
+                    </span>
+                  )}
+                  {resolveEggSpecial(entry) === 'egg-special-claire' && (
+                    <span className="tool-entry-word-tooltip egg-badge-claire" title="♡ A very special entry for a very special person. The only one with polka dots. ♡">
+                      ♡ claire
+                    </span>
+                  )}
+                  {!resolveEggSpecial(entry) && (
+                    <span className="tool-entry-word-tooltip" title="This is a secret dictionary entry for a real person in our library community! 🥚">
+                      egg 🥚
+                    </span>
+                  )}
                   {phoneticText && <span className="tool-entry-phonetic">{phoneticText}</span>}
                   {audio?.audio && (
                     <button

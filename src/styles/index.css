@@ -878,6 +878,12 @@ body::-webkit-scrollbar {
   color: var(--color-text-muted, #555555);
 }
 
+/* TBD — event with no decided date yet */
+.event-card__badge--lavender {
+  background: var(--band-lavender, #B8A9FA);
+  color: var(--text-on-accent, var(--nb-black));
+}
+
 .event-card__title {
   margin: 0;
   font-size: 1.1rem;
@@ -1192,6 +1198,36 @@ body::-webkit-scrollbar {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
+}
+
+/* Checkbox fields (e.g. event "date not decided yet") — inline row layout */
+.admin-field--checkbox {
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 0.5rem;
+}
+
+.admin-field--checkbox input[type='checkbox'] {
+  width: 1.15rem;
+  height: 1.15rem;
+  padding: 0;
+  accent-color: var(--nb-green, #88D498);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.admin-field--checkbox > span:not(.admin-field__hint) {
+  cursor: pointer;
+}
+
+.admin-field--checkbox .admin-field__hint {
+  flex-basis: 100%;
+}
+
+.admin-field input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .admin-field input,
@@ -1643,6 +1679,19 @@ body::-webkit-scrollbar {
 .name-tag-yellow  { color: var(--nb-yellow, #FFD23F) !important; }
 .name-tag-orange  { color: var(--nb-orange, #FFA552) !important; }
 .name-tag-lavender{ color: var(--nb-lavender, #B8A9FA) !important; }
+.name-tag-rose    { color: var(--nb-rose, #FF4FA0) !important; }
+
+/* #/owner — Unbinding's special green: striped underline, bolder presence.
+   The base color is the same green; the stripes under it make it one-off. */
+.name-tag-owner {
+  color: var(--nb-green, #88D498) !important;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: var(--nb-rose, #FF4FA0);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
 
 /* The 💎 developer/creator badge appended by #/ownz */
 .name-tag-badge {

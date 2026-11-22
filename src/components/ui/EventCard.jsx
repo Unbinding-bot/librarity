@@ -9,6 +9,7 @@ const STATUS_TONE = {
   green: 'event-card__badge--green',
   yellow: 'event-card__badge--yellow',
   muted: 'event-card__badge--muted',
+  lavender: 'event-card__badge--lavender',
 }
 
 const FALLBACK_RATIO = '16 / 9'

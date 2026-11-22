@@ -10,6 +10,7 @@ const EMPTY_FORM = {
   image_url: '',
   start_date: '',
   end_date: '',
+  no_date: false, // "undecided" — event exists but the date isn't set yet
   image_ratio: '', // e.g. "1080:520" — the pubmat's own aspect ratio
   image_size: '', // e.g. "1080x520" — the pubmat's display size
 }
@@ -197,6 +198,7 @@ export default function Admin() {
       image_url: event.image_url || '',
       start_date: event.start_date || '',
       end_date: event.end_date || '',
+      no_date: !event.start_date && !event.end_date,
       image_ratio: event.image_ratio || '',
       image_size: event.image_size || '',
     })
@@ -226,11 +228,13 @@ export default function Admin() {
     setFormError('')
 
     if (!form.title.trim()) { setFormError('Title is required.'); return }
-    if (!form.start_date) { setFormError('Start date is required.'); return }
-    if (!form.end_date) { setFormError('End date is required.'); return }
-    if (form.end_date < form.start_date) {
-      setFormError('End date must be on or after the start date.')
-      return
+    if (!form.no_date) {
+      if (!form.start_date) { setFormError('Start date is required (or tick "Date not decided yet").'); return }
+      if (!form.end_date) { setFormError('End date is required (or tick "Date not decided yet").'); return }
+      if (form.end_date < form.start_date) {
+        setFormError('End date must be on or after the start date.')
+        return
+      }
     }
 
     setSaving(true)
@@ -243,8 +247,8 @@ export default function Admin() {
         title: form.title.trim(),
         description: form.description.trim(),
         image_url: imageUrl || '',
-        start_date: form.start_date,
-        end_date: form.end_date,
+        start_date: form.no_date ? null : form.start_date,
+        end_date: form.no_date ? null : form.end_date,
         image_ratio: normalizeSize(form.image_ratio) || null,
         image_size: normalizeSize(form.image_size) || null,
       }
@@ -568,24 +572,39 @@ export default function Admin() {
 
       <div className="admin-form__row">
         <label className="admin-field">
-          <span>Start date *</span>
+          <span>Start date{form.no_date ? '' : ' *'}</span>
           <input
             type="date"
             value={form.start_date}
             onChange={(e) => setForm({ ...form, start_date: e.target.value })}
-            required
+            disabled={form.no_date}
+            required={!form.no_date}
           />
         </label>
         <label className="admin-field">
-          <span>End date *</span>
+          <span>End date{form.no_date ? '' : ' *'}</span>
           <input
             type="date"
             value={form.end_date}
             onChange={(e) => setForm({ ...form, end_date: e.target.value })}
-            required
+            disabled={form.no_date}
+            required={!form.no_date}
           />
         </label>
       </div>
+
+      <label className="admin-field admin-field--checkbox">
+        <input
+          type="checkbox"
+          checked={form.no_date}
+          onChange={(e) => setForm({ ...form, no_date: e.target.checked })}
+        />
+        <span>Date not decided yet</span>
+        <span className="admin-field__hint">
+          Tick this for events whose schedule is still up in the air — they
+          show a "TBD" badge instead of dates.
+        </span>
+      </label>
 
       <div className="admin-field">
         <span>Event image (pubmat)</span>
@@ -876,7 +895,9 @@ export default function Admin() {
                 <div className="admin-list__info">
                   <strong>{event.title}</strong>
                   <span className="admin-list__dates">
-                    {event.start_date} → {event.end_date}
+                    {!event.start_date && !event.end_date
+                      ? 'Date not decided'
+                      : `${event.start_date || '?'} → ${event.end_date || '?'}`}
                   </span>
                 </div>
                 <div className="admin-list__actions">

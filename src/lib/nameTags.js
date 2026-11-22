@@ -3,9 +3,11 @@
  * Visitor Logbook.
  *
  * Syntax: append #/tag to a name. Multiple tags combine.
- *   "Claire#/claire"          → pink name
+ *   "Claire#/claire"          → rose name (her special pink)
  *   "Unbinding#/bernz"        → green name
- *   "Unbinding#/bernz#/ownz"  → green name with 💎 prefix
+ *   "Unbinding#/bernz#/ownz"  → green name with 👾 prefix
+ *   "Unbinding#/owner"        → owner-green name with ⚡ prefix
+ *   "Sam#/sky"                → sky-blue name (any color tag works)
  *
  * ── How to add a new tag ──────────────────────────────────────────
  * 1. Pick or add a color name in TAG_COLORS (CSS var + fallback hex).
@@ -13,15 +15,22 @@
  *        rian: { color: 'sky' },
  *    or  boss: { symbol: '👑', color: 'yellow' },
  * That's it — parsing, display, and styling are automatic.
- * Full docs: docs/name-tags-config.md
  */
 
 // ── Tag definitions (the only place you edit to add tags) ─────────
 export const NAME_TAGS = {
-  claire: { color: 'pink' },
+  claire: { color: 'rose' },          // Claire gets her own special pink
   bernz: { color: 'green' },
   ownz: { symbol: '👾', color: 'green' },
-  owner: { aliasOf: 'ownz' },
+  owner: { symbol: '⚡', color: 'owner' }, // owner tag: special striped green
+  // plain color tags — anyone can use these
+  pink: { color: 'pink' },
+  green: { color: 'green' },
+  sky: { color: 'sky' },
+  yellow: { color: 'yellow' },
+  orange: { color: 'orange' },
+  lavender: { color: 'lavender' },
+  rose: { color: 'rose' },            // the special pink
 }
 
 // ── Color names → CSS custom property (with light-mode fallback hex) ──
@@ -32,6 +41,8 @@ export const TAG_COLORS = {
   yellow: 'var(--nb-yellow, #FFD23F)',
   orange: 'var(--nb-orange, #FFA552)',
   lavender: 'var(--nb-lavender, #B8A9FA)',
+  rose: 'var(--nb-rose, #FF4FA0)', // special pink — brighter, more magenta
+  owner: 'var(--nb-green, #88D498)',
 }
 
 // CSS classes defined in src/styles/index.css (one per color name)
@@ -42,6 +53,8 @@ const TAG_CLASSES = {
   yellow: 'name-tag-yellow',
   orange: 'name-tag-orange',
   lavender: 'name-tag-lavender',
+  rose: 'name-tag-rose',
+  owner: 'name-tag-owner',
 }
 
 const tagPattern = /#\/([a-zA-Z0-9_-]+)/g

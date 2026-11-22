@@ -13,10 +13,17 @@ When users add `#/<tag>` to their name in the leaderboard or logbook, styling is
 
 | Tag | Effect |
 |-----|--------|
-| `#/claire` | Text color: pink (`#FF6B6B`) |
+| `#/claire` | Text color: rose (Claire's special pink, `#FF4FA0`) |
 | `#/bernz` | Text color: green (`#88D498`) |
-| `#/ownz` | Prefix with 💎 symbol, text color: green |
-| `#/owner` | Same as `#/ownz` (alias) |
+| `#/ownz` | Prefix with 👾 symbol, text color: green |
+| `#/owner` | Prefix with ⚡ symbol, text color: owner green (striped style) |
+| `#/pink` | Text color: pink (`#FF6B6B`) |
+| `#/green` | Text color: green (`#88D498`) |
+| `#/sky` | Text color: sky blue (`#74B9FF`) |
+| `#/yellow` | Text color: yellow (`#FFD23F`) |
+| `#/orange` | Text color: orange (`#FFA552`) |
+| `#/lavender` | Text color: lavender (`#B8A9FA`) |
+| `#/rose` | Text color: rose — the special pink (`#FF4FA0`) |
 
 Unknown tags (e.g. a typo like `#/brnz`) are ignored — the name displays
 normally, nothing breaks.
@@ -27,10 +34,18 @@ Open `src/lib/nameTags.js` and add ONE line to `NAME_TAGS` at the top:
 
 ```js
 export const NAME_TAGS = {
-  claire: { color: 'pink' },
+  claire: { color: 'rose' },
   bernz: { color: 'green' },
-  ownz: { symbol: '💎', color: 'green' },
-  owner: { aliasOf: 'ownz' },
+  ownz: { symbol: '👾', color: 'green' },
+  owner: { symbol: '⚡', color: 'owner' },
+  // plain color tags — anyone can use these
+  pink: { color: 'pink' },
+  green: { color: 'green' },
+  sky: { color: 'sky' },
+  yellow: { color: 'yellow' },
+  orange: { color: 'orange' },
+  lavender: { color: 'lavender' },
+  rose: { color: 'rose' },
   // Add your new tag here:
   // rian: { color: 'sky' },          // colored name
   // boss: { symbol: '👑', color: 'yellow' },  // symbol + color
@@ -50,6 +65,8 @@ export const NAME_TAGS = {
 - `yellow` → `#FFD23F`
 - `orange` → `#FFA552`
 - `lavender` → `#B8A9FA`
+- `rose` → `#FF4FA0` (the special pink — Claire's)
+- `owner` → `#88D498` (special green, striped)
 
 ## How It Works
 

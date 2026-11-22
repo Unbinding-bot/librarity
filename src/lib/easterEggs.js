@@ -6,9 +6,31 @@
  * normal render pipeline (definitions, synonyms-as-chips, phonetics) works
  * unchanged — which also means the synonym chips cross-link the entries.
  *
- * `injectHiddenSynonym` is the quiet one: for real words, a chosen name is
- * appended to the existing synonyms list so it hides among genuine results.
+ * Each egg can have an optional `color` field (e.g. 'pink', 'green') to tint
+ * the entry card in the Dictionary UI, and a `special` field for a one-off
+ * elaborate design ('owner' → Unbinding's striped green, 'claire' → Claire's
+ * cute polka-dot pink). Every crafted egg shows the 🥚 egg badge regardless
+ * of color. Add new eggs by adding an entry here (+ a line in HIDDEN_SYNONYMS
+ * for real-word injections).
  */
+
+const EGG_COLORS = {
+  pink: '#FF6B6B',
+  green: '#88D498',
+  sky: '#74B9FF',
+  yellow: '#FFD23F',
+  orange: '#FFA552',
+  lavender: '#B8A9FA',
+  red: '#E53935',
+  purple: '#AB47BC',
+  blue: '#42A5F5',
+}
+
+/** One-off elaborate card designs — each gets its own CSS class in tools.css. */
+const SPECIAL_EGGS = {
+  owner: 'egg-special-owner',   // Unbinding: striped green, ⚡ owner badge
+  claire: 'egg-special-claire', // Claire: polka-dot pink, ♡ badge
+}
 
 const EGG_ENTRIES = {
   unbinding: {
@@ -16,6 +38,7 @@ const EGG_ENTRIES = {
     phonetic: '/ʌnˈbaɪndɪŋ/',
     phonetics: [{ text: '/ʌnˈbaɪndɪŋ/', audio: '' }],
     origin: 'un- (reverse) + bind — to undo what was tied.',
+    special: 'owner',
     meanings: [
       {
         partOfSpeech: 'noun',
@@ -23,7 +46,7 @@ const EGG_ENTRIES = {
           {
             definition:
               'The creator of this website. Likes green, tidy code(idk about that), and a certain someone who makes every day brighter.',
-            example: 'Unbinding built this whole library site, you are using it right now.',
+            example: 'Unbinding built this whole library site — you are using it right now.',
           },
         ],
         synonyms: ['Bernard', 'Salvador'],
@@ -48,7 +71,7 @@ const EGG_ENTRIES = {
     word: 'bernard',
     phonetic: '/ˈbɜːrnərd/',
     phonetics: [{ text: '/ˈbɜːrnərd/', audio: '' }],
-    origin: 'Germanic bern “bear” + hard “brave, hardy” — “brave bear”.',
+    origin: 'Germanic bern "bear" + hard "brave, hardy" — "brave bear".',
     meanings: [
       {
         partOfSpeech: 'noun',
@@ -80,7 +103,7 @@ const EGG_ENTRIES = {
     word: 'salvador',
     phonetic: '/ˈsælvədɔːr/',
     phonetics: [{ text: '/ˈsælvədɔːr/', audio: '' }],
-    origin: 'From Latin salvator — “savior, rescuer”.',
+    origin: 'From Latin salvator — "savior, rescuer".',
     meanings: [
       {
         partOfSpeech: 'noun',
@@ -112,18 +135,19 @@ const EGG_ENTRIES = {
     word: 'claire',
     phonetic: '/klɛər/',
     phonetics: [{ text: '/klɛər/', audio: '' }],
-    origin: 'French claire, feminine of clair “clear, bright”, from Latin clarus.',
+    origin: 'French claire, feminine of clair "clear, bright", from Latin clarus.',
+    special: 'claire',
     meanings: [
       {
         partOfSpeech: 'noun',
         definitions: [
           {
             definition:
-              'A French given name meaning “bright, clear, renowned”.',
-            example: 'Clair de lune — “moonlight”, literally “light of the moon”.',
+              'A French given name meaning "bright, clear, renowned".',
+            example: 'Clair de lune — "moonlight", literally "light of the moon".',
           },
         ],
-        synonyms: ['Cute', 'Clara', 'Clarissa', 'Clare'],
+        synonyms: ['Cute', 'Ash', 'Ashley'],
         antonyms: [],
       },
     ],
@@ -140,7 +164,7 @@ const EGG_ENTRIES = {
         definitions: [
           {
             definition: 'PHAT — Pretty, Hot And Tempting.',
-            example: '“PHAT, Pretty, hot and tempting.” — Gaea Alexis G. Osugay, 2026',
+            example: '"PHAT, Pretty, hot and tempting." — Gaea Alexis G. Osugay, 2026',
           },
         ],
         synonyms: ['Pretty', 'Hot', 'Tempting'],
@@ -165,13 +189,13 @@ const EGG_ENTRIES = {
     word: 'daniela',
     phonetic: '/dɑːˈnjɛl.ə/',
     phonetics: [{ text: '/dɑːˈnjɛl.ə/', audio: '' }],
-    origin: 'Feminine of Daniel, from Hebrew dāniyyēl — “God is my judge”.',
+    origin: 'Feminine of Daniel, from Hebrew dāniyyēl — "God is my judge".',
     meanings: [
       {
         partOfSpeech: 'noun',
         definitions: [
           {
-            definition: 'Coached TenZ in Valorant. That’s it. That’s the definition.',
+            definition: 'Coached TenZ in Valorant. That\'s it. That\'s the definition.',
             example: 'Riot ID: Uno#ceska',
           },
         ],
@@ -196,15 +220,16 @@ const EGG_ENTRIES = {
     word: 'elixa',
     phonetic: '/ɪˈlaɪk.sə/',
     phonetics: [{ text: '/ɪˈlaɪk.sə/', audio: '' }],
-    origin: 'Uncertain — perhaps Greek ἔλιξ “twist” + suffix, or a modern invention.',
+    origin: 'Uncertain — perhaps Greek έλιξ "twist" + suffix, or a modern invention.',
+    color: 'green',
     meanings: [
       {
         partOfSpeech: 'noun',
         definitions: [
           {
             definition:
-              'Someone who likes buldak but without the sauce, Bakugo Lover no. 1.',
-            example: '“Isn’t that just noodles??”',
+              'Someone who likes buldak (spicy Korean noodles) but refuses the sauce.',
+            example: '"Isn\'t that just noodles??"',
           },
         ],
         synonyms: ['Picky'],
@@ -223,11 +248,33 @@ const EGG_ENTRIES = {
         partOfSpeech: 'noun',
         definitions: [
           {
-            definition: 'An avid reader, not to be mistaken with riane.',
-            example: 'AO3 isn’t just a website, it’s a lifestyle.',
+            definition: 'An avid reader — not to be mistaken with riane.',
+            example: 'AO3 isn\'t just a website, it\'s a lifestyle.',
           },
         ],
         synonyms: ['Bookworm'],
+        antonyms: [],
+      },
+    ],
+  },
+
+  leanna: {
+    word: 'leanna',
+    phonetic: '/liˈæn.ə/',
+    phonetics: [{ text: '/liˈæn.ə/', audio: '' }],
+    origin: 'Variant of Liana — from the climbing vine; also a blend of Lee + Anna.',
+    color: 'pink',
+    meanings: [
+      {
+        partOfSpeech: 'noun',
+        definitions: [
+          {
+            definition:
+              'A person who is addicted to Miraculous and also the top #1 gachakid with a flex. "Flex when that was 3 yrs ago."',
+            example: 'Its miraculous that she calls that a flex - Unbinding',
+          },
+        ],
+        synonyms: ['Aurtistic', 'Peoplepleaser(?)', 'Cute'],
         antonyms: [],
       },
     ],
@@ -237,17 +284,18 @@ const EGG_ENTRIES = {
     word: 'lakshmi',
     phonetic: '/ˈlʌk.ʃmi/',
     phonetics: [{ text: '/ˈlʌk.ʃmi/', audio: '' }],
-    origin: 'Sanskrit लक्ष्मी — “fortune, prosperity”; one of the most worshipped deities in Hinduism, consort of Vishnu.',
+    origin: 'Sanskrit लक्ष्मी — "fortune, prosperity"; one of the most worshipped deities in Hinduism, consort of Vishnu.',
+    color: 'pink',
     meanings: [
       {
         partOfSpeech: 'noun',
         definitions: [
           {
-            definition: 'Sweet n smart daw, pink lover.',
-            example: '“ur sweet n smart.” — Rheanne Alferez, 2026',
+            definition: 'ur sweet n smart.',
+            example: '"ur sweet n smart." — Rheanne Alferez, 2026',
           },
         ],
-        synonyms: ['Sweet', 'Smart'],
+        synonyms: ['Sweet', 'Smary'],
         antonyms: [],
       },
       {
@@ -257,7 +305,7 @@ const EGG_ENTRIES = {
             definition:
               'In Hinduism, the goddess of wealth, fortune, power, beauty, fertility and prosperity.',
             example:
-              'Diwali — the festival of lights — celebrates Lakshmi’s descent to earth.',
+              'Diwali — the festival of lights — celebrates Lakshmi\'s descent to earth.',
           },
         ],
         synonyms: [],
@@ -307,4 +355,22 @@ export function getEasterEgg(clean) {
 export function applyEasterEggs(clean, data) {
   if (clean in HIDDEN_SYNONYMS) return injectHiddenSynonym(data, clean)
   return data
+}
+
+/**
+ * Resolve the color token from an egg entry into a hex value.
+ * Returns null if the entry has no color or the token isn't recognized.
+ */
+export function resolveEggColor(colorToken) {
+  if (!colorToken) return null
+  return EGG_COLORS[colorToken.toLowerCase()] ?? null
+}
+
+/**
+ * Resolve the one-off special design for an egg entry (Unbinding → 'owner',
+ * Claire → 'claire'). Returns the CSS class name or null.
+ */
+export function resolveEggSpecial(entry) {
+  if (!entry?.special) return null
+  return SPECIAL_EGGS[entry.special] ?? null
 }

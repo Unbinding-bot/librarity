@@ -92,6 +92,8 @@ export function gameLabel(gameType) {
 
 /** Format a date range for cards: "Nov 24 – Dec 1" (year only when it differs). */
 export function formatEventDateRange(start, end) {
+  // Undecided events (no dates at all) read as "Date TBC".
+  if (!start && !end) return 'Date TBC'
   if (!start) return ''
   const opts = { month: 'short', day: 'numeric' }
   const yearOpts = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -107,6 +109,9 @@ export function formatEventDateRange(start, end) {
 
 /** Status for a card badge. */
 export function eventStatus(start, end) {
+  // Undecided: no dates entered yet → its own badge, never auto-sorted
+  // into past by the null dates.
+  if (!start && !end) return { label: 'TBD', tone: 'lavender' }
   const today = new Date()
   today.setHours(0, 0, 0, 0)
   const s = start ? new Date(start + 'T00:00:00') : null

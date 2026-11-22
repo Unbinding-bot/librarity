@@ -22,7 +22,10 @@ export default function Events() {
     }
   }, [])
 
-  // Split into three buckets. Sort current by start_date ASC, past by end_date DESC.
+  // Split into buckets. Sort current by start_date ASC, past by end_date DESC.
+  // TBD (no dates yet) get their own section on top — they'd otherwise fall
+  // through every date filter into "Past".
+  const tbd = events.filter((e) => eventStatus(e.start_date, e.end_date).label === 'TBD')
   const now = events
     .filter((e) => eventStatus(e.start_date, e.end_date).label === 'Happening now')
     .sort((a, b) => (a.start_date > b.start_date ? 1 : -1))
@@ -45,6 +48,24 @@ export default function Events() {
             What's happening at the library this month
           </p>
         </header>
+
+        {/* ===== TBD / date undecided (on top, hidden if empty) ===== */}
+        {(loading || tbd.length > 0) && (
+          <section className="section-band section-band-lavender" style={getSectionStyles()}>
+            <h2 style={getSectionTitleStyles()}>Date TBD</h2>
+            {loading ? (
+              <div className="events-masonry" style={getGridStyles()}>
+                <SkeletonLoader count={3} />
+              </div>
+            ) : (
+              <div className="events-masonry" style={getGridStyles()}>
+                {tbd.map((event) => (
+                  <EventCard key={event.id} event={event} />
+                ))}
+              </div>
+            )}
+          </section>
+        )}
 
         {/* ===== Coming soon (on top, hidden if empty) ===== */}
         {(loading || coming.length > 0) && (
