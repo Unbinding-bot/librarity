@@ -274,6 +274,7 @@ const HIDDEN_SYNONYMS = {
   pretty: 'Gaea',
   hot: 'Gaea',
   tempting: 'Gaea',
+  bookworm: 'Rheanne',
   sweet: 'Lakshmi',
   smart: 'Lakshmi',
 }
