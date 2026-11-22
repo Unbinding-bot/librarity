@@ -123,7 +123,70 @@ const EGG_ENTRIES = {
             example: 'Clair de lune — “moonlight”, literally “light of the moon”.',
           },
         ],
-        synonyms: ['Clara', 'Clarissa', 'Clare'],
+        synonyms: ['Cute', 'Clara', 'Clarissa', 'Clare'],
+        antonyms: [],
+      },
+    ],
+  },
+
+  gaea: {
+    word: 'gaea',
+    phonetic: '/ˈɡeɪ.ə/',
+    phonetics: [{ text: '/ˈɡeɪ.ə/', audio: '' }],
+    origin: 'Greek Gaîa — the earth goddess. Re-coined in 2026 as an acronym; see definition.',
+    meanings: [
+      {
+        partOfSpeech: 'noun',
+        definitions: [
+          {
+            definition: 'PHAT — Pretty, Hot And Tempting.',
+            example: '“PHAT, Pretty, hot and tempting.” — Gaea Alexis G. Osugay, 2026',
+          },
+        ],
+        synonyms: ['Pretty', 'Hot', 'Tempting'],
+        antonyms: [],
+      },
+      {
+        partOfSpeech: 'noun',
+        definitions: [
+          {
+            definition:
+              'In Greek mythology, the personification of the Earth and ancestral mother of all life.',
+            example: 'The oracle at Delphi spoke for Gaea before Apollo took the shrine.',
+          },
+        ],
+        synonyms: [],
+        antonyms: [],
+      },
+    ],
+  },
+
+  daniela: {
+    word: 'daniela',
+    phonetic: '/dɑːˈnjɛl.ə/',
+    phonetics: [{ text: '/dɑːˈnjɛl.ə/', audio: '' }],
+    origin: 'Feminine of Daniel, from Hebrew dāniyyēl — “God is my judge”.',
+    meanings: [
+      {
+        partOfSpeech: 'noun',
+        definitions: [
+          {
+            definition: 'Coached TenZ in Valorant. That’s it. That’s the definition.',
+            example: 'Riot ID: Uno#ceska',
+          },
+        ],
+        synonyms: ['GOAT'],
+        antonyms: [],
+      },
+      {
+        partOfSpeech: 'noun',
+        definitions: [
+          {
+            definition:
+              'A female given name, the feminine form of Daniel, common across Europe and Latin America.',
+          },
+        ],
+        synonyms: ['Dani'],
         antonyms: [],
       },
     ],
@@ -133,6 +196,10 @@ const EGG_ENTRIES = {
 /** Real-word names that get one hidden synonym appended to their genuine results. */
 const HIDDEN_SYNONYMS = {
   ash: 'Claire',
+  goat: 'Daniela',
+  pretty: 'Gaea',
+  hot: 'Gaea',
+  tempting: 'Gaea',
 }
 
 /**
