@@ -28,3 +28,6 @@ Thumbs.db
 *.swp
 *.tmp
 *.log
+
+# Supabase CLI local state (tokens, linked project refs)
+supabase/.temp/
