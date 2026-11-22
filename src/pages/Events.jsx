@@ -46,43 +46,45 @@ export default function Events() {
           </p>
         </header>
 
-        {/* ===== Happening now ===== */}
-        <section className="section-band section-band-green" style={getSectionStyles()}>
-          <h2 style={getSectionTitleStyles()}>Happening Now</h2>
-          {loading ? (
-            <div className="events-masonry" style={getGridStyles()}>
-              <SkeletonLoader count={3} />
-            </div>
-          ) : now.length === 0 ? (
-            <p style={getEmptyStyles()}>Nothing running right now, check back soon!</p>
-          ) : (
-            <div className="events-masonry" style={getGridStyles()}>
-              {now.map((event) => (
-                <EventCard key={event.id} event={event} />
-              ))}
-            </div>
-          )}
-        </section>
-
-        {/* ===== Coming soon ===== */}
-        <>
-          <div className="events-divider" aria-hidden="true" />
+        {/* ===== Coming soon (on top, hidden if empty) ===== */}
+        {(loading || coming.length > 0) && (
           <section className="section-band section-band-sky" style={getSectionStyles()}>
-          <h2 style={getSectionTitleStyles()}>Coming Soon</h2>
-          {loading ? (
-            <div className="events-masonry" style={getGridStyles()}>
-              <SkeletonLoader count={3} />
-            </div>
-          ) : coming.length === 0 ? (
-            <p style={getEmptyStyles()}>No upcoming events on the calendar.</p>
-          ) : (
-            <div className="events-masonry" style={getGridStyles()}>
-              {coming.map((event) => (
-                <EventCard key={event.id} event={event} />
-              ))}
-            </div>
+            <h2 style={getSectionTitleStyles()}>Coming Soon</h2>
+            {loading ? (
+              <div className="events-masonry" style={getGridStyles()}>
+                <SkeletonLoader count={3} />
+              </div>
+            ) : (
+              <div className="events-masonry" style={getGridStyles()}>
+                {coming.map((event) => (
+                  <EventCard key={event.id} event={event} />
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* ===== Happening now ===== */}
+        <>
+          {(loading || coming.length > 0) && (
+            <div className="events-divider" aria-hidden="true" />
           )}
-        </section>
+          <section className="section-band section-band-green" style={getSectionStyles()}>
+            <h2 style={getSectionTitleStyles()}>Happening Now</h2>
+            {loading ? (
+              <div className="events-masonry" style={getGridStyles()}>
+                <SkeletonLoader count={3} />
+              </div>
+            ) : now.length === 0 ? (
+              <p style={getEmptyStyles()}>Nothing running right now, check back soon!</p>
+            ) : (
+              <div className="events-masonry" style={getGridStyles()}>
+                {now.map((event) => (
+                  <EventCard key={event.id} event={event} />
+                ))}
+              </div>
+            )}
+          </section>
         </>
 
         {/* ===== Past events ===== */}
