@@ -6,8 +6,11 @@ import ThemeProvider from './contexts/ThemeContext'
 import { ToastProvider } from './contexts/ToastContext'
 import { GameStateProvider } from './contexts/GameStateContext'
 import AppRouter from './router'
+import usePageMeta from './pages/usePageMeta'
 
 export default function App() {
+  // Per-route meta: title, description, og:image — updated on every navigation.
+  usePageMeta()
   return (
     <ThemeProvider>
       <ToastProvider>
