@@ -578,7 +578,7 @@ body::-webkit-scrollbar {
   font-family: var(--font-display, "Syne", sans-serif);
   font-weight: 400;
   color: var(--color-text, #000000);
-  line-height: 1.25; /* Archivo Black's em box is 1.25em tall — tighter clips its glyphs */
+  line-height: 1.15; /* Syne — a slightly tighter line suits it */
 }
 
 .home__subtitle {
