@@ -23,15 +23,18 @@ export default function Events() {
   }, [])
 
   // Split into buckets. Sort current by start_date ASC, past by end_date DESC.
-  // TBD (no dates yet) get their own section on top — they'd otherwise fall
-  // through every date filter into "Past".
-  const tbd = events.filter((e) => eventStatus(e.start_date, e.end_date).label === 'TBD')
+  // TBD (no dates yet) ride along in Coming Soon — they're upcoming, just
+  // undecided — appended after the dated ones so real dates surface first.
+  const status = (e) => eventStatus(e.start_date, e.end_date).label
   const now = events
-    .filter((e) => eventStatus(e.start_date, e.end_date).label === 'Happening now')
+    .filter((e) => status(e) === 'Happening now')
     .sort((a, b) => (a.start_date > b.start_date ? 1 : -1))
-  const coming = events
-    .filter((e) => eventStatus(e.start_date, e.end_date).label === 'Coming soon')
-    .sort((a, b) => (a.start_date > b.start_date ? 1 : -1))
+  const coming = [
+    ...events
+      .filter((e) => status(e) === 'Coming soon')
+      .sort((a, b) => (a.start_date > b.start_date ? 1 : -1)),
+    ...events.filter((e) => status(e) === 'TBD'),
+  ]
   const past = events
     .filter((e) => eventStatus(e.start_date, e.end_date).label === 'Past')
     .sort((a, b) => (a.end_date < b.end_date ? 1 : -1))
@@ -49,25 +52,7 @@ export default function Events() {
           </p>
         </header>
 
-        {/* ===== TBD / date undecided (on top, hidden if empty) ===== */}
-        {(loading || tbd.length > 0) && (
-          <section className="section-band section-band-lavender" style={getSectionStyles()}>
-            <h2 style={getSectionTitleStyles()}>Date TBD</h2>
-            {loading ? (
-              <div className="events-masonry" style={getGridStyles()}>
-                <SkeletonLoader count={3} />
-              </div>
-            ) : (
-              <div className="events-masonry" style={getGridStyles()}>
-                {tbd.map((event) => (
-                  <EventCard key={event.id} event={event} />
-                ))}
-              </div>
-            )}
-          </section>
-        )}
-
-        {/* ===== Coming soon (on top, hidden if empty) ===== */}
+        {/* ===== Coming soon (TBD/undecided events live here too) ===== */}
         {(loading || coming.length > 0) && (
           <section className="section-band section-band-sky" style={getSectionStyles()}>
             <h2 style={getSectionTitleStyles()}>Coming Soon</h2>
