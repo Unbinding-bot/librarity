@@ -22,8 +22,8 @@ const EGG_ENTRIES = {
         definitions: [
           {
             definition:
-              'The creator of this website. Likes green, tidy code, and a certain someone who makes every day brighter.',
-            example: 'Unbinding built this whole library site — you are using it right now.',
+              'The creator of this website. Likes green, tidy code(idk about that), and a certain someone who makes every day brighter.',
+            example: 'Unbinding built this whole library site, you are using it right now.',
           },
         ],
         synonyms: ['Bernard', 'Salvador'],
@@ -55,8 +55,8 @@ const EGG_ENTRIES = {
         definitions: [
           {
             definition:
-              'An alias of the creator of this website. Brave-bear energy: shows up when something needs building, likes green.',
-            example: 'Ask Bernard — the site will tell you it was Unbinding.',
+              'An alias of the creator of this website. Shows up when something needs building(not for free tho), likes green.',
+            example: 'Ask Bernard, the site will tell you it was Unbinding.',
           },
         ],
         synonyms: ['Unbinding', 'Salvador'],
@@ -67,7 +67,7 @@ const EGG_ENTRIES = {
         definitions: [
           {
             definition:
-              'A male given name borne by saints, scientists, and at least one very reliable software developer.',
+              'A male given name borne by saints, scientists, and at least one very reliable(at times) software developer.',
           },
         ],
         synonyms: [],
@@ -191,6 +191,80 @@ const EGG_ENTRIES = {
       },
     ],
   },
+
+  elixa: {
+    word: 'elixa',
+    phonetic: '/ɪˈlaɪk.sə/',
+    phonetics: [{ text: '/ɪˈlaɪk.sə/', audio: '' }],
+    origin: 'Uncertain — perhaps Greek ἔλιξ “twist” + suffix, or a modern invention.',
+    meanings: [
+      {
+        partOfSpeech: 'noun',
+        definitions: [
+          {
+            definition:
+              'Someone who likes buldak but without the sauce, Bakugo Lover no. 1.',
+            example: '“Isn’t that just noodles??”',
+          },
+        ],
+        synonyms: ['Picky'],
+        antonyms: [],
+      },
+    ],
+  },
+
+  rheanne: {
+    word: 'rheanne',
+    phonetic: '/ˈriː.ən/',
+    phonetics: [{ text: '/ˈriː.ən/', audio: '' }],
+    origin: 'Variant of Rhiannon; not to be mistaken for riane.',
+    meanings: [
+      {
+        partOfSpeech: 'noun',
+        definitions: [
+          {
+            definition: 'An avid reader, not to be mistaken with riane.',
+            example: 'AO3 isn’t just a website, it’s a lifestyle.',
+          },
+        ],
+        synonyms: ['Bookworm'],
+        antonyms: [],
+      },
+    ],
+  },
+
+  lakshmi: {
+    word: 'lakshmi',
+    phonetic: '/ˈlʌk.ʃmi/',
+    phonetics: [{ text: '/ˈlʌk.ʃmi/', audio: '' }],
+    origin: 'Sanskrit लक्ष्मी — “fortune, prosperity”; one of the most worshipped deities in Hinduism, consort of Vishnu.',
+    meanings: [
+      {
+        partOfSpeech: 'noun',
+        definitions: [
+          {
+            definition: 'Sweet n smart daw, pink lover.',
+            example: '“ur sweet n smart.” — Rheanne Alferez, 2026',
+          },
+        ],
+        synonyms: ['Sweet', 'Smart'],
+        antonyms: [],
+      },
+      {
+        partOfSpeech: 'noun',
+        definitions: [
+          {
+            definition:
+              'In Hinduism, the goddess of wealth, fortune, power, beauty, fertility and prosperity.',
+            example:
+              'Diwali — the festival of lights — celebrates Lakshmi’s descent to earth.',
+          },
+        ],
+        synonyms: [],
+        antonyms: [],
+      },
+    ],
+  },
 }
 
 /** Real-word names that get one hidden synonym appended to their genuine results. */
@@ -200,6 +274,8 @@ const HIDDEN_SYNONYMS = {
   pretty: 'Gaea',
   hot: 'Gaea',
   tempting: 'Gaea',
+  sweet: 'Lakshmi',
+  smart: 'Lakshmi',
 }
 
 /**
