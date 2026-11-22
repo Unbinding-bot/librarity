@@ -1,23 +1,8 @@
 import React, { createContext, useContext, useState, useCallback } from 'react'
-import { createClient } from '@supabase/supabase-js'
+
+import { getAnonClient as getClient } from '../lib/supabase'
 
 const GameStateContext = createContext(null)
-
-const SUPABASE_URL = 'https://wiqwrrhlriyaqxrmitzo.supabase.co'
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndpcXdycmhscml5YXF4cm1pdHpvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY4ODA3OTYsImV4cCI6MjEwMjQ1Njc5Nn0.pw9XCB806F0dNatpqaylbjVX4guT4pImE6KiOF8Pxak'
-
-let _client = null
-
-function getClient() {
-  if (!_client) {
-    try {
-      _client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-    } catch {
-      return null
-    }
-  }
-  return _client
-}
 
 function tryRecordLocal(data) {
   try {
