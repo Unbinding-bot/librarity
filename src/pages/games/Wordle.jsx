@@ -272,7 +272,7 @@ export default function Wordle() {
     const s = loadStats()
     setResult({
       title: u.round > 1 ? 'Session Over!' : 'Unlucky!',
-      message: `The word was: ${wordRef.current}`,
+      message: `The word was: ${answerRef.current || wordRef.current}`,
       session: { score: u.score, rounds: u.round - 1 },
       stats: s,
     })
