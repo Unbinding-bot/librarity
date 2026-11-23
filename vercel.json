@@ -9,11 +9,43 @@
     },
     {
       "source": "/library/assets/(.*)",
-      "destination": "/library/assets/$1"
+      "destination": "/assets/$1"
     },
     {
-      "source": "/library/(.*\\.css|.*\\.js|.*\\.png|.*\\.jpg|.*\\.svg|.*\\.woff2?|.*\\.ico)",
-      "destination": "/library/$1"
+      "source": "/library/(index\\.html)",
+      "destination": "/$1"
+    },
+    {
+      "source": "/library/favicon.svg",
+      "destination": "/favicon.svg"
+    },
+    {
+      "source": "/library/favicon-32.png",
+      "destination": "/favicon-32.png"
+    },
+    {
+      "source": "/library/favicon-16.png",
+      "destination": "/favicon-16.png"
+    },
+    {
+      "source": "/library/apple-touch-icon.png",
+      "destination": "/apple-touch-icon.png"
+    },
+    {
+      "source": "/library/og-image.jpg",
+      "destination": "/og-image.jpg"
+    },
+    {
+      "source": "/library/og-events.jpg",
+      "destination": "/og-events.jpg"
+    },
+    {
+      "source": "/library/og-games.jpg",
+      "destination": "/og-games.jpg"
+    },
+    {
+      "source": "/library/og-tools.jpg",
+      "destination": "/og-tools.jpg"
     },
     {
       "source": "/library/:path*",
