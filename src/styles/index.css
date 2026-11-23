@@ -1672,7 +1672,14 @@ body::-webkit-scrollbar {
    Colors resolve through the neo-brutalist token palette so they
    track theme changes. The classes apply to the <span> wrapping a
    parsed name in the leaderboard table and the logbook entries.
+   A -1px text-stroke gives every color a crisp black outline so
+   it reads clearly against any background (cream, yellow, sky, etc.).
    ============================================================ */
+.name-tagged {
+  /* Crisp outline around colored text so it reads on any bg */
+  -webkit-text-stroke: 0.5px var(--nb-black, #000);
+  paint-order: stroke fill;
+}
 .name-tag-pink    { color: var(--nb-pink, #FF6B6B) !important; }
 .name-tag-green   { color: var(--nb-green, #88D498) !important; }
 .name-tag-sky     { color: var(--nb-sky, #74B9FF) !important; }

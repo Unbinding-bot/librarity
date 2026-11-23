@@ -371,7 +371,18 @@ export default function WordLadder() {
   }, [puzzle])
 
   const changeMode = useCallback(
-    (newMode) => {
+    (newMode, { resume } = {}) => {
+      // Resume: reload the same mode with a fresh puzzle (used by Play Again)
+      if (resume && newMode === modeRef.current) {
+        setMode(newMode)
+        modeRef.current = newMode
+        if (newMode === 'daily') {
+          startPuzzle(getPuzzleForToday())
+        } else {
+          startPuzzle(generatePuzzle())
+        }
+        return
+      }
       // Re-playing the same mode: in daily mode, fall back to random when
       // today's puzzle is already finished (same rule as Wordle).
       if (newMode === modeRef.current) {
@@ -473,7 +484,7 @@ export default function WordLadder() {
         <div className="game-action-bar">
           <span className="game-action-bar-label">Solved in {steps} steps!</span>
           <div className="game-action-bar-btns">
-            <button className="btn btn-sm btn-secondary" onClick={() => changeMode(mode)}>Play Again</button>
+            <button className="btn btn-sm btn-secondary" onClick={() => changeMode(mode, { resume: true })}>Play Again</button>
           </div>
         </div>
       )}
@@ -554,7 +565,7 @@ export default function WordLadder() {
               </div>
             </div>
             <div className="result-actions">
-              <button className="btn btn-secondary" onClick={() => changeMode(mode)}>
+              <button className="btn btn-secondary" onClick={() => changeMode(mode, { resume: true })}>
                 Play Again
               </button>
             </div>
