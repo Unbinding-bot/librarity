@@ -8,11 +8,15 @@
       "destination": "/library/events/:id/index.html"
     },
     {
-      "source": "/library/:path*",
-      "destination": "/library/index.html"
+      "source": "/library/assets/(.*)",
+      "destination": "/library/assets/$1"
     },
     {
-      "source": "/library",
+      "source": "/library/(.*\\.css|.*\\.js|.*\\.png|.*\\.jpg|.*\\.svg|.*\\.woff2?|.*\\.ico)",
+      "destination": "/library/$1"
+    },
+    {
+      "source": "/library/:path*",
       "destination": "/library/index.html"
     }
   ]
