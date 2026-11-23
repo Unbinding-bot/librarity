@@ -174,6 +174,11 @@ export default function Dictionary() {
                       ♡ claire
                     </span>
                   )}
+                  {resolveEggSpecial(entry) === 'egg-special-goat' && (
+                    <span className="tool-entry-word-tooltip egg-badge-goat" title="I was forced to do this sh*t.">
+                      🕷️ goat
+                    </span>
+                  )}
                   {entry.color && !resolveEggSpecial(entry) && (
                     <span className="tool-entry-word-tooltip" title="This is a secret dictionary entry for a real person in our library community! 🥚">
                       egg 🥚

@@ -255,7 +255,7 @@ export default function Trivia() {
                   className={`mode-btn${category === c.id ? ' active' : ''}`}
                   onClick={() => setCategory(c.id)}
                 >
-                  {c.icon} {c.name}
+                  {c.name}
                 </button>
               ))}
             </div>

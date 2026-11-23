@@ -227,6 +227,33 @@
   font-weight: 700;
 }
 
+/* ── Special egg: GOAT (Daniela) — Spider-Man red/blue theme ───────────
+   Web-pattern background over red, blue accents, 🕷️ badge. */
+.tool-entry.egg-special-goat {
+  --egg-fg: #1565C0;
+  --egg-border: #E53935;
+  background-color: #E53935;
+  background-image: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.15) 41%, rgba(0,0,0,0.15) 60%, transparent 61%);
+  background-size: 12px 12px;
+  border-color: #1565C0;
+  border-width: 4px;
+}
+
+.tool-entry.egg-special-goat .tool-entry-head {
+  border-bottom-color: #1565C0;
+}
+
+.tool-entry.egg-special-goat .tool-entry-word {
+  color: #E53935;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+}
+
+.egg-badge-goat {
+  background: #1565C0;
+  color: #fff;
+  font-weight: 700;
+}
+
 .tool-entry-phonetic {
   color: var(--color-text-muted);
   font-size: 1rem;

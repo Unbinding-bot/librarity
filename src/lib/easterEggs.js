@@ -30,6 +30,7 @@ const EGG_COLORS = {
 const SPECIAL_EGGS = {
   owner: 'egg-special-owner',   // Unbinding: striped green, ⚡ owner badge
   claire: 'egg-special-claire', // Claire: polka-dot pink, ♡ badge
+  goat:  'egg-special-goat',    // Daniela: spiderman red/blue, 🕷️ goat badge
 }
 
 const EGG_ENTRIES = {
@@ -191,16 +192,22 @@ const EGG_ENTRIES = {
     phonetic: '/dɑːˈnjɛl.ə/',
     phonetics: [{ text: '/dɑːˈnjɛl.ə/', audio: '' }],
     origin: 'Feminine of Daniel, from Hebrew dāniyyēl — "God is my judge".',
+    special: 'goat',
     meanings: [
       {
         partOfSpeech: 'noun',
         definitions: [
           {
+            definition:
+              'Secretly Spider-Man. Was bitten by a radioactive spider at age 12. Still hasn\'t told anyone.',
+            example: '"Don\'t worry, I\'ll swing by later." — Daniela, apparently',
+          },
+          {
             definition: 'Coached TenZ in Valorant. That\'s it. That\'s the definition.',
             example: 'Riot ID: Uno#ceska',
           },
         ],
-        synonyms: ['GOAT'],
+        synonyms: ['GOAT', 'Spider-Person', "TenZ's Coach"],
         antonyms: [],
       },
       {
