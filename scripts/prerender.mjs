@@ -21,7 +21,16 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { join } from 'node:path'
 
-const DIST = new URL('../dist', import.meta.url).pathname.replace(/^\/([A-Za-z]):/, '$1:')
+// vite.config.js emits the build under dist<BASE_PATH> (mirroring the URL
+// subpath), so this script must write into the same tree.
+function normalizeBasePath(raw) {
+  let v = String(raw || '').trim() || '/librarity'
+  if (/^[A-Za-z]:[/\\]/.test(v)) v = v.replace(/^.*[/\\]/, '')
+  if (!v.startsWith('/')) v = '/' + v
+  return v.replace(/\/$/, '') || '/'
+}
+const BASE_PATH = normalizeBasePath(process.env.BASE_PATH || '/library')
+const DIST = new URL('../dist' + BASE_PATH, import.meta.url).pathname.replace(/^\/([A-Za-z]):/, '$1:')
 const SUPABASE_URL = 'https://wiqwrrhlriyaqxrmitzo.supabase.co'
 const SUPABASE_ANON_KEY =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndpcXdycmhscml5YXF4cm1pdHpvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY4ODA3OTYsImV4cCI6MjEwMjQ1Njc5Nn0.pw9XCB806F0dNatpqaylbjVX4guT4pImE6KiOF8Pxak'
@@ -177,20 +186,6 @@ let written = 0
 // The prerendered og:url values include this prefix; the file layout does
 // not (Vite already emits assets under the base path, and the host maps
 // the subpath onto dist/).
-// Defense against Git-Bash-on-Windows path mangling: MSYS rewrites env values
-// that look like POSIX paths ("/library") into Windows paths
-// ("C:/Program Files/Git/library") before the process sees them. Collapse any
-// such drive-path back to its final segment so a mangled local env can never
-// corrupt the og: URLs. (Vercel's Linux build env passes the value through
-// untouched — this only guards local Windows testing.)
-function normalizeBasePath(raw) {
-  let v = String(raw || '').trim() || '/librarity'
-  if (/^[A-Za-z]:[/\\]/.test(v)) v = v.replace(/^.*[/\\]/, '')
-  if (!v.startsWith('/')) v = '/' + v
-  return v.replace(/\/$/, '') || '/'
-}
-const BASE_PATH = normalizeBasePath(process.env.BASE_PATH || '/library')
-
 // Routes carry images as bare filenames (og-image.jpg) — absolutize against
 // the full public URL (origin + base path).
 const OG = (file) => (file.startsWith('http') ? file : `${SITE}${BASE_PATH}/${file}`)
