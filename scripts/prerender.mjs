@@ -189,7 +189,7 @@ function normalizeBasePath(raw) {
   if (!v.startsWith('/')) v = '/' + v
   return v.replace(/\/$/, '') || '/'
 }
-const BASE_PATH = normalizeBasePath(process.env.BASE_PATH || '/librarity')
+const BASE_PATH = normalizeBasePath(process.env.BASE_PATH || '/library')
 
 // Routes carry images as bare filenames (og-image.jpg) — absolutize against
 // the full public URL (origin + base path).

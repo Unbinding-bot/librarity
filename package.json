@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender.mjs",
+    "build": "vite build && node scripts/prerender.mjs && node scripts/restructure-for-vercel.mjs",
     "preview": "vite preview",
     "lint": "eslint src --ext .jsx,.js --fix"
   },

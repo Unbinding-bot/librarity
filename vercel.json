@@ -2,62 +2,9 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
   "buildCommand": "npm run build && node scripts/prerender.mjs",
-  "headers": [],
-  "redirects": [
-    {
-      "source": "/",
-      "destination": "/library/",
-      "permanent": false
-    }
-  ],
+  "outputDirectory": "dist",
   "rewrites": [
-    {
-      "source": "/library/events/:id",
-      "destination": "/library/events/:id/index.html"
-    },
-    {
-      "source": "/library/assets/(.*)",
-      "destination": "/assets/$1"
-    },
-    {
-      "source": "/library/(index\\.html)",
-      "destination": "/$1"
-    },
-    {
-      "source": "/library/favicon.svg",
-      "destination": "/favicon.svg"
-    },
-    {
-      "source": "/library/favicon-32.png",
-      "destination": "/favicon-32.png"
-    },
-    {
-      "source": "/library/favicon-16.png",
-      "destination": "/favicon-16.png"
-    },
-    {
-      "source": "/library/apple-touch-icon.png",
-      "destination": "/apple-touch-icon.png"
-    },
-    {
-      "source": "/library/og-image.jpg",
-      "destination": "/og-image.jpg"
-    },
-    {
-      "source": "/library/og-events.jpg",
-      "destination": "/og-events.jpg"
-    },
-    {
-      "source": "/library/og-games.jpg",
-      "destination": "/og-games.jpg"
-    },
-    {
-      "source": "/library/og-tools.jpg",
-      "destination": "/og-tools.jpg"
-    },
-    {
-      "source": "/library/:path*",
-      "destination": "/library/index.html"
-    }
+    { "source": "/library/events/:id", "destination": "/library/events/:id/index.html" },
+    { "source": "/library/(.*)", "destination": "/library/index.html" }
   ]
 }
