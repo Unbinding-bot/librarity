@@ -121,6 +121,7 @@ export default function Wordle() {
 
   const lastAttemptsRef = useRef(undefined)
   const wordRef = useRef('')
+  const answerRef = useRef('') // persist answer for endgame display even after clearing wordRef
   const revealingRef = useRef(false)
   const modeRef = useRef('daily')
   const unlimitedRef = useRef({ active: false, round: 0, score: 0, streak: 0 })
@@ -166,6 +167,7 @@ export default function Wordle() {
     (roundMode, opts = {}) => {
       const newWord = roundMode === 'daily' ? getDailyWord() : getRandomWord()
       wordRef.current = newWord
+      answerRef.current = newWord
       setWord(newWord)
       setGuesses([])
       setCurrentGuess('')
@@ -294,7 +296,7 @@ export default function Wordle() {
       setTimeout(() => {
         setResult({
           title: 'Game Over',
-          message: `The word was: ${wordRef.current}`,
+          message: `The word was: ${answerWord || wordRef.current}`,
           stats: s,
         })
       }, 500)
