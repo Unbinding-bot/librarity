@@ -2,6 +2,14 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
   "buildCommand": "npm run build && node scripts/prerender.mjs",
+  "headers": [],
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/library/",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/library/events/:id",
