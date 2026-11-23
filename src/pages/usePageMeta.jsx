@@ -2,7 +2,11 @@ import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '')
-const DOMAIN = 'https://unbinding-bot.github.io'
+// Production origin for og:url / canonical / og:image. Vite exposes env vars
+// prefixed with VITE_ to the client; set VITE_SITE_URL in the host's build
+// settings (Vercel project settings or the GitHub Pages workflow). Falls back
+// to the GitHub Pages origin for local/dev builds.
+const DOMAIN = import.meta.env.VITE_SITE_URL || 'https://unbinding-bot.github.io'
 
 // One entry per route — image path is relative to BASE so it works both locally and on Pages.
 const PAGE_META = {

@@ -13,7 +13,10 @@ export default function App() {
     <ThemeProvider>
       <ToastProvider>
         <GameStateProvider>
-          <BrowserRouter basename="/librarity">
+          {/* basename derives from the Vite base (set via BASE_PATH in
+              vite.config.js): /librarity on GitHub Pages, /library on
+              Vercel. import.meta.env.BASE_URL always carries the live value. */}
+          <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
             <Meta />
             <Navbar />
             <main id="main-content" className="main-content">
