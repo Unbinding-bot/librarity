@@ -31,3 +31,6 @@ Thumbs.db
 
 # Supabase CLI local state (tokens, linked project refs)
 supabase/.temp/
+
+.vercel
+.env*
