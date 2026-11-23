@@ -1,6 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react'
 import SkeletonLoader from './SkeletonLoader'
 import { fetchTopLeaderboard, gameLabel } from '../../lib/events'
+import { applyNameTag } from '../../lib/nameTags'
+
+/** Render a player name with easter-egg tags applied. */
+function renderPlayerName(name) {
+  const tagged = applyNameTag(name)
+  return <span className={tagged.className}>{tagged.displayName}</span>
+}
 
 /** Static top-10 all-time leaderboard for the home sidebar.
  *  @param {{topOffset?: number}} props — when set, the sidebar locks at
@@ -70,7 +77,7 @@ export default function LeaderboardSidebar({ topOffset }) {
             return (
               <li key={`${row.player_name}-${row.score}-${i}`} className="leaderboard-sidebar__row">
                 <span className="leaderboard-sidebar__rank">{rank}</span>
-                <span className="leaderboard-sidebar__player">{row.player_name}</span>
+                <span className="leaderboard-sidebar__player">{renderPlayerName(row.player_name)}</span>
                 <span className="leaderboard-sidebar__game">{gameLabel(row.game_type)}{row.game_mode && row.game_mode !== 'all' ? ` – ${row.game_mode}` : ''}</span>
                 <span className="leaderboard-sidebar__score">{row.score}</span>
               </li>

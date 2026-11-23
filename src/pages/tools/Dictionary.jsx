@@ -174,7 +174,7 @@ export default function Dictionary() {
                       ♡ claire
                     </span>
                   )}
-                  {!resolveEggSpecial(entry) && (
+                  {entry.color && !resolveEggSpecial(entry) && (
                     <span className="tool-entry-word-tooltip" title="This is a secret dictionary entry for a real person in our library community! 🥚">
                       egg 🥚
                     </span>
