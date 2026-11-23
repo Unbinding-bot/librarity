@@ -4,7 +4,20 @@
   "buildCommand": "npm run build && node scripts/prerender.mjs",
   "outputDirectory": "dist",
   "rewrites": [
+    { "source": "/library/assets/(.*)", "destination": "/assets/$1" },
+    { "source": "/library/favicon.ico", "destination": "/favicon.ico" },
+    { "source": "/library/favicon.svg", "destination": "/favicon.svg" },
+    { "source": "/library/favicon-32.png", "destination": "/favicon-32.png" },
+    { "source": "/library/favicon-16.png", "destination": "/favicon-16.png" },
+    { "source": "/library/apple-touch-icon.png", "destination": "/apple-touch-icon.png" },
+    { "source": "/library/og-image.jpg", "destination": "/og-image.jpg" },
+    { "source": "/library/og-games.jpg", "destination": "/og-games.jpg" },
+    { "source": "/library/og-tools.jpg", "destination": "/og-tools.jpg" },
+    { "source": "/library/og-events.jpg", "destination": "/og-events.jpg" },
     { "source": "/library/events/:id", "destination": "/library/events/:id/index.html" },
     { "source": "/library/(.*)", "destination": "/library/index.html" }
+  ],
+  "redirects": [
+    { "source": "/", "destination": "/library/", "permanent": false }
   ]
 }
