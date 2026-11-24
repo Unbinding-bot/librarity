@@ -26,11 +26,8 @@ const DIFFICULTIES = [
 
 const COUNTS = [10, 20, 30]
 
-const BASE_POINTS = { easy: 50, medium: 100, hard: 200 }
-const STREAK_CAP = 20 // max multiplier rounds
+const BASE_POINTS = { easy: 10, medium: 20, hard: 30 }
 const RESULT_DELAY = 2000
-const INITIAL_HEARTS = 5
-const HEARTS_PER_WAVE = 5 // correct answers to earn +1 heart
 
 const GRADES = [
   { min: 100, grade: 'A+' },
@@ -106,11 +103,6 @@ export default function Trivia() {
   const [correctCount, setCorrectCount] = useState(0)
   const [revealedAt, setRevealedAt] = useState(0)
 
-  // Hearts state for unlimited mode
-  const [hearts, setHearts] = useState(INITIAL_HEARTS)
-  const [unlimitedWaveCorrect, setUnlimitedWaveCorrect] = useState(0) // count correct this wave toward next heart
-  const [unlimitedPaused, setUnlimitedPaused] = useState(false)
-
   const [showStats, setShowStats] = useState(false)
   const [result, setResult] = useState(null)
   const [stats, setStats] = useState(() => loadStats())
@@ -118,9 +110,6 @@ export default function Trivia() {
   const startedRef = useRef(false)
   const scoreRef = useRef(0)
   const correctRef = useRef(0)
-  // Real difficulty chosen on the settings screen; 'unlimited' overrides the
-  // difficulty state during an unlimited session, so this keeps the filter.
-  const difficultyFilterRef = useRef('all')
   const { recordScore } = useGameState()
   const [namePrompt, setNamePrompt] = useState(null)
 
@@ -170,42 +159,9 @@ export default function Trivia() {
     setScore(0)
     setStreak(0)
     setCorrectCount(0)
-    setUnlimitedWaveCorrect(0)
     setResult(null)
     setScreen('playing')
   }, [category, difficulty, count, showToast])
-
-  // Start unlimited mode
-  const startUnlimited = useCallback(() => {
-    let pool = [...questionsData]
-    if (category !== 'all') pool = pool.filter((q) => q.category === category)
-    if (difficulty !== 'all') pool = pool.filter((q) => q.difficulty === difficulty)
-    if (pool.length === 0) {
-      showToast('No questions match that filter', 'error')
-      return
-    }
-    // Remember the real difficulty filter for pool replenishment — the
-    // difficulty state becomes 'unlimited' so the hearts logic activates,
-    // and 'unlimited' matches no real question difficulties.
-    difficultyFilterRef.current = difficulty
-    // Create an infinite pool by shuffling and repeating (with shuffledAnswers baked in)
-    const shuffled = shuffle([...pool]).map((q) => ({
-      ...q,
-      shuffledAnswers: shuffle(q.answers),
-    }))
-    setQuestions(shuffled)
-    setQIndex(0)
-    setSelected(null)
-    setAnswered(false)
-    setScore(0)
-    setStreak(0)
-    setCorrectCount(0)
-    setHearts(INITIAL_HEARTS)
-    setUnlimitedWaveCorrect(0)
-    setResult(null)
-    setDifficulty('unlimited')
-    setScreen('playing')
-  }, [category, difficulty, showToast])
 
   useEffect(() => {
     if (startedRef.current) return
@@ -249,71 +205,24 @@ export default function Trivia() {
       setRevealedAt(Date.now())
       const isCorrect = answer === current.correct
       if (isCorrect) {
-        const base = BASE_POINTS[current.difficulty] || 50
-        const streakMult = Math.min(streak + 1, STREAK_CAP)
-        const pts = base * streakMult
+        const base = BASE_POINTS[current.difficulty] || 10
+        const bonus = streak * 5
+        const pts = base + bonus
         setScore((s) => s + pts)
         setStreak((st) => st + 1)
         setCorrectCount((c) => c + 1)
-        showToast(`+${pts}pts (${base} base × ${streakMult})`, 'success')
-
-        // In unlimited mode, track for hearts
-        if (difficulty === 'unlimited') {
-          setUnlimitedWaveCorrect((wc) => {
-            const newCount = wc + 1
-            if (newCount >= HEARTS_PER_WAVE) {
-              // Earn a heart, but cap at INITIAL_HEARTS
-              setHearts((h) => Math.min(INITIAL_HEARTS, h + 1))
-              showToast('+1 Heart!', 'success')
-              return 0
-            }
-            return newCount
-          })
-        }
+        showToast(`+${pts}${bonus > 0 ? ` (streak +${bonus})` : ''}`, 'success')
       } else {
         setStreak(0)
         showToast('Wrong answer', 'error')
-
-        // In unlimited mode, lose a heart
-        if (difficulty === 'unlimited') {
-          setHearts((h) => {
-            const newHearts = h - 1
-            if (newHearts <= 0) {
-              // Game over
-              setTimeout(() => {
-                finishGame(scoreRef.current, correctRef.current, qIndex + 1)
-              }, RESULT_DELAY)
-              return 0
-            }
-            return newHearts
-          })
-          // Reset wave counter on wrong answer
-          setUnlimitedWaveCorrect(0)
-        }
       }
       setTimeout(() => {
-        if (difficulty === 'unlimited') {
-          // Continue to next question; replenish the pool when running out
-          if (qIndex + 1 >= questions.length) {
-            let pool = [...questionsData]
-            const diffFilter = difficultyFilterRef.current
-            if (category !== 'all') pool = pool.filter((q) => q.category === category)
-            if (diffFilter !== 'all') pool = pool.filter((q) => q.difficulty === diffFilter)
-            if (pool.length === 0) {
-              finishGame(scoreRef.current, correctRef.current, questions.length)
-              return
-            }
-            const reshuffled = shuffle(pool).map((q) => ({
-              ...q,
-              shuffledAnswers: shuffle(q.answers),
-            }))
-            setQuestions((prev) => [...prev, ...reshuffled])
-          }
-          setQIndex((i) => i + 1)
-          setSelected(null)
-          setAnswered(false)
-        } else if (qIndex + 1 >= questions.length) {
-          finishGame(scoreRef.current, correctRef.current, questions.length)
+        if (qIndex + 1 >= questions.length) {
+          finishGame(
+            scoreRef.current + (isCorrect ? (BASE_POINTS[current.difficulty] || 10) + streak * 5 : 0),
+            correctRef.current + (isCorrect ? 1 : 0),
+            questions.length,
+          )
         } else {
           setQIndex((i) => i + 1)
           setSelected(null)
@@ -321,7 +230,7 @@ export default function Trivia() {
         }
       }, RESULT_DELAY)
     },
-    [answered, current, streak, qIndex, questions.length, finishGame, showToast, difficulty]
+    [answered, current, streak, qIndex, questions.length, finishGame, showToast],
   )
 
   if (screen === 'settings') {
@@ -385,10 +294,6 @@ export default function Trivia() {
           <button className="btn btn-primary trivia-start-btn" onClick={startGame} data-testid="trivia-start">
             ▶ Start Quiz
           </button>
-
-          <button className="btn btn-secondary trivia-unlimited-btn" onClick={startUnlimited}>
-            ❤️ Unlimited Mode
-          </button>
         </div>
 
       {showStats && (
@@ -432,44 +337,20 @@ export default function Trivia() {
 
   if (screen === 'playing' && current) {
     const catInfo = CATEGORIES.find((c) => c.id === current.category)
-    const isUnlimited = difficulty === 'unlimited'
-
     return (
       <GameShell
         title="Trivia"
-        subtitle={isUnlimited ? 'Answer until you run out of hearts!' : `Question ${qIndex + 1} of ${questions.length}`}
+        subtitle={`Question ${qIndex + 1} of ${questions.length}`}
         wide
       >
-        {/* Hearts display for unlimited mode */}
-        {isUnlimited && (
-          <div className="trivia-hearts-bar" data-testid="trivia-hearts">
-            {Array.from({ length: INITIAL_HEARTS }).map((_, i) => (
-              <span
-                key={i}
-                className={`trivia-heart${i < hearts ? ' filled' : ''}`}
-              >
-                ❤️
-              </span>
-            ))}
-            {unlimitedWaveCorrect > 0 && (
-              <span className="trivia-wave-progress">
-                {unlimitedWaveCorrect}/{HEARTS_PER_WAVE} to next heart
-              </span>
-            )}
+        <div className="trivia-progress-row">
+          <div className="trivia-progress-track">
+            <div
+              className="trivia-progress-fill"
+              style={{ width: `${(qIndex / questions.length) * 100}%` }}
+            />
           </div>
-        )}
-
-        {/* Progress bar for normal mode */}
-        {!isUnlimited && (
-          <div className="trivia-progress-row">
-            <div className="trivia-progress-track">
-              <div
-                className="trivia-progress-fill"
-                style={{ width: `${(qIndex / questions.length) * 100}%` }}
-              />
-            </div>
-          </div>
-        )}
+        </div>
 
         <div className="game-info">
           <div className="info-item">
@@ -512,23 +393,6 @@ export default function Trivia() {
             })}
           </div>
         </div>
-
-        {/* End session button for unlimited */}
-        {isUnlimited && (
-          <div className="game-action-bar">
-            <span className="game-action-bar-label">Press End Session when you're done</span>
-            <div className="game-action-bar-btns">
-              <button
-                className="btn btn-sm btn-outline"
-                onClick={() => {
-                  finishGame(score, correctCount, qIndex + 1)
-                }}
-              >
-                End Session
-              </button>
-            </div>
-          </div>
-        )}
       </GameShell>
     )
   }
@@ -557,7 +421,7 @@ export default function Trivia() {
               </div>
             </div>
             <div className="result-actions">
-              <button className="btn btn-secondary" onClick={() => { setDifficulty('all'); setScreen('settings'); }}>
+              <button className="btn btn-secondary" onClick={() => setScreen('settings')}>
                 New Quiz
               </button>
             </div>

@@ -11,6 +11,7 @@ import Wordle from './pages/games/Wordle'
 import SpellingBee from './pages/games/SpellingBee'
 import WordLadder from './pages/games/WordLadder'
 import Trivia from './pages/games/Trivia'
+import Flashcards from './pages/games/Flashcards'
 import WikipediaRace from './pages/games/WikipediaRace'
 
 import Dictionary from './pages/tools/Dictionary'
@@ -50,6 +51,7 @@ export default function AppRouter() {
       <Route path="/spelling-bee" element={<SpellingBee />} />
       <Route path="/word-ladder" element={<WordLadder />} />
       <Route path="/trivia" element={<Trivia />} />
+      <Route path="/flashcards" element={<Flashcards />} />
       <Route path="/wikipedia-race" element={<WikipediaRace />} />
 
       {/* Tools (direct paths) */}

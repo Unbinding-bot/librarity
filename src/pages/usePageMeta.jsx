@@ -19,7 +19,7 @@ const PAGE_META = {
   '/games': {
     title: 'Games — Librarity',
     description:
-      'Wordle, Spelling Bee, Word Ladder, Trivia, and Wikipedia Race. Play directly in your browser.',
+      'Wordle, Spelling Bee, Word Ladder, Trivia, Flashcards, and Wikipedia Race. Play directly in your browser.',
     image: `${DOMAIN}${BASE}/og-games.jpg`,
   },
   '/wordle': {
@@ -40,6 +40,11 @@ const PAGE_META = {
   '/trivia': {
     title: 'Trivia — Librarity',
     description: 'History, science, math, English, geography, and general-knowledge questions across three difficulties.',
+    image: `${DOMAIN}${BASE}/og-games.jpg`,
+  },
+  '/flashcards': {
+    title: 'Flashcards — Librarity',
+    description: 'Vocabulary, biology, presidents, algebra, Spanish, and world capitals decks. Flip and quiz yourself.',
     image: `${DOMAIN}${BASE}/og-games.jpg`,
   },
   '/wikipedia-race': {
