@@ -92,6 +92,8 @@ export default function Flashcards() {
   const [showManage, setShowManage] = useState(false)
   const [showProgress, setShowProgress] = useState(false)
   const [stats, setStats] = useState(() => loadStats())
+  // Cumulative session score — accumulates across sessions
+  const [sessionScore, setSessionScore] = useState(0)
 
   // new deck form
   const [deckName, setDeckName] = useState('')
@@ -188,6 +190,7 @@ export default function Flashcards() {
     // record score: 10 pts per newly-mastered card this session
     const newlyMastered = Object.values(sessionProgress).filter((p) => p.status === 'mastered').length
     const score = newlyMastered * 10 + Math.max(0, 60 - elapsed)
+    setSessionScore(prev => prev + score)
     sessionRef.current = { score, mastered: newlyMastered, time: elapsed, deckName: activeDeck.name }
     setScreen('complete')
     // auto-submit to leaderboard

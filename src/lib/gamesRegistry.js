@@ -56,14 +56,6 @@ export const GAMES = [
     scoreType: 'trivia',
   },
   {
-    id: 'flashcards',
-    name: 'Flashcards',
-    description: 'Master any topic with flashcards',
-    accent: 'card-accent-lavender',
-    path: '/flashcards',
-    scoreType: 'flashcards',
-  },
-  {
     id: 'wikipedia-race',
     name: 'Wikipedia Race',
     description: 'Race to Wikipedia articles',

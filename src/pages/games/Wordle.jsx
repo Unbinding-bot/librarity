@@ -108,6 +108,7 @@ export default function Wordle() {
   const [unlimitedRound, setUnlimitedRound] = useState(0)
   const [unlimitedScore, setUnlimitedScore] = useState(0)
   const [unlimitedStreak, setUnlimitedStreak] = useState(0)
+  const [unlimitedPaused, setUnlimitedPaused] = useState(false)
 
   // UI state
   const [showHelp, setShowHelp] = useState(false)
@@ -124,7 +125,7 @@ export default function Wordle() {
   const answerRef = useRef('') // persist answer for endgame display even after clearing wordRef
   const revealingRef = useRef(false)
   const modeRef = useRef('daily')
-  const unlimitedRef = useRef({ active: false, round: 0, score: 0, streak: 0 })
+  const unlimitedRef = useRef({ active: false, round: 0, score: 0, streak: 0, paused: false })
   const startedRef = useRef(false)
 
   const todayStr = new Date().toISOString().split('T')[0]
@@ -182,13 +183,14 @@ export default function Wordle() {
 
       if (!opts.keepUnlimited) setActionBar(null)
 
-      if (roundMode === 'random') {
+      if (roundMode === 'random' || roundMode === 'unlimited') {
         const u = unlimitedRef.current
         const active = opts.resumeUnlimited ?? u.active
         if (!active) {
-          unlimitedRef.current = { active: true, round: 0, score: 0, streak: 0 }
+          unlimitedRef.current = { active: true, round: 0, score: 0, streak: 0, paused: false }
           setUnlimitedScore(0)
           setUnlimitedStreak(0)
+          setUnlimitedPaused(false)
         }
         unlimitedRef.current.active = true
         unlimitedRef.current.round += 1
@@ -209,9 +211,9 @@ export default function Wordle() {
     const s = loadStats()
     setStats(s)
     if (modeRef.current === 'daily' && s.lastPlayedDaily === todayStr) {
-      modeRef.current = 'random'
-      setMode('random')
-      showToast('Daily challenge already done, switching to Random mode', 'info')
+      modeRef.current = 'unlimited'
+      setMode('unlimited')
+      showToast('Daily challenge already done, switching to Unlimited mode', 'info')
     }
     startRound(modeRef.current)
   }, [startRound, showToast, todayStr])
@@ -261,7 +263,7 @@ export default function Wordle() {
         setUnlimitedScore(unlimitedRef.current.score)
         setUnlimitedStreak(unlimitedRef.current.streak)
         showToast(`+${earned} pts (${roundPoints} base + ${streakBonus} streak bonus)`, 'success')
-        setTimeout(() => startRound('random'), 1800)
+        setTimeout(() => startRound(modeRef.current), 1800)
       }
     },
     [startRound, showToast, updateStats],
@@ -277,12 +279,27 @@ export default function Wordle() {
       stats: s,
     })
     lastAttemptsRef.current = null
-    unlimitedRef.current = { active: false, round: 0, score: 0, streak: 0 }
+    unlimitedRef.current = { active: false, round: 0, score: 0, streak: 0, paused: false }
     setUnlimitedActive(false)
     setUnlimitedRound(0)
     setUnlimitedScore(0)
     setUnlimitedStreak(0)
+    setUnlimitedPaused(false)
   }, [])
+
+  const giveUp = useCallback(() => {
+    if (unlimitedRef.current.active) {
+      endUnlimitedSession()
+    } else {
+      setResult({
+        title: 'Game Over',
+        message: `The word was: ${answerRef.current || wordRef.current}`,
+        stats: loadStats(),
+      })
+      setGameOver(true)
+      updateStats(false, MAX_GUESSES + 1)
+    }
+  }, [endUnlimitedSession, updateStats])
 
   const handleLose = useCallback(() => {
     const s = updateStats(false, MAX_GUESSES + 1)
@@ -446,15 +463,16 @@ export default function Wordle() {
   const playAgain = () => {
     setResult(null)
     if (modeRef.current === 'daily' && loadStats().lastPlayedDaily === todayStr) {
-      showToast('Switching to Random Word mode', 'info')
-      changeMode('random')
+      showToast('Switching to Unlimited mode', 'info')
+      changeMode('unlimited')
       return
     }
-    unlimitedRef.current = { active: false, round: 0, score: 0, streak: 0 }
+    unlimitedRef.current = { active: false, round: 0, score: 0, streak: 0, paused: false }
     setUnlimitedActive(false)
     setUnlimitedRound(0)
     setUnlimitedScore(0)
     setUnlimitedStreak(0)
+    setUnlimitedPaused(false)
     startRound(modeRef.current)
   }
 
@@ -486,6 +504,14 @@ export default function Wordle() {
   const distMax = Math.max(...distribution, 1)
   const guessesDisplay = `${guesses.length}/${MAX_GUESSES}`
 
+  const togglePause = useCallback(() => {
+    const u = unlimitedRef.current
+    if (!u.active) return
+    u.paused = !u.paused
+    setUnlimitedPaused(u.paused)
+    showToast(u.paused ? 'Paused' : 'Resumed', 'info')
+  }, [showToast])
+
   return (
     <GameShell
       title="Wordle"
@@ -494,10 +520,13 @@ export default function Wordle() {
       controls={
         <>
           <button className={`mode-btn ${mode === 'daily' ? 'active' : ''}`} onClick={() => changeMode('daily')}>
-            Daily Challenge
+            Daily
           </button>
           <button className={`mode-btn ${mode === 'random' ? 'active' : ''}`} onClick={() => changeMode('random')}>
-            Random Word
+            Random
+          </button>
+          <button className={`mode-btn ${mode === 'unlimited' ? 'active' : ''}`} onClick={() => changeMode('unlimited')}>
+            Unlimited
           </button>
           <button className="icon-btn" aria-label="View Statistics" onClick={() => setShowStats(true)}>Stats</button>
           <button className="icon-btn" aria-label="How to Play" onClick={() => setShowHelp(true)}>Help</button>
@@ -531,6 +560,18 @@ export default function Wordle() {
             <span className="unlimited-label">Streak</span>
             <span className="unlimited-value">{unlimitedStreak}</span>
           </div>
+          <button
+            className="btn btn-sm btn-outline"
+            onClick={togglePause}
+          >
+            {unlimitedPaused ? '▶ Resume' : '⏸ Pause'}
+          </button>
+          <button
+            className="btn btn-sm btn-outline"
+            onClick={giveUp}
+          >
+            Give Up
+          </button>
           <button
             className="btn btn-sm btn-outline unlimited-end-btn"
             onClick={() => {
