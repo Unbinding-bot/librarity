@@ -192,3 +192,8 @@
     font-size: 1.1rem;
   }
 }
+
+/* Pause overlay (unlimited mode) — reuses .game-result fullscreen block */
+.sb-pause-overlay {
+  z-index: 90;
+}

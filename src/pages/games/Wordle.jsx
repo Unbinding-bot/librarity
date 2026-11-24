@@ -123,8 +123,10 @@ export default function Wordle() {
   const wordRef = useRef('')
   const answerRef = useRef('') // persist answer for endgame display even after clearing wordRef
   const revealingRef = useRef(false)
+  const roundIdRef = useRef(0) // bumped every startRound — invalidates stale reveal timeouts
   const modeRef = useRef('daily')
   const unlimitedRef = useRef({ active: false, round: 0, score: 0, streak: 0 })
+  const finalSessionScoreRef = useRef(null) // session score snapshot for Submit Score after the session ends
   const startedRef = useRef(false)
 
   const todayStr = new Date().toISOString().split('T')[0]
@@ -165,6 +167,11 @@ export default function Wordle() {
   /** Start a round. Keeps unlimited session counters when active. */
   const startRound = useCallback(
     (roundMode, opts = {}) => {
+      // Invalidate any in-flight reveal timeout from the previous round so a
+      // mode switch mid-animation can't fire handleWin/handleLose into the
+      // new round (false wins corrupted streak/score; stale losses ended it).
+      roundIdRef.current += 1
+      revealingRef.current = false // new round = no animation in flight (stale timeout early-returns)
       const newWord = roundMode === 'daily' ? getDailyWord() : getRandomWord()
       wordRef.current = newWord
       answerRef.current = newWord
@@ -182,7 +189,7 @@ export default function Wordle() {
 
       if (!opts.keepUnlimited) setActionBar(null)
 
-      if (roundMode === 'random') {
+      if (roundMode === 'unlimited') {
         const u = unlimitedRef.current
         const active = opts.resumeUnlimited ?? u.active
         if (!active) {
@@ -209,9 +216,9 @@ export default function Wordle() {
     const s = loadStats()
     setStats(s)
     if (modeRef.current === 'daily' && s.lastPlayedDaily === todayStr) {
-      modeRef.current = 'random'
-      setMode('random')
-      showToast('Daily challenge already done, switching to Random mode', 'info')
+      modeRef.current = 'unlimited'
+      setMode('unlimited')
+      showToast('Daily challenge already done, switching to Unlimited mode', 'info')
     }
     startRound(modeRef.current)
   }, [startRound, showToast, todayStr])
@@ -243,16 +250,18 @@ export default function Wordle() {
     (attempts) => {
       const s = updateStats(true, attempts)
       lastAttemptsRef.current = attempts
+      const roundId = roundIdRef.current
 
       if (modeRef.current === 'daily') {
         setTimeout(() => {
+          if (roundId !== roundIdRef.current) return // round restarted meanwhile
           setResult({
             title: 'Congratulations!',
             message: `You solved it in ${attempts} ${attempts === 1 ? 'try' : 'tries'}!`,
             stats: s,
           })
         }, 1600)
-      } else {
+      } else if (modeRef.current === 'unlimited') {
         const roundPoints = (7 - attempts) * 100
         const streakBonus = unlimitedRef.current.streak * 50
         const earned = roundPoints + streakBonus
@@ -261,15 +270,51 @@ export default function Wordle() {
         setUnlimitedScore(unlimitedRef.current.score)
         setUnlimitedStreak(unlimitedRef.current.streak)
         showToast(`+${earned} pts (${roundPoints} base + ${streakBonus} streak bonus)`, 'success')
-        setTimeout(() => startRound('random'), 1800)
+        // Clear won flag so next round can receive input; then start fresh.
+        setWon(false)
+        setTimeout(() => {
+          // Don't restart if the user already switched mode / restarted during
+          // the win toast — that round belongs to the old session.
+          if (roundId !== roundIdRef.current) return
+          startRound(modeRef.current)
+        }, 1800)
+      } else {
+        // Random mode — show result after animation
+        setTimeout(() => {
+          if (roundId !== roundIdRef.current) return // round restarted meanwhile
+          setResult({
+            title: 'You got it!',
+            message: `Solved in ${attempts} ${attempts === 1 ? 'try' : 'tries'}!`,
+            stats: s,
+          })
+        }, 1600)
       }
     },
     [startRound, showToast, updateStats],
   )
 
+  /** Reset ALL unlimited session state — the single source of truth.
+   * Call on every mode exit and every unlimited restart so a stale session
+   * (score, streak, round counters) can't leak into the next mode. */
+  const resetUnlimitedState = useCallback(() => {
+    unlimitedRef.current = { active: false, round: 0, score: 0, streak: 0 }
+    finalSessionScoreRef.current = null
+    setUnlimitedActive(false)
+    setUnlimitedRound(0)
+    setUnlimitedScore(0)
+    setUnlimitedStreak(0)
+  }, [])
+
   const endUnlimitedSession = useCallback(() => {
     const u = unlimitedRef.current
     const s = loadStats()
+    // Snapshot the session score BEFORE zeroing unlimitedRef — the result
+    // modal's Submit Score reads this after the session state is gone
+    // (reading unlimitedRef.current.score directly submitted 0).
+    finalSessionScoreRef.current = u.score
+    // Invalidate in-flight round timeouts (e.g. the 1800ms auto-next-restart
+    // from handleWin) so they can't startRound behind this modal and wipe it.
+    roundIdRef.current += 1
     setResult({
       title: u.round > 1 ? 'Session Over!' : 'Unlucky!',
       message: `The word was: ${answerRef.current || wordRef.current}`,
@@ -277,26 +322,44 @@ export default function Wordle() {
       stats: s,
     })
     lastAttemptsRef.current = null
-    unlimitedRef.current = { active: false, round: 0, score: 0, streak: 0 }
-    setUnlimitedActive(false)
-    setUnlimitedRound(0)
-    setUnlimitedScore(0)
-    setUnlimitedStreak(0)
-  }, [])
+    resetUnlimitedState()
+  }, [resetUnlimitedState])
+
+  const giveUp = useCallback(() => {
+    if (unlimitedRef.current.active) {
+      endUnlimitedSession()
+    } else {
+      setResult({
+        title: 'Game Over',
+        message: `The word was: ${answerRef.current || wordRef.current}`,
+        stats: loadStats(),
+      })
+      setGameOver(true)
+      updateStats(false, MAX_GUESSES + 1)
+    }
+  }, [endUnlimitedSession, updateStats])
 
   const handleLose = useCallback(() => {
     const s = updateStats(false, MAX_GUESSES + 1)
     lastAttemptsRef.current = MAX_GUESSES + 1
+    const roundId = roundIdRef.current
 
     if (unlimitedRef.current.active) {
+      // Unlimited: end session on loss — same as other games (hearts/time based)
+      const theWord = answerRef.current || wordRef.current
       unlimitedRef.current.streak = 0
       setUnlimitedStreak(0)
-      setTimeout(() => endUnlimitedSession(), 600)
+      setResult(null)
+      showToast(`Session over! Was: ${theWord}`, 'error')
+      endUnlimitedSession()
     } else {
       setTimeout(() => {
+        // Mode switched during the 500ms delay — don't show a stale popup
+        // (it would also leak the NEW round's answer via wordRef).
+        if (roundId !== roundIdRef.current) return
         setResult({
           title: 'Game Over',
-          message: `The word was: ${answerWord || wordRef.current}`,
+          message: `The word was: ${answerRef.current || wordRef.current}`,
           stats: s,
         })
       }, 500)
@@ -325,10 +388,13 @@ export default function Wordle() {
 
     const guess = currentGuess
     const row = guesses.length
+    const roundId = roundIdRef.current
     // clear the input immediately so the next row starts empty — otherwise
-    // the typed word lingers in the input box after submitting
+    // the typed word lingers in the input box after submitting.
+    // NOTE: wordRef is NOT cleared here — the answer word must survive the
+    // reveal animation for the final comparison, Share grid and result display
+    // (clearing it caused the "always losing" regression, plan bug #1).
     setCurrentGuess('')
-    wordRef.current = ''
     revealingRef.current = true
     setRevealingRow(row)
     setRevealedCols(0)
@@ -339,26 +405,29 @@ export default function Wordle() {
     }
 
     setTimeout(() => {
+      // Round was restarted/mode switched while tiles were animating — the
+      // comparison below belongs to a board that no longer exists.
+      if (roundId !== roundIdRef.current) return
       revealingRef.current = false
       setRevealingRow(-1)
       setRevealedCols(0)
       setRevealedRows(row + 1)
 
-      if (guess === wordRef.current) {
+      if (guess === answerRef.current) {
         setWinRow(row)
         setGameOver(true)
         setWon(true)
         handleWin(row + 1)
-      } else if (row === MAX_GUESSES - 1) {
+      } else if (!won && row === MAX_GUESSES - 1) {
         setGameOver(true)
         handleLose()
       }
     }, WORD_LENGTH * 200 + 100)
-  }, [currentGuess, guesses.length, gameOver, showToast, handleWin, handleLose])
+  }, [currentGuess, guesses.length, gameOver, won, showToast, handleWin, handleLose])
 
   const handleInput = useCallback(
     (key) => {
-      if (gameOver || revealingRef.current) return
+      if (gameOver || revealingRef.current || result) return
 
       if (key === 'Enter') {
         submitGuess()
@@ -368,7 +437,7 @@ export default function Wordle() {
         setCurrentGuess((prev) => (prev.length < WORD_LENGTH ? prev + key.toUpperCase() : prev))
       }
     },
-    [gameOver, submitGuess],
+    [gameOver, revealingRef, result, submitGuess],
   )
 
   // Physical keyboard
@@ -409,9 +478,11 @@ export default function Wordle() {
       const username = await askForName()
       if (!username) return
 
+      // lastAttemptsRef === null marks an ended unlimited session: submit the
+      // snapshotted session score (unlimitedRef was already reset to 0).
       const score =
         lastAttemptsRef.current === null
-          ? unlimitedRef.current.score
+          ? finalSessionScoreRef.current ?? 0
           : Math.max(50, (7 - Math.min(attempts, 6)) * 100)
 
       await recordScore({
@@ -432,29 +503,24 @@ export default function Wordle() {
     if (modeRef.current === newMode) return
     modeRef.current = newMode
     setMode(newMode)
-    unlimitedRef.current = { active: false, round: 0, score: 0, streak: 0 }
-    setUnlimitedActive(false)
-    setUnlimitedRound(0)
-    setUnlimitedScore(0)
-    setUnlimitedStreak(0)
+    // Clear unlimited session state on every mode exit so stale score/streak
+    // or a stuck active flag can't leak into the next mode.
+    resetUnlimitedState()
     setResult(null)
     setActionBar(null)
     startRound(newMode)
-    showToast(`Switched to ${newMode === 'daily' ? 'Daily Challenge' : 'Random Word'} mode`, 'success')
+    showToast(`Switched to ${newMode === 'daily' ? 'Daily Challenge' : newMode === 'unlimited' ? 'Unlimited' : 'Random Word'} mode`, 'success')
   }
 
   const playAgain = () => {
     setResult(null)
     if (modeRef.current === 'daily' && loadStats().lastPlayedDaily === todayStr) {
-      showToast('Switching to Random Word mode', 'info')
-      changeMode('random')
+      showToast('Switching to Unlimited mode', 'info')
+      changeMode('unlimited')
       return
     }
-    unlimitedRef.current = { active: false, round: 0, score: 0, streak: 0 }
-    setUnlimitedActive(false)
-    setUnlimitedRound(0)
-    setUnlimitedScore(0)
-    setUnlimitedStreak(0)
+    // Fresh session (round 1, score 0) — never resume the ended one.
+    resetUnlimitedState()
     startRound(modeRef.current)
   }
 
@@ -462,22 +528,21 @@ export default function Wordle() {
     const r = result
     setResult(null)
     if (r) {
-      const label = r.message.startsWith('You solved')
-        ? `Word: ${wordRef.current}, ${r.message.replace('You solved it in ', 'solved in ')}`
-        : r.message
-      setActionBar(label)
+      // Session end modal (from endUnlimitedSession) has r.session with score/rounds
+      if (r.session) {
+        setActionBar(`Session complete — ${r.session.score} points in ${r.session.rounds} round${r.session.rounds === 1 ? '' : 's'}`)
+      } else if (r.message.startsWith('You solved')) {
+        const label = `Word: ${wordRef.current}, ${r.message.replace('You solved it in ', 'solved in ')}`
+        setActionBar(label)
+      } else {
+        setActionBar(r.message)
+      }
     }
   }
 
   const restartFromBar = () => {
     if (window.confirm('Restart the game? Current progress will be lost.')) {
-      if (unlimitedRef.current.active) {
-        unlimitedRef.current = { active: false, round: 0, score: 0, streak: 0 }
-        setUnlimitedActive(false)
-        setUnlimitedRound(0)
-        setUnlimitedScore(0)
-        setUnlimitedStreak(0)
-      }
+      resetUnlimitedState()
       startRound(modeRef.current)
     }
   }
@@ -494,10 +559,13 @@ export default function Wordle() {
       controls={
         <>
           <button className={`mode-btn ${mode === 'daily' ? 'active' : ''}`} onClick={() => changeMode('daily')}>
-            Daily Challenge
+            Daily
           </button>
           <button className={`mode-btn ${mode === 'random' ? 'active' : ''}`} onClick={() => changeMode('random')}>
-            Random Word
+            Random
+          </button>
+          <button className={`mode-btn ${mode === 'unlimited' ? 'active' : ''}`} onClick={() => changeMode('unlimited')}>
+            Unlimited
           </button>
           <button className="icon-btn" aria-label="View Statistics" onClick={() => setShowStats(true)}>Stats</button>
           <button className="icon-btn" aria-label="How to Play" onClick={() => setShowHelp(true)}>Help</button>
@@ -608,7 +676,6 @@ export default function Wordle() {
           <div className="game-action-bar-btns">
             <button className="btn btn-sm btn-primary" onClick={shareResult}>Share</button>
             <button className="btn btn-sm btn-secondary" onClick={playAgain}>Play Again</button>
-            <button className="btn btn-sm btn-outline" onClick={restartFromBar}>↺ Restart</button>
           </div>
         </div>
       )}
@@ -765,6 +832,8 @@ export default function Wordle() {
                   const attempts = won ? guesses.length : MAX_GUESSES + 1
                   setResult(null)
                   doSubmitScore(attempts)
+                  // After submitting, show action bar with replay button
+                  setActionBar(`Word: ${answerRef.current || wordRef.current} — score submitted`)
                 }}
               >
                 Submit Score

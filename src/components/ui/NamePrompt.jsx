@@ -25,7 +25,7 @@ export default function NamePrompt({ onDone }) {
   }
 
   return (
-    <div className="modal" onClick={(e) => { if (e.target === e.currentTarget) onDone('') }}>
+    <div className="modal name-prompt-modal" onClick={(e) => { if (e.target === e.currentTarget) onDone('') }}>
       <div className="modal-content">
         <div className="modal-header">
           <h2 className="modal-title">Submit Your Score</h2>

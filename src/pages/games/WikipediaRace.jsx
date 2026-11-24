@@ -104,6 +104,13 @@ function sanitizeHtml(html) {
   return doc.body.innerHTML
 }
 
+/** Format seconds as M:SS */
+function formatTime(s) {
+  const mins = Math.floor(s / 60)
+  const secs = s % 60
+  return `${mins}:${String(secs).padStart(2, '0')}`
+}
+
 export default function WikipediaRace() {
   const { showToast } = useToast()
   const { recordScore } = useGameState()
@@ -134,6 +141,18 @@ export default function WikipediaRace() {
   const timerRef = useRef(null)
   const articleBodyRef = useRef(null)
   const modeRef = useRef(mode)
+
+  // Unlimited state
+  const [sessionScore, setSessionScore] = useState(0)
+  const [unlimitedTimeLimit, setUnlimitedTimeLimit] = useState(600) // 10:00 in seconds
+  const [unlimitedElapsed, setUnlimitedElapsed] = useState(0)
+  const [paused, setPaused] = useState(false) // mirrors ref so UI re-renders
+  const pausedAtRef = useRef(null)
+  const unlimitedPausedRef = useRef(false)
+  const unlimitedGameOverRef = useRef(false)
+  const unlimitedRoundRef = useRef(0)
+  const [unlimitedRound, setUnlimitedRound] = useState(0) // bump to re-arm interval
+  const unlimitedStartTimeRef = useRef(null)
 
   useEffect(() => { wonRef.current = won }, [won])
 
@@ -212,14 +231,31 @@ export default function WikipediaRace() {
     }
   }, [startRace, showToast, difficultyFilter])
 
-  // Timer
+  // Timer tick — handles paused and game-over states
   useEffect(() => {
     if (!startTime || wonRef.current) return
+    if (unlimitedPausedRef.current) return
+    if (unlimitedGameOverRef.current) return
     timerRef.current = setInterval(() => {
       setElapsed(Math.floor((Date.now() - startTime) / 1000))
     }, 1000)
     return () => clearInterval(timerRef.current)
-  }, [startTime])
+  }, [startTime, paused])
+
+  // Also track unlimited elapsed separately — paused/unlimitedRound deps make
+  // the interval re-arm on pause/resume and after a session reset
+  useEffect(() => {
+    if (mode !== 'unlimited' || unlimitedPausedRef.current || unlimitedGameOverRef.current) return
+    if (!unlimitedStartTimeRef.current) {
+      unlimitedStartTimeRef.current = Date.now() - unlimitedElapsed * 1000
+    }
+    const timer = setInterval(() => {
+      if (!unlimitedPausedRef.current && !unlimitedGameOverRef.current) {
+        setUnlimitedElapsed(Math.floor((Date.now() - unlimitedStartTimeRef.current) / 1000))
+      }
+    }, 500)
+    return () => clearInterval(timer)
+  }, [mode, paused, unlimitedRound])
 
   const doSubmitScore = useCallback(
     async (score) => {
@@ -247,14 +283,15 @@ export default function WikipediaRace() {
       if (wonRef.current) return false
       const target = challenge.target.toLowerCase().replace(/_/g, ' ')
       const current = articleTitle.toLowerCase()
-      if (current.includes(target) || target.includes(current)) {
+      if (current === target) {
         wonRef.current = true
         setWon(true)
         clearInterval(timerRef.current)
         const seconds = Math.floor((Date.now() - startTime) / 1000)
         const clicks = clickCount
         const hints = hintsUsed
-        const score = Math.max(0, Math.round(1000 - clicks * CLICK_PENALTY - hints * HINT_PENALTY - seconds * TIME_PENALTY))
+        // Base score removed — score can grow with multiple races; only penalties apply
+        const score = Math.round(5000 - clicks * CLICK_PENALTY - hints * HINT_PENALTY - seconds * TIME_PENALTY)
 
         const s = loadStats()
         s.racesPlayed += 1
@@ -268,7 +305,10 @@ export default function WikipediaRace() {
 
         const res = { clicks, hints, seconds, score }
         resultRef.current = res
-        setResult(res)
+        if (mode !== 'unlimited') {
+          setResult(res)
+        }
+        showToast(`Race done! +${score} pts`, 'success')
         doSubmitScore(score)
         return true
       }
@@ -280,14 +320,20 @@ export default function WikipediaRace() {
   const navigateToArticle = useCallback(
     async (title) => {
       if (wonRef.current || loading) return
+      // Paused or session over in unlimited — block all navigation
+      if (mode === 'unlimited' && (unlimitedPausedRef.current || unlimitedGameOverRef.current)) return
       const ok = await loadArticle(title)
       if (!ok) return
       const clicks = clickCount + 1
       setClickCount(clicks)
       setHistory((h) => [...h, title])
-      checkWin(currentArticleRef.current || title)
+      // Use the clicked title directly — currentArticleRef.current still holds the
+      // previous article because setCurrentArticle(state) hasn't propagated yet.
+      // The useEffect on currentArticle will also call checkWin, but idempotency
+      // via wonRef.current prevents double-firing.
+      checkWin(title)
     },
-    [loadArticle, clickCount, checkWin, loading],
+    [loadArticle, clickCount, checkWin, loading, mode],
   )
 
   // keep latest article title in a ref for win check
@@ -319,43 +365,183 @@ export default function WikipediaRace() {
     setShowHint(true)
   }, [])
 
-  const changeMode = useCallback(
-    async (newMode) => {
-      // Re-playing the same mode: in daily mode, fall back to random when
-      // today's race is already finished (same rule as Wordle).
-      if (newMode === modeRef.current) {
-        if (newMode === 'daily' && loadStats().lastPlayedDaily === new Date().toISOString().split('T')[0]) {
+  /** Toggle pause for unlimited mode. Pausing also freezes the wall clock:
+   * the moment the pause starts is stored, and on resume the start time is
+   * shifted forward by the paused duration so no time is lost. */
+  const togglePause = useCallback(() => {
+    if (unlimitedPausedRef.current) {
+      // Resuming: push start time forward by however long we were paused
+      if (pausedAtRef.current) {
+        unlimitedStartTimeRef.current += Date.now() - pausedAtRef.current
+        pausedAtRef.current = null
+      }
+      unlimitedPausedRef.current = false
+      setPaused(false)
+    } else {
+      pausedAtRef.current = Date.now()
+      unlimitedPausedRef.current = true
+      setPaused(true)
+    }
+  }, [])
+
+  /** Reset every piece of unlimited state — wall clock, refs and mirrors.
+   * Single source of truth: called on every mode exit and unlimited restart. */
+  const resetUnlimitedState = useCallback(() => {
+    unlimitedGameOverRef.current = false
+    unlimitedPausedRef.current = false
+    pausedAtRef.current = null
+    setPaused(false)
+    unlimitedRoundRef.current = 0
+    setUnlimitedRound((r) => r + 1) // force the elapsed-timer effect to re-arm
+    setUnlimitedTimeLimit(600)
+    setUnlimitedElapsed(0)
+    unlimitedStartTimeRef.current = null
+    setSessionScore(0)
+    wonRef.current = false
+    setWon(false)
+    setResult(null)
+  }, [])
+
+  /** Start a fresh race for the given mode without the mode-switch ceremony
+   * (used by Play Again buttons). Daily falls back to random once played. */
+  const restartRace = useCallback(
+    (m) => {
+      const pool = difficultyFilter === 'all'
+        ? CHALLENGES
+        : CHALLENGES.filter((c) => c.difficulty === difficultyFilter)
+      if (m === 'daily') {
+        if (loadStats().lastPlayedDaily === new Date().toISOString().split('T')[0]) {
           modeRef.current = 'random'
           setMode('random')
           showToast('Daily race already done, switching to Random mode', 'info')
-          const pool = difficultyFilter === 'all'
-            ? CHALLENGES
-            : CHALLENGES.filter((c) => c.difficulty === difficultyFilter)
           startRace(pool[Math.floor(Math.random() * pool.length)])
+        } else {
+          startRace(getDailyChallenge())
         }
-        return
-      }
-      setMode(newMode)
-      modeRef.current = newMode
-      if (newMode === 'daily') {
-        startRace(getDailyChallenge())
+      } else if (m === 'unlimited') {
+        resetUnlimitedState()
+        startRace(pool[Math.floor(Math.random() * pool.length)])
       } else {
-        // random: random start from a challenge, or fully random article
-        const pool = difficultyFilter === 'all'
-          ? CHALLENGES
-          : CHALLENGES.filter((c) => c.difficulty === difficultyFilter)
-        const ch = pool[Math.floor(Math.random() * pool.length)]
-        startRace(ch)
+        startRace(pool[Math.floor(Math.random() * pool.length)])
       }
     },
-    [startRace, difficultyFilter, showToast],
+    [difficultyFilter, startRace, showToast, resetUnlimitedState],
   )
+
+  /** End unlimited session early */
+  const endUnlimitedSession = useCallback(() => {
+    unlimitedGameOverRef.current = true
+    clearInterval(timerRef.current)
+    wonRef.current = true
+    setWon(true)
+    const finalScore = sessionScore
+    setResult({
+      title: 'Session Over!',
+      message: `You completed ${unlimitedRoundRef.current} race${unlimitedRoundRef.current === 1 ? '' : 's'}`,
+      totalScore: finalScore,
+      races: unlimitedRoundRef.current,
+      stats: loadStats(),
+    })
+    showToast(`Session over! Completed ${unlimitedRoundRef.current} race${unlimitedRoundRef.current === 1 ? '' : 's'}.`, 'info')
+    doSubmitScore(finalScore)
+  }, [sessionScore, doSubmitScore])
+
+  const giveUp = useCallback(() => {
+    if (mode === 'unlimited') {
+      endUnlimitedSession()
+    } else {
+      wonRef.current = true
+      setWon(true)
+      const finalScore = Math.round(5000 - clickCount * 5 - hintsUsed * 10 - elapsed * 2)
+      setResult({
+        title: 'Game Over',
+        message: `The target was: ${challenge?.target}`,
+        totalScore: finalScore,
+        races: 0,
+        stats: loadStats(),
+      })
+      doSubmitScore(finalScore)
+    }
+  }, [mode, endUnlimitedSession, challenge, clickCount, hintsUsed, elapsed, doSubmitScore])
+
+  const changeMode = useCallback(
+    async (newMode) => {
+      // Reset unlimited state when leaving unlimited mode
+      if (mode === 'unlimited' && newMode !== 'unlimited') {
+        resetUnlimitedState()
+      }
+
+      // Re-playing the same mode: restartRace handles the daily→random
+      // fallback, unlimited restart, and random pool pick.
+      setMode(newMode)
+      modeRef.current = newMode
+      restartRace(newMode)
+    },
+    [mode, restartRace, resetUnlimitedState],
+  )
+
+  // Check if time ran out in unlimited mode
+  useEffect(() => {
+    if (mode !== 'unlimited' || unlimitedPausedRef.current || unlimitedGameOverRef.current) return
+    if (wonRef.current) return
+    if (unlimitedElapsed >= unlimitedTimeLimit) {
+      unlimitedGameOverRef.current = true
+      clearInterval(timerRef.current)
+      wonRef.current = true
+      setWon(true)
+      const finalScore = sessionScore
+      setResult({
+        title: 'Out of Time!',
+        message: `You completed ${unlimitedRoundRef.current} race${unlimitedRoundRef.current === 1 ? '' : 's'}`,
+        totalScore: finalScore,
+        races: unlimitedRoundRef.current,
+        stats: loadStats(),
+      })
+      showToast(`Session over! Completed ${unlimitedRoundRef.current} race${unlimitedRoundRef.current === 1 ? '' : 's'}.`, 'info')
+      doSubmitScore(finalScore)
+    }
+  }, [unlimitedElapsed, unlimitedTimeLimit, mode, sessionScore, doSubmitScore])
+
+  // Track wins in unlimited mode
+  const prevWonRef = useRef(false)
+  useEffect(() => {
+    if (mode !== 'unlimited' || !won || prevWonRef.current) return
+    prevWonRef.current = true
+    // Race completed — add to session score
+    const res = resultRef.current
+    if (res) {
+      setSessionScore(prev => prev + res.score)
+      unlimitedRoundRef.current += 1
+      // Add 3 minutes for each completed race
+      setUnlimitedTimeLimit(prev => prev + 180)
+      showToast(`+3 min for completing race! (${unlimitedRoundRef.current} races done)`, 'success')
+    }
+    // Start next race after brief delay
+    setTimeout(() => {
+      if (unlimitedGameOverRef.current || unlimitedPausedRef.current) return
+      wonRef.current = false
+      setWon(false)
+      setClickCount(0)
+      setHintsUsed(0)
+      setElapsed(0)
+      setResult(null)
+      resultRef.current = null
+      const pool = difficultyFilter === 'all'
+        ? CHALLENGES
+        : CHALLENGES.filter((c) => c.difficulty === difficultyFilter)
+      startRace(pool[Math.floor(Math.random() * pool.length)])
+    }, 2000)
+  }, [won])
+
+  const remaining = mode === 'unlimited' && !won
+    ? Math.max(0, unlimitedTimeLimit - unlimitedElapsed)
+    : null
 
   return (
     <GameShell
       title="Wikipedia Race"
       accent="var(--nb-green)"
-      subtitle={`Get from "${challenge.start}" to "${challenge.target}" by clicking links`}
+      subtitle={mode === 'unlimited' ? 'Complete races until time runs out!' : `Get from "${challenge.start}" to "${challenge.target}" by clicking links`}
       wide
       controls={
         <>
@@ -365,11 +551,48 @@ export default function WikipediaRace() {
           <button className={`mode-btn${mode === 'random' ? ' active' : ''}`} onClick={() => changeMode('random')}>
             Random
           </button>
+          <button className={`mode-btn${mode === 'unlimited' ? ' active' : ''}`} onClick={() => {
+            if (mode === 'unlimited') {
+              // Restart unlimited from scratch
+              resetUnlimitedState()
+              const pool = difficultyFilter === 'all'
+                ? CHALLENGES
+                : CHALLENGES.filter((c) => c.difficulty === difficultyFilter)
+              startRace(pool[Math.floor(Math.random() * pool.length)])
+            } else {
+              changeMode('unlimited')
+            }
+          }}>
+            Unlimited
+          </button>
+          {mode === 'unlimited' && !won && !unlimitedGameOverRef.current && (
+            <button className="btn btn-sm btn-outline" onClick={togglePause}>
+              {paused ? '▶ Resume' : '⏸ Pause'}
+            </button>
+          )}
           <button className="icon-btn" title="How to play" onClick={() => setShowHelp(true)}>Help</button>
           <button className="icon-btn" title="Stats" onClick={() => setShowStats(true)}>Stats</button>
         </>
       }
     >
+      {/* Timer bar for unlimited mode */}
+      {mode === 'unlimited' && !won && !unlimitedGameOverRef.current && (
+        <div className="sb-unlimited-timer">
+          <div className="sb-unlimited-timer-track">
+            <div
+              className="sb-unlimited-timer-fill"
+              style={{
+                width: `${Math.max(0, ((unlimitedTimeLimit - unlimitedElapsed) / unlimitedTimeLimit) * 100)}%`,
+                backgroundColor: unlimitedTimeLimit - unlimitedElapsed < 60 ? 'var(--nb-red)' : undefined,
+              }}
+            />
+          </div>
+          <span className="sb-unlimited-timer-text">
+            {formatTime(remaining ?? 0)}
+          </span>
+        </div>
+      )}
+
       {/* HUD */}
       <div className="game-info">
         <div className="info-item">
@@ -378,13 +601,35 @@ export default function WikipediaRace() {
         </div>
         <div className="info-item">
           <span className="info-label">Time</span>
-          <span className="info-value" data-testid="wr-time">{elapsed}s</span>
+          <span className="info-value" data-testid="wr-time">
+            {mode === 'unlimited' ? `${formatTime(unlimitedElapsed)}/${formatTime(unlimitedTimeLimit)}` : `${elapsed}s`}
+          </span>
         </div>
         <div className="info-item">
           <span className="info-label">Target</span>
           <span className="info-value">{challenge.target}</span>
         </div>
+        {mode === 'unlimited' && (
+          <div className="info-item">
+            <span className="info-label">Session</span>
+            <span className="info-value" style={{ color: 'var(--accent)' }}>{sessionScore}</span>
+          </div>
+        )}
       </div>
+
+      {/* Action bar for unlimited */}
+      {mode === 'unlimited' && !won && !unlimitedGameOverRef.current && (
+        <div className="game-action-bar">
+          <span className="game-action-bar-label">
+            Race {unlimitedRoundRef.current + 1} · +3 min per completion
+          </span>
+          <div className="game-action-bar-btns">
+            <button className="btn btn-sm btn-outline" onClick={giveUp}>
+              Give Up
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Article viewer */}
       <div className="wr-article-frame">
@@ -419,14 +664,44 @@ export default function WikipediaRace() {
         </div>
       )}
 
+      {/* Pause overlay — blocks the whole board while paused in unlimited mode */}
+      {mode === 'unlimited' && paused && !unlimitedGameOverRef.current && (
+        <div className="game-result sb-pause-overlay" data-testid="wr-pause-overlay">
+          <div className="result-content">
+            <div className="result-title">⏸ Paused</div>
+            <div className="result-message">The clock is stopped. Your session score: {sessionScore} points.</div>
+            <div className="result-actions">
+              <button className="btn btn-primary" onClick={togglePause} data-testid="wr-resume">
+                ▶ Resume
+              </button>
+              <button className="btn btn-secondary" onClick={giveUp}>
+                Give Up
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* In-game replay button after unlimited session ends (modal closed) */}
+      {mode === 'unlimited' && unlimitedGameOverRef.current && !result && !paused && (
+        <div className="game-action-bar">
+          <span className="game-action-bar-label">Session complete — {sessionScore} points, {unlimitedRoundRef.current} race{unlimitedRoundRef.current === 1 ? '' : 's'}</span>
+          <div className="game-action-bar-btns">
+            <button className="btn btn-sm btn-primary" onClick={() => restartRace('unlimited')}>
+              Play Again
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Help modal */}
       {showHelp && (
         <Modal title="How to Play" onClose={() => setShowHelp(false)}>
           <ul className="help-list">
             <li>Click links inside the article to move from the start page to the target page.</li>
             <li>Fewer clicks, no hints, and less time = a higher score.</li>
-            <li>Score = 1000 − clicks×10 − hints×20 − seconds×0.1.</li>
             <li>Use a hint if you're stuck (it costs 20 points).</li>
+            <li><strong>Unlimited Mode:</strong> Complete races back-to-back. Each race adds +3 minutes. Start with 10 minutes. Don't let time run out!</li>
           </ul>
         </Modal>
       )}
@@ -466,8 +741,8 @@ export default function WikipediaRace() {
         </Modal>
       )}
 
-      {/* Result overlay */}
-      {result && (
+      {/* Result overlay — win popup (daily/random only; unlimited wins show toast) */}
+      {result && result.clicks !== undefined && !unlimitedGameOverRef.current && (
         <div className="game-result" data-testid="wr-result">
           <div className="result-content">
             <button className="result-close" onClick={() => setResult(null)}>×</button>
@@ -490,7 +765,36 @@ export default function WikipediaRace() {
               </div>
             </div>
             <div className="result-actions">
-              <button className="btn btn-secondary" onClick={() => changeMode(mode)}>
+              <button className="btn btn-secondary" onClick={() => {
+                setResult(null)
+                restartRace(mode)
+              }}>
+                Play Again
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Game over for unlimited (session ended / out of time) */}
+      {result && result.totalScore !== undefined && (
+        <div className="game-result" data-testid="wr-result">
+          <div className="result-content">
+            <button className="result-close" onClick={() => setResult(null)}>×</button>
+            <div className="result-title">{result.title}</div>
+            <div className="result-message">{result.message}</div>
+            <div className="result-stats">
+              <div className="result-stat">
+                <span className="result-stat-value">{result.totalScore}</span>
+                <span className="result-stat-label">Total Score</span>
+              </div>
+              <div className="result-stat">
+                <span className="result-stat-value">{result.races}</span>
+                <span className="result-stat-label">Races Completed</span>
+              </div>
+            </div>
+            <div className="result-actions">
+              <button className="btn btn-secondary" onClick={() => restartRace('unlimited')}>
                 Play Again
               </button>
             </div>

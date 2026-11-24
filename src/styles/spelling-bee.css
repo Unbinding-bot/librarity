@@ -195,6 +195,25 @@
   margin-bottom: 1.25rem;
 }
 
+/* Hive + refresh button wrapper */
+.sb-hive-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 auto 1.5rem;
+  width: fit-content;
+}
+
+.sb-refresh-btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .sb-hive-wrap { flex-direction: column; }
+  .sb-refresh-btn { margin-top: 0.5rem; }
+}
+
 /* Found words list */
 .sb-found-list {
   display: flex;
@@ -244,4 +263,41 @@
   .sb-hive-row:nth-child(odd):not(:first-child) {
     transform: translateX(32px);
   }
+}
+
+/* Unlimited session timer bar (shared across timed games) */
+.sb-unlimited-timer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 auto 1rem;
+  max-width: 560px;
+}
+
+.sb-unlimited-timer-track {
+  flex: 1;
+  height: 14px;
+  background: var(--color-surface);
+  border: 3px solid var(--color-border);
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.sb-unlimited-timer-fill {
+  height: 100%;
+  background: var(--nb-green, #88D498);
+  transition: width 0.5s linear;
+}
+
+.sb-unlimited-timer-text {
+  font-weight: 700;
+  font-size: 1.1rem;
+  min-width: 3.5em;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Pause overlay (unlimited mode) — reuses .game-result fullscreen block */
+.sb-pause-overlay {
+  z-index: 90;
 }
