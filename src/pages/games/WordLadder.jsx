@@ -338,16 +338,22 @@ export default function WordLadder() {
         : '★★'
 
       if (mode === 'unlimited') {
-        // Reduce time limit by 10s for the NEXT round, floor at 20s.
+        // Reduce time limit by 10s for the NEXT round, floor at 10s.
         // The current round's remaining time does NOT change — the new
         // limit applies when the next round starts and the timer restarts.
-        const newTimeLimit = Math.max(20, unlimitedTimeLimit - 10)
+        const newTimeLimit = Math.max(10, unlimitedTimeLimit - 10)
         setUnlimitedTimeLimit(newTimeLimit)
         // Reset wall-clock start ref NOW so the timer effect sees it
         // when it re-arms on the unlimitedRound state change.
         unlimitedStartTimeRef.current = null
         // Bump unlimitedRound state to re-arm the timer effect with fresh state
         setUnlimitedRound((r) => r + 1)
+        // Track actual rounds completed for session summary + leaderboard
+        unlimitedRoundRef.current += 1
+        // Track actual rounds completed for session summary + leaderboard
+        unlimitedRoundRef.current += 1
+        // Track actual rounds completed for session summary + leaderboard
+        unlimitedRoundRef.current += 1
 
         const res = {
           title: wasOptimal ? 'Perfect Ladder!' : 'Ladder Complete!',
