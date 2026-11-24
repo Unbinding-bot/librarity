@@ -129,13 +129,8 @@ function bfsLadder(start, target) {
   return null
 }
 
-/** Calculate session-wide cumulative score for infinite play. */
-function ladderSessionScore(steps, seconds, wasOptimal, streak) {
-  const stepCost = Math.min(steps * 80, 6000)           // fewer steps → higher remaining budget
-  const timeBonus = Math.max(0, Math.round(500 - seconds * 2))
-  const optimalBonus = wasOptimal ? 2000 : 0
-  const streakMult = 1 + streak * 0.5                    // streak doubles every two consecutive solves
-  return Math.round((stepCost + timeBonus + optimalBonus) * streakMult)
+function ladderScore(steps, seconds) {
+  return Math.max(0, 10000 - (steps * 100 + seconds))
 }
 
 function ratingStars(steps) {
@@ -164,16 +159,6 @@ export default function WordLadder() {
   const [result, setResult] = useState(null)
   const [stats, setStats] = useState(() => loadStats())
   const [namePrompt, setNamePrompt] = useState(null)
-
-  // Cumulative session tracking — score can grow without bound
-  const [sessionScore, setSessionScore] = useState(0)
-  const sessionStreakRef = useRef(0)
-
-  // Unlimited-specific state
-  const [unlimitedTimeLimit, setUnlimitedTimeLimit] = useState(180) // 3:00 in seconds
-  const unlimitedPausedRef = useRef(false)
-  const unlimitedGameOverRef = useRef(false)
-  const unlimitedRoundRef = useRef(0)
 
   const startedRef = useRef(false)
   const ladderRef = useRef([])
@@ -223,11 +208,9 @@ export default function WordLadder() {
     }
   }, [startPuzzle, showToast])
 
-  // Timer tick — handles paused and unlimited-game-over states
+  // Timer tick
   useEffect(() => {
     if (!startTime || solvedRef.current) return
-    if (unlimitedPausedRef.current) return
-    if (unlimitedGameOverRef.current) return
     timerRef.current = setInterval(() => {
       setElapsed(Math.floor((Date.now() - startTime) / 1000))
     }, 1000)
@@ -236,11 +219,6 @@ export default function WordLadder() {
 
   const steps = Math.max(0, ladder.length - 1)
   const timeSeconds = elapsed
-
-  // In unlimited mode, calculate remaining time
-  const unlimitedRemaining = mode === 'unlimited' && !solved
-    ? Math.max(0, unlimitedTimeLimit - timeSeconds)
-    : null
 
   const updateStats = useCallback(
     (usedSteps, usedTime, wasOptimal) => {
@@ -287,13 +265,6 @@ export default function WordLadder() {
     [],
   )
 
-  /** Format seconds as M:SS or MM:SS */
-  const formatTime = (s) => {
-    const mins = Math.floor(s / 60)
-    const secs = s % 60
-    return `${mins}:${String(secs).padStart(2, '0')}`
-  }
-
   const handleWin = useCallback(
     (usedSteps, usedTime) => {
       setSolved(true)
@@ -301,67 +272,29 @@ export default function WordLadder() {
       clearInterval(timerRef.current)
       const optimalSteps = optimal ?? usedSteps
       const wasOptimal = usedSteps === optimalSteps
-      // Cumulative session score — can grow indefinitely
-      const currentStreak = sessionStreakRef.current
-      const earned = ladderSessionScore(usedSteps, usedTime, wasOptimal, currentStreak)
-      sessionStreakRef.current += 1
-      setSessionScore(s => s + earned)
+      const score = ladderScore(usedSteps, usedTime)
       const s = updateStats(usedSteps, usedTime, wasOptimal)
 
       const stars = usedSteps <= optimalSteps ? '★★★★★'
         : usedSteps <= optimalSteps + 2 ? '★★★★'
         : usedSteps <= optimalSteps + 4 ? '★★★'
         : '★★'
-
-      if (mode === 'unlimited') {
-        // Reduce time limit by 10s, floor at 20s
-        const newTimeLimit = Math.max(20, unlimitedTimeLimit - 10)
-        setUnlimitedTimeLimit(newTimeLimit)
-        unlimitedRoundRef.current += 1
-
-        const res = {
-          title: wasOptimal ? 'Perfect Ladder!' : 'Ladder Complete!',
-          message: `${puzzle.start} → ${puzzle.target} in ${usedSteps} step${usedSteps === 1 ? '' : 's'}`,
-          steps: usedSteps,
-          optimal: optimalSteps,
-          time: usedTime,
-          score: earned,
-          streakBonus: currentStreak > 0 ? ` (+${currentStreak * 500} streak bonus)` : '',
-          stars,
-          totalScore: sessionScore + earned,
-          stats: s,
-          round: unlimitedRoundRef.current,
-          timeLeft: newTimeLimit,
-        }
-        resultRef.current = res
-        setResult(res)
-        // Auto-start next puzzle after brief delay
-        setTimeout(() => {
-          if (unlimitedGameOverRef.current) return
-          setResult(null)
-          startPuzzle(generatePuzzle())
-        }, 1500)
-        return
-      }
-
       const res = {
         title: wasOptimal ? 'Perfect Ladder!' : 'Ladder Complete!',
         message: `${puzzle.start} → ${puzzle.target} in ${usedSteps} step${usedSteps === 1 ? '' : 's'}`,
         steps: usedSteps,
         optimal: optimalSteps,
         time: usedTime,
-        score: earned,
-        streakBonus: currentStreak > 0 ? ` (+${currentStreak * 500} streak bonus)` : '',
+        score,
         stars,
-        totalScore: sessionScore + earned,
         stats: s,
       }
       resultRef.current = res
       setResult(res)
       // auto-submit to leaderboard
-      doSubmitScore(sessionScore + earned)
+      doSubmitScore(score)
     },
-    [optimal, puzzle, updateStats, doSubmitScore, sessionScore, mode, startPuzzle, unlimitedTimeLimit],
+    [optimal, puzzle, updateStats, doSubmitScore],
   )
 
   const submitWord = useCallback(() => {
@@ -410,11 +343,6 @@ export default function WordLadder() {
       showToast('Change exactly one letter', 'error')
       return
     }
-    // Invalid word in unlimited mode: penalize time
-    if (mode === 'unlimited' && !unlimitedPausedRef.current) {
-      setUnlimitedTimeLimit(prev => Math.max(0, prev - 2))
-      showToast('-2s for invalid word', 'warning')
-    }
     setLadder((l) => [...l, word])
     setInput('')
     // keep the newest rung in view inside the scrollable ladder
@@ -423,7 +351,7 @@ export default function WordLadder() {
         ladderScrollRef.current.scrollTop = ladderScrollRef.current.scrollHeight
       }
     })
-  }, [input, puzzle, startTime, handleWin, showToast, mode])
+  }, [input, puzzle, startTime, handleWin, showToast])
 
   const undoStep = useCallback(() => {
     if (solvedRef.current) return
@@ -442,74 +370,14 @@ export default function WordLadder() {
     setShowHint(true)
   }, [puzzle])
 
-  /** Toggle pause state for unlimited mode */
-  const togglePause = useCallback(() => {
-    unlimitedPausedRef.current = !unlimitedPausedRef.current
-    if (!unlimitedPausedRef.current) {
-      // Resume timer
-      const now = Date.now()
-      setStartTime(now - elapsed * 1000)
-    }
-  }, [elapsed])
-
-  /** End unlimited session early */
-  const endUnlimitedSession = useCallback(() => {
-    unlimitedGameOverRef.current = true
-    clearInterval(timerRef.current)
-    solvedRef.current = true
-    setSolved(true)
-    const finalScore = sessionScore
-    const s = updateStats(0, 0, false)
-    const elapsedMins = Math.floor(elapsed / 60)
-    const elapsedSecs = elapsed % 60
-    setResult({
-      title: 'Session Over!',
-      message: `You completed ${unlimitedRoundRef.current} ladder${unlimitedRoundRef.current === 1 ? '' : 's'} in ${elapsedMins}m ${elapsedSecs}s`,
-      totalScore: finalScore,
-      rounds: unlimitedRoundRef.current,
-      time: elapsed,
-      stats: s,
-    })
-    doSubmitScore(finalScore)
-  }, [sessionScore, elapsed, updateStats, doSubmitScore])
-
-  const giveUp = useCallback(() => {
-    if (mode === 'unlimited') {
-      endUnlimitedSession()
-    } else {
-      setSolved(true)
-      solvedRef.current = true
-      clearInterval(timerRef.current)
-      const s = updateStats(0, 0, false)
-      setResult({
-        title: 'Game Over',
-        message: `The target was: ${puzzle.target}`,
-        stats: s,
-      })
-      doSubmitScore(0)
-    }
-  }, [mode, endUnlimitedSession, puzzle, updateStats, doSubmitScore])
-
   const changeMode = useCallback(
     (newMode, { resume } = {}) => {
-      // Reset unlimited state when leaving unlimited mode
-      if (mode === 'unlimited' && newMode !== 'unlimited') {
-        unlimitedGameOverRef.current = false
-        unlimitedPausedRef.current = false
-        unlimitedRoundRef.current = 0
-        setUnlimitedTimeLimit(180)
-        setSessionScore(0)
-        sessionStreakRef.current = 0
-      }
-
       // Resume: reload the same mode with a fresh puzzle (used by Play Again)
       if (resume && newMode === modeRef.current) {
         setMode(newMode)
         modeRef.current = newMode
         if (newMode === 'daily') {
           startPuzzle(getPuzzleForToday())
-        } else if (newMode === 'unlimited') {
-          startPuzzle(generatePuzzle())
         } else {
           startPuzzle(generatePuzzle())
         }
@@ -523,18 +391,6 @@ export default function WordLadder() {
           setMode('random')
           showToast('Daily puzzle already done, switching to Random mode', 'info')
           startPuzzle(generatePuzzle())
-        } else if (newMode === 'unlimited') {
-          // Restart unlimited with full reset
-          unlimitedGameOverRef.current = false
-          unlimitedPausedRef.current = false
-          unlimitedRoundRef.current = 0
-          setUnlimitedTimeLimit(180)
-          setSessionScore(0)
-          sessionStreakRef.current = 0
-          setSolved(false)
-          solvedRef.current = false
-          setResult(null)
-          startPuzzle(generatePuzzle())
         }
         return
       }
@@ -542,57 +398,18 @@ export default function WordLadder() {
       modeRef.current = newMode
       if (newMode === 'daily') {
         startPuzzle(getPuzzleForToday())
-      } else if (newMode === 'unlimited') {
-        // Reset all unlimited state
-        unlimitedGameOverRef.current = false
-        unlimitedPausedRef.current = false
-        unlimitedRoundRef.current = 0
-        setUnlimitedTimeLimit(180)
-        setSessionScore(0)
-        sessionStreakRef.current = 0
-        setSolved(false)
-        solvedRef.current = false
-        setResult(null)
-        startPuzzle(generatePuzzle())
       } else {
         startPuzzle(generatePuzzle())
       }
     },
-    [startPuzzle, showToast, mode],
+    [startPuzzle, showToast],
   )
-
-  // Check if time ran out in unlimited mode
-  useEffect(() => {
-    if (mode !== 'unlimited' || unlimitedPausedRef.current || unlimitedGameOverRef.current) return
-    if (solvedRef.current) return
-    if (timeSeconds >= unlimitedTimeLimit) {
-      unlimitedGameOverRef.current = true
-      clearInterval(timerRef.current)
-      solvedRef.current = true
-      setSolved(true)
-      const finalScore = sessionScore
-      const s = updateStats(0, timeSeconds, false)
-      const elapsedMins = Math.floor(timeSeconds / 60)
-      const elapsedSecs = timeSeconds % 60
-      const res = {
-        title: 'Out of Time!',
-        message: `You completed ${unlimitedRoundRef.current} ladder${unlimitedRoundRef.current === 1 ? '' : 's'} in ${elapsedMins}m ${elapsedSecs}s`,
-        totalScore: finalScore,
-        rounds: unlimitedRoundRef.current,
-        time: timeSeconds,
-        stats: s,
-      }
-      resultRef.current = res
-      setResult(res)
-      doSubmitScore(finalScore)
-    }
-  }, [timeSeconds, unlimitedTimeLimit, mode, sessionScore, updateStats, doSubmitScore])
 
   return (
     <GameShell
       title="Word Ladder"
       accent="var(--nb-sky)"
-      subtitle={mode === 'unlimited' ? 'Chain ladders until time runs out!' : `Transform ${puzzle.start} into ${puzzle.target}, one letter at a time`}
+      subtitle={`Transform ${puzzle.start} into ${puzzle.target}, one letter at a time`}
       controls={
         <>
           <button className={`mode-btn${mode === 'daily' ? ' active' : ''}`} onClick={() => changeMode('daily')}>
@@ -601,20 +418,12 @@ export default function WordLadder() {
           <button className={`mode-btn${mode === 'random' ? ' active' : ''}`} onClick={() => changeMode('random')}>
             Random
           </button>
-          <button className={`mode-btn${mode === 'unlimited' ? ' active' : ''}`} onClick={() => changeMode('unlimited')}>
-            Unlimited
-          </button>
-          {mode === 'unlimited' && !solved && (
-            <button className="btn btn-sm btn-outline" onClick={togglePause}>
-              {unlimitedPausedRef.current ? '▶ Resume' : '⏸ Pause'}
-            </button>
-          )}
           <button className="icon-btn" title="How to play" onClick={() => setShowHelp(true)}>Help</button>
           <button className="icon-btn" title="Stats" onClick={() => setShowStats(true)}>Stats</button>
         </>
       }
     >
-      {/* HUD */}
+      {/* Puzzle info */}
       <div className="game-info">
         <div className="info-item">
           <span className="info-label">From</span>
@@ -628,43 +437,11 @@ export default function WordLadder() {
           <span className="info-label">Steps</span>
           <span className="info-value" data-testid="wl-steps">{steps}</span>
         </div>
-        {mode === 'unlimited' ? (
-          <div className="info-item">
-            <span className="info-label">Time Left</span>
-            <span className="info-value" data-testid="wl-time" style={{ color: unlimitedRemaining <= 30 ? 'var(--nb-red)' : undefined }}>
-              {formatTime(unlimitedRemaining ?? 0)}
-            </span>
-          </div>
-        ) : (
-          <div className="info-item">
-            <span className="info-label">Time</span>
-            <span className="info-value" data-testid="wl-time">{timeSeconds}s</span>
-          </div>
-        )}
-        {mode === 'unlimited' && (
-          <div className="info-item">
-            <span className="info-label">Session</span>
-            <span className="info-value" style={{ color: 'var(--accent)' }}>{sessionScore}</span>
-          </div>
-        )}
-      </div>
-
-      {/* Puzzle info for unlimited */}
-      {mode === 'unlimited' && !solved && (
-        <div className="game-action-bar">
-          <span className="game-action-bar-label">
-            Round {unlimitedRoundRef.current + 1} · Each win costs 10s (min 20s)
-          </span>
-          <div className="game-action-bar-btns">
-            <button className="btn btn-sm btn-outline" onClick={giveUp}>
-              Give Up
-            </button>
-            <button className="btn btn-sm btn-outline" onClick={endUnlimitedSession}>
-              End Session
-            </button>
-          </div>
+        <div className="info-item">
+          <span className="info-label">Time</span>
+          <span className="info-value" data-testid="wl-time">{timeSeconds}s</span>
         </div>
-      )}
+      </div>
 
       {/* Ladder display */}
       <div className="wl-ladder" data-testid="wl-ladder" ref={ladderScrollRef}>
@@ -703,7 +480,7 @@ export default function WordLadder() {
         </div>
       )}
 
-      {solved && mode !== 'unlimited' && (
+      {solved && (
         <div className="game-action-bar">
           <span className="game-action-bar-label">Solved in {steps} steps!</span>
           <div className="game-action-bar-btns">
@@ -713,7 +490,7 @@ export default function WordLadder() {
       )}
 
       {/* Hint bar */}
-      {!solved && mode !== 'unlimited' && (
+      {!solved && (
         <div className="game-action-bar">
           <span className="game-action-bar-label">Need a nudge?</span>
           <div className="game-action-bar-btns">
@@ -730,7 +507,6 @@ export default function WordLadder() {
             <li>Every intermediate word must be a real 4-letter word.</li>
             <li>Fewer steps and less time = a higher score (score = 10000 − steps×100 − seconds).</li>
             <li>Match the optimal (shortest) ladder for a Perfect Ladder bonus.</li>
-            <li><strong>Unlimited Mode:</strong> Chain ladders until time runs out. Start with 3:00, lose 10s per win (min 20s), gain 2s for invalid words.</li>
           </ul>
         </Modal>
       )}
@@ -773,45 +549,25 @@ export default function WordLadder() {
             <button className="result-close" onClick={() => setResult(null)}>×</button>
             <div className="result-title">{result.title}</div>
             <div className="result-message">{result.message}</div>
-            {result.stars && <div className="wl-stars">{result.stars}</div>}
+            <div className="wl-stars">{result.stars}</div>
             <div className="result-stats">
-              {result.steps !== undefined && (
-                <>
-                  <div className="result-stat">
-                    <span className="result-stat-value">{result.steps}</span>
-                    <span className="result-stat-label">Steps (best {result.optimal})</span>
-                  </div>
-                  <div className="result-stat">
-                    <span className="result-stat-value">{result.time}s</span>
-                    <span className="result-stat-label">Time</span>
-                  </div>
-                  <div className="result-stat">
-                    <span className="result-stat-value">{result.score}</span>
-                    <span className="result-stat-label">Round Score{result.streakBonus || ''}</span>
-                  </div>
-                </>
-              )}
-              <div className="result-stat" style={{ borderTop: '2px dashed var(--muted)', paddingTop: 8 }}>
-                <span className="result-stat-value" style={{ color: 'var(--accent)' }}>{result.totalScore}</span>
-                <span className="result-stat-label">Session Total</span>
+              <div className="result-stat">
+                <span className="result-stat-value">{result.steps}</span>
+                <span className="result-stat-label">Steps (best {result.optimal})</span>
               </div>
-              {result.rounds !== undefined && (
-                <div className="result-stat">
-                  <span className="result-stat-value">{result.rounds}</span>
-                  <span className="result-stat-label">Rounds Completed</span>
-                </div>
-              )}
+              <div className="result-stat">
+                <span className="result-stat-value">{result.time}s</span>
+                <span className="result-stat-label">Time</span>
+              </div>
+              <div className="result-stat">
+                <span className="result-stat-value">{result.score}</span>
+                <span className="result-stat-label">Score</span>
+              </div>
             </div>
             <div className="result-actions">
-              {result.rounds !== undefined ? (
-                <button className="btn btn-secondary" onClick={() => changeMode(mode, { resume: true })}>
-                  Play Again
-                </button>
-              ) : (
-                <button className="btn btn-secondary" onClick={() => changeMode(mode, { resume: true })}>
-                  Play Again
-                </button>
-              )}
+              <button className="btn btn-secondary" onClick={() => changeMode(mode, { resume: true })}>
+                Play Again
+              </button>
             </div>
           </div>
         </div>

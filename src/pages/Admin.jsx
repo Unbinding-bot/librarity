@@ -729,7 +729,8 @@ export default function Admin() {
           >
             <option value="daily">Daily</option>
             <option value="random">Random</option>
-            {/* Games can submit other modes (trivia difficulty ids). Keep the row's real mode selectable
+            {/* Games can submit other modes (trivia difficulty ids,
+                flashcards "unlimited"). Keep the row's real mode selectable
                 so editing doesn't silently rewrite it to daily. */}
             {!['daily', 'random'].includes(lbForm.game_mode) && lbForm.game_mode && (
               <option value={lbForm.game_mode}>{lbForm.game_mode}</option>

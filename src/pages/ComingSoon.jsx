@@ -32,6 +32,10 @@ const CONTENT = {
     title: 'Trivia',
     description: 'Test your general knowledge',
   },
+  flashcards: {
+    title: 'Flashcards',
+    description: 'Master any topic with flashcards',
+  },
   'wikipedia-race': {
     title: 'Wikipedia Race',
     description: 'Race to Wikipedia articles',
