@@ -13,7 +13,7 @@ export default defineConfig({
   plugins: [react()],
   base: BASE_PATH + '/',
   server: {
-    port: 3000,
+    port: 5173,
     strictPort: true
   },
   build: {
