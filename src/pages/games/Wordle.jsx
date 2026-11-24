@@ -4,6 +4,7 @@ import NamePrompt from '../../components/ui/NamePrompt'
 import { useToast } from '../../contexts/ToastContext'
 import { useGameState } from '../../contexts/GameStateContext'
 import { getDisplayName } from '../../lib/logbook'
+import { getTodayUTC8, getDaysSinceAnchorUTC8 } from '../../lib/dateUtils'
 
 import validWordsData from '../../assets/wordle-valid.json'
 import targetWordsData from '../../assets/wordle-targets.json'
@@ -129,7 +130,7 @@ export default function Wordle() {
   const finalSessionScoreRef = useRef(null) // session score snapshot for Submit Score after the session ends
   const startedRef = useRef(false)
 
-  const todayStr = new Date().toISOString().split('T')[0]
+  const todayStr = getTodayUTC8()
   const keyboardState = useMemo(
     () => buildKeyboardState(guesses.slice(0, revealedRows), word),
     [guesses, revealedRows, word],
@@ -154,8 +155,7 @@ export default function Wordle() {
       if (overrideWord) return overrideWord.toUpperCase()
     } catch {}
 
-    const start = new Date('2024-01-01')
-    const daysSince = Math.floor((new Date() - start) / 86400000)
+    const daysSince = getDaysSinceAnchorUTC8()
     return targetWordsData[Math.abs(daysSince) % targetWordsData.length].toUpperCase()
   }, [todayStr])
 
@@ -218,7 +218,7 @@ export default function Wordle() {
     if (modeRef.current === 'daily' && s.lastPlayedDaily === todayStr) {
       modeRef.current = 'unlimited'
       setMode('unlimited')
-      showToast('Daily challenge already done, switching to Unlimited mode', 'info')
+      showToast('Daily challenge already done, switching to Random mode', 'info')
     }
     startRound(modeRef.current)
   }, [startRound, showToast, todayStr])

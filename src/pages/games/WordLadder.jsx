@@ -4,6 +4,7 @@ import { useToast } from '../../contexts/ToastContext'
 import { useGameState } from '../../contexts/GameStateContext'
 import NamePrompt from '../../components/ui/NamePrompt'
 import { getDisplayName } from '../../lib/logbook'
+import { getTodayUTC8, getDaysSinceAnchorUTC8 } from '../../lib/dateUtils'
 
 import wordList from '../../assets/word-ladder-words.json'
 
@@ -191,11 +192,9 @@ export default function WordLadder() {
   const timerRef = useRef(null)
   const ladderScrollRef = useRef(null)
 
-  /** Day-index puzzle selection (deterministic, rotates daily). */
+  /** Day-index puzzle selection (deterministic, rotates daily at UTC+8 midnight). */
   function getPuzzleForToday() {
-    const start = new Date('2024-01-01')
-    const days = Math.abs(Math.floor((new Date() - start) / 86400000))
-    return generatePuzzle(days)
+    return generatePuzzle(getDaysSinceAnchorUTC8())
   }
 
   useEffect(() => { ladderRef.current = ladder }, [ladder])
@@ -220,15 +219,14 @@ export default function WordLadder() {
     startedRef.current = true
     const s = loadStats()
     setStats(s)
-    const todayStr = new Date().toISOString().split('T')[0]
+    const todayStr = getTodayUTC8()
     if (s.lastPlayedDaily === todayStr) {
       modeRef.current = 'random'
       setMode('random')
       showToast('Daily puzzle already done, switching to Random mode', 'info')
       startPuzzle(generatePuzzle())
     } else {
-      const days = Math.abs(Math.floor((new Date() - new Date('2024-01-01')) / 86400000))
-      startPuzzle(generatePuzzle(days))
+      startPuzzle(getPuzzleForToday())
     }
   }, [startPuzzle, showToast])
 
@@ -279,7 +277,7 @@ export default function WordLadder() {
       const avgSteps = s.totalSteps / s.puzzlesSolved
       const avgOptimal = optimal || avgSteps
       s.efficiency = Math.round((avgOptimal / avgSteps) * 100)
-      if (modeRef.current === 'daily') s.lastPlayedDaily = new Date().toISOString().split('T')[0]
+      if (modeRef.current === 'daily') s.lastPlayedDaily = getTodayUTC8()
       saveStats(s)
       setStats(s)
       return s
@@ -598,7 +596,7 @@ export default function WordLadder() {
       // Re-playing the same mode: in daily mode, fall back to random when
       // today's puzzle is already finished (same rule as Wordle).
       if (newMode === modeRef.current) {
-        if (newMode === 'daily' && loadStats().lastPlayedDaily === new Date().toISOString().split('T')[0]) {
+        if (newMode === 'daily' && loadStats().lastPlayedDaily === getTodayUTC8()) {
           modeRef.current = 'random'
           setMode('random')
           showToast('Daily puzzle already done, switching to Random mode', 'info')

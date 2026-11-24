@@ -4,6 +4,7 @@ import { useToast } from '../../contexts/ToastContext'
 import { useGameState } from '../../contexts/GameStateContext'
 import NamePrompt from '../../components/ui/NamePrompt'
 import { getDisplayName } from '../../lib/logbook'
+import { getTodayUTC8, getDaysSinceAnchorUTC8 } from '../../lib/dateUtils'
 
 import wordList from '../../assets/spelling-bee-words.json'
 
@@ -59,11 +60,9 @@ function generatePuzzle(seed = 0) {
   return buildPuzzleFromLetters(allSeven, center)
 }
 
-/** Day-index puzzle selection (deterministic, rotates daily). */
+/** Day-index puzzle selection (deterministic, rotates daily at UTC+8 midnight). */
 function getPuzzleForToday() {
-  const start = new Date('2024-01-01')
-  const days = Math.floor((new Date() - start) / 86400000)
-  return generatePuzzle(Math.abs(days))
+  return generatePuzzle(getDaysSinceAnchorUTC8())
 }
 
 const RANKS = [
@@ -227,7 +226,7 @@ export default function SpellingBee() {
   useEffect(() => { puzzleRef.current = puzzle }, [puzzle])
   useEffect(() => { foundRef.current = found }, [found])
 
-  const todayStr = new Date().toISOString().split('T')[0]
+  const todayStr = getTodayUTC8()
 
   const startPuzzle = useCallback(
     (p, reset) => {
@@ -251,7 +250,7 @@ export default function SpellingBee() {
     startedRef.current = true
     const s = loadStats()
     setStats(s)
-    const todayStr = new Date().toISOString().split('T')[0]
+    const todayStr = getTodayUTC8()
     if (s.lastPlayedDaily === todayStr) {
       modeRef.current = 'random'
       setMode('random')
@@ -314,12 +313,12 @@ export default function SpellingBee() {
         s.bestScore = puzzleScore
         s.bestRank = rankName
       }
-      if (modeRef.current === 'daily') s.lastPlayedDaily = todayStr
+      if (modeRef.current === 'daily') s.lastPlayedDaily = getTodayUTC8()
       saveStats(s)
       setStats(s)
       return s
     },
-    [modeRef, todayStr],
+    [modeRef],
   )
 
   const finishPuzzle = useCallback(() => {
@@ -455,7 +454,7 @@ export default function SpellingBee() {
       if (newMode === mode) {
         // Re-playing the same mode: in daily mode, fall back to random when
         // today's puzzle is already finished (same rule as Wordle).
-        if (newMode === 'daily' && loadStats().lastPlayedDaily === new Date().toISOString().split('T')[0]) {
+        if (newMode === 'daily' && loadStats().lastPlayedDaily === getTodayUTC8()) {
           modeRef.current = 'random'
           setMode('random')
           showToast('Daily puzzle already done, switching to Random mode', 'info')

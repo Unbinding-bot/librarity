@@ -22,6 +22,7 @@ Started: 2026-11-24 (Ralph loop) · Completed: 2026-11-25
 | WordLadder timer reset | Each round now restarts fresh at new limit (180→170→160), bar resets to 100% — implemented by clearing `unlimitedStartTimeRef.current` before bumping `unlimitedRound` state |
 | In-game replay buttons | All 5 games now show a "Play Again" button in the action bar after the unlimited session ends (modal closed) |
 | WikipediaRace exact match win | Fixed stale ref bug in `navigateToArticle` — now uses clicked title directly |
+| UTC+8 daily rotation | All 4 daily games (WordLadder, SpellingBee, WikipediaRace, Wordle) now use UTC+8 midnight for daily puzzle rotation — implemented via `src/lib/dateUtils.js` with `getTodayUTC8()` and `getDaysSinceAnchorUTC8()`; daily→Random fallback consistent across all games |
 
 ## Verification results
 

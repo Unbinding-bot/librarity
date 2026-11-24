@@ -21,6 +21,7 @@ Master plan: @unlimited-plan.md
 - 2026-11-25: Fixed WikipediaRace exact-match win bug (navigateToArticle used stale currentArticleRef.current instead of clicked title). test_wr_falsewin.py PASS (substring blocked), exact match win confirmed in daily mode (modal), unlimited mode (toast).
 - 2026-11-25: WordLadder timer now resets fresh each round (180→170→160) with bar back to full — implemented by clearing unlimitedStartTimeRef.current before bumping unlimitedRound state.
 - 2026-11-25: All 5 games now have in-game "Play Again" button that appears after unlimited session ends (modal closed).
+- 2026-11-25: UTC+8 daily rotation implemented for all 4 daily games (WordLadder, SpellingBee, WikipediaRace, Wordle) via new `src/lib/dateUtils.js` — `getTodayUTC8()` and `getDaysSinceAnchorUTC8()`; daily→Random fallback consistent across all games.
 - All 5 games: build ✅, live browser verification ✅, zero regressions.
 
 ## Notes
