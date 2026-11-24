@@ -159,6 +159,13 @@ function rankFor(score, max) {
   return current
 }
 
+/** Format seconds as M:SS */
+function formatTime(s) {
+  const mins = Math.floor(s / 60)
+  const secs = s % 60
+  return `${mins}:${String(secs).padStart(2, '0')}`
+}
+
 export default function SpellingBee() {
   const { showToast } = useToast()
 
@@ -177,6 +184,15 @@ export default function SpellingBee() {
   const [result, setResult] = useState(null)
   const [stats, setStats] = useState(() => loadStats())
   const [shake, setShake] = useState(false)
+  // Cumulative session score — players can keep playing and their total grows
+  const [sessionScore, setSessionScore] = useState(0)
+
+  // Unlimited-specific state
+  const [unlimitedTimeLimit, setUnlimitedTimeLimit] = useState(300) // 5:00 in seconds
+  const [unlimitedElapsed, setUnlimitedElapsed] = useState(0)
+  const unlimitedPausedRef = useRef(false)
+  const unlimitedGameOverRef = useRef(false)
+  const unlimitedRoundRef = useRef(0)
 
   const startedRef = useRef(false)
   const puzzleRef = useRef(puzzle)
@@ -243,6 +259,38 @@ export default function SpellingBee() {
     }
   }, [startPuzzle, showToast])
 
+  // Timer tick for unlimited mode
+  const unlimitedStartTimeRef = useRef(null)
+  useEffect(() => {
+    if (mode !== 'unlimited' || unlimitedPausedRef.current || unlimitedGameOverRef.current) return
+    if (!unlimitedStartTimeRef.current) {
+      unlimitedStartTimeRef.current = Date.now() - unlimitedElapsed * 1000
+    }
+    const timer = setInterval(() => {
+      if (!unlimitedPausedRef.current && !unlimitedGameOverRef.current) {
+        setUnlimitedElapsed(Math.floor((Date.now() - unlimitedStartTimeRef.current) / 1000))
+      }
+    }, 500)
+    return () => clearInterval(timer)
+  }, [mode])
+
+  // Check time up in unlimited mode
+  useEffect(() => {
+    if (mode !== 'unlimited' || unlimitedPausedRef.current || unlimitedGameOverRef.current) return
+    if (unlimitedElapsed >= unlimitedTimeLimit) {
+      unlimitedGameOverRef.current = true
+      const finalScore = sessionScore
+      setResult({
+        title: 'Out of Time!',
+        message: `You found ${found.length} words and scored ${finalScore} points.`,
+        totalScore: finalScore,
+        words: found.length,
+        stats: loadStats(),
+      })
+      doSubmitScore(finalScore)
+    }
+  }, [unlimitedElapsed, unlimitedTimeLimit, mode, sessionScore, doSubmitScore, found])
+
   const score = useMemo(() => found.reduce((a, f) => a + f.pts, 0), [found])
   const rank = useMemo(() => rankFor(score, maxScore_), [score, maxScore_])
   const pangramsFound = useMemo(() => found.filter((f) => f.pangram).length, [found])
@@ -272,18 +320,20 @@ export default function SpellingBee() {
     const puzzleScore = f.reduce((a, x) => a + x.pts, 0)
     const r = rankFor(puzzleScore, maxScoreRef.current ?? maxScore_)
     const s = updateStats(puzzleScore, r.name, f.filter((x) => x.pangram).length, f.length)
+    setSessionScore(prev => prev + puzzleScore)
     setResult({
       title: puzzleScore === maxScore_ ? 'Queen Bee!' : `${r.name}`,
       message: `You found ${f.length} word${f.length === 1 ? '' : 's'} for ${puzzleScore} points.`,
       score: puzzleScore,
       max: maxScore_,
+      totalScore: sessionScore + puzzleScore,
       words: f.length,
       pangrams: f.filter((x) => x.pangram).length,
       stats: s,
     })
-    // auto-submit to leaderboard
-    doSubmitScore(puzzleScore)
-  }, [maxScore_, updateStats, doSubmitScore])
+    // auto-submit to leaderboard (session cumulative)
+    doSubmitScore(sessionScore + puzzleScore)
+  }, [maxScore_, updateStats, doSubmitScore, sessionScore])
 
   // maxScoreRef for use inside finishPuzzle without dependency loop
   const maxScoreRef = useRef(maxScore_)
@@ -340,7 +390,12 @@ export default function SpellingBee() {
     if (rankFor(totalAfter, maxScoreRef.current).name === 'Queen Bee') {
       setTimeout(() => finishPuzzle(), 600)
     }
-  }, [current, showToast, finishPuzzle])
+
+    // In unlimited mode, add 10 seconds for each valid word
+    if (mode === 'unlimited' && !unlimitedPausedRef.current && !unlimitedGameOverRef.current) {
+      setUnlimitedTimeLimit(prev => prev + 10)
+    }
+  }, [current, showToast, finishPuzzle, mode])
 
   const handleKey = useCallback(
     (letter) => {
@@ -390,9 +445,33 @@ export default function SpellingBee() {
     [mode, finishPuzzle, startPuzzle, showToast],
   )
 
-  const shuffleLetters = useCallback(() => {
-    setShuffleSeed((s) => s + 1)
+  /** Toggle pause for unlimited mode */
+  const togglePause = useCallback(() => {
+    unlimitedPausedRef.current = !unlimitedPausedRef.current
   }, [])
+
+  /** End unlimited session early */
+  const endUnlimitedSession = useCallback(() => {
+    unlimitedGameOverRef.current = true
+    const finalScore = sessionScore
+    setResult({
+      title: 'Session Over!',
+      message: `You found ${found.length} words and scored ${finalScore} points.`,
+      totalScore: finalScore,
+      words: found.length,
+      stats: loadStats(),
+    })
+    doSubmitScore(finalScore)
+  }, [sessionScore, found, doSubmitScore])
+
+  const shuffleLetters = useCallback(() => {
+    // In unlimited mode, reshuffling costs 60 seconds
+    if (mode === 'unlimited') {
+      setUnlimitedTimeLimit(prev => Math.max(0, prev - 60))
+      showToast('-60s for reshuffle', 'warning')
+    }
+    setShuffleSeed((s) => s + 1)
+  }, [mode])
 
   // honeycomb arrangement
   const hiveLayout = useMemo(() => {
@@ -419,7 +498,7 @@ export default function SpellingBee() {
     <GameShell
       title="Spelling Bee"
       accent="var(--nb-orange)"
-      subtitle="How many words can you make with 7 letters?"
+      subtitle={mode === 'unlimited' ? 'Find as many words as you can before time runs out!' : 'How many words can you make with 7 letters?'}
       controls={
         <>
           <button className={`mode-btn${mode === 'daily' ? ' active' : ''}`} onClick={() => changeMode('daily')}>
@@ -428,87 +507,151 @@ export default function SpellingBee() {
           <button className={`mode-btn${mode === 'random' ? ' active' : ''}`} onClick={() => changeMode('random')}>
             Random
           </button>
+          <button className={`mode-btn${mode === 'unlimited' ? ' active' : ''}`} onClick={() => {
+            if (mode === 'unlimited') {
+              // Restart unlimited
+              unlimitedGameOverRef.current = false
+              unlimitedPausedRef.current = false
+              unlimitedRoundRef.current = 0
+              setUnlimitedTimeLimit(300)
+              setUnlimitedElapsed(0)
+              unlimitedStartTimeRef.current = null
+              setSessionScore(0)
+              startPuzzle(generatePuzzle(), true)
+            } else {
+              changeMode('unlimited')
+            }
+          }}>
+            Unlimited
+          </button>
+          {mode === 'unlimited' && !unlimitedGameOverRef.current && (
+            <button className="btn btn-sm btn-outline" onClick={togglePause}>
+              {unlimitedPausedRef.current ? '▶ Resume' : '⏸ Pause'}
+            </button>
+          )}
           <button className="icon-btn" title="Shuffle" onClick={shuffleLetters}>Shuffle</button>
           <button className="icon-btn" title="How to play" onClick={() => setShowHelp(true)}>Help</button>
           <button className="icon-btn" title="Stats" onClick={() => setShowStats(true)}>Stats</button>
         </>
       }
     >
-      {/* rank progress bar */}
-      <div className="sb-rank-bar">
-        <div className="sb-rank-label">
-          <span className="sb-rank-name">{rank.name}</span>
-          <span className="sb-rank-score">{score} / {maxScore_}</span>
-        </div>
-        <div className="sb-rank-track">
-          {RANKS.map((r) => (
+      {/* Timer bar for unlimited mode */}
+      {mode === 'unlimited' && !unlimitedGameOverRef.current && (
+        <div className="sb-unlimited-timer">
+          <div className="sb-unlimited-timer-track">
             <div
-              key={r.name}
-              className={`sb-rank-tick${maxScore_ > 0 && (score / maxScore_) * 100 >= r.pct ? ' reached' : ''}`}
-              style={{ left: `${r.pct}%` }}
-              title={`${r.name} (${r.pct}%)`}
+              className="sb-unlimited-timer-fill"
+              style={{
+                width: `${Math.min(100, (unlimitedElapsed / unlimitedTimeLimit) * 100)}%`,
+                backgroundColor: unlimitedTimeLimit - unlimitedElapsed < 30 ? 'var(--nb-red)' : undefined,
+              }}
             />
-          ))}
-          <div
-            className="sb-rank-fill"
-            style={{ width: maxScore_ > 0 ? `${Math.min(100, (score / maxScore_) * 100)}%` : '0%' }}
-          />
+          </div>
+          <span className="sb-unlimited-timer-text">
+            {formatTime(Math.max(0, unlimitedTimeLimit - unlimitedElapsed))}
+          </span>
         </div>
-      </div>
+      )}
+
+      {/* Session score for unlimited */}
+      {mode === 'unlimited' && (
+        <div className="game-action-bar">
+          <span className="game-action-bar-label">
+            Session Score: {sessionScore + score} · +10s per word · Shuffle: −60s
+          </span>
+          <div className="game-action-bar-btns">
+            <button className="btn btn-sm btn-secondary" onClick={endUnlimitedSession}>
+              End Session
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* rank progress bar */}
+      {!unlimitedGameOverRef.current && (
+        <div className="sb-rank-bar">
+          <div className="sb-rank-label">
+            <span className="sb-rank-name">{rank.name}</span>
+            <span className="sb-rank-score">{score} / {maxScore_}</span>
+          </div>
+          <div className="sb-rank-track">
+            {RANKS.map((r) => (
+              <div
+                key={r.name}
+                className={`sb-rank-tick${maxScore_ > 0 && (score / maxScore_) * 100 >= r.pct ? ' reached' : ''}`}
+                style={{ left: `${r.pct}%` }}
+                title={`${r.name} (${r.pct}%)`}
+              />
+            ))}
+            <div
+              className="sb-rank-fill"
+              style={{ width: maxScore_ > 0 ? `${Math.min(100, (score / maxScore_) * 100)}%` : '0%' }}
+            />
+          </div>
+        </div>
+      )}
 
       {/* current input */}
-      <div className={`sb-current${shake ? ' shake' : ''}`} data-testid="sb-current">
-        {current.split('').map((c, i) => (
-          <span key={i} className={c === puzzle.center ? 'sb-center-letter' : ''}>{c}</span>
-        ))}
-        {current.length === 0 && <span className="sb-placeholder">Type or click letters…</span>}
-      </div>
+      {!unlimitedGameOverRef.current && (
+        <div className={`sb-current${shake ? ' shake' : ''}`} data-testid="sb-current">
+          {current.split('').map((c, i) => (
+            <span key={i} className={c === puzzle.center ? 'sb-center-letter' : ''}>{c}</span>
+          ))}
+          {current.length === 0 && <span className="sb-placeholder">Type or click letters…</span>}
+        </div>
+      )}
 
       {/* honeycomb */}
-      <div className="sb-hive" data-testid="sb-hive">
-        {hiveLayout.map((row, ri) => (
-          <div className="sb-hive-row" key={ri}>
-            {row.map((letter, li) => (
-              <button
-                key={li}
-                className={`hex-cell${letter === puzzle.center ? ' hex-center' : ''}`}
-                onClick={() => handleKey(letter)}
-                data-testid={`hex-${letter}`}
-              >
-                <svg className="hex-shape" viewBox="0 0 84 96" aria-hidden="true">
-                  <polygon points="42,0 84,24 84,72 42,96 0,72 0,24" />
-                </svg>
-                <span className="hex-letter">{letter}</span>
-              </button>
-            ))}
-          </div>
-        ))}
-      </div>
+      {!unlimitedGameOverRef.current && (
+        <div className="sb-hive" data-testid="sb-hive">
+          {hiveLayout.map((row, ri) => (
+            <div className="sb-hive-row" key={ri}>
+              {row.map((letter, li) => (
+                <button
+                  key={li}
+                  className={`hex-cell${letter === puzzle.center ? ' hex-center' : ''}`}
+                  onClick={() => handleKey(letter)}
+                  data-testid={`hex-${letter}`}
+                >
+                  <svg className="hex-shape" viewBox="0 0 84 96" aria-hidden="true">
+                    <polygon points="42,0 84,24 84,72 42,96 0,72 0,24" />
+                  </svg>
+                  <span className="hex-letter">{letter}</span>
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* submit button */}
-      <div className="sb-actions">
-        <button className="btn btn-primary" onClick={submitWord} data-testid="sb-submit">
-          Submit
-        </button>
-        <button className="btn btn-outline" onClick={() => setCurrent((c) => c.slice(0, -1))}>
-          ⌫ Delete
-        </button>
-      </div>
-
-      {/* found words */}
-      <div className="game-action-bar" data-testid="sb-found-bar">
-        <span className="game-action-bar-label">
-          Found: {found.length} word{found.length === 1 ? '' : 's'} · {pangramsFound} pangram{pangramsFound === 1 ? '' : 's'}
-        </span>
-        <div className="game-action-bar-btns">
-          <button className="btn btn-sm btn-secondary" onClick={() => setShowFound(true)}>
-            View List
+      {!unlimitedGameOverRef.current && (
+        <div className="sb-actions">
+          <button className="btn btn-primary" onClick={submitWord} data-testid="sb-submit">
+            Submit
           </button>
-          <button className="btn btn-sm btn-outline" onClick={finishPuzzle} data-testid="sb-finish">
-            Finish
+          <button className="btn btn-outline" onClick={() => setCurrent((c) => c.slice(0, -1))}>
+            ⌫ Delete
           </button>
         </div>
-      </div>
+      )}
+
+      {/* found words */}
+      {!unlimitedGameOverRef.current && (
+        <div className="game-action-bar" data-testid="sb-found-bar">
+          <span className="game-action-bar-label">
+            Found: {found.length} word{found.length === 1 ? '' : 's'} · {pangramsFound} pangram{pangramsFound === 1 ? '' : 's'}
+          </span>
+          <div className="game-action-bar-btns">
+            <button className="btn btn-sm btn-secondary" onClick={() => setShowFound(true)}>
+              View List
+            </button>
+            <button className="btn btn-sm btn-outline" onClick={finishPuzzle} data-testid="sb-finish">
+              Finish
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Help modal */}
       {showHelp && (
@@ -520,6 +663,7 @@ export default function SpellingBee() {
             <li>4-letter words score 1 point; longer words score one point per letter.</li>
             <li>A <strong>pangram</strong>, a word using all 7 letters, earns a <strong>+7 bonus</strong>.</li>
             <li>Reach <strong>Queen Bee</strong> (100% of the max score) to win the crown.</li>
+            <li><strong>Unlimited Mode:</strong> You have 5 minutes. Find words to earn +10 seconds. Shuffle letters for −60 seconds. Keep going until time runs out!</li>
           </ul>
         </Modal>
       )}
@@ -576,26 +720,42 @@ export default function SpellingBee() {
             <button className="result-close" onClick={() => setResult(null)}>×</button>
             <div className="result-title">{result.title}</div>
             <div className="result-message">{result.message}</div>
-            <div className="result-stats">
-              <div className="result-stat">
-                <span className="result-stat-value">{result.score}</span>
-                <span className="result-stat-label">Score</span>
+            {result.score !== undefined && (
+              <div className="result-stats">
+                <div className="result-stat">
+                  <span className="result-stat-value">{result.score}</span>
+                  <span className="result-stat-label">Score</span>
+                </div>
+                <div className="result-stat">
+                  <span className="result-stat-value">{result.words}</span>
+                  <span className="result-stat-label">Words</span>
+                </div>
+                {result.pangrams !== undefined && (
+                  <div className="result-stat">
+                    <span className="result-stat-value">{result.pangrams}</span>
+                    <span className="result-stat-label">Pangrams</span>
+                  </div>
+                )}
               </div>
-              <div className="result-stat">
-                <span className="result-stat-value">{result.words}</span>
-                <span className="result-stat-label">Words</span>
-              </div>
-              <div className="result-stat">
-                <span className="result-stat-value">{result.pangrams}</span>
-                <span className="result-stat-label">Pangrams</span>
-              </div>
-            </div>
+            )}
             <div className="result-actions">
               <button
                 className="btn btn-secondary"
                 onClick={() => {
                   setResult(null)
-                  changeMode(mode)
+                  if (mode === 'unlimited') {
+                    // Restart unlimited
+                    unlimitedGameOverRef.current = false
+                    unlimitedPausedRef.current = false
+                    unlimitedRoundRef.current = 0
+                    setUnlimitedTimeLimit(300)
+                    setUnlimitedElapsed(0)
+                    unlimitedStartTimeRef.current = null
+                    setSessionScore(0)
+                    startPuzzle(generatePuzzle(), true)
+                  } else {
+                    changeMode(mode)
+                  }
                 }}
               >
                 Play Again
