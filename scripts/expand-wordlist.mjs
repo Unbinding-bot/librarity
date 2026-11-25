@@ -1,9 +1,9 @@
 // Expand the Spelling Bee word list by merging base words with suffix/prefix expansions
-// and the dwyl/english-words repository.
+// and the harshnative/words-dataset repository.
 //
 // This script reads:
 // - src/assets/spelling-bee-words.json (base words)
-// - C:/tmp/dwyl-words/words.txt (additional source - larger word list)
+// - C:/tmp/words-dataset/wordsFreq.csv (additional source - 494,877 valid words)
 //
 // And writes:
 // - src/assets/spelling-bee-words.json (expanded, deduplicated)
@@ -18,16 +18,19 @@ const BASE_JSON_PATH = path.join(BASE_PATH, 'src', 'assets', 'spelling-bee-words
 const raw = JSON.parse(fs.readFileSync(BASE_JSON_PATH, 'utf8')).map(String).map(s => s.toUpperCase());
 const base = new Set(raw);
 
-// Load additional words from dwyl/english-words (words.txt = ~837k total, ~324k valid 4-11 letter words)
-const DWWL_PATH = 'C:/tmp/dwyl-words/words.txt';
+// Load additional words from harshnative/words-dataset (wordsFreq.csv = 494,877 valid 4-11 letter words)
+const DWWL_PATH = 'C:/tmp/words-dataset/wordsFreq.csv';
 const dwylWords = fs.existsSync(DWWL_PATH)
-  ? fs.readFileSync(DWWL_PATH, 'utf8').split('\n').map(s => s.trim().toUpperCase()).filter(s => s.length >= 4)
+  ? fs.readFileSync(DWWL_PATH, 'utf8').split('\n').slice(1).filter(l => l.trim()).map(l => {
+      const parts = l.split(',');
+      return parts[1] ? parts[1].toUpperCase() : '';
+    }).filter(w => w.length >= 4)
   : [];
 
 console.log('Base words:', base.size);
-console.log('dwyl words (raw):', dwylWords.length);
+console.log('words-dataset raw:', dwylWords.length);
 
-// Use dwyl as primary source - take all valid 4-11 letter words
+// Use words-dataset as primary source - take all valid 4-11 letter words
 const dwylValid = new Set(dwylWords.filter(w => {
   if (w.length < 4 || w.length > 11) return false;
   if (!/^[A-Z]+$/.test(w)) return false;
@@ -36,10 +39,10 @@ const dwylValid = new Set(dwylWords.filter(w => {
   return true;
 }));
 
-console.log('dwyl filtered for game:', dwylValid.size);
+console.log('words-dataset filtered for game:', dwylValid.size);
 
-// Generate suffix variations ONLY from base words that are NOT already in dwyl
-// This avoids doubling up (e.g., "ACT" + "S" = "ACTS" which is already in dwyl)
+// Generate suffix variations ONLY from base words that are NOT already in words-dataset
+// This avoids doubling up (e.g., "ACT" + "S" = "ACTS" which is already in dataset)
 const generateSuffixes = (word) => {
   const variants = new Set();
   // Skip words that already end with likely suffixes (avoid over-compounding)
@@ -81,7 +84,7 @@ const generateSuffixes = (word) => {
 
 const generated = new Set();
 for (const word of base) {
-  // Only generate for words not in dwyl (to avoid duplication and odd compounds)
+  // Only generate for words not in words-dataset (to avoid duplication and odd compounds)
   if (dwylValid.has(word)) continue;
   const variants = generateSuffixes(word);
   for (const v of variants) {
@@ -93,7 +96,7 @@ for (const word of base) {
 
 console.log('Generated variants (new):', generated.size);
 
-// Merge: dwyl words + generated variants from base words
+// Merge: words-dataset + generated variants from base words
 const expanded = Array.from(new Set([...dwylValid, ...generated])).sort();
 
 fs.writeFileSync(BASE_JSON_PATH, JSON.stringify(expanded));
