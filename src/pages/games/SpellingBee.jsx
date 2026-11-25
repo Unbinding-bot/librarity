@@ -215,7 +215,10 @@ export default function SpellingBee() {
     async (score) => {
       try {
         const username = await new Promise((resolve) => setNamePrompt({ resolve }))
-        if (!username) return
+        if (!username) {
+          showToast('Score submission cancelled', 'info')
+          return
+        }
         await recordScore({
           gameType: 'spelling_bee',
           gameMode: modeRef.current,
