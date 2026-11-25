@@ -3,7 +3,7 @@
 //
 // This script reads:
 // - src/assets/spelling-bee-words.json (base words)
-// - C:/tmp/dwyl-words/words_alpha.txt (additional source)
+// - C:/tmp/dwyl-words/words.txt (additional source - larger word list)
 //
 // And writes:
 // - src/assets/spelling-bee-words.json (expanded, deduplicated)
@@ -18,8 +18,8 @@ const BASE_JSON_PATH = path.join(BASE_PATH, 'src', 'assets', 'spelling-bee-words
 const raw = JSON.parse(fs.readFileSync(BASE_JSON_PATH, 'utf8')).map(String).map(s => s.toUpperCase());
 const base = new Set(raw);
 
-// Load additional words from dwyl/english-words (words_alpha.txt = ~370k common English words)
-const DWWL_PATH = 'C:/tmp/dwyl-words/words_alpha.txt';
+// Load additional words from dwyl/english-words (words.txt = ~837k total, ~324k valid 4-11 letter words)
+const DWWL_PATH = 'C:/tmp/dwyl-words/words.txt';
 const dwylWords = fs.existsSync(DWWL_PATH)
   ? fs.readFileSync(DWWL_PATH, 'utf8').split('\n').map(s => s.trim().toUpperCase()).filter(s => s.length >= 4)
   : [];
