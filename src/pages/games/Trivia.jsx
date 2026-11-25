@@ -130,7 +130,7 @@ export default function Trivia() {
   const [namePrompt, setNamePrompt] = useState(null)
 
   const doSubmitScore = useCallback(
-    async (score) => {
+    async (score, questionsAnswered) => {
       try {
         const username = await new Promise((resolve) => setNamePrompt({ resolve }))
         if (!username) return
@@ -139,7 +139,8 @@ export default function Trivia() {
           gameMode: difficulty,
           playerName: username || getDisplayName(),
           score,
-          timeTaken: null,
+          // Leaderboard reuses time_taken to show the number of questions played
+          timeTaken: questionsAnswered ?? null,
         })
         showToast(`Score submitted as "${username}"!`, 'success')
       } catch (err) {
@@ -276,10 +277,10 @@ export default function Trivia() {
       const grade = gradeFor(pct)
       setResult({ score: finalScore, correct: finalCorrect, total: totalQuestions, pct, grade })
       setScreen('results')
-      // auto-submit to leaderboard
-      doSubmitScore(finalScore)
+      // auto-submit to leaderboard (questions answered shown in the Time column)
+      doSubmitScore(finalScore, totalQuestions)
     },
-    [category],
+    [category, doSubmitScore],
   )
 
   const giveUp = useCallback(() => {

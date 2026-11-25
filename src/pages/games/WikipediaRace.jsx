@@ -267,7 +267,9 @@ export default function WikipediaRace() {
           gameMode: modeRef.current,
           playerName: username || getDisplayName(),
           score,
-          timeTaken: resultRef.current?.seconds ?? null,
+          timeTaken: modeRef.current === 'unlimited'
+            ? unlimitedRoundRef.current
+            : resultRef.current?.seconds ?? null,
         })
         showToast(`Score submitted as "${username}"!`, 'success')
       } catch (err) {

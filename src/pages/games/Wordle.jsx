@@ -128,6 +128,7 @@ export default function Wordle() {
   const modeRef = useRef('daily')
   const unlimitedRef = useRef({ active: false, round: 0, score: 0, streak: 0 })
   const finalSessionScoreRef = useRef(null) // session score snapshot for Submit Score after the session ends
+  const finalSessionRoundsRef = useRef(null) // session rounds snapshot for Submit Score after the session ends
   const startedRef = useRef(false)
 
   const todayStr = getTodayUTC8()
@@ -302,6 +303,7 @@ export default function Wordle() {
   const resetUnlimitedState = useCallback(() => {
     unlimitedRef.current = { active: false, round: 0, score: 0, streak: 0 }
     finalSessionScoreRef.current = null
+    finalSessionRoundsRef.current = null
     setUnlimitedActive(false)
     setUnlimitedRound(0)
     setUnlimitedScore(0)
@@ -315,8 +317,10 @@ export default function Wordle() {
     // modal's Submit Score reads this after the session state is gone
     // (reading unlimitedRef.current.score directly submitted 0).
     finalSessionScoreRef.current = u.score
-    // Invalidate in-flight round timeouts (e.g. the 1800ms auto-next-restart
-    // from handleWin) so they can't startRound behind this modal and wipe it.
+    // Snapshot the completed-round count too, for the leaderboard's
+    // "X rounds" column. resetUnlimitedState() below nulls unlimitedRef AND
+    // these snapshots (fresh session = no stale values), but the snapshots
+    // are re-taken at the end of this function AFTER the reset.
     roundIdRef.current += 1
     setResult({
       title: u.round > 1 ? 'Session Over!' : 'Unlucky!',
@@ -326,6 +330,12 @@ export default function Wordle() {
     })
     lastAttemptsRef.current = null
     resetUnlimitedState()
+    // Re-snapshot AFTER resetUnlimitedState zeroed the refs — the modal's
+    // Submit Score (lastAttemptsRef === null) reads exactly these. Rounds
+    // completed = u.round - 1 (the current round was lost), matching the
+    // session summary displayed above.
+    finalSessionScoreRef.current = u.score
+    finalSessionRoundsRef.current = Math.max(0, u.round - 1)
   }, [resetUnlimitedState])
 
   const giveUp = useCallback(() => {
@@ -488,12 +498,24 @@ export default function Wordle() {
           ? finalSessionScoreRef.current ?? 0
           : (7 - Math.min(attempts, 6)) * 1000
 
+      // For unlimited mode, submit round count instead of null so the
+      // leaderboard shows "X rounds" instead of time. The snapshot path
+      // (lastAttemptsRef === null, session already ended) reads the rounds
+      // captured by endUnlimitedSession; a mid-session submit reads the
+      // live counter.
+      const timeTaken =
+        modeRef.current === 'unlimited'
+          ? (lastAttemptsRef.current === null
+            ? finalSessionRoundsRef.current ?? unlimitedRef.current.round
+            : unlimitedRef.current.round)
+          : null
+
       await recordScore({
         gameType: 'wordle',
         gameMode: modeRef.current,
         playerName: username || getDisplayName(),
         score,
-        timeTaken: null,
+        timeTaken,
       })
       showToast(`Score submitted as "${username}"!`, 'success')
     } catch (err) {

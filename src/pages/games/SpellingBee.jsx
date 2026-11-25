@@ -190,6 +190,10 @@ export default function SpellingBee() {
   const [shake, setShake] = useState(false)
   // Cumulative session score — players can keep playing and their total grows
   const [sessionScore, setSessionScore] = useState(0)
+  const sessionScoreRef = useRef(0)
+  // Cumulative session word count — for leaderboard "words" display and session-over message
+  const [sessionWords, setSessionWords] = useState(0)
+  const sessionWordsRef = useRef(0)
 
   // Unlimited-specific state
   const [unlimitedTimeLimit, setUnlimitedTimeLimit] = useState(300) // 5:00 in seconds
@@ -217,7 +221,7 @@ export default function SpellingBee() {
           gameMode: modeRef.current,
           playerName: username || getDisplayName(),
           score,
-          timeTaken: null,
+          timeTaken: sessionWordsRef.current,
         })
         showToast(`Score submitted as "${username}"!`, 'success')
       } catch (err) {
@@ -246,6 +250,15 @@ export default function SpellingBee() {
       setResult(null)
       setShuffleSeed((s) => s + 1)
       setLoading(false)
+      // Non-unlimited puzzles each start a fresh count — the session total
+      // only accumulates across puzzles in unlimited mode. (Unlimited resets
+      // happen in resetUnlimitedState.)
+      if (modeRef.current !== 'unlimited') {
+        setSessionScore(0)
+        sessionScoreRef.current = 0
+        setSessionWords(0)
+        sessionWordsRef.current = 0
+      }
     },
     [],
   )
@@ -291,17 +304,18 @@ export default function SpellingBee() {
     if (unlimitedElapsed >= unlimitedTimeLimit) {
       unlimitedGameOverRef.current = true
       clearInterval(timerRef.current)
-      const finalScore = sessionScore
+      const finalScore = sessionScoreRef.current
+      const finalWords = sessionWordsRef.current
       setResult({
         title: 'Out of Time!',
-        message: `You found ${found.length} words and scored ${finalScore} points.`,
+        message: `You found ${finalWords} words and scored ${finalScore} points.`,
         totalScore: finalScore,
-        words: found.length,
+        words: finalWords,
         stats: loadStats(),
       })
       doSubmitScore(finalScore)
     }
-  }, [unlimitedElapsed, unlimitedTimeLimit, mode, sessionScore, doSubmitScore, found])
+  }, [unlimitedElapsed, unlimitedTimeLimit, mode, doSubmitScore])
 
   const score = useMemo(() => found.reduce((a, f) => a + f.pts, 0), [found])
   const rank = useMemo(() => rankFor(score, maxScore_), [score, maxScore_])
@@ -332,20 +346,22 @@ export default function SpellingBee() {
     const puzzleScore = f.reduce((a, x) => a + x.pts, 0)
     const r = rankFor(puzzleScore, maxScoreRef.current ?? maxScore_)
     const s = updateStats(puzzleScore, r.name, f.filter((x) => x.pangram).length, f.length)
-    setSessionScore(prev => prev + puzzleScore)
+    // submitWord() already added each word's points to the session total as it
+    // went, so the score must NOT be added again here — that double-counted
+    // every word but the last on the leaderboard.
     setResult({
       title: puzzleScore === maxScore_ ? 'Queen Bee!' : `${r.name}`,
       message: `You found ${f.length} word${f.length === 1 ? '' : 's'} for ${puzzleScore} points.`,
       score: puzzleScore,
       max: maxScore_,
-      totalScore: sessionScore + puzzleScore,
+      totalScore: sessionScoreRef.current,
       words: f.length,
       pangrams: f.filter((x) => x.pangram).length,
       stats: s,
     })
     // auto-submit to leaderboard (session cumulative)
-    doSubmitScore(sessionScore + puzzleScore)
-  }, [maxScore_, updateStats, doSubmitScore, sessionScore])
+    doSubmitScore(sessionScoreRef.current)
+  }, [maxScore_, updateStats, doSubmitScore])
 
   // maxScoreRef for use inside finishPuzzle without dependency loop
   const maxScoreRef = useRef(maxScore_)
@@ -401,6 +417,10 @@ export default function SpellingBee() {
 
     // Update session score immediately so HUD reflects current total
     setSessionScore(prev => prev + pts)
+    sessionScoreRef.current += pts
+    // Update session word count for leaderboard display and session-over message
+    setSessionWords(prev => prev + 1)
+    sessionWordsRef.current += 1
 
     // Auto-finish on reaching Queen Bee rank
     const totalAfter = next.reduce((a, x) => a + x.pts, 0)
@@ -452,6 +472,8 @@ export default function SpellingBee() {
     setUnlimitedElapsed(0)
     unlimitedStartTimeRef.current = null
     setSessionScore(0)
+    setSessionWords(0)
+    sessionWordsRef.current = 0
   }, [])
 
   const changeMode = useCallback(
@@ -474,6 +496,14 @@ export default function SpellingBee() {
       // flags can't hide the hive in the next mode.
       if (mode === 'unlimited') {
         resetUnlimitedState()
+      }
+      // Entering unlimited starts a fresh session — a partial non-unlimited
+      // puzzle's score/words must not leak into the unlimited total.
+      if (newMode === 'unlimited' && mode !== 'unlimited') {
+        setSessionScore(0)
+        sessionScoreRef.current = 0
+        setSessionWords(0)
+        sessionWordsRef.current = 0
       }
       modeRef.current = newMode
       setMode(newMode)
@@ -508,22 +538,25 @@ export default function SpellingBee() {
   /** End unlimited session early */
   const endUnlimitedSession = useCallback(() => {
     unlimitedGameOverRef.current = true
-    const finalScore = sessionScore
+    const finalScore = sessionScoreRef.current
+    const finalWords = sessionWordsRef.current
     setResult({
       title: 'Session Over!',
-      message: `You found ${found.length} words and scored ${finalScore} points.`,
+      message: `You found ${finalWords} words and scored ${finalScore} points.`,
       totalScore: finalScore,
-      words: found.length,
+      words: finalWords,
       stats: loadStats(),
     })
     doSubmitScore(finalScore)
-  }, [sessionScore, found, doSubmitScore])
+  }, [doSubmitScore])
 
   const giveUp = useCallback(() => {
     if (mode === 'unlimited') {
       endUnlimitedSession()
     } else {
-      const finalScore = sessionScore + score
+      // Non-unlimited: sessionScore is 0 (submitWord adds to it only in the
+      // same session) — submit the current puzzle's score directly.
+      const finalScore = score
       setResult({
         title: 'Game Over',
         message: `You found ${found.length} words and scored ${finalScore} points.`,
@@ -533,7 +566,7 @@ export default function SpellingBee() {
       })
       doSubmitScore(finalScore)
     }
-  }, [mode, endUnlimitedSession, sessionScore, score, found, doSubmitScore])
+  }, [mode, endUnlimitedSession, score, found, doSubmitScore])
 
   const shuffleLetters = useCallback(() => {
     // Free: just permutes hex positions visually — same letters, different layout
@@ -689,7 +722,7 @@ export default function SpellingBee() {
       {/* In-game replay button after unlimited session ends (modal closed) */}
       {mode === 'unlimited' && unlimitedGameOverRef.current && !result && !paused && (
         <div className="game-action-bar">
-          <span className="game-action-bar-label">Session complete — {sessionScore} points, {found.length} words</span>
+          <span className="game-action-bar-label">Session complete — {sessionScore} points, {sessionWords} words</span>
           <div className="game-action-bar-btns">
             <button className="btn btn-sm btn-primary" onClick={() => changeMode('unlimited')}>
               Play Again
