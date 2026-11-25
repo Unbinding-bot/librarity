@@ -290,12 +290,14 @@ export default function WordLadder() {
       try {
         const username = await new Promise((resolve) => setNamePrompt({ resolve }))
         if (!username) return
+        // Unlimited mode stores round count as time_taken; daily/random store elapsed seconds
+        const timeTaken = modeRef.current === 'unlimited' ? unlimitedRoundRef.current : resultRef.current?.time ?? null
         await recordScore({
           gameType: 'word_ladder',
           gameMode: modeRef.current,
           playerName: username || getDisplayName(),
           score,
-          timeTaken: resultRef.current?.time ?? null,
+          timeTaken,
         })
         showToast(`Score submitted as "${username}"!`, 'success')
       } catch (err) {

@@ -272,7 +272,7 @@ export default function Leaderboard() {
                     <td className="lb-col-game">{gameTypeLabel(e.game_type) || e.game_type}</td>
                     <td className="lb-col-mode">{e.game_mode}</td>
                     <td className="lb-col-score">{e.score}</td>
-                    <td className="lb-col-time">{formatTime(e.time_taken)}</td>
+                    <td className="lb-col-time">{e.game_type === 'word_ladder' && e.game_mode === 'unlimited' ? `${e.time_taken} round${e.time_taken === 1 ? '' : 's'}` : formatTime(e.time_taken)}</td>
                     <td className="lb-col-date">{e.date_played}</td>
                   </tr>
                 )
