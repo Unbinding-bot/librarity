@@ -47,7 +47,7 @@ export default function NamePrompt({ onDone }) {
             }}
           />
           <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1.5rem' }}>
-            <button className="btn btn-primary" onClick={submitAsAnonymous}>
+            <button className="btn btn-primary" onClick={submit}>
               Submit
             </button>
             <button className="btn btn-outline" onClick={() => setName('')}>
