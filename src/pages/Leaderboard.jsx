@@ -274,11 +274,11 @@ export default function Leaderboard() {
                     <td className="lb-col-score">{e.score}</td>
                     <td className="lb-col-time">
                       {e.game_type === 'word_ladder' && e.game_mode === 'unlimited'
-                        ? `${e.time_taken} round${e.time_taken === 1 ? '' : 's'}`
+                        ? `${e.time_taken ?? 0} round${e.time_taken === 1 ? '' : 's'}`
                         : e.game_type === 'wordle' && e.game_mode === 'unlimited'
-                          ? `${e.time_taken} round${e.time_taken === 1 ? '' : 's'}`
+                          ? `${e.time_taken ?? 0} round${e.time_taken === 1 ? '' : 's'}`
                           : e.game_type === 'wikipedia_race' && e.game_mode === 'unlimited'
-                            ? `${e.time_taken} race${e.time_taken === 1 ? '' : 's'}`
+                            ? `${e.time_taken ?? 0} race${e.time_taken === 1 ? '' : 's'}`
                             : e.game_type === 'trivia'
                               ? `${e.time_taken ?? 0} question${e.time_taken === 1 ? '' : 's'}`
                               : e.game_type === 'spelling_bee'
