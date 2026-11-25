@@ -18,11 +18,17 @@ Master plan: @unlimited-plan.md
 - Trivia fix agent: a0a7aaf565195c3ac — COMPLETE, changes staged
 
 ## Notes (final)
+- 2026-11-25: Leaderboard Time column now shows counts: SpellingBee "N words" (session-wide), Wordle unlimited "N rounds", WikipediaRace unlimited "N races", Trivia "N questions", WordLadder unlimited "N rounds". All null-guarded with ?? 0.
+- 2026-11-25: SpellingBee session-wide word count (sessionWords + sessionWordsRef mirror) — session-over message shows ALL words across refreshes (verified 8/8 via test_sb_real_words.py: 3 words puzzle 1 + 2 words puzzle 2 = "You found 5 words"). Fixed double-count in finishPuzzle (submitWord already adds points live). Counters reset per non-unlimited puzzle, on entering unlimited, and in resetUnlimitedState.
+- 2026-11-25: Wordle crash fixed — doSubmitScore read nonexistent unlimitedRoundRef; now snapshots finalSessionRoundsRef after resetUnlimitedState in endUnlimitedSession (also fixed: score snapshot was being zeroed by reset before Submit Score read it). Verified 3/3 via test_wordle_rounds.py.
+- 2026-11-25: WikipediaRace doSubmitScore submitted nonexistent result.word_count → always null; now unlimited submits unlimitedRoundRef.current, daily/random submit seconds.
+- 2026-11-25: Trivia doSubmitScore now takes questionsAnswered (finishGame passes totalQuestions) for all modes; fixed finishGame stale doSubmitScore closure deps.
+- 2026-11-25: Spelling Bee word list 24,458 → 154,972 via scripts/expand-wordlist.mjs (committed).
 - 2026-11-25: Fixed WikipediaRace exact-match win bug (navigateToArticle used stale currentArticleRef.current instead of clicked title). test_wr_falsewin.py PASS (substring blocked), exact match win confirmed in daily mode (modal), unlimited mode (toast).
 - 2026-11-25: WordLadder timer now resets fresh each round (180→170→160) with bar back to full — implemented by clearing unlimitedStartTimeRef.current before bumping unlimitedRound state.
 - 2026-11-25: All 5 games now have in-game "Play Again" button that appears after unlimited session ends (modal closed).
 - 2026-11-25: UTC+8 daily rotation implemented for all 4 daily games (WordLadder, SpellingBee, WikipediaRace, Wordle) via new `src/lib/dateUtils.js` — `getTodayUTC8()` and `getDaysSinceAnchorUTC8()`; daily→Random fallback consistent across all games.
-- All 5 games: build ✅, live browser verification ✅, zero regressions.
+- All 5 games: build ✅ (18 prerendered pages), live browser verification ✅ (test_unlimited 11/11, test_wl_fixes 12/12, test_trivia_session all-pass, test_sb_real_words 8/8, test_wordle_rounds 3/3), zero regressions.
 
 ## Notes
 - 2026-11-24: User decision — Wordle and Trivia unlimited get NO timer bar and NO pause. They already have their own loss mechanics (Wordle: 6 guesses; Trivia: hearts). Timer/pause architecture (wall-clock freeze, pause overlay, unlimitedStartTimeRef, etc.) applies only to WordLadder, SpellingBee, WikipediaRace.
