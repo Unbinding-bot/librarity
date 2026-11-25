@@ -1,86 +1,5270 @@
 [
-  {"category":"history","difficulty":"easy","question":"Who was the first President of the United States?","answers":["George Washington","Thomas Jefferson","Abraham Lincoln","Benjamin Franklin"],"correct":"George Washington"},
-  {"category":"history","difficulty":"easy","question":"In which year did World War II end?","answers":["1943","1944","1945","1946"],"correct":"1945"},
-  {"category":"history","difficulty":"easy","question":"Which country built the Great Wall?","answers":["Japan","China","India","Korea"],"correct":"China"},
-  {"category":"history","difficulty":"easy","question":"Who was known as the Maid of Orléans?","answers":["Marie Curie","Joan of Arc","Catherine the Great","Cleopatra"],"correct":"Joan of Arc"},
-  {"category":"history","difficulty":"easy","question":"In which city was the Titanic built?","answers":["Liverpool","London","Belfast","Dublin"],"correct":"Belfast"},
-  {"category":"history","difficulty":"easy","question":"Which empire was ruled by Julius Caesar?","answers":["Greek","Ottoman","Roman","Persian"],"correct":"Roman"},
-  {"category":"history","difficulty":"easy","question":"The Berlin Wall fell in which year?","answers":["1987","1988","1989","1990"],"correct":"1989"},
-  {"category":"history","difficulty":"medium","question":"Which battle ended Napoleon's rule in 1815?","answers":["Battle of Trafalgar","Battle of Austerlitz","Battle of Waterloo","Battle of Borodino"],"correct":"Battle of Waterloo"},
-  {"category":"history","difficulty":"medium","question":"What was the name of the ship that carried the Pilgrims to America in 1620?","answers":["Santa Maria","Mayflower","Endeavour","Discovery"],"correct":"Mayflower"},
-  {"category":"history","difficulty":"medium","question":"The Magna Carta was signed in which year?","answers":["1066","1215","1348","1492"],"correct":"1215"},
-  {"category":"history","difficulty":"medium","question":"Which pharaoh is believed to have built the Great Sphinx?","answers":["Ramesses II","Tutankhamun","Khafre","Khufu"],"correct":"Khafre"},
-  {"category":"history","difficulty":"medium","question":"The Cuban Missile Crisis occurred in which year?","answers":["1958","1960","1962","1964"],"correct":"1962"},
-  {"category":"history","difficulty":"medium","question":"Who was the first woman to win a Nobel Prize?","answers":["Rosalind Franklin","Marie Curie","Dorothy Hodgkin","Lise Meitner"],"correct":"Marie Curie"},
-  {"category":"history","difficulty":"hard","question":"Which treaty ended the Thirty Years' War in 1648?","answers":["Treaty of Versailles","Peace of Westphalia","Treaty of Utrecht","Peace of Augsburg"],"correct":"Peace of Westphalia"},
-  {"category":"history","difficulty":"hard","question":"What was the name of the Byzantine emperor who ordered the construction of the Hagia Sophia?","answers":["Constantine I","Justinian I","Basil II","Heraclius"],"correct":"Justinian I"},
-  {"category":"history","difficulty":"hard","question":"In what year did the Meiji Restoration begin in Japan?","answers":["1853","1860","1868","1889"],"correct":"1868"},
-  {"category":"history","difficulty":"hard","question":"Which general defeated the Persian army at the Battle of Marathon in 490 BC?","answers":["Leonidas","Themistocles","Miltiades","Pericles"],"correct":"Miltiades"},
-  {"category":"history","difficulty":"hard","question":"The Sykes-Picot Agreement of 1916 divided which region between Britain and France?","answers":["North Africa","The Balkans","The Middle East","Central Asia"],"correct":"The Middle East"},
-
-  {"category":"science","difficulty":"easy","question":"What is the chemical symbol for water?","answers":["WA","H2O","HO","W2O"],"correct":"H2O"},
-  {"category":"science","difficulty":"easy","question":"How many planets are in our solar system?","answers":["7","8","9","10"],"correct":"8"},
-  {"category":"science","difficulty":"easy","question":"What gas do plants absorb from the air?","answers":["Oxygen","Nitrogen","Carbon Dioxide","Hydrogen"],"correct":"Carbon Dioxide"},
-  {"category":"science","difficulty":"easy","question":"What is the closest star to Earth?","answers":["Alpha Centauri","Sirius","Proxima Centauri","The Sun"],"correct":"The Sun"},
-  {"category":"science","difficulty":"easy","question":"What is the hardest natural substance on Earth?","answers":["Gold","Iron","Diamond","Quartz"],"correct":"Diamond"},
-  {"category":"science","difficulty":"medium","question":"What is the speed of light in a vacuum (approximately)?","answers":["150,000 km/s","300,000 km/s","450,000 km/s","600,000 km/s"],"correct":"300,000 km/s"},
-  {"category":"science","difficulty":"medium","question":"What is the powerhouse of the cell?","answers":["Nucleus","Ribosome","Mitochondria","Golgi apparatus"],"correct":"Mitochondria"},
-  {"category":"science","difficulty":"medium","question":"What is the most abundant gas in Earth's atmosphere?","answers":["Oxygen","Carbon Dioxide","Argon","Nitrogen"],"correct":"Nitrogen"},
-  {"category":"science","difficulty":"medium","question":"Who developed the theory of general relativity?","answers":["Isaac Newton","Niels Bohr","Albert Einstein","Max Planck"],"correct":"Albert Einstein"},
-  {"category":"science","difficulty":"medium","question":"What is the pH of pure water?","answers":["5","6","7","8"],"correct":"7"},
-  {"category":"science","difficulty":"medium","question":"What particle has a negative charge?","answers":["Proton","Neutron","Electron","Positron"],"correct":"Electron"},
-  {"category":"science","difficulty":"hard","question":"What is the Chandrasekhar limit?","answers":["The max mass of a neutron star","The max mass of a white dwarf","The speed at which a black hole forms","The min mass for nuclear fusion"],"correct":"The max mass of a white dwarf"},
-  {"category":"science","difficulty":"hard","question":"Which protein is responsible for carrying oxygen in red blood cells?","answers":["Myosin","Insulin","Hemoglobin","Keratin"],"correct":"Hemoglobin"},
-  {"category":"science","difficulty":"hard","question":"What is the Pauli Exclusion Principle?","answers":["No two photons can occupy the same energy level","No two fermions can occupy the same quantum state","Matter and energy are equivalent","Observation changes a quantum system"],"correct":"No two fermions can occupy the same quantum state"},
-  {"category":"science","difficulty":"hard","question":"What is the name of the process by which cells engulf foreign particles?","answers":["Osmosis","Phagocytosis","Endocytosis","Exocytosis"],"correct":"Phagocytosis"},
-
-  {"category":"literature","difficulty":"easy","question":"Who wrote 'Romeo and Juliet'?","answers":["Charles Dickens","William Shakespeare","Jane Austen","Mark Twain"],"correct":"William Shakespeare"},
-  {"category":"literature","difficulty":"easy","question":"In which book does the character Hermione Granger appear?","answers":["The Hobbit","Narnia","Harry Potter","Percy Jackson"],"correct":"Harry Potter"},
-  {"category":"literature","difficulty":"easy","question":"Who wrote '1984'?","answers":["Aldous Huxley","George Orwell","Ray Bradbury","H.G. Wells"],"correct":"George Orwell"},
-  {"category":"literature","difficulty":"easy","question":"What is the name of the whale in 'Moby-Dick'?","answers":["Moby","The Great White","Moby-Dick","Leviathan"],"correct":"Moby-Dick"},
-  {"category":"literature","difficulty":"medium","question":"Who wrote 'Pride and Prejudice'?","answers":["Charlotte Brontë","Emily Brontë","Jane Austen","George Eliot"],"correct":"Jane Austen"},
-  {"category":"literature","difficulty":"medium","question":"In which Dickens novel does the character Ebenezer Scrooge appear?","answers":["Oliver Twist","David Copperfield","A Christmas Carol","Great Expectations"],"correct":"A Christmas Carol"},
-  {"category":"literature","difficulty":"medium","question":"What is the real name of the author who wrote under the pen name Mark Twain?","answers":["Samuel Langhorne Clemens","John Henry Adams","William Thomas Hart","James Cooper Lee"],"correct":"Samuel Langhorne Clemens"},
-  {"category":"literature","difficulty":"medium","question":"Which Shakespeare play features the characters Oberon and Titania?","answers":["The Tempest","A Midsummer Night's Dream","As You Like It","The Winter's Tale"],"correct":"A Midsummer Night's Dream"},
-  {"category":"literature","difficulty":"hard","question":"Which novel begins with the line 'It was the best of times, it was the worst of times'?","answers":["Bleak House","A Tale of Two Cities","David Copperfield","Great Expectations"],"correct":"A Tale of Two Cities"},
-  {"category":"literature","difficulty":"hard","question":"Who wrote 'The Brothers Karamazov'?","answers":["Leo Tolstoy","Ivan Turgenev","Fyodor Dostoevsky","Anton Chekhov"],"correct":"Fyodor Dostoevsky"},
-  {"category":"literature","difficulty":"hard","question":"In Homer's Odyssey, what is the name of the island where Odysseus is kept by the nymph Calypso?","answers":["Ithaca","Ogygia","Aeaea","Scheria"],"correct":"Ogygia"},
-  {"category":"literature","difficulty":"hard","question":"Which poet wrote 'The Waste Land' in 1922?","answers":["Ezra Pound","W.B. Yeats","T.S. Eliot","W.H. Auden"],"correct":"T.S. Eliot"},
-
-  {"category":"geography","difficulty":"easy","question":"What is the capital of France?","answers":["London","Berlin","Madrid","Paris"],"correct":"Paris"},
-  {"category":"geography","difficulty":"easy","question":"What is the longest river in the world?","answers":["Amazon","Mississippi","Congo","Nile"],"correct":"Nile"},
-  {"category":"geography","difficulty":"easy","question":"On which continent is Egypt located?","answers":["Asia","Europe","South America","Africa"],"correct":"Africa"},
-  {"category":"geography","difficulty":"easy","question":"What is the smallest country in the world?","answers":["Monaco","San Marino","Liechtenstein","Vatican City"],"correct":"Vatican City"},
-  {"category":"geography","difficulty":"medium","question":"Which country has the most natural lakes?","answers":["Russia","USA","Brazil","Canada"],"correct":"Canada"},
-  {"category":"geography","difficulty":"medium","question":"The Strait of Magellan connects which two bodies of water?","answers":["Pacific and Indian Oceans","Atlantic and Pacific Oceans","Atlantic and Arctic Oceans","Indian and Pacific Oceans"],"correct":"Atlantic and Pacific Oceans"},
-  {"category":"geography","difficulty":"medium","question":"What is the capital of Australia?","answers":["Sydney","Melbourne","Brisbane","Canberra"],"correct":"Canberra"},
-  {"category":"geography","difficulty":"medium","question":"Mount Kilimanjaro is located in which country?","answers":["Kenya","Uganda","Tanzania","Ethiopia"],"correct":"Tanzania"},
-  {"category":"geography","difficulty":"hard","question":"Which country has the most time zones?","answers":["Russia","USA","China","France"],"correct":"France"},
-  {"category":"geography","difficulty":"hard","question":"What is the name of the deepest lake in the world?","answers":["Lake Superior","Caspian Sea","Lake Tanganyika","Lake Baikal"],"correct":"Lake Baikal"},
-  {"category":"geography","difficulty":"hard","question":"The Atacama Desert is located primarily in which country?","answers":["Peru","Argentina","Bolivia","Chile"],"correct":"Chile"},
-  {"category":"geography","difficulty":"hard","question":"Which African country is the most northerly?","answers":["Morocco","Algeria","Egypt","Tunisia"],"correct":"Tunisia"},
-
-  {"category":"arts","difficulty":"easy","question":"Who painted the Mona Lisa?","answers":["Michelangelo","Leonardo da Vinci","Raphael","Donatello"],"correct":"Leonardo da Vinci"},
-  {"category":"arts","difficulty":"easy","question":"How many strings does a standard guitar have?","answers":["4","5","6","7"],"correct":"6"},
-  {"category":"arts","difficulty":"easy","question":"Which artist cut off part of his own ear?","answers":["Pablo Picasso","Salvador Dalí","Vincent van Gogh","Paul Gauguin"],"correct":"Vincent van Gogh"},
-  {"category":"arts","difficulty":"medium","question":"Which composer wrote the 'Moonlight Sonata'?","answers":["Mozart","Bach","Beethoven","Chopin"],"correct":"Beethoven"},
-  {"category":"arts","difficulty":"medium","question":"In what art movement is Salvador Dalí primarily associated?","answers":["Cubism","Impressionism","Surrealism","Expressionism"],"correct":"Surrealism"},
-  {"category":"arts","difficulty":"medium","question":"Who sculpted 'The Thinker'?","answers":["Michelangelo","Bernini","Rodin","Brancusi"],"correct":"Rodin"},
-  {"category":"arts","difficulty":"medium","question":"What nationality was the painter Frida Kahlo?","answers":["Brazilian","Colombian","Argentine","Mexican"],"correct":"Mexican"},
-  {"category":"arts","difficulty":"hard","question":"Which Italian Baroque painter was also known for her dramatic use of light and was the first woman admitted to the Accademia di Arte del Disegno?","answers":["Lavinia Fontana","Sofonisba Anguissola","Artemisia Gentileschi","Rosalba Carriera"],"correct":"Artemisia Gentileschi"},
-  {"category":"arts","difficulty":"hard","question":"What is the name of Beethoven's only opera?","answers":["Don Giovanni","The Magic Flute","Fidelio","Così fan tutte"],"correct":"Fidelio"},
-  {"category":"arts","difficulty":"hard","question":"Which movement in art is associated with artists like Mondrian and van Doesburg who used only primary colours and straight lines?","answers":["Bauhaus","De Stijl","Constructivism","Suprematism"],"correct":"De Stijl"},
-
-  {"category":"general","difficulty":"easy","question":"How many sides does a hexagon have?","answers":["5","6","7","8"],"correct":"6"},
-  {"category":"general","difficulty":"easy","question":"What colour is the sky on a clear day?","answers":["Green","White","Blue","Grey"],"correct":"Blue"},
-  {"category":"general","difficulty":"easy","question":"How many days are in a leap year?","answers":["364","365","366","367"],"correct":"366"},
-  {"category":"general","difficulty":"easy","question":"What is the largest ocean on Earth?","answers":["Atlantic","Indian","Arctic","Pacific"],"correct":"Pacific"},
-  {"category":"general","difficulty":"easy","question":"How many minutes are in one hour?","answers":["30","60","90","100"],"correct":"60"},
-  {"category":"general","difficulty":"medium","question":"If a doctor is a 'physician', what is a doctor who performs operations called?","answers":["Neurologist","Surgeon","Radiologist","Pathologist"],"correct":"Surgeon"},
-  {"category":"general","difficulty":"medium","question":"What does the 'www' in a website address stand for?","answers":["World Wide Web","Wide World Web","World Web Wide","Web World Wide"],"correct":"World Wide Web"},
-  {"category":"general","difficulty":"medium","question":"In which sport would you perform a 'slam dunk'?","answers":["Volleyball","Football","Tennis","Basketball"],"correct":"Basketball"},
-  {"category":"general","difficulty":"medium","question":"How many zeros are in one million?","answers":["5","6","7","8"],"correct":"6"},
-  {"category":"general","difficulty":"hard","question":"What is the Fibonacci sequence?","answers":["Each number is double the previous","Each number is the sum of the two before it","Each number is a prime","Each number is a perfect square"],"correct":"Each number is the sum of the two before it"},
-  {"category":"general","difficulty":"hard","question":"What is the name of the logical paradox where a barber shaves all those who do not shave themselves?","answers":["Zeno's Paradox","Russell's Paradox","Gödel's Paradox","Cantor's Paradox"],"correct":"Russell's Paradox"},
-  {"category":"general","difficulty":"hard","question":"In computer science, what does 'Big O notation' describe?","answers":["Memory usage only","Time complexity of an algorithm","Size of a program","Number of bugs in code"],"correct":"Time complexity of an algorithm"}
+ {
+  "category": "history",
+  "difficulty": "easy",
+  "question": "Who was the first President of the United States?",
+  "answers": [
+   "George Washington",
+   "Thomas Jefferson",
+   "Abraham Lincoln",
+   "Benjamin Franklin"
+  ],
+  "correct": "George Washington"
+ },
+ {
+  "category": "history",
+  "difficulty": "easy",
+  "question": "In which year did World War II end?",
+  "answers": [
+   "1943",
+   "1944",
+   "1945",
+   "1946"
+  ],
+  "correct": "1945"
+ },
+ {
+  "category": "history",
+  "difficulty": "easy",
+  "question": "Which country built the Great Wall?",
+  "answers": [
+   "Japan",
+   "China",
+   "India",
+   "Korea"
+  ],
+  "correct": "China"
+ },
+ {
+  "category": "history",
+  "difficulty": "easy",
+  "question": "Who was known as the Maid of Orléans?",
+  "answers": [
+   "Marie Curie",
+   "Joan of Arc",
+   "Catherine the Great",
+   "Cleopatra"
+  ],
+  "correct": "Joan of Arc"
+ },
+ {
+  "category": "history",
+  "difficulty": "easy",
+  "question": "In which city was the Titanic built?",
+  "answers": [
+   "Liverpool",
+   "London",
+   "Belfast",
+   "Dublin"
+  ],
+  "correct": "Belfast"
+ },
+ {
+  "category": "history",
+  "difficulty": "easy",
+  "question": "Which empire was ruled by Julius Caesar?",
+  "answers": [
+   "Greek",
+   "Ottoman",
+   "Roman",
+   "Persian"
+  ],
+  "correct": "Roman"
+ },
+ {
+  "category": "history",
+  "difficulty": "easy",
+  "question": "The Berlin Wall fell in which year?",
+  "answers": [
+   "1987",
+   "1988",
+   "1989",
+   "1990"
+  ],
+  "correct": "1989"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "Which battle ended Napoleon's rule in 1815?",
+  "answers": [
+   "Battle of Trafalgar",
+   "Battle of Austerlitz",
+   "Battle of Waterloo",
+   "Battle of Borodino"
+  ],
+  "correct": "Battle of Waterloo"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "What was the name of the ship that carried the Pilgrims to America in 1620?",
+  "answers": [
+   "Santa Maria",
+   "Mayflower",
+   "Endeavour",
+   "Discovery"
+  ],
+  "correct": "Mayflower"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "The Magna Carta was signed in which year?",
+  "answers": [
+   "1066",
+   "1215",
+   "1348",
+   "1492"
+  ],
+  "correct": "1215"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "Which pharaoh is believed to have built the Great Sphinx?",
+  "answers": [
+   "Ramesses II",
+   "Tutankhamun",
+   "Khafre",
+   "Khufu"
+  ],
+  "correct": "Khafre"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "The Cuban Missile Crisis occurred in which year?",
+  "answers": [
+   "1958",
+   "1960",
+   "1962",
+   "1964"
+  ],
+  "correct": "1962"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "Who was the first woman to win a Nobel Prize?",
+  "answers": [
+   "Rosalind Franklin",
+   "Marie Curie",
+   "Dorothy Hodgkin",
+   "Lise Meitner"
+  ],
+  "correct": "Marie Curie"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "Which treaty ended the Thirty Years' War in 1648?",
+  "answers": [
+   "Treaty of Versailles",
+   "Peace of Westphalia",
+   "Treaty of Utrecht",
+   "Peace of Augsburg"
+  ],
+  "correct": "Peace of Westphalia"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "What was the name of the Byzantine emperor who ordered the construction of the Hagia Sophia?",
+  "answers": [
+   "Constantine I",
+   "Justinian I",
+   "Basil II",
+   "Heraclius"
+  ],
+  "correct": "Justinian I"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "In what year did the Meiji Restoration begin in Japan?",
+  "answers": [
+   "1853",
+   "1860",
+   "1868",
+   "1889"
+  ],
+  "correct": "1868"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "Which general defeated the Persian army at the Battle of Marathon in 490 BC?",
+  "answers": [
+   "Leonidas",
+   "Themistocles",
+   "Miltiades",
+   "Pericles"
+  ],
+  "correct": "Miltiades"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "The Sykes-Picot Agreement of 1916 divided which region between Britain and France?",
+  "answers": [
+   "North Africa",
+   "The Balkans",
+   "The Middle East",
+   "Central Asia"
+  ],
+  "correct": "The Middle East"
+ },
+ {
+  "category": "science",
+  "difficulty": "easy",
+  "question": "What is the chemical symbol for water?",
+  "answers": [
+   "WA",
+   "H2O",
+   "HO",
+   "W2O"
+  ],
+  "correct": "H2O"
+ },
+ {
+  "category": "science",
+  "difficulty": "easy",
+  "question": "How many planets are in our solar system?",
+  "answers": [
+   "7",
+   "8",
+   "9",
+   "10"
+  ],
+  "correct": "8"
+ },
+ {
+  "category": "science",
+  "difficulty": "easy",
+  "question": "What gas do plants absorb from the air?",
+  "answers": [
+   "Oxygen",
+   "Nitrogen",
+   "Carbon Dioxide",
+   "Hydrogen"
+  ],
+  "correct": "Carbon Dioxide"
+ },
+ {
+  "category": "science",
+  "difficulty": "easy",
+  "question": "What is the closest star to Earth?",
+  "answers": [
+   "Alpha Centauri",
+   "Sirius",
+   "Proxima Centauri",
+   "The Sun"
+  ],
+  "correct": "The Sun"
+ },
+ {
+  "category": "science",
+  "difficulty": "easy",
+  "question": "What is the hardest natural substance on Earth?",
+  "answers": [
+   "Gold",
+   "Iron",
+   "Diamond",
+   "Quartz"
+  ],
+  "correct": "Diamond"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "What is the speed of light in a vacuum (approximately)?",
+  "answers": [
+   "150,000 km/s",
+   "300,000 km/s",
+   "450,000 km/s",
+   "600,000 km/s"
+  ],
+  "correct": "300,000 km/s"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "What is the powerhouse of the cell?",
+  "answers": [
+   "Nucleus",
+   "Ribosome",
+   "Mitochondria",
+   "Golgi apparatus"
+  ],
+  "correct": "Mitochondria"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "What is the most abundant gas in Earth's atmosphere?",
+  "answers": [
+   "Oxygen",
+   "Carbon Dioxide",
+   "Argon",
+   "Nitrogen"
+  ],
+  "correct": "Nitrogen"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "Who developed the theory of general relativity?",
+  "answers": [
+   "Isaac Newton",
+   "Niels Bohr",
+   "Albert Einstein",
+   "Max Planck"
+  ],
+  "correct": "Albert Einstein"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "What is the pH of pure water?",
+  "answers": [
+   "5",
+   "6",
+   "7",
+   "8"
+  ],
+  "correct": "7"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "What particle has a negative charge?",
+  "answers": [
+   "Proton",
+   "Neutron",
+   "Electron",
+   "Positron"
+  ],
+  "correct": "Electron"
+ },
+ {
+  "category": "science",
+  "difficulty": "hard",
+  "question": "What is the Chandrasekhar limit?",
+  "answers": [
+   "The max mass of a neutron star",
+   "The max mass of a white dwarf",
+   "The speed at which a black hole forms",
+   "The min mass for nuclear fusion"
+  ],
+  "correct": "The max mass of a white dwarf"
+ },
+ {
+  "category": "science",
+  "difficulty": "hard",
+  "question": "Which protein is responsible for carrying oxygen in red blood cells?",
+  "answers": [
+   "Myosin",
+   "Insulin",
+   "Hemoglobin",
+   "Keratin"
+  ],
+  "correct": "Hemoglobin"
+ },
+ {
+  "category": "science",
+  "difficulty": "hard",
+  "question": "What is the Pauli Exclusion Principle?",
+  "answers": [
+   "No two photons can occupy the same energy level",
+   "No two fermions can occupy the same quantum state",
+   "Matter and energy are equivalent",
+   "Observation changes a quantum system"
+  ],
+  "correct": "No two fermions can occupy the same quantum state"
+ },
+ {
+  "category": "science",
+  "difficulty": "hard",
+  "question": "What is the name of the process by which cells engulf foreign particles?",
+  "answers": [
+   "Osmosis",
+   "Phagocytosis",
+   "Endocytosis",
+   "Exocytosis"
+  ],
+  "correct": "Phagocytosis"
+ },
+ {
+  "category": "literature",
+  "difficulty": "easy",
+  "question": "Who wrote 'Romeo and Juliet'?",
+  "answers": [
+   "Charles Dickens",
+   "William Shakespeare",
+   "Jane Austen",
+   "Mark Twain"
+  ],
+  "correct": "William Shakespeare"
+ },
+ {
+  "category": "literature",
+  "difficulty": "easy",
+  "question": "In which book does the character Hermione Granger appear?",
+  "answers": [
+   "The Hobbit",
+   "Narnia",
+   "Harry Potter",
+   "Percy Jackson"
+  ],
+  "correct": "Harry Potter"
+ },
+ {
+  "category": "literature",
+  "difficulty": "easy",
+  "question": "Who wrote '1984'?",
+  "answers": [
+   "Aldous Huxley",
+   "George Orwell",
+   "Ray Bradbury",
+   "H.G. Wells"
+  ],
+  "correct": "George Orwell"
+ },
+ {
+  "category": "literature",
+  "difficulty": "easy",
+  "question": "What is the name of the whale in 'Moby-Dick'?",
+  "answers": [
+   "Moby",
+   "The Great White",
+   "Moby-Dick",
+   "Leviathan"
+  ],
+  "correct": "Moby-Dick"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "Who wrote 'Pride and Prejudice'?",
+  "answers": [
+   "Charlotte Brontë",
+   "Emily Brontë",
+   "Jane Austen",
+   "George Eliot"
+  ],
+  "correct": "Jane Austen"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "In which Dickens novel does the character Ebenezer Scrooge appear?",
+  "answers": [
+   "Oliver Twist",
+   "David Copperfield",
+   "A Christmas Carol",
+   "Great Expectations"
+  ],
+  "correct": "A Christmas Carol"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "What is the real name of the author who wrote under the pen name Mark Twain?",
+  "answers": [
+   "Samuel Langhorne Clemens",
+   "John Henry Adams",
+   "William Thomas Hart",
+   "James Cooper Lee"
+  ],
+  "correct": "Samuel Langhorne Clemens"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "Which Shakespeare play features the characters Oberon and Titania?",
+  "answers": [
+   "The Tempest",
+   "A Midsummer Night's Dream",
+   "As You Like It",
+   "The Winter's Tale"
+  ],
+  "correct": "A Midsummer Night's Dream"
+ },
+ {
+  "category": "literature",
+  "difficulty": "hard",
+  "question": "Which novel begins with the line 'It was the best of times, it was the worst of times'?",
+  "answers": [
+   "Bleak House",
+   "A Tale of Two Cities",
+   "David Copperfield",
+   "Great Expectations"
+  ],
+  "correct": "A Tale of Two Cities"
+ },
+ {
+  "category": "literature",
+  "difficulty": "hard",
+  "question": "Who wrote 'The Brothers Karamazov'?",
+  "answers": [
+   "Leo Tolstoy",
+   "Ivan Turgenev",
+   "Fyodor Dostoevsky",
+   "Anton Chekhov"
+  ],
+  "correct": "Fyodor Dostoevsky"
+ },
+ {
+  "category": "literature",
+  "difficulty": "hard",
+  "question": "In Homer's Odyssey, what is the name of the island where Odysseus is kept by the nymph Calypso?",
+  "answers": [
+   "Ithaca",
+   "Ogygia",
+   "Aeaea",
+   "Scheria"
+  ],
+  "correct": "Ogygia"
+ },
+ {
+  "category": "literature",
+  "difficulty": "hard",
+  "question": "Which poet wrote 'The Waste Land' in 1922?",
+  "answers": [
+   "Ezra Pound",
+   "W.B. Yeats",
+   "T.S. Eliot",
+   "W.H. Auden"
+  ],
+  "correct": "T.S. Eliot"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "What is the capital of France?",
+  "answers": [
+   "London",
+   "Berlin",
+   "Madrid",
+   "Paris"
+  ],
+  "correct": "Paris"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "What is the longest river in the world?",
+  "answers": [
+   "Amazon",
+   "Mississippi",
+   "Congo",
+   "Nile"
+  ],
+  "correct": "Nile"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "On which continent is Egypt located?",
+  "answers": [
+   "Asia",
+   "Europe",
+   "South America",
+   "Africa"
+  ],
+  "correct": "Africa"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "What is the smallest country in the world?",
+  "answers": [
+   "Monaco",
+   "San Marino",
+   "Liechtenstein",
+   "Vatican City"
+  ],
+  "correct": "Vatican City"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "Which country has the most natural lakes?",
+  "answers": [
+   "Russia",
+   "USA",
+   "Brazil",
+   "Canada"
+  ],
+  "correct": "Canada"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "The Strait of Magellan connects which two bodies of water?",
+  "answers": [
+   "Pacific and Indian Oceans",
+   "Atlantic and Pacific Oceans",
+   "Atlantic and Arctic Oceans",
+   "Indian and Pacific Oceans"
+  ],
+  "correct": "Atlantic and Pacific Oceans"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "What is the capital of Australia?",
+  "answers": [
+   "Sydney",
+   "Melbourne",
+   "Brisbane",
+   "Canberra"
+  ],
+  "correct": "Canberra"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "Mount Kilimanjaro is located in which country?",
+  "answers": [
+   "Kenya",
+   "Uganda",
+   "Tanzania",
+   "Ethiopia"
+  ],
+  "correct": "Tanzania"
+ },
+ {
+  "category": "geography",
+  "difficulty": "hard",
+  "question": "Which country has the most time zones?",
+  "answers": [
+   "Russia",
+   "USA",
+   "China",
+   "France"
+  ],
+  "correct": "France"
+ },
+ {
+  "category": "geography",
+  "difficulty": "hard",
+  "question": "What is the name of the deepest lake in the world?",
+  "answers": [
+   "Lake Superior",
+   "Caspian Sea",
+   "Lake Tanganyika",
+   "Lake Baikal"
+  ],
+  "correct": "Lake Baikal"
+ },
+ {
+  "category": "geography",
+  "difficulty": "hard",
+  "question": "The Atacama Desert is located primarily in which country?",
+  "answers": [
+   "Peru",
+   "Argentina",
+   "Bolivia",
+   "Chile"
+  ],
+  "correct": "Chile"
+ },
+ {
+  "category": "geography",
+  "difficulty": "hard",
+  "question": "Which African country is the most northerly?",
+  "answers": [
+   "Morocco",
+   "Algeria",
+   "Egypt",
+   "Tunisia"
+  ],
+  "correct": "Tunisia"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "Who painted the Mona Lisa?",
+  "answers": [
+   "Michelangelo",
+   "Leonardo da Vinci",
+   "Raphael",
+   "Donatello"
+  ],
+  "correct": "Leonardo da Vinci"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "How many strings does a standard guitar have?",
+  "answers": [
+   "4",
+   "5",
+   "6",
+   "7"
+  ],
+  "correct": "6"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "Which artist cut off part of his own ear?",
+  "answers": [
+   "Pablo Picasso",
+   "Salvador Dalí",
+   "Vincent van Gogh",
+   "Paul Gauguin"
+  ],
+  "correct": "Vincent van Gogh"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "Which composer wrote the 'Moonlight Sonata'?",
+  "answers": [
+   "Mozart",
+   "Bach",
+   "Beethoven",
+   "Chopin"
+  ],
+  "correct": "Beethoven"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "In what art movement is Salvador Dalí primarily associated?",
+  "answers": [
+   "Cubism",
+   "Impressionism",
+   "Surrealism",
+   "Expressionism"
+  ],
+  "correct": "Surrealism"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "Who sculpted 'The Thinker'?",
+  "answers": [
+   "Michelangelo",
+   "Bernini",
+   "Rodin",
+   "Brancusi"
+  ],
+  "correct": "Rodin"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "What nationality was the painter Frida Kahlo?",
+  "answers": [
+   "Brazilian",
+   "Colombian",
+   "Argentine",
+   "Mexican"
+  ],
+  "correct": "Mexican"
+ },
+ {
+  "category": "arts",
+  "difficulty": "hard",
+  "question": "Which Italian Baroque painter was also known for her dramatic use of light and was the first woman admitted to the Accademia di Arte del Disegno?",
+  "answers": [
+   "Lavinia Fontana",
+   "Sofonisba Anguissola",
+   "Artemisia Gentileschi",
+   "Rosalba Carriera"
+  ],
+  "correct": "Artemisia Gentileschi"
+ },
+ {
+  "category": "arts",
+  "difficulty": "hard",
+  "question": "What is the name of Beethoven's only opera?",
+  "answers": [
+   "Don Giovanni",
+   "The Magic Flute",
+   "Fidelio",
+   "Così fan tutte"
+  ],
+  "correct": "Fidelio"
+ },
+ {
+  "category": "arts",
+  "difficulty": "hard",
+  "question": "Which movement in art is associated with artists like Mondrian and van Doesburg who used only primary colours and straight lines?",
+  "answers": [
+   "Bauhaus",
+   "De Stijl",
+   "Constructivism",
+   "Suprematism"
+  ],
+  "correct": "De Stijl"
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "How many sides does a hexagon have?",
+  "answers": [
+   "5",
+   "6",
+   "7",
+   "8"
+  ],
+  "correct": "6"
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "What colour is the sky on a clear day?",
+  "answers": [
+   "Green",
+   "White",
+   "Blue",
+   "Grey"
+  ],
+  "correct": "Blue"
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "How many days are in a leap year?",
+  "answers": [
+   "364",
+   "365",
+   "366",
+   "367"
+  ],
+  "correct": "366"
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "What is the largest ocean on Earth?",
+  "answers": [
+   "Atlantic",
+   "Indian",
+   "Arctic",
+   "Pacific"
+  ],
+  "correct": "Pacific"
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "How many minutes are in one hour?",
+  "answers": [
+   "30",
+   "60",
+   "90",
+   "100"
+  ],
+  "correct": "60"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "If a doctor is a 'physician', what is a doctor who performs operations called?",
+  "answers": [
+   "Neurologist",
+   "Surgeon",
+   "Radiologist",
+   "Pathologist"
+  ],
+  "correct": "Surgeon"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "What does the 'www' in a website address stand for?",
+  "answers": [
+   "World Wide Web",
+   "Wide World Web",
+   "World Web Wide",
+   "Web World Wide"
+  ],
+  "correct": "World Wide Web"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "In which sport would you perform a 'slam dunk'?",
+  "answers": [
+   "Volleyball",
+   "Football",
+   "Tennis",
+   "Basketball"
+  ],
+  "correct": "Basketball"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "How many zeros are in one million?",
+  "answers": [
+   "5",
+   "6",
+   "7",
+   "8"
+  ],
+  "correct": "6"
+ },
+ {
+  "category": "general",
+  "difficulty": "hard",
+  "question": "What is the Fibonacci sequence?",
+  "answers": [
+   "Each number is double the previous",
+   "Each number is the sum of the two before it",
+   "Each number is a prime",
+   "Each number is a perfect square"
+  ],
+  "correct": "Each number is the sum of the two before it"
+ },
+ {
+  "category": "general",
+  "difficulty": "hard",
+  "question": "What is the name of the logical paradox where a barber shaves all those who do not shave themselves?",
+  "answers": [
+   "Zeno's Paradox",
+   "Russell's Paradox",
+   "Gödel's Paradox",
+   "Cantor's Paradox"
+  ],
+  "correct": "Russell's Paradox"
+ },
+ {
+  "category": "general",
+  "difficulty": "hard",
+  "question": "In computer science, what does 'Big O notation' describe?",
+  "answers": [
+   "Memory usage only",
+   "Time complexity of an algorithm",
+   "Size of a program",
+   "Number of bugs in code"
+  ],
+  "correct": "Time complexity of an algorithm"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "In which US state is the active Mount Rainier volcano located?",
+  "answers": [
+   "Washington",
+   "Michigan",
+   "Ohio",
+   "New York"
+  ],
+  "correct": "Washington"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "In 1990, this 5000 year old body was found in the Alps. Scientists discovered some tattoos on his leg which indicated that acupuncture was used as far back as the Copper-stone Age.",
+  "answers": [
+   "Oetzi",
+   "Big Foot",
+   "Sasquatch",
+   "Nessie"
+  ],
+  "correct": "Oetzi"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "After unsuccessful talks about oil production and debt repayment, Iraq occupied Kuwait. In January 1991 the US launched an air attack against military targets in Iraq and Kuwait in this operation.",
+  "answers": [
+   "Desert Storm",
+   "Matador",
+   "BOLERO",
+   "Determined Force"
+  ],
+  "correct": "Desert Storm"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "It is the process of producing identical copies of a DNA segment asexually. In 1996 the first successful one of an animal was made. The animals name was Dolly. Dolly later died, but Richard Seed announced that he intended try it on humans.",
+  "answers": [
+   "Cloning",
+   "Organ Transplant",
+   "Bloodless Surgery",
+   "Laser Surgery"
+  ],
+  "correct": "Cloning"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "This kind of music became largely popular in Europe and America in the 1990s. It is a melodic, free form combination between techno and house, having hypnotic qualities. The first distinctive track of this kind was Age Of Love, released in 1990.",
+  "answers": [
+   "Trance",
+   "Electro",
+   "Techno",
+   "Dance"
+  ],
+  "correct": "Trance"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "This womans death was arguably the most shocking one of the decade. She died in 1997 in a car crash while evading paparazzi. The woman was taken to a hospital, but the two-hour efforts of surgeons to save her life were unsuccessful.",
+  "answers": [
+   "Princess Diana",
+   "Greta Garbo",
+   "Nancy Marchand",
+   "Madam C. J. Walker"
+  ],
+  "correct": "Princess Diana"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "This union, made up of European countries, was established by the Maastricht Treaty in 1992. Starting as a trade body it is now an economic and political partnership between its members.",
+  "answers": [
+   "The European Union",
+   "American Labor Union",
+   "Oxford Union",
+   "European Trade Union"
+  ],
+  "correct": "The European Union"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "Although the first one was sent in 1971, it became widely popular in 1998. Its popularity caused explosive growth of the internet.",
+  "answers": [
+   "The E-mail",
+   "The Chat programs",
+   "The URL",
+   "The Website"
+  ],
+  "correct": "The E-mail"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "Impeachment stands for quickly removing dangerously criminal officials from high office. The Impeachment Trial in the Senate for this US President commenced on January 7, 1999.",
+  "answers": [
+   "Bill Clinton",
+   "George Bush",
+   "Ronald Reagan",
+   "Richard Nixon"
+  ],
+  "correct": "Bill Clinton"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "On August 17, 1999 this disaster took the lives of 15 000 and injured 23 000 people in western Turkey.",
+  "answers": [
+   "Earthquake",
+   "Tsunami",
+   "Avalanche",
+   "Volcano eruption"
+  ],
+  "correct": "Earthquake"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "These became more advanced and more popular in the 1990, with some of the most influential ones being the Super Nintendo Entertainment System, the Sony Playstation, and the Sega Dreamcast.",
+  "answers": [
+   "Video Game consoles",
+   "Dating sites",
+   "Virtual reality systems",
+   "Computer games"
+  ],
+  "correct": "Video Game consoles"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "The Punic Wars were a series of three wars fought between these two powers.",
+  "answers": [
+   "Rome and Carthage",
+   "Rome and Athens",
+   "Athens and Sparta",
+   "Carthage and Athens"
+  ],
+  "correct": "Rome and Carthage"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "The 1938 incorporation of Austria in Greater Germany under the Nazi Regime is known as this.",
+  "answers": [
+   "Anschluss",
+   "Ansatz",
+   "Abwer",
+   "Ahnentafel"
+  ],
+  "correct": "Anschluss"
+ },
+ {
+  "category": "history",
+  "difficulty": "easy",
+  "question": "Henry Kissinger held this US post from 1974 to 1977.",
+  "answers": [
+   "Secretary of State",
+   "President of the Senate",
+   "Speaker of the House of Representatives",
+   "National Security Advisor"
+  ],
+  "correct": "Secretary of State"
+ },
+ {
+  "category": "history",
+  "difficulty": "easy",
+  "question": "One of these cities has been Japans capital in the past.",
+  "answers": [
+   "Kyoto",
+   "Yokohama",
+   "Hiroshima",
+   "Osaka"
+  ],
+  "correct": "Kyoto"
+ },
+ {
+  "category": "history",
+  "difficulty": "easy",
+  "question": "Valeria Messalina was the third wife of this Roman emperor.",
+  "answers": [
+   "Claudius",
+   "Caligula",
+   "Tiberius",
+   "Nero"
+  ],
+  "correct": "Claudius"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "Philip II of France, Richard I of England and Frederick I led this campaign.",
+  "answers": [
+   "Third Crusade",
+   "Childrens Crusade",
+   "Albigensian Crusade",
+   "Fourth Crusade"
+  ],
+  "correct": "Third Crusade"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "Yu the Great was the legendary first Chinese monarch of this dynasty.",
+  "answers": [
+   "Xia Dynasty",
+   "Qing (Manchu) Dynasty",
+   "Ming Dynasty",
+   "Yuan Dynasty"
+  ],
+  "correct": "Xia Dynasty"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "This German general was nicknamed The Desert Fox due to the skillful military campaigns he waged in North Africa, during World War II.",
+  "answers": [
+   "Erwin Rommel",
+   "Hermann Goring",
+   "George Patton",
+   "Bernard Montgomery"
+  ],
+  "correct": "Erwin Rommel"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "How many landing beaches were there in the 1944 Normandy Invasion, known as Operation Overlord?",
+  "answers": [
+   "Five",
+   "Four",
+   "Six",
+   "Three"
+  ],
+  "correct": "Five"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "What was the name of the first jet-powered fighter used in World War II?",
+  "answers": [
+   "Me-262",
+   "P-51",
+   "Hurricane",
+   "MIG-3"
+  ],
+  "correct": "Me-262"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "Which member of the Nazi Party was known as Adolph Hitlers first architect of the Third Reich?",
+  "answers": [
+   "Albert Speer",
+   "Rudolph Hess",
+   "Hermann Goring",
+   "Joseph Mengele"
+  ],
+  "correct": "Albert Speer"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "The British evacuation from which French port was codenamed Operation Dynamo, in 1940?",
+  "answers": [
+   "Dunkirk",
+   "Brest",
+   "Cherbourg",
+   "Toulon"
+  ],
+  "correct": "Dunkirk"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "Which American politician said the following about liberty: They that can give up essential liberty to obtain a little temporary safety deserve neither liberty nor safety.â?",
+  "answers": [
+   "Benjamin Franklin",
+   "Thomas Jefferson",
+   "Abraham Lincoln",
+   "George Washington"
+  ],
+  "correct": "Benjamin Franklin"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "Which US President delivered the following words: Ask not what your country can do for you, ask what you can do for your country.?",
+  "answers": [
+   "John F. Kennedy",
+   "William J. Clinton",
+   "Franklin D. Roosevelt",
+   "Abraham Lincoln"
+  ],
+  "correct": "John F. Kennedy"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "Which US President said these words: A democracy is nothing more than mob rule, where fifty-one percent of the people may take away the rights of the other forty-nine.?",
+  "answers": [
+   "Thomas Jefferson",
+   "Abraham Lincoln",
+   "Benjamen Franklin",
+   "John F. Kennedy"
+  ],
+  "correct": "Thomas Jefferson"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "Which US President made the following statement: America stands for liberty, for the pursuit of happiness and for the unalienable right for life. This right to life cannot be granted or denied by government because it does not come from the government, it comes from the creator of life.?",
+  "answers": [
+   "George W. Bush",
+   "Thomas Jefferson",
+   "John Adams",
+   "George Washington"
+  ],
+  "correct": "George W. Bush"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "Which great American leader made the following statement: Any people anywhere, being inclined and having the power, have the right to rise up, and shake off the existing government, and form a new one that suits them better. This is a most valuable - a most sacred right - a right, which we hope and believe, is to liberate the world.â?",
+  "answers": [
+   "Abraham Lincoln",
+   "Benjamin Franklin",
+   "George Washington",
+   "Thomas Jefferson"
+  ],
+  "correct": "Abraham Lincoln"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "The M1 Carbine is the most mass produced small arm weapon in the United States. Even though it was mainly produced by the Inland Division of General Motors, its design belongs to this famous company.",
+  "answers": [
+   "Winchester",
+   "Kalashnikov",
+   "GIAT Industries",
+   "Magnum Research Inc."
+  ],
+  "correct": "Winchester"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "How many Medal of Honor citations have been issued during the Vietnam War?",
+  "answers": [
+   "245",
+   "345",
+   "153",
+   "120"
+  ],
+  "correct": "245"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "One of the worlds greatest generals. By the age of 30 he ruled almost half of the world. This great leader died at the peak of his campaign at the age of 33. His was taught by Aristotle.",
+  "answers": [
+   "Alexander The Great",
+   "Darius",
+   "Julius Caesar",
+   "Augustus"
+  ],
+  "correct": "Alexander The Great"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "This Carthaginian general marched from Spain to Rome across the Alps. 14,000 of his 40,000 troops died because of the harsh climate. Later, he won the Battle of Cannae.",
+  "answers": [
+   "Hannibal",
+   "Augustus",
+   "Gaius Marius",
+   "Lesius Quietus"
+  ],
+  "correct": "Hannibal"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "His saying, Veni Vidi Vici (I came I saw I conquered) is known all over the world. His war feats clothed him with glory giving him political power.",
+  "answers": [
+   "Julius Caesar",
+   "Marcus Antonius",
+   "Augustus",
+   "Darius"
+  ],
+  "correct": "Julius Caesar"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "This American general led the invasion of Normandy. He was also an American president from 1953 to 1961.",
+  "answers": [
+   "Dwight Eisenhower",
+   "George S. Patton",
+   "MacArthur",
+   "William H. Simpson"
+  ],
+  "correct": "Dwight Eisenhower"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "He was one of the best military officers of Russia during the World War II and involved in the taking of Berlin.",
+  "answers": [
+   "Georgi Zhukov",
+   "Lavr Kornilov",
+   "Alexander Samsonov",
+   "Nicholas Nikolaevich"
+  ],
+  "correct": "Georgi Zhukov"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "Along with the French general, this British general also led the campaign in Northern Africa during the World War II. He was accused of not fighting bravely enough, after his lack of success in Operation Lightfoot.",
+  "answers": [
+   "Bernard Montgomery",
+   "Dwight Eisenhower",
+   "Georg Stumme",
+   "John White"
+  ],
+  "correct": "Bernard Montgomery"
+ },
+ {
+  "category": "history",
+  "difficulty": "easy",
+  "question": "This island was Englands first overseas colony.",
+  "answers": [
+   "Newfoundland",
+   "Rhodes",
+   "Iceland",
+   "Greenland"
+  ],
+  "correct": "Newfoundland"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "In 1962 Jamaica gained full independence from the United Kingdom, but before even becoming a British colony, Jamaica was possession of this country.",
+  "answers": [
+   "Spain",
+   "Portugal",
+   "Russia",
+   "Italy"
+  ],
+  "correct": "Spain"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "One of the results of the Second Anglo-Dutch War, between England and the United Netherlands, was that the city of New Amsterdam was renamed to this.",
+  "answers": [
+   "New York",
+   "New Jersey",
+   "New Mexico",
+   "New Orleans"
+  ],
+  "correct": "New York"
+ },
+ {
+  "category": "history",
+  "difficulty": "easy",
+  "question": "Slavery was outlawed in all British colonies in this year.",
+  "answers": [
+   "1834",
+   "1812",
+   "1912",
+   "1738"
+  ],
+  "correct": "1834"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "On July 1, 1997, the former British colony of Hong Kong reunified with the Peoples Republic of China. This man was the last governor of Hong Kong.",
+  "answers": [
+   "Chris Patten",
+   "Henry Tang",
+   "Tung Chee Hwa",
+   "Donald Tsang"
+  ],
+  "correct": "Chris Patten"
+ },
+ {
+  "category": "history",
+  "difficulty": "easy",
+  "question": "What was the nickname of Tom Cruises character in Top Gun?",
+  "answers": [
+   "Maverick",
+   "Goose",
+   "Iceman",
+   "Viper"
+  ],
+  "correct": "Maverick"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "What NBA team won their 16th NBA Championship title on June 8,1986?",
+  "answers": [
+   "Boston Celtics",
+   "Houston Rockets",
+   "L.A. Lakers",
+   "Chicago Bulls"
+  ],
+  "correct": "Boston Celtics"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "Which of these songs was not on Bon Jovis chart-topping 1986 album Slippery When Wet?",
+  "answers": [
+   "Ill Be There for You",
+   "Never Say Goodbye",
+   "Livin on a Prayer",
+   "Wanted Dead Or Alive"
+  ],
+  "correct": "Ill Be There for You"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "When this significant event took place on January 28, 1986, students worldwide saw it on live television.",
+  "answers": [
+   "Space Shuttle Challenger explodes",
+   "A nuclear reactor at the Chernobyl nuclear plant explodes",
+   "The United States Senate allows its debates to be televised",
+   "Pope John Paul II officially visits the Synagogue of Rome"
+  ],
+  "correct": "Space Shuttle Challenger explodes"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "Which one of these actors was not in the Academy Award winning Oliver Stone film Platoon?",
+  "answers": [
+   "Tom Cruise",
+   "Tom Berenger",
+   "Charlie Sheen",
+   "Johnny Depp"
+  ],
+  "correct": "Tom Cruise"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "On what album released in 1986 would I find the following lyrics: When I was 17 I did what people told me, Did what my father said and let my mother mold me",
+  "answers": [
+   "Control - Janet Jackson",
+   "True Stories - Talking Heads",
+   "Raising Hell - Run DMC",
+   "True Colors - Cyndi Lauper"
+  ],
+  "correct": "Control - Janet Jackson"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "What southern sitcom, which debuted in 1986, are the following characters from: Julia, Suzanne, Mary Jo, Charlene, Anthony and Bernice?",
+  "answers": [
+   "Designing Women",
+   "Mamas Family",
+   "Its A Living",
+   "The Golden Girls"
+  ],
+  "correct": "Designing Women"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "This was an attempt to establish the use of the metric system in the United States. However it was not accepted and the US never converted.",
+  "answers": [
+   "The 1975 Metric Conversion Act",
+   "IEEE Conversion RFC",
+   "The Common management interface protocol",
+   "ANSI Metric Conversions"
+  ],
+  "correct": "The 1975 Metric Conversion Act"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "This suspension bridge collapsed due to resonance - a twisting pattern never seen before, took the bridge down.",
+  "answers": [
+   "The Tacoma Narrows Bridge",
+   "The John Hancock Bridge",
+   "Willamette River Pedestrian Bridge",
+   "The Golden Gate Bridge"
+  ],
+  "correct": "The Tacoma Narrows Bridge"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "In early 1985 the manufacturer of this drink changed the recipe of the product, but after months of complaints, it was forced by the consumers to restore the original formula.",
+  "answers": [
+   "Coca Cola",
+   "Pepsi",
+   "Yoo-hoo",
+   "Dr. Pepper"
+  ],
+  "correct": "Coca Cola"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "At the time, this was the most complex ship, employing safety measures unseen before. She was double-bottomed and separated into 16 watertight compartments. Nevertheless, she sank on her maiden voyage.",
+  "answers": [
+   "Titanic",
+   "Britanic",
+   "Andrea Doria",
+   "The Empress of Ireland"
+  ],
+  "correct": "Titanic"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "This rap artist, born Stanley Kirk Burrell was known for his lavish tours and catchy hooks. However, his attempted restyling as a gangsta-rapper was a failure",
+  "answers": [
+   "MC Hammer",
+   "Marky Mark",
+   "Busta Rhymes",
+   "Vanilla Ice"
+  ],
+  "correct": "MC Hammer"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "This aircraft was proposed by Boeing in the 80s, but never entered production due to excessive noise from its unducted fan engines and high production costs.",
+  "answers": [
+   "Boeing 7J7",
+   "Spruce Goose flying boat",
+   "Boeing Business Jet",
+   "Boeing 737"
+  ],
+  "correct": "Boeing 7J7"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "This tank was built during World War II, but had weight and speed issues. It never saw battle.",
+  "answers": [
+   "Panzerkampfwagen VIII Maus",
+   "Sturmpanzer IV Brummbär",
+   "M3A5 Grant",
+   "Heavy Tank Charron 2C"
+  ],
+  "correct": "Panzerkampfwagen VIII Maus"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "This 15,000 ton, German-built ship maintained a route from Tallinn to Stockholm. In 1994, it sunk to the bottom of the Baltic Sea due to a badly designed bow door.",
+  "answers": [
+   "Estonia Ferry",
+   "Blak Bark of Ostend",
+   "Barge of Calais",
+   "Castor to Circe"
+  ],
+  "correct": "Estonia Ferry"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "Three of these political events occurred in the 80s. Which one happened earlier?",
+  "answers": [
+   "The Winter of Discontent in the UK",
+   "The Collapse of the Soviet Union",
+   "The USA invades Panama",
+   "The Velvet Revolution in Czechoslovakia"
+  ],
+  "correct": "The Winter of Discontent in the UK"
+ },
+ {
+  "category": "history",
+  "difficulty": "medium",
+  "question": "All of these famous political leaders lost their power in the 80s, except one. Can you spot him?",
+  "answers": [
+   "Francois Mitterrand",
+   "Augusto Pinochet",
+   "Ceausescu",
+   "Gustav Husak"
+  ],
+  "correct": "Francois Mitterrand"
+ },
+ {
+  "category": "history",
+  "difficulty": "hard",
+  "question": "Mel Gibson starred in all of the following four movies. However, only one of them was produced during the 80s. Which one?",
+  "answers": [
+   "Lethal Weapon 2",
+   "Forever Young",
+   "Mad Max",
+   "Lethal Weapon 3"
+  ],
+  "correct": "Lethal Weapon 2"
+ },
+ {
+  "category": "history",
+  "difficulty": "easy",
+  "question": "The TV-series Taxi was first released during this period.",
+  "answers": [
+   "1970s",
+   "1990s",
+   "1960s",
+   "1980s"
+  ],
+  "correct": "1970s"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "What is the capital of Afghanistan?",
+  "answers": [
+   "Kabul",
+   "Tirana",
+   "Dushanbe",
+   "Tashkent"
+  ],
+  "correct": "Kabul"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "One of the remnants of this states former status as a possession of France is the fact that it was named after a French king.",
+  "answers": [
+   "Louisiana",
+   "Oklahoma",
+   "Florida",
+   "Georgia"
+  ],
+  "correct": "Louisiana"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "What is the capital of Belgium?",
+  "answers": [
+   "Brussels",
+   "Amsterdam",
+   "Luxemburg",
+   "Stockholm"
+  ],
+  "correct": "Brussels"
+ },
+ {
+  "category": "geography",
+  "difficulty": "hard",
+  "question": "No state has as many different species of mammals as this one. The average square mile of land contains 1.4 elk, 1.4 pronghorn antelope, and 3.3 deer.",
+  "answers": [
+   "Montana",
+   "Nebraska",
+   "Nevada",
+   "Colorado"
+  ],
+  "correct": "Montana"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "What is the capital of Greece?",
+  "answers": [
+   "Athens",
+   "Ankara",
+   "Sofia",
+   "Thessaloniki"
+  ],
+  "correct": "Athens"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "What is the capital of Italy?",
+  "answers": [
+   "Rome",
+   "Venice",
+   "Naples",
+   "Milan"
+  ],
+  "correct": "Rome"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "The largest lake in this state is Lake Okeechobee. The state is also home to one of the two naturally round lakes in the world.",
+  "answers": [
+   "Florida",
+   "Hawaii",
+   "Tennessee",
+   "Alabama"
+  ],
+  "correct": "Florida"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "What is the capital of Israel?",
+  "answers": [
+   "Jerusalem",
+   "Tel Aviv",
+   "Kabul",
+   "Islamabad"
+  ],
+  "correct": "Jerusalem"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "One of the following pairs (state - its capital) is wrong.",
+  "answers": [
+   "North Dakota - Fargo",
+   "Kentucky - Frankfort",
+   "Kansas - Topeka",
+   "Maine - Augusta"
+  ],
+  "correct": "North Dakota - Fargo"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "What is the capital of Germany?",
+  "answers": [
+   "Berlin",
+   "Frankfurt",
+   "Munich",
+   "Hamburg"
+  ],
+  "correct": "Berlin"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "The 3rd Monday in April is Patriots Day - a legal holiday in this state.",
+  "answers": [
+   "Massachusetts",
+   "California",
+   "Washington",
+   "Oregon"
+  ],
+  "correct": "Massachusetts"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "What is the capital of Norway?",
+  "answers": [
+   "Oslo",
+   "Stockholm",
+   "Helsinki",
+   "Copenhagen"
+  ],
+  "correct": "Oslo"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "Francis Drake was 66 years old at his inauguration and the oldest governor of this state.",
+  "answers": [
+   "Iowa",
+   "Nevada",
+   "Ohio",
+   "Minnesota"
+  ],
+  "correct": "Iowa"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "What is the capital and largest city of Hawaii, the 50th US state?",
+  "answers": [
+   "Honolulu",
+   "Little Rock",
+   "Dover",
+   "Frankfort"
+  ],
+  "correct": "Honolulu"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "What is the state capital of Washington?",
+  "answers": [
+   "Olympia",
+   "Seattle",
+   "Walla Walla",
+   "Spokane"
+  ],
+  "correct": "Olympia"
+ },
+ {
+  "category": "geography",
+  "difficulty": "hard",
+  "question": "When the streams Biya and Katun join in Altai Krai, they form this mighty river. It is located in West Siberia, Russia and has many names- the Siberian Tatars call it Omar or Umar, the Samoyedes- Kolta or Kuay and to the Ostiaks it is known as the As, Yag, Kolta and Yema. It joins the Irtysh river, forming the longest river flow in Russia. What is its name?",
+  "answers": [
+   "Ob",
+   "Ural",
+   "Volga",
+   "Lena"
+  ],
+  "correct": "Ob"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "What is the state capital of Oregon?",
+  "answers": [
+   "Salem",
+   "Bend",
+   "Portland",
+   "Eugene"
+  ],
+  "correct": "Salem"
+ },
+ {
+  "category": "geography",
+  "difficulty": "hard",
+  "question": "Although the Amazon river is generally regarded as the second-longest in the world, it is the river with greatest total flow, carrying more than the Mississippi, Nile, and Yangtze rivers combined. It ends in the Atlantic Ocean, but it is believed to begin its long journey from this mountain peak.",
+  "answers": [
+   "Nevado Mismi",
+   "Misti",
+   "Cotopaxi",
+   "Mount Chimborazo"
+  ],
+  "correct": "Nevado Mismi"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "What is the state capital of California?",
+  "answers": [
+   "Sacramento",
+   "Los Angeles",
+   "San Diego",
+   "San Francisco"
+  ],
+  "correct": "Sacramento"
+ },
+ {
+  "category": "geography",
+  "difficulty": "hard",
+  "question": "This is the longest river in Asia and its Chinese name, Chang Jiang, is literally translated to Long River. The critically endangered Chinese River Dolphin and Chinese paddlefish live only in this river. It takes its source in the Qinghai Province, flows for 6,380km (3964miles) and finally empties into the East China Sea. What is the name of this river?",
+  "answers": [
+   "Yangtze",
+   "Irtysh",
+   "Huai River",
+   "Mekong"
+  ],
+  "correct": "Yangtze"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "What is the state capital of Idaho?",
+  "answers": [
+   "Boise",
+   "Idaho Falls",
+   "Pocatello",
+   "Coeur DAlene"
+  ],
+  "correct": "Boise"
+ },
+ {
+  "category": "geography",
+  "difficulty": "hard",
+  "question": "Huang He is the second-longest river in China. Its source is in the Kunlun Mountains at 4,500m (14,764 feet) above sea level. Due to the silts that the river carries, the color of its waters becomes so unnatural that it gave the name of the river . What is the color of the waters of Huang He?",
+  "answers": [
+   "Yellow",
+   "Brown",
+   "Orange",
+   "Red"
+  ],
+  "correct": "Yellow"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "What is the state capital of Nevada?",
+  "answers": [
+   "Carson City",
+   "Reno",
+   "Las vegas",
+   "Austin"
+  ],
+  "correct": "Carson City"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "What is the state capital of Utah?",
+  "answers": [
+   "Salt Lake city",
+   "Cedar City",
+   "Provo",
+   "Price"
+  ],
+  "correct": "Salt Lake city"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "What is the state capital of Arizona?",
+  "answers": [
+   "Phoenix",
+   "Kingman",
+   "Tucson",
+   "Flagstaff"
+  ],
+  "correct": "Phoenix"
+ },
+ {
+  "category": "geography",
+  "difficulty": "hard",
+  "question": "The longest river in Europe is Volga. But do you know which is the second longest one? It flows through several major European cities, such as Ulm, Vienna, Bratislava, Budapest and Belgrade. The river empties in the Black Sea on the terrirories of Romania and Ukraine.",
+  "answers": [
+   "Danube",
+   "Don",
+   "Dniepr",
+   "Emba"
+  ],
+  "correct": "Danube"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "What is the state capital of Alaska?",
+  "answers": [
+   "Juneau",
+   "Kodiak",
+   "Anchorage",
+   "Fairbanks"
+  ],
+  "correct": "Juneau"
+ },
+ {
+  "category": "geography",
+  "difficulty": "hard",
+  "question": "During World War II, this country was able to successfully defend its freedom and resist invasions by the Soviet Union - despite some loss of territory. It joined the European Union in 1995.",
+  "answers": [
+   "Finland",
+   "Poland",
+   "Czech Republic",
+   "Lituania"
+  ],
+  "correct": "Finland"
+ },
+ {
+  "category": "geography",
+  "difficulty": "hard",
+  "question": "Victoria Falls is one of the most spectacular waterfalls in the world. The falls are named after Queen Victoria by David Livingstone, the explorer who visited them in 1855. The falls are 128 m (420 ft) high and are situated on this river.",
+  "answers": [
+   "Zambezi",
+   "Congo",
+   "Gambia",
+   "Orange"
+  ],
+  "correct": "Zambezi"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "This country shares common boundaries with every South American country except Chile and Ecuador.",
+  "answers": [
+   "Brazil",
+   "Colombia",
+   "Argentina",
+   "Bolivia"
+  ],
+  "correct": "Brazil"
+ },
+ {
+  "category": "geography",
+  "difficulty": "hard",
+  "question": "The Nile is generally considered the longest river in the world. The source of this mighty river remained unknown for centuries. Finally Lake Victoria was decided to be its source, although there are other theories. Lake Victoria is located on the territories of these three countries.",
+  "answers": [
+   "Uganda, Kenya and Tanzania",
+   "Sudan, Ethiopia and Kenya",
+   "Zambia, Angola and Sudan",
+   "Egypt, Morocco and Zimbabwe"
+  ],
+  "correct": "Uganda, Kenya and Tanzania"
+ },
+ {
+  "category": "geography",
+  "difficulty": "hard",
+  "question": "After gaining its independence in 1991, it has retained closer political and economic ties to Russia than any of the other former Soviet republics.",
+  "answers": [
+   "Belarus",
+   "Ukraine",
+   "Latvia",
+   "Bulgaria"
+  ],
+  "correct": "Belarus"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "Name the line, which is the same distance from the North Pole and South Pole and runs horizontally around the world.",
+  "answers": [
+   "Equator",
+   "Tropic of Capricorn",
+   "Tropic of Cancer",
+   "Prime Meridian"
+  ],
+  "correct": "Equator"
+ },
+ {
+  "category": "geography",
+  "difficulty": "hard",
+  "question": "It was once the center of power for an empire. Occupied by the allies in 1945, a state treaty ended its occupation in 1955 and recognized its independence.",
+  "answers": [
+   "Austria",
+   "Belgium",
+   "Denmark",
+   "Hungary"
+  ],
+  "correct": "Austria"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "What term refers to the horizontal line, 23.5 degrees S, which passes through South America, Africa, and Australia?",
+  "answers": [
+   "Tropic of Capricorn",
+   "Tropic of Cancer",
+   "Prime Meridian",
+   "Equator"
+  ],
+  "correct": "Tropic of Capricorn"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "This country is home to the northernmost capital in mainland Europe?",
+  "answers": [
+   "Finland",
+   "Sweden",
+   "Denmark",
+   "United Kingdom"
+  ],
+  "correct": "Finland"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "It is the sixth largest country and home of The Doctor breeze.",
+  "answers": [
+   "Australia",
+   "Ukraine",
+   "Canada",
+   "United Kingdom"
+  ],
+  "correct": "Australia"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "Which continents (landmasses, not peripheral islands) are entirely in the Northern Hemisphere?",
+  "answers": [
+   "North America, Europe, and Asia",
+   "North America and Europe",
+   "Europe, Africa and Asia",
+   "North America, Africa, and Asia"
+  ],
+  "correct": "North America, Europe, and Asia"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "Its three-year-old Socialist government was overthrown in 1973 by a dictatorial military regime led by Augusto Pinochet.",
+  "answers": [
+   "Chile",
+   "Peru",
+   "Paraguay",
+   "Uruguay"
+  ],
+  "correct": "Chile"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "Which continents are entirely in the Western Hemisphere?",
+  "answers": [
+   "North America and South America",
+   "North America, Europe, and Asia",
+   "Europe, Asia, Africa, Australia",
+   "Australia and Antarctica"
+  ],
+  "correct": "North America and South America"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "This country dominates the Aegian Sea and possesses an archipelago of about 2,000 islands.",
+  "answers": [
+   "Greece",
+   "Italy",
+   "Cyprus",
+   "Turkey"
+  ],
+  "correct": "Greece"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "Which feature on a map helps determine direction?",
+  "answers": [
+   "a compass rose",
+   "a key",
+   "a legend",
+   "a scale"
+  ],
+  "correct": "a compass rose"
+ },
+ {
+  "category": "geography",
+  "difficulty": "hard",
+  "question": "This country controls the Sinai Peninsula. Following the completion of the Suez Canal in 1869, it became an important world transportation hub.",
+  "answers": [
+   "Egypt",
+   "Thailand",
+   "Hong Kong",
+   "Libya"
+  ],
+  "correct": "Egypt"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "Which of these is not a type of map projection?",
+  "answers": [
+   "Crusoe",
+   "Robinson",
+   "Mercator",
+   "Interrupted"
+  ],
+  "correct": "Crusoe"
+ },
+ {
+  "category": "geography",
+  "difficulty": "hard",
+  "question": "This countrys national holidays include: - Independence Day, 10 December (date of independence from Spain, 1898) - 20 May (independence from US administration, 1902) - Rebellion Day 26 July (1953)",
+  "answers": [
+   "Cuba",
+   "Palestine",
+   "Mexico",
+   "Chile"
+  ],
+  "correct": "Cuba"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "Which of these continents is largest (by territory)?",
+  "answers": [
+   "North America",
+   "South America",
+   "Antarctica",
+   "Europe"
+  ],
+  "correct": "North America"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "The first American capital. It has a nick name coined by musicians - it means to play the big time.",
+  "answers": [
+   "New York",
+   "Washington D.C.",
+   "Boston",
+   "San Francisco"
+  ],
+  "correct": "New York"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "Which of these countries is smallest (by territory)?",
+  "answers": [
+   "San Marino",
+   "Seychelles",
+   "Liechtenstein",
+   "Marshall Islands"
+  ],
+  "correct": "San Marino"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "The cable cars of this city are the only mobile National Monument.",
+  "answers": [
+   "San Francisco",
+   "Oklahoma",
+   "Nevada",
+   "Los Angeles"
+  ],
+  "correct": "San Francisco"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "Which of these US cities is largest (by population)?",
+  "answers": [
+   "Houston",
+   "Phoenix",
+   "Philadelphia",
+   "San Antonio"
+  ],
+  "correct": "Houston"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "When broken down into kanji, the name of this capital city means east and capital.",
+  "answers": [
+   "Tokyo",
+   "Nagoya",
+   "Osaka",
+   "Kyoto"
+  ],
+  "correct": "Tokyo"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "Which of these mountains is highest?",
+  "answers": [
+   "Mount McKinley",
+   "Puncak Jaya",
+   "Mount Elbrus",
+   "Mount Kilimanjaro"
+  ],
+  "correct": "Mount McKinley"
+ },
+ {
+  "category": "geography",
+  "difficulty": "hard",
+  "question": "The Seine river divides this city into the Rive Droite (French for Right Bank) north of the river and the Rive Gauche (French for Left Bank) south of the river.",
+  "answers": [
+   "Paris",
+   "Lille",
+   "Lyon",
+   "Marseille"
+  ],
+  "correct": "Paris"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "Which of these lakes is deepest?",
+  "answers": [
+   "Tanganyika",
+   "Caspian Sea",
+   "Malawi or Nyasa",
+   "Issyk-Kul"
+  ],
+  "correct": "Tanganyika"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "This city situated south of China is made up of 230 islands, Lantau Island being the largest.",
+  "answers": [
+   "Hong Kong",
+   "Taipei",
+   "Peking",
+   "Shanghai"
+  ],
+  "correct": "Hong Kong"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "Which of these rivers is longest?",
+  "answers": [
+   "Huang",
+   "Lena",
+   "Amur",
+   "Ob-Irtysh"
+  ],
+  "correct": "Huang"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "This city is the only one located on two continents.",
+  "answers": [
+   "Istanbul",
+   "Kadis",
+   "Tanjer",
+   "Athens"
+  ],
+  "correct": "Istanbul"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "Which of these seas is largest?",
+  "answers": [
+   "Mediterranean",
+   "Bering",
+   "Arabian Sea",
+   "Gulf of Mexico"
+  ],
+  "correct": "Mediterranean"
+ },
+ {
+  "category": "geography",
+  "difficulty": "medium",
+  "question": "In the devilish year of 1666 a great fire occured in this European capital city. Half of it burned down.",
+  "answers": [
+   "London",
+   "Rome",
+   "Paris",
+   "Vienna"
+  ],
+  "correct": "London"
+ },
+ {
+  "category": "geography",
+  "difficulty": "easy",
+  "question": "Which of these deserts is largest?",
+  "answers": [
+   "Syrian",
+   "Chihuahuan",
+   "Thar",
+   "Great Sandy"
+  ],
+  "correct": "Syrian"
+ },
+ {
+  "category": "science",
+  "difficulty": "easy",
+  "question": "Clouds are made up of these.",
+  "answers": [
+   "Water droplets and ice crystals",
+   "Carbon atoms",
+   "Oxygen ions",
+   "Dust mites"
+  ],
+  "correct": "Water droplets and ice crystals"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "This formation is a conical hill or mountain. It is formed by mantle material being pressed through an opening in the Earths crust.",
+  "answers": [
+   "A volcano",
+   "A hill",
+   "An earthquake",
+   "A geyser"
+  ],
+  "correct": "A volcano"
+ },
+ {
+  "category": "science",
+  "difficulty": "hard",
+  "question": "Japan suffers from this event very often. It is the sudden, light or violent movement of the earths surface caused by the release of energy in the earths crust.",
+  "answers": [
+   "Earthquake",
+   "Volcano",
+   "Tide",
+   "Tsunami"
+  ],
+  "correct": "Earthquake"
+ },
+ {
+  "category": "science",
+  "difficulty": "easy",
+  "question": "It is the longest river in the world",
+  "answers": [
+   "The Nile",
+   "Themes",
+   "The Amazon",
+   "Danube"
+  ],
+  "correct": "The Nile"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "Why do travelers to La Paz, Bolivia, often become ill as soon as they arrive?",
+  "answers": [
+   "Because of the altitude",
+   "Because of the high temperature",
+   "Because of the humidity",
+   "Because of the soil quality"
+  ],
+  "correct": "Because of the altitude"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "In the US, why do we change our clocks on the daylight saving time dates in April and October?",
+  "answers": [
+   "To conserve energy",
+   "To increase the hours of the day",
+   "To extend the working day",
+   "Because the tourist period in most countries starts in May"
+  ],
+  "correct": "To conserve energy"
+ },
+ {
+  "category": "science",
+  "difficulty": "hard",
+  "question": "These are places of arid land with really low rainfall and high tempertures variation. Their vegetation is insignificant and the population of people and animals is very limited.",
+  "answers": [
+   "Deserts",
+   "Oceans",
+   "Raiforests",
+   "The equator"
+  ],
+  "correct": "Deserts"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "This is a gemstone made by fossilized tree sap that is at least 30 million years old.",
+  "answers": [
+   "Amber",
+   "Obsidian",
+   "Tourmaline",
+   "Malachite"
+  ],
+  "correct": "Amber"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "This is the largest island on Earth and one third of it is a national park.",
+  "answers": [
+   "Greenland",
+   "Madagaskar",
+   "Australia",
+   "Alaska"
+  ],
+  "correct": "Greenland"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "Which of these organs has no known function in the human body?",
+  "answers": [
+   "appendix",
+   "tonsils",
+   "uvula",
+   "pineal gland"
+  ],
+  "correct": "appendix"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "The main function of this organ of respiration is to transport oxygen from the atmosphere into the bloodstream.",
+  "answers": [
+   "lung",
+   "stomach",
+   "diaphragm",
+   "trachea"
+  ],
+  "correct": "lung"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "These organs are very sensitive and often fail in people with very high blood pressure or diabetes.",
+  "answers": [
+   "kidneys",
+   "pancreas",
+   "ovaries",
+   "lungs"
+  ],
+  "correct": "kidneys"
+ },
+ {
+  "category": "science",
+  "difficulty": "easy",
+  "question": "This is one of the first signs of pregnancy.",
+  "answers": [
+   "Missed period",
+   "Swollen Feet",
+   "Hair loss",
+   "Waddling"
+  ],
+  "correct": "Missed period"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "This doctor takes care of you and your baby during pregnancy.",
+  "answers": [
+   "Obstetrician",
+   "Psychologist",
+   "Periodontist",
+   "Pediatrician"
+  ],
+  "correct": "Obstetrician"
+ },
+ {
+  "category": "science",
+  "difficulty": "easy",
+  "question": "What is the most common method of child birth?",
+  "answers": [
+   "Vaginal",
+   "Cesarean",
+   "Water birth",
+   "In Vitro Fertilization"
+  ],
+  "correct": "Vaginal"
+ },
+ {
+  "category": "science",
+  "difficulty": "easy",
+  "question": "What are common side effects of pregnancy?",
+  "answers": [
+   "All of the these",
+   "Stretch marks",
+   "Morning Sickness",
+   "Weight gain"
+  ],
+  "correct": "All of the these"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "How far along are you approximately, when you feel the baby move for the first time?",
+  "answers": [
+   "20 weeks",
+   "10 weeks",
+   "35 weeks",
+   "2 weeks"
+  ],
+  "correct": "20 weeks"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "What is suggested that you not do several hours before you go into labor? It could get you embarrassed.",
+  "answers": [
+   "Eat food",
+   "Eat fish",
+   "Have sex",
+   "Talk on the phone"
+  ],
+  "correct": "Eat food"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "What is also delivered along with the baby or immediately after its birth?",
+  "answers": [
+   "Placenta",
+   "Feet",
+   "Shoulders",
+   "Handbook"
+  ],
+  "correct": "Placenta"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "These small bodies are considered left overs from the formation of the Solar system some 4.6 billion years ago.",
+  "answers": [
+   "Asteroids",
+   "Comets",
+   "Stars",
+   "Planets"
+  ],
+  "correct": "Asteroids"
+ },
+ {
+  "category": "science",
+  "difficulty": "hard",
+  "question": "These are lumps of ice and dust. When they get close enough to the Sun they gradually evaporate. Jets of gas and dust create long tails that people can see from Earth.",
+  "answers": [
+   "Comets",
+   "Asteroids",
+   "UFOs",
+   "Stars"
+  ],
+  "correct": "Comets"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "This planet is slightly smaller than Earth and its closest neighbor (excluding the Moon).",
+  "answers": [
+   "Venus",
+   "Uranus",
+   "Mars",
+   "Saturn"
+  ],
+  "correct": "Venus"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "This planet is has the largest group of moons - 31, but it is best known for its ring system.",
+  "answers": [
+   "Saturn",
+   "Neptune",
+   "Mars",
+   "Venus"
+  ],
+  "correct": "Saturn"
+ },
+ {
+  "category": "science",
+  "difficulty": "hard",
+  "question": "This planet of the Solar System was named after a Greek god of the sea and earthquakes. The name is actually the Roman translation of the gods name.",
+  "answers": [
+   "Neptune",
+   "Mercury",
+   "Pluto",
+   "Uranus"
+  ],
+  "correct": "Neptune"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "As this is the closest planet to the Sun, its temperatures at the surface range between -300 and 800 F (hot enough for lead to melt).",
+  "answers": [
+   "Mercury",
+   "Neptune",
+   "Pluto",
+   "Venus"
+  ],
+  "correct": "Mercury"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "The surface of this planet is unique, it is the only one which has water in large quantities.",
+  "answers": [
+   "Earth",
+   "Saturn",
+   "Pluto",
+   "Mars"
+  ],
+  "correct": "Earth"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "Which Solar System celestial bodys revolution around the Sun takes 248 years?",
+  "answers": [
+   "Pluto",
+   "Saturn",
+   "Neptune",
+   "Uranus"
+  ],
+  "correct": "Pluto"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "This is the largest planet in our solar system. It is most famous for its Great Red Spot.",
+  "answers": [
+   "Jupiter",
+   "Mars",
+   "Neptune",
+   "Saturn"
+  ],
+  "correct": "Jupiter"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "Miranda, Ariel, Umbriel, Titania, Oberon, Caliban, and Sycorax are names of the icy moons of this planet.",
+  "answers": [
+   "Uranus",
+   "Jupiter",
+   "Saturn",
+   "Venus"
+  ],
+  "correct": "Uranus"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "An icon or animation to represent a participant used in Internet chat and games is referred to as this.",
+  "answers": [
+   "Avatar",
+   "Bitmap",
+   "Cookie",
+   "Applet"
+  ],
+  "correct": "Avatar"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "If you and I are chatting over the Internet and I write LOL, that means that I am doing this.",
+  "answers": [
+   "Laughing",
+   "Crying",
+   "Sleeping",
+   "Eating"
+  ],
+  "correct": "Laughing"
+ },
+ {
+  "category": "science",
+  "difficulty": "easy",
+  "question": "http://www.123facts.com/ is referred to as this.",
+  "answers": [
+   "URL",
+   "TCP",
+   "WAP",
+   "USB"
+  ],
+  "correct": "URL"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "One of the following pairs (chat abbreviation - its meaning) is wrong.",
+  "answers": [
+   "TTYL - To Tell You a Lie",
+   "BRB - Be Right Back",
+   "ATM - At The Moment",
+   "TIA - Thanks In Advance"
+  ],
+  "correct": "TTYL - To Tell You a Lie"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "One of these things will not help you to get in touch with your neighbours PC.",
+  "answers": [
+   "Cache server",
+   "Hub",
+   "Router",
+   "Network card"
+  ],
+  "correct": "Cache server"
+ },
+ {
+  "category": "science",
+  "difficulty": "easy",
+  "question": "In chat jargon, the emoticon [8-] refers to this person.",
+  "answers": [
+   "Frankenstein",
+   "Elvis",
+   "Ronald Regan",
+   "The Pope"
+  ],
+  "correct": "Frankenstein"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "The medical term cardio, deriving from a Greek word, refers to which organ of the human body?",
+  "answers": [
+   "Heart",
+   "Brain",
+   "Liver",
+   "Lungs"
+  ],
+  "correct": "Heart"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "The term arthro is of Greek origin. It refers to which part of the body?",
+  "answers": [
+   "Joint",
+   "Head",
+   "Skin",
+   "Bone"
+  ],
+  "correct": "Joint"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "Gastro is a common medical prefix, derived from the Greek word gastros which means what?",
+  "answers": [
+   "Stomach",
+   "Gas",
+   "Brain",
+   "Cell"
+  ],
+  "correct": "Stomach"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "Erythrocytes are a type of blood cells, consisting mainly of hemoglobin. What does the word erythro mean?",
+  "answers": [
+   "Red",
+   "Knowledge",
+   "Cell",
+   "White"
+  ],
+  "correct": "Red"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "The word adeno, deriving from Greek, refers to which to what body part?",
+  "answers": [
+   "Gland",
+   "Flesh",
+   "Brain",
+   "Kidney"
+  ],
+  "correct": "Gland"
+ },
+ {
+  "category": "science",
+  "difficulty": "easy",
+  "question": "Onco, coming from the Greek word onkos refers to what?",
+  "answers": [
+   "Tumor",
+   "Ear",
+   "Nerve",
+   "Eye"
+  ],
+  "correct": "Tumor"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "The food colorants, cochineal and carmine, are made from what?",
+  "answers": [
+   "A kind of insect",
+   "Frogs",
+   "FDC Red Dye #40",
+   "None of these"
+  ],
+  "correct": "A kind of insect"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "Jell-O, the popular gelatin dessert, is made in part, from what?",
+  "answers": [
+   "Bones and hides",
+   "Red ants",
+   "None of these",
+   "Horses and cows hooves"
+  ],
+  "correct": "Bones and hides"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "Which of these statements, related to the effects of eating turkey, is true?",
+  "answers": [
+   "None of these",
+   "Turkey slows your metabolic rate which makes you drowsy",
+   "A turkey makes you sleepy as it contains the natural sedative L-tryptophan",
+   "Increased blood flow to the gastrointestinal tract makes one drowsy"
+  ],
+  "correct": "None of these"
+ },
+ {
+  "category": "science",
+  "difficulty": "easy",
+  "question": "What food results in negative calories when eaten?",
+  "answers": [
+   "All of these",
+   "Carrots",
+   "Celery",
+   "Radishes"
+  ],
+  "correct": "All of these"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "Chop Suey, a pasta dish consisting of short noodles, was originally made and served in which country?",
+  "answers": [
+   "USA",
+   "Thailand",
+   "China",
+   "Vietnam"
+  ],
+  "correct": "USA"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "In 2003, the FDA issued a warning about a possible connection between green onions and which disease?",
+  "answers": [
+   "Hepatitis A",
+   "None of these",
+   "Gall stones",
+   "Cancer"
+  ],
+  "correct": "Hepatitis A"
+ },
+ {
+  "category": "science",
+  "difficulty": "hard",
+  "question": "This progressive generative disease of the brain results in loss of cognitive ability and uncontrolled movements, called chorea, the Greek word for dance.",
+  "answers": [
+   "Huntingtons Disease",
+   "Alzheimers Disease",
+   "Myasthenia Gravis",
+   "Multiple Sclerosis"
+  ],
+  "correct": "Huntingtons Disease"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "Which of these is best describes the cause of Parkinsons disease?",
+  "answers": [
+   "A decrease in a neurotransmitter",
+   "A brain injury",
+   "Changes in the myelin sheath of the neuron",
+   "Decreased blood flow to the brain"
+  ],
+  "correct": "A decrease in a neurotransmitter"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "If your physician tells you that you have Presbycusis due to the normal process of aging, he may suggest that you need which of these?",
+  "answers": [
+   "Hearing aid",
+   "Dentures",
+   "Glasses",
+   "A wheelchair"
+  ],
+  "correct": "Hearing aid"
+ },
+ {
+  "category": "science",
+  "difficulty": "easy",
+  "question": "Which of these medical terms means difficulty in swallowing.",
+  "answers": [
+   "dysphagia",
+   "dyspepsia",
+   "dysuria",
+   "dyspnea"
+  ],
+  "correct": "dysphagia"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "If you have hyperthyroidism, your body is overproducing what hormone?",
+  "answers": [
+   "Thyroxine",
+   "Estrogen",
+   "Glucagon",
+   "Thyrocalcitonin"
+  ],
+  "correct": "Thyroxine"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "Which of these most accurately describes the medical term, necrosis?",
+  "answers": [
+   "Death of living tissue",
+   "Irregular heartbeat",
+   "Decrease in white blood cells",
+   "Liver damage"
+  ],
+  "correct": "Death of living tissue"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "Your physician has ordered an electroencephalogram (EEG), the graphic recording of the electrical activity of what organ?",
+  "answers": [
+   "Brain",
+   "Muscles",
+   "Liver",
+   "Heart"
+  ],
+  "correct": "Brain"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "In the US, what was the average street cost of a lid (3/4 ounce bag) of marijuana in the mid 1970s?",
+  "answers": [
+   "$15.00",
+   "$20.00",
+   "$10.00",
+   "$5.00"
+  ],
+  "correct": "$15.00"
+ },
+ {
+  "category": "science",
+  "difficulty": "medium",
+  "question": "Marijuana is known by many names, including all of these but one. Which is the odd name?",
+  "answers": [
+   "Janu",
+   "Mary Jane",
+   "Weed",
+   "Pot"
+  ],
+  "correct": "Janu"
+ },
+ {
+  "category": "science",
+  "difficulty": "easy",
+  "question": "What is marijuanas primary active ingredient?",
+  "answers": [
+   "THC",
+   "TCB",
+   "TAC",
+   "TBC"
+  ],
+  "correct": "THC"
+ },
+ {
+  "category": "science",
+  "difficulty": "easy",
+  "question": "How many different chemicals can be found in marijuana?",
+  "answers": [
+   "More than 400",
+   "150",
+   "Less than 5",
+   "200"
+  ],
+  "correct": "More than 400"
+ },
+ {
+  "category": "science",
+  "difficulty": "easy",
+  "question": "Which side effect is not related to the use of marijuana?",
+  "answers": [
+   "Violent behaviour",
+   "Silly and causeless giggling",
+   "Red, bloodshot eyes",
+   "Dizziness and staggering"
+  ],
+  "correct": "Violent behaviour"
+ },
+ {
+  "category": "science",
+  "difficulty": "hard",
+  "question": "With the passage of the Marijuana Tax Act, the United States effectively banned recreational and medicinal use of cannabis. What year was this act adopted?",
+  "answers": [
+   "1937",
+   "1945",
+   "1972",
+   "1965"
+  ],
+  "correct": "1937"
+ },
+ {
+  "category": "literature",
+  "difficulty": "easy",
+  "question": "What does the word cretin refer to?",
+  "answers": [
+   "An idiot",
+   "Cyst on the brain stem",
+   "None of these",
+   "Swelling of the cerebrum caused by spinal fluid"
+  ],
+  "correct": "An idiot"
+ },
+ {
+  "category": "literature",
+  "difficulty": "easy",
+  "question": "Leaves of Grass",
+  "answers": [
+   "Walt Whitman",
+   "Carl Sandberg",
+   "T.S. Eliot",
+   "Robert Frost"
+  ],
+  "correct": "Walt Whitman"
+ },
+ {
+  "category": "literature",
+  "difficulty": "easy",
+  "question": "At The Mountains of Madness",
+  "answers": [
+   "H.P. Lovecraft",
+   "Peter Straub",
+   "Edgar Allan Poe",
+   "C.S. Lewis"
+  ],
+  "correct": "H.P. Lovecraft"
+ },
+ {
+  "category": "literature",
+  "difficulty": "easy",
+  "question": "Ape and Essance; Eyeless in Gaza; Point Counter Point",
+  "answers": [
+   "Aldous Huxley",
+   "J.D. Salinger",
+   "Maya Angelou",
+   "William Butler Yeatts"
+  ],
+  "correct": "Aldous Huxley"
+ },
+ {
+  "category": "literature",
+  "difficulty": "easy",
+  "question": "1984; Animal Farm",
+  "answers": [
+   "George Orwell",
+   "Herman Hesse",
+   "Rudyard Kipling",
+   "Aldous Huxley"
+  ],
+  "correct": "George Orwell"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "Return of the Native; Jude the Obscure; Far From the Madding Crowd",
+  "answers": [
+   "Thomas Hardy",
+   "William Faulkner",
+   "Rudyard Kipling",
+   "James Dickey"
+  ],
+  "correct": "Thomas Hardy"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "The Antichrist; The Gay Science; Beyond Good and Evil; Thus Spoke Zarathustra",
+  "answers": [
+   "Frederick Nietzche",
+   "none of these",
+   "Amari Baraka",
+   "Stephen King"
+  ],
+  "correct": "Frederick Nietzche"
+ },
+ {
+  "category": "literature",
+  "difficulty": "easy",
+  "question": "What language can Harry Potter speak?",
+  "answers": [
+   "Parseltounge",
+   "Goblin",
+   "English",
+   "Mermish"
+  ],
+  "correct": "Parseltounge"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "Hermione was supposed to turn into this person after drinking the Polyjuice Potion.",
+  "answers": [
+   "Millicent Bulstrode",
+   "Crabbe",
+   "Millie Vanilli",
+   "Pansy Parkins"
+  ],
+  "correct": "Millicent Bulstrode"
+ },
+ {
+  "category": "literature",
+  "difficulty": "easy",
+  "question": "What was Hagrid buying in Knockturn Alley?",
+  "answers": [
+   "Flesh-Eating Slug Repellent",
+   "Flesh-Eating Slug Attractor",
+   "Fresh-Skin Slug Repellent",
+   "Flesh-Eating Ant Repellent"
+  ],
+  "correct": "Flesh-Eating Slug Repellent"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "This book by James Joyce was forbidden by the US authorities for 15 years, because it was considered obsene. The ban was lifted in 1933.",
+  "answers": [
+   "Ulysses",
+   "Portrait of the Artist",
+   "Dubliners",
+   "Fanny Hill"
+  ],
+  "correct": "Ulysses"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "This book about the life of a prostitute was written by John Cleland. It has been banned in the past due to frank sexual descriptions.",
+  "answers": [
+   "Fanny Hill",
+   "Candide",
+   "Lysistrata",
+   "Decameron"
+  ],
+  "correct": "Fanny Hill"
+ },
+ {
+  "category": "literature",
+  "difficulty": "hard",
+  "question": "This book tells the story of two women who meet and fall in love with each other. They openly declare their homosexuality to family and friends. Thats why the Kansas school system ordered the removal of all copies of this book from high school libraries.",
+  "answers": [
+   "Annie on My Mind",
+   "Daddys Roommate",
+   "Andersonville",
+   "Catch 22"
+  ],
+  "correct": "Annie on My Mind"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "This book led Austin Miles to the courts in 1992. Miles was sued because his book was ...a vitriolic attack upon organized Christianity.",
+  "answers": [
+   "Dont Call Me Brother",
+   "Leaves of Grass",
+   "Dictionary of American Slang",
+   "Jerusalem Delivered"
+  ],
+  "correct": "Dont Call Me Brother"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "This book by Judy Blume was censored as it discussed adolescent sexuality in too much detail.",
+  "answers": [
+   "Forever",
+   "Grapes of Wrath",
+   "Lolita",
+   "Freedom and Order"
+  ],
+  "correct": "Forever"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "This book by George Orwell was banned as it was pro-communist.",
+  "answers": [
+   "1984",
+   "The Sun Also Rises",
+   "Coming Up for Air",
+   "Deliverance"
+  ],
+  "correct": "1984"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "This Lewis Carrolls work was banned in China because in it humans and animals used the same language.",
+  "answers": [
+   "Alices Adventures in Wonderland",
+   "Sylvie and Bruno",
+   "Through The Looking Glass",
+   "The Hunting of the Snark"
+  ],
+  "correct": "Alices Adventures in Wonderland"
+ },
+ {
+  "category": "literature",
+  "difficulty": "easy",
+  "question": "Its translation into local languages was forbidden in Burma.",
+  "answers": [
+   "The Bible",
+   "The Quran",
+   "The Cabala",
+   "Arabian Nights"
+  ],
+  "correct": "The Bible"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "This book was censored in 1985 in Cairo, Egypt as it contained obscene passages which posed a threat to the countrys moral fabric.",
+  "answers": [
+   "Arabian Nights",
+   "Don Quixote",
+   "Analects",
+   "Brave New World"
+  ],
+  "correct": "Arabian Nights"
+ },
+ {
+  "category": "literature",
+  "difficulty": "easy",
+  "question": "An edition of Miltons works was bound in:",
+  "answers": [
+   "Human skin",
+   "Golden plates",
+   "Bears fur",
+   "Used newspapers"
+  ],
+  "correct": "Human skin"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "Binding books with human hide was a common practice once. Why?",
+  "answers": [
+   "Because the narrative in the book was about the story of the hides owner",
+   "Because of lack of any other proper material",
+   "Because this sold the books more quickly than anything",
+   "Because it was fashionable at the time"
+  ],
+  "correct": "Because the narrative in the book was about the story of the hides owner"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "The name of Cruella de Vil from 101 Dalmatians is meaningful because:",
+  "answers": [
+   "She wants the puppies for their fur",
+   "She actually likes cats and not dogs",
+   "She is the owner of the dalmatians",
+   "She doesnt give them any food"
+  ],
+  "correct": "She wants the puppies for their fur"
+ },
+ {
+  "category": "literature",
+  "difficulty": "hard",
+  "question": "Who is the Shakespearean villain who had his own brother executed and innocent children killed because they were hindrances to his kingly ambition?",
+  "answers": [
+   "Richard III",
+   "Edmund",
+   "Aaron the Moor",
+   "Othello"
+  ],
+  "correct": "Richard III"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "According to psychologists villains in fairy-tales actually have an important role for the childrens mind formation, namely:",
+  "answers": [
+   "They help children decide what is bad",
+   "They make the story really funny",
+   "They are interesting models of behaviour",
+   "They always lose the battle"
+  ],
+  "correct": "They help children decide what is bad"
+ },
+ {
+  "category": "literature",
+  "difficulty": "easy",
+  "question": "The famous evil female Baba Yaga comes from:",
+  "answers": [
+   "Russian folklore",
+   "A Norse legend",
+   "An Uzbekistanian fairy-tale",
+   "A Moroccan song"
+  ],
+  "correct": "Russian folklore"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "Harry Potter is concidered malicious literature by some, because:",
+  "answers": [
+   "It is about witchcraft",
+   "Most of its characters are strange beings",
+   "Its characters are mainly clad in black clothes",
+   "It comprises too many volulmes"
+  ],
+  "correct": "It is about witchcraft"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "It turns out that people like reading about crime. The top-selling English-language author of all time is:",
+  "answers": [
+   "Agatha Christie",
+   "Ben Johnson",
+   "Edgar-Allan Poe",
+   "Virginia Woolf"
+  ],
+  "correct": "Agatha Christie"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "Who wrote about the early whodunit archetype, inspector Auguste Dupin?",
+  "answers": [
+   "Edgar Allan Poe",
+   "Georges Sands",
+   "Washington Irving",
+   "Nathaniel Hawthorne"
+  ],
+  "correct": "Edgar Allan Poe"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "Dr. Alex Delaware is the creation of which of these authors?",
+  "answers": [
+   "Jonathan Kellerman",
+   "Kathy Reichs",
+   "Faye Kellerman",
+   "Ross McDonald"
+  ],
+  "correct": "Jonathan Kellerman"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "What is the name of Colin Creevys brother, who appears in the book Harry Potter and the Order of the Phoenix?",
+  "answers": [
+   "Dennis Creevy",
+   "Carson Creevy",
+   "Darian Creevy",
+   "James Creevy"
+  ],
+  "correct": "Dennis Creevy"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "Why was Hagrid missing in the beginning of Harry Potter and the Order of the Phoenix?",
+  "answers": [
+   "He went hunting giants.",
+   "He went hunting unicorns.",
+   "He went looking for Dumbleodre.",
+   "He went looking for Sirius Black."
+  ],
+  "correct": "He went hunting giants."
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "What did Hermione do to Ron before she stormed out of the charms classroom in Harry Potter and the Half-Blood Prince?",
+  "answers": [
+   "She charmed little yellow birds to fly at Ron and peck him.",
+   "She charmed a desk to fly over to Ron.",
+   "She charmed pencils to fly and poke Ron.",
+   "She charmed a chair to fly across the room at Ron."
+  ],
+  "correct": "She charmed little yellow birds to fly at Ron and peck him."
+ },
+ {
+  "category": "literature",
+  "difficulty": "hard",
+  "question": "In Harry Potter and the Philosophers Stone, before Harry went to fight Professor Quirrel and He-Who-Must-Not-Be-Named, Hermione helped him with a task that involved what?",
+  "answers": [
+   "A set of potions sent from Professor Snape",
+   "A chess set by Professor Flitwick",
+   "An ancient textbook sent from Professor Binns",
+   "A dragon sent from Hagrid"
+  ],
+  "correct": "A set of potions sent from Professor Snape"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "What was the name of the handsome, selfish teacher in Harry Potter and the Chamber of Secrets?",
+  "answers": [
+   "Professor Gilderoy Lockhart",
+   "Professor Godric Gryffindor",
+   "Professor Severus Snape",
+   "Professor Cedric Diggory"
+  ],
+  "correct": "Professor Gilderoy Lockhart"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "In Harry Potter and the Philosophers Stone, what was the password to the Gryffindor tower during Halloween?",
+  "answers": [
+   "Pig snout",
+   "Fairy lights",
+   "None of these",
+   "Zebras tail"
+  ],
+  "correct": "Pig snout"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "In Harry Potter and the Philosophers Stone, who gave Nearly-Headless Nick the rejection letter from the Headless Hunt?",
+  "answers": [
+   "Sir Patrick Delaney-Podmore",
+   "Sir Delaney Patrick-Podmore",
+   "Sir Sturgis Podmore",
+   "Sir Bloody Baron"
+  ],
+  "correct": "Sir Patrick Delaney-Podmore"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "In the Harry Potter series, who created the Ravenclaw House when Hogwarts was built?",
+  "answers": [
+   "Rowena Ravenclaw",
+   "Ronald Ravenclaw",
+   "Rowana Ravenclaw",
+   "Ricky Ravenclaw"
+  ],
+  "correct": "Rowena Ravenclaw"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "What was the name of the child who delivered Ron his parcels in Harry Potter and the Goblet of Fire?",
+  "answers": [
+   "Nigel",
+   "Creevy",
+   "Dennis",
+   "Collin"
+  ],
+  "correct": "Nigel"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "Who took over the Fat Ladys job after she was scared out of her portrait in Harry Potter and the Prisoner of Azkaban?",
+  "answers": [
+   "Sir Cadogan",
+   "Trolls",
+   "Sirius Black",
+   "Sir Delaney Patrick-Podmore"
+  ],
+  "correct": "Sir Cadogan"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "Who lost the list of passwords for the Gryffindor tower in Harry Potter and the Prisoner of Azkaban?",
+  "answers": [
+   "Neville Longbottom",
+   "Dean Thomas",
+   "Ron Weasley",
+   "Padma Patil"
+  ],
+  "correct": "Neville Longbottom"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "In Harry Potter and the Half-Blood Prince, who was bitten by the werewolf Fenfir Greyback?",
+  "answers": [
+   "Bill",
+   "Ron",
+   "Charlie",
+   "Percy"
+  ],
+  "correct": "Bill"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "Who killed Dumbledore in Harry Potter and the Half-Blood Prince?",
+  "answers": [
+   "Professor Snape",
+   "Professor Binns",
+   "Lucius Malfoy",
+   "Bellatrix Lestrange"
+  ],
+  "correct": "Professor Snape"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "What is James Potter called by Lily Evans in Harry Potter and the Order of the Phoenix?",
+  "answers": [
+   "A selfish, bullying toerag",
+   "A bullying, selfish git",
+   "A big-headed git",
+   "An ignorant git"
+  ],
+  "correct": "A selfish, bullying toerag"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "What house was Cho Chang in, as explained in Harry Potter and the Prisoner of Azkaban, Order of the Pheonix, and Goblet of Fire?",
+  "answers": [
+   "Ravenclaw",
+   "Griffyndor",
+   "Slytherin",
+   "Hufflepuff"
+  ],
+  "correct": "Ravenclaw"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "Who gave Dudley a pigs tail using a pink umbrella in the book Harry Potter and the Philosophers Stone?",
+  "answers": [
+   "Rubeus Hagrid",
+   "Draco Malfoy",
+   "Vernon Dursley",
+   "Harry Potter"
+  ],
+  "correct": "Rubeus Hagrid"
+ },
+ {
+  "category": "literature",
+  "difficulty": "hard",
+  "question": "In Harry Potter and the Philosophers Stone, after getting off the Hogwarts Express, how did Harry and his fellow First Years get to the castle?",
+  "answers": [
+   "by boat across the lake",
+   "on their broomsticks",
+   "in a flying car",
+   "walking"
+  ],
+  "correct": "by boat across the lake"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "Who saved Harry from Voldemort in the Forbidden Forest in the first volume of the Harry Potter series?",
+  "answers": [
+   "Firenze",
+   "Fred and George Weasley",
+   "Albus Dumbledore",
+   "Hermione Granger"
+  ],
+  "correct": "Firenze"
+ },
+ {
+  "category": "literature",
+  "difficulty": "hard",
+  "question": "Why were Harry and Hermione at the top of the tallest astronomy tower when they were caught by Filch in Harry Potter and the Philosophers Stone?",
+  "answers": [
+   "They were giving Norbert to Charlies friends.",
+   "They were having a meal.",
+   "They were fighting Death Eaters.",
+   "They were doing their homework."
+  ],
+  "correct": "They were giving Norbert to Charlies friends."
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "What was Harry Potters first Famous Witch and Wizards card according to the first volume of the series?",
+  "answers": [
+   "Albus Dumbledore",
+   "Godric Gryffindor",
+   "Helga Hufflepuff",
+   "Merlin"
+  ],
+  "correct": "Albus Dumbledore"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "Who gave Harry his invisibility cloak in Harry Potter and the Philosophers Stone?",
+  "answers": [
+   "Dumbledore",
+   "Molly Weasley",
+   "Hermione",
+   "Hagrid"
+  ],
+  "correct": "Dumbledore"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "In which Stephen King story do we meet the evil Randall Flagg?",
+  "answers": [
+   "The Stand",
+   "Salems Lot",
+   "It",
+   "Rose Madder"
+  ],
+  "correct": "The Stand"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "In which Stephen King story do we meet a banker from Maine named Andy Dufresne?",
+  "answers": [
+   "Shawshank Redemption",
+   "Children of the Corn",
+   "Cujo",
+   "Needful Things"
+  ],
+  "correct": "Shawshank Redemption"
+ },
+ {
+  "category": "literature",
+  "difficulty": "easy",
+  "question": "Paul Edgecomb is a character in which Stephen King story?",
+  "answers": [
+   "The Green Mile",
+   "Misery",
+   "Dolores Claiborne",
+   "Graveyard Shift"
+  ],
+  "correct": "The Green Mile"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "Jud Crandall and Louis Creed are characters in which Stephen King story?",
+  "answers": [
+   "Pet Sematary",
+   "Christine",
+   "The Lawnmower Man",
+   "Night Shift"
+  ],
+  "correct": "Pet Sematary"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "In which Stephen King story do we meet a red-headed character named Malachai?",
+  "answers": [
+   "Children of the Corn",
+   "The Tommyknockers",
+   "Firestarter",
+   "The Shining"
+  ],
+  "correct": "Children of the Corn"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "In which Stephen King story are we introduced to a recovering alcoholic named Jack Torrance?",
+  "answers": [
+   "The Shining",
+   "Creepshow",
+   "The Boogeyman",
+   "Thinner"
+  ],
+  "correct": "The Shining"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "Billy Halleck, a rather rotund lawyer, is a character from which Stephen King story?",
+  "answers": [
+   "Thinner",
+   "Insomnia",
+   "Rose Madder",
+   "Storm of the Century"
+  ],
+  "correct": "Thinner"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "The paraplegic Marty Coslaw is a character in which Stephen King story?",
+  "answers": [
+   "Silver Bullet",
+   "The Stand",
+   "Bag of Bones",
+   "Night Shift"
+  ],
+  "correct": "Silver Bullet"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "In which Stephen King story to we meet the intriguing stranger Andre Linoge?",
+  "answers": [
+   "Storm of the Century",
+   "Misery",
+   "Salems Lot",
+   "Carrie"
+  ],
+  "correct": "Storm of the Century"
+ },
+ {
+  "category": "literature",
+  "difficulty": "medium",
+  "question": "The former nurse Annie Wilkes is a character from which Stephen King story?",
+  "answers": [
+   "Misery",
+   "Dolores Claiborne",
+   "Rose Madder",
+   "Firestarter"
+  ],
+  "correct": "Misery"
+ },
+ {
+  "category": "arts",
+  "difficulty": "hard",
+  "question": "I would rather be a ghost drifting by your side as a condemned soul than enter heaven without you. Because of your love, I will never be a lonely spirit. (2000)",
+  "answers": [
+   "Crouching Tiger, Hidden Dragon",
+   "Don Juan DeMarco",
+   "Ever After",
+   "Dracula"
+  ],
+  "correct": "Crouching Tiger, Hidden Dragon"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "The controversial lyrics of this song by The Rolling Stones include, Its Down to me, the way she talks when shes spoken to",
+  "answers": [
+   "Under My Thumb",
+   "Heart of Stone",
+   "Play With Fire",
+   "Its All Over Now"
+  ],
+  "correct": "Under My Thumb"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "Urban Meyer left the head coach position at the Utah Utes to become head coach of this team.",
+  "answers": [
+   "University of Florida",
+   "Florida St.",
+   "Bowling Green",
+   "University of Miami"
+  ],
+  "correct": "University of Florida"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "One of Johnny Depps earliest film roles was as Gator Lerner in what 1986 movie?",
+  "answers": [
+   "Platoon",
+   "The Color of Money",
+   "Top Gun",
+   "Aliens"
+  ],
+  "correct": "Platoon"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "Greta Garbo was successfully treated for this disease.",
+  "answers": [
+   "Breast cancer",
+   "Tuberculosis",
+   "Hepatitis",
+   "Cirrhosis"
+  ],
+  "correct": "Breast cancer"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "In what fictional city is the TV show Futurama set?",
+  "answers": [
+   "New New York",
+   "New Chicago",
+   "New San Francisco",
+   "None of these"
+  ],
+  "correct": "New New York"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "Which vegetables are considered taboo food in Buddhist tradition?",
+  "answers": [
+   "Garlic and onion",
+   "All legumes",
+   "Eggplants and tomatoes",
+   "Cabbage and lettuce"
+  ],
+  "correct": "Garlic and onion"
+ },
+ {
+  "category": "arts",
+  "difficulty": "hard",
+  "question": "There are only four questions of value in life. What is sacred? Of what is the spirit made of? What is worth living for? What is worth dying for? The answer to each is the same. Only love. (1995)",
+  "answers": [
+   "Don Juan DeMarco",
+   "When Harry Met Sally",
+   "Cant Hardly Wait",
+   "Ten Things I Hate About You"
+  ],
+  "correct": "Don Juan DeMarco"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "Mick Jagger sings Baby, baby, theres fever in the funk house now on this song.",
+  "answers": [
+   "Tumbling Dice",
+   "Gimme Shelter",
+   "Street Fighting Man",
+   "Jumpin Jack Flash"
+  ],
+  "correct": "Tumbling Dice"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "Jack Bauer, Nina Myers and George Mason are three of the characters of this TV series.",
+  "answers": [
+   "24",
+   "3 South",
+   "60 Minutes",
+   "20/20"
+  ],
+  "correct": "24"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "Which of these Tim Burton films, starring Johnny Depp, came first?",
+  "answers": [
+   "Edward Scissorhands",
+   "Charlie and the Chocolate Factory",
+   "Ed Wood",
+   "Sleepy Hollow"
+  ],
+  "correct": "Edward Scissorhands"
+ },
+ {
+  "category": "arts",
+  "difficulty": "hard",
+  "question": "In 1952, A.S. Douglas developed the first graphical game to run on a computer. It ran on the EDSAC. What was the name of this game?",
+  "answers": [
+   "OXO",
+   "Go",
+   "Check It",
+   "Tennis For Two"
+  ],
+  "correct": "OXO"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "What is the lowest ranking species in the Covenant hierarchy in the Halo series?",
+  "answers": [
+   "Grunt",
+   "Drone",
+   "Brute",
+   "Elite"
+  ],
+  "correct": "Grunt"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "I have crossed oceans of time to find you. (1992)",
+  "answers": [
+   "Dracula",
+   "Moulin Rouge",
+   "Notting Hill",
+   "A Knights Tale"
+  ],
+  "correct": "Dracula"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "Lose Your Dreams and you will lose your mind are lyrics from this 1967 hit by The Rolling Stones.",
+  "answers": [
+   "Ruby Tuesday",
+   "As Tears Go By",
+   "(I Cant Get No) Satisfaction",
+   "Shes A Rainbow"
+  ],
+  "correct": "Ruby Tuesday"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "Harry Solomon, Dick Solomon and Dr. Mary Albright.",
+  "answers": [
+   "3rd Rock from the Sun",
+   "Battlestar Galactica",
+   "The A-Team",
+   "7th Heaven"
+  ],
+  "correct": "3rd Rock from the Sun"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "This Scottish author, portrayed by Johnny Depp in the movie Finding Neverland, created the fictional character Peter Pan.",
+  "answers": [
+   "James Barrie",
+   "John Dunne",
+   "George Eliot",
+   "Joseph Grimm"
+  ],
+  "correct": "James Barrie"
+ },
+ {
+  "category": "arts",
+  "difficulty": "hard",
+  "question": "Nolan Bushnell is considered to be the father of the video arcade industry. In 1972 he founded his own game company and together with Ted Dabney and Al Alcorn released the first arcade video game with major success- Pong. What was the name of his company?",
+  "answers": [
+   "Atari",
+   "Nutting Associates",
+   "Nintendo",
+   "Sega"
+  ],
+  "correct": "Atari"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "Who controls the Flood in the Halo series?",
+  "answers": [
+   "Gravemind",
+   "The Prophet of Truth",
+   "The Arbiter",
+   "No one"
+  ],
+  "correct": "Gravemind"
+ },
+ {
+  "category": "arts",
+  "difficulty": "hard",
+  "question": "I came here tonight because when you realize you want to spend the rest of your life with somebody, you want the rest of your life to start as soon as possible. (1989)",
+  "answers": [
+   "When Harry Met Sally",
+   "Wuthering Heights",
+   "Youve Got Mail",
+   "The Mask of Zorro"
+  ],
+  "correct": "When Harry Met Sally"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "Part of this song by The Rolling Stones goes, We decided that we would have a soda - my favorite flavor, cherry red?",
+  "answers": [
+   "You Cant Always Get What You Want",
+   "Jumpin Jack Flash",
+   "Hot Stuff",
+   "Mothers Little Helper"
+  ],
+  "correct": "You Cant Always Get What You Want"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "The annoying neighbours, the Ochmoneks are from this TV show.",
+  "answers": [
+   "ALF",
+   "Dawsons Creek",
+   "Beverly Hills 90210",
+   "All My Children"
+  ],
+  "correct": "ALF"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "What is a SPARTAN in the Halo series?",
+  "answers": [
+   "All of these",
+   "A Genetically modified super soldier",
+   "A higher ranking soldier than a ODST",
+   "Troopers that went through military training at the age of five"
+  ],
+  "correct": "All of these"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "Love has given me wings so I must fly. (2001)",
+  "answers": [
+   "A Knights Tale",
+   "Phenomenon",
+   "Ever After",
+   "Forget Paris"
+  ],
+  "correct": "A Knights Tale"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "The lyrics of this song by the Rolling Stones include the phrase Rape, murder!",
+  "answers": [
+   "Gimme Shelter",
+   "Sympathy for the Devil",
+   "Street Fighting Man",
+   "Harlem Shuffle"
+  ],
+  "correct": "Gimme Shelter"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "One of these characters is not from Baywatch.",
+  "answers": [
+   "Kelly Taylor",
+   "Hobie Buchannon",
+   "Jill Riley",
+   "Craig Pomeroy"
+  ],
+  "correct": "Kelly Taylor"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "What is the first name of Johnny Depps character in the 2004 film Secret Window?",
+  "answers": [
+   "Mort",
+   "Tom",
+   "Alan",
+   "Lou"
+  ],
+  "correct": "Mort"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "In 1972 a company named Waco released the first handheld electronic game. What was its name?",
+  "answers": [
+   "Tic Tac Toe",
+   "Cross",
+   "Tetris",
+   "Microvision"
+  ],
+  "correct": "Tic Tac Toe"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "What species is the Didact in the Halo series?",
+  "answers": [
+   "Forerunner",
+   "Precursor",
+   "Promethean",
+   "Yamne"
+  ],
+  "correct": "Forerunner"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "Which of these is correct?",
+  "answers": [
+   "The capitol building is located in the capital.",
+   "The capitol building is located in the capitol.",
+   "The capital building is located in the capital.",
+   "The capital building is located in the capitol."
+  ],
+  "correct": "The capitol building is located in the capital."
+ },
+ {
+  "category": "arts",
+  "difficulty": "hard",
+  "question": "Love? Above all things I believe in love! Love is like oxygen! Love is a many splendored thing, love lifts us up where we belong, all you need is love! (2001)",
+  "answers": [
+   "Moulin Rouge",
+   "Hope Floats",
+   "Some Like It Hot",
+   "Casablanca"
+  ],
+  "correct": "Moulin Rouge"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "Jon Bon Jovi, Richie Sambora, Alex John Such, Tico Torres, Dave Bryan",
+  "answers": [
+   "Bon Jovi",
+   "Whitesnake",
+   "Cinderella",
+   "Def Leppard"
+  ],
+  "correct": "Bon Jovi"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "Gilbert (Gil) Arthur Grissom is the night shift team supervisor from this TV show.",
+  "answers": [
+   "CSI: Crime Scene Investigation",
+   "The City",
+   "CSI: New York",
+   "CSI: Miami"
+  ],
+  "correct": "CSI: Crime Scene Investigation"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "Johnny Depp played the role of Inspector Fred Abberline in what 2001 film?",
+  "answers": [
+   "From Hell",
+   "Nick of Time",
+   "Chocolat",
+   "The Astronauts Wife"
+  ],
+  "correct": "From Hell"
+ },
+ {
+  "category": "arts",
+  "difficulty": "hard",
+  "question": "In 1978 Taito released one of the most influential arcade video games. It was called Space Invaders and marked the beginning of the Golden Age of arcade games. What was the thing that the player controlled in Space Invaders?",
+  "answers": [
+   "A movable laser cannon",
+   "An alien",
+   "An anti-aircraft gun",
+   "A cowboy"
+  ],
+  "correct": "A movable laser cannon"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "In the following sentence, which word is incorrect? The schools unprincipled principal understands the principle of the argument.",
+  "answers": [
+   "None of the words is incorrect; the sentence is correct as is.",
+   "principal",
+   "unprincipled",
+   "principle"
+  ],
+  "correct": "None of the words is incorrect; the sentence is correct as is."
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "It doesnt matter if the guy is perfect or the girl is perfect, as long as they are perfect for each other. (1997)",
+  "answers": [
+   "Good Will Hunting",
+   "Forest Gump",
+   "The Shawshank Redemption",
+   "Citizen Kane"
+  ],
+  "correct": "Good Will Hunting"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "Don Dokken, George Lynch, Jeff Pilson, Mick Brown",
+  "answers": [
+   "Dokken",
+   "L. A. Guns",
+   "Guns N Roses",
+   "Faster Pussycat"
+  ],
+  "correct": "Dokken"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "One of these ER characters is not a doctor.",
+  "answers": [
+   "Samantha Taggart",
+   "Gregory Pratt",
+   "Ray Barnett",
+   "Dave Malucci"
+  ],
+  "correct": "Samantha Taggart"
+ },
+ {
+  "category": "arts",
+  "difficulty": "hard",
+  "question": "Johnny Depp publicly stated that he, in part, had based his portrayal of Captain Jack Sparrow in Pirates of the Caribbean: The Curse of the Black Pearl on which musician?",
+  "answers": [
+   "Keith Richards",
+   "Jim Morrison",
+   "Ozzy Osbourne",
+   "Mick Jagger"
+  ],
+  "correct": "Keith Richards"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "Which of the following does the UNSC use to transport troops in the halo series?",
+  "answers": [
+   "Pelicans",
+   "Falcons",
+   "Hornets",
+   "Phantoms"
+  ],
+  "correct": "Pelicans"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "Which of the following is NOT a synonym of the word reticent?",
+  "answers": [
+   "These are all synonyms of the word reticent.",
+   "Restrained",
+   "Silent",
+   "Reluctant"
+  ],
+  "correct": "These are all synonyms of the word reticent."
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "I am someone else when Im with you, someone more like myself. (2001)",
+  "answers": [
+   "Original Sin",
+   "Sunrise: A Song of Two Humans",
+   "Trouble in Paradise",
+   "In America"
+  ],
+  "correct": "Original Sin"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "Bret Michaels, Bobby Dall, Rikki Rockett, C.C DeVille",
+  "answers": [
+   "Poison",
+   "Cinderella",
+   "New York Dolls",
+   "Motley Crue"
+  ],
+  "correct": "Poison"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "This was one of the best known bosses of Fred Flintstone.",
+  "answers": [
+   "Mr. Slate",
+   "Mr. Jones",
+   "Mr. Garret",
+   "Mr. Smith"
+  ],
+  "correct": "Mr. Slate"
+ },
+ {
+  "category": "arts",
+  "difficulty": "hard",
+  "question": "Nintendo is undoubtedly one of the most successful and best known console manufacturers. Nintendo has created several TV consoles and many handheld portables, such as the Game Boy and the Game Watch. When was the company originally founded?",
+  "answers": [
+   "1889",
+   "1953",
+   "1985",
+   "1983"
+  ],
+  "correct": "1889"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "What does UNSC stand for in the Halo series?",
+  "answers": [
+   "United Nations Space Command",
+   "None of the above",
+   "United Nations Space Council",
+   "Unified Nations Supreme Court"
+  ],
+  "correct": "United Nations Space Command"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "Which of the following is incorrect?",
+  "answers": [
+   "These are all correct usages of the word comprised.",
+   "The class comprised 30 people.",
+   "Thirty people comprised the class.",
+   "The class was comprised of 30 people."
+  ],
+  "correct": "These are all correct usages of the word comprised."
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "If he loved you with all the power of his soul for a whole lifetime, he couldnt love you as much as I do in a single day. (1992)",
+  "answers": [
+   "Wuthering Heights",
+   "Romeo and Juliet",
+   "Shakespeare in Love",
+   "Sideways"
+  ],
+  "correct": "Wuthering Heights"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "Fred Coury, Tom Keifer, Eric Brittingham, Jeff LaBar",
+  "answers": [
+   "Cinderella",
+   "Great White",
+   "Ratt",
+   "Whitesnake"
+  ],
+  "correct": "Cinderella"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "Julie Cooper and Summer Roberts are two characters from this TV series.",
+  "answers": [
+   "The O.C.",
+   "Dawsons Creek",
+   "Beverly Hills 90210",
+   "One Tree Hill"
+  ],
+  "correct": "The O.C."
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "When was Elvis born?",
+  "answers": [
+   "January 8, 1935",
+   "January 8, 1977",
+   "August 16, 1935",
+   "August 8, 1977"
+  ],
+  "correct": "January 8, 1935"
+ },
+ {
+  "category": "arts",
+  "difficulty": "hard",
+  "question": "With the introduction of cheap and relatively powerful processors such as Intel 386, Intel 486 and Motorola 68000 3D-graphics became fashionable. It was used in FPS games like the legendary Wolfenstein 3D and Doom. Do you know what FPS stands for in this context?",
+  "answers": [
+   "First Person Shooter",
+   "Frames Per Second",
+   "File Protocol System",
+   "Firing Per Second"
+  ],
+  "correct": "First Person Shooter"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "What is the largest UNSC ship in the Halo series?",
+  "answers": [
+   "UNSC Infinity",
+   "UNSC In Amber Clad",
+   "UNSC Spirit of Fire",
+   "UNSC Pillar of Autumn"
+  ],
+  "correct": "UNSC Infinity"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "Which of these is incorrect?",
+  "answers": [
+   "All of these sentences are correct.",
+   "He woke up at six.",
+   "He awoke at six.",
+   "He awakened at six."
+  ],
+  "correct": "All of these sentences are correct."
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "Take love, multiply it by infinity and take it to the depths of forever and you still have only a glimpse of how I feel for you. (1998)",
+  "answers": [
+   "Meet Joe Black",
+   "Moulin Rouge",
+   "My Best Friends Wedding",
+   "Message In A Bottle"
+  ],
+  "correct": "Meet Joe Black"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "David Coverdale, Rudy Sarzo, Tommy Aldridge, Steve Vai",
+  "answers": [
+   "Whitesnake",
+   "Great White",
+   "Poison",
+   "Tesla"
+  ],
+  "correct": "Whitesnake"
+ },
+ {
+  "category": "arts",
+  "difficulty": "medium",
+  "question": "Charlotte York, Miranda Hobbes and Samantha Jones are female characters from this TV show.",
+  "answers": [
+   "Sex and the City",
+   "Desperate Housewives",
+   "Gilmore Girls",
+   "Smallville"
+  ],
+  "correct": "Sex and the City"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "Who were Elviss parents?",
+  "answers": [
+   "Gladys and Vernon",
+   "Billy and Joseph",
+   "Lisa Marie and Vernon",
+   "Priscilla and Dee"
+  ],
+  "correct": "Gladys and Vernon"
+ },
+ {
+  "category": "arts",
+  "difficulty": "easy",
+  "question": "What city does Halo 3 ODST take place in?",
+  "answers": [
+   "New Mombasa",
+   "Voi",
+   "Toronto",
+   "New York"
+  ],
+  "correct": "New Mombasa"
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "This drink contains caffeine.",
+  "answers": [
+   "Coffee",
+   "Mineral water",
+   "Orange juice",
+   "Beer"
+  ],
+  "correct": "Coffee"
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "Which of these is true about the sleep of zebras?",
+  "answers": [
+   "They sleep standing up.",
+   "All of these",
+   "They would fall asleep every 5 to 6 hours.",
+   "They need more than 12 hours of sleep a day."
+  ],
+  "correct": "They sleep standing up."
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "What is NOT one of Strong Bads favorite bands in the Internet cartoon Homestar Runner?",
+  "answers": [
+   "sloshy",
+   "Peter Frampton",
+   "Limozeen",
+   "Taranchula"
+  ],
+  "correct": "sloshy"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "Three of these animals hibernate. Which one does not?",
+  "answers": [
+   "Sloth",
+   "Mouse",
+   "Frog",
+   "Snake"
+  ],
+  "correct": "Sloth"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "If youve ordered a burn one, take it through the garden, pin a rose on it, what can you expect to be placed in front of you?",
+  "answers": [
+   "Hamburger with Lettuce, Tomato and Onion",
+   "Hot Dog with Chili and Coleslaw",
+   "Lamb Shish - Kabob",
+   "Tuna Melt on Rye with Lettuce and Dill Chips"
+  ],
+  "correct": "Hamburger with Lettuce, Tomato and Onion"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "What science did Aristotle define as âthe knowledge of immaterial beingâ?",
+  "answers": [
+   "Metaphysics",
+   "Psychology",
+   "Logic",
+   "Philosophy"
+  ],
+  "correct": "Metaphysics"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "What Hollywood actor portrayed Casanova in the 2005 movie entitled Casanova, based on the life of the popular adventurer?",
+  "answers": [
+   "Heath Ledger",
+   "Johnny Depp",
+   "Antonio Banderas",
+   "Ryan Phillippe"
+  ],
+  "correct": "Heath Ledger"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "What music video portrays Kylie Minogue lying amongst many men and women by a poolside?",
+  "answers": [
+   "Slow",
+   "On a Night Like This",
+   "Red Blooded Woman",
+   "Chocolate"
+  ],
+  "correct": "Slow"
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "Finish the proverb: Poets are born, ________.",
+  "answers": [
+   "...not made.",
+   "...but can also be made.",
+   "...but thats not for sure.",
+   "..., long live the poets!"
+  ],
+  "correct": "...not made."
+ },
+ {
+  "category": "general",
+  "difficulty": "hard",
+  "question": "A farmer had 12 sheep and 3 cows. All of the animals except 9 sheep died. How many animals did he have left in his farm?",
+  "answers": [
+   "9 sheep",
+   "5 cows and 1 sheep",
+   "2 cows",
+   "none"
+  ],
+  "correct": "9 sheep"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "Speaking of the famous fairy tale, that girl with the long hair was named which of these plants?",
+  "answers": [
+   "Rampion",
+   "Turnip",
+   "Lettuce",
+   "Safflower"
+  ],
+  "correct": "Rampion"
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "All of these animals are omnivorous except one.",
+  "answers": [
+   "Snail",
+   "Fox",
+   "Mouse",
+   "Opossum"
+  ],
+  "correct": "Snail"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "If the girl next to you orders baled hay, life preserver and java for breakfast, what has she ordered?",
+  "answers": [
+   "Shredded wheat, donut and coffee",
+   "Cream of wheat , donut and coffee",
+   "Hash browns, omelet, and coffee",
+   "Buckwheat pancakes, danish, and coffee"
+  ],
+  "correct": "Shredded wheat, donut and coffee"
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "Which WWF group does this theme music belong to?",
+  "answers": [
+   "D-Generation X",
+   "Nation of Domination",
+   "Legion of Doom",
+   "Hart Foundation"
+  ],
+  "correct": "D-Generation X"
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "Which of these is NOT a son of Adam and Eve?",
+  "answers": [
+   "Enoch",
+   "Cain",
+   "Abel",
+   "Seth"
+  ],
+  "correct": "Enoch"
+ },
+ {
+  "category": "general",
+  "difficulty": "hard",
+  "question": "Which statesman uttered these words: âThus, by every device from the stick to the carrot, the emaciated Austrian donkey is made to pull the Nazi barrow up an ever-steepening hillâ?",
+  "answers": [
+   "Winston Churchill",
+   "Joseph Stalin",
+   "Franklin D. Roosevelt",
+   "Charles DeGaulle"
+  ],
+  "correct": "Winston Churchill"
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "If a TV program is rated G then this is true.",
+  "answers": [
+   "It is suitable for all audiences.",
+   "It contains moderate violence.",
+   "It contains mild sexual situations.",
+   "It is suitable for young children."
+  ],
+  "correct": "It is suitable for all audiences."
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "I dont speak, I cannot hear, but I always tell the truth.",
+  "answers": [
+   "The Mirror",
+   "The watch",
+   "Fish",
+   "Old granny"
+  ],
+  "correct": "The Mirror"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "Sleeping Beauty pricked her finger on the part of a spinning wheel that does this.",
+  "answers": [
+   "Twists the fibres into a thread",
+   "Collects the finished thread",
+   "Powers the wheel",
+   "Sorts the finished threads"
+  ],
+  "correct": "Twists the fibres into a thread"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "Three of these Latin names are names of bears. Which is the odd one?",
+  "answers": [
+   "Felis silvestris catus",
+   "Melursus ursinus",
+   "Helarctos malayanus",
+   "Ursus minimus"
+  ],
+  "correct": "Felis silvestris catus"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "What position is former Major League Baseball player, Rollie Fingers famous for playing?",
+  "answers": [
+   "Pitcher",
+   "Catcher",
+   "First Base",
+   "Third Base"
+  ],
+  "correct": "Pitcher"
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "Noah sent these two birds out of the ark to search for land:",
+  "answers": [
+   "raven and dove",
+   "raven and hawk",
+   "hawk and jay",
+   "dove and hawk"
+  ],
+  "correct": "raven and dove"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "There is no glory in outstripping donkeysâ was a statement by this Greek Emperor.",
+  "answers": [
+   "Marcus Aurelius",
+   "Romulus Augustus",
+   "Tiberius",
+   "Hadrian"
+  ],
+  "correct": "Marcus Aurelius"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "The theory of relativity was introduced in physics by this man.",
+  "answers": [
+   "Albert Einstein",
+   "Galileo Galilei",
+   "Archimedes",
+   "Isaac Newton"
+  ],
+  "correct": "Albert Einstein"
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "Why does Cinderella wear a glass slipper?",
+  "answers": [
+   "Glass shoes sound like something a princess would wear.",
+   "Vair (fur), was mistaken for verre (glass).",
+   "They were a symbol of her purity.",
+   "Glass shoes were worn by royalty."
+  ],
+  "correct": "Glass shoes sound like something a princess would wear."
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "These are typical Australian animals except one.",
+  "answers": [
+   "Sloth",
+   "Platypus",
+   "Dingo",
+   "Echidna"
+  ],
+  "correct": "Sloth"
+ },
+ {
+  "category": "general",
+  "difficulty": "hard",
+  "question": "Its your first day on the job at your favorite diner! The waitress next to you yells out to the short order cook that she needs two cows, make them cry, and paint em red. What has she requested the short order cook to prepare?",
+  "answers": [
+   "Two hamburgers with onions, cover in ketchup",
+   "Two orders of beef liver and onions with ketchup",
+   "Salisbury steak with American sauce.",
+   "Double cheeseburger, no onions, special sauce"
+  ],
+  "correct": "Two hamburgers with onions, cover in ketchup"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "What position is former baseball player for the Cincinnati Reds, Johnny Bench famous for playing?",
+  "answers": [
+   "Catcher",
+   "Second Base",
+   "Shortstop",
+   "Pitcher"
+  ],
+  "correct": "Catcher"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "Jacob had 12 sons. Which of his wives/maids bore the most babies?",
+  "answers": [
+   "Leah",
+   "Zilpah",
+   "Rachel",
+   "Bilhah"
+  ],
+  "correct": "Leah"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "Which modern day comedian annoyed his wife with this saying: âI kept giving her donkey ears.â?",
+  "answers": [
+   "Chevy Chase",
+   "Adam Sandler",
+   "Dan Aykroyd",
+   "Ben Stiller"
+  ],
+  "correct": "Chevy Chase"
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "How does this proverb continue: The squeaking wheel gets ...",
+  "answers": [
+   "The grease",
+   "The rust",
+   "Removed",
+   "The broken"
+  ],
+  "correct": "The grease"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "The Little Mermaid refused to kill the prince, so she eventually ends up as this.",
+  "answers": [
+   "A daughter of the air.",
+   "A block-buster animated film.",
+   "Foam on the waves.",
+   "A mermaid again."
+  ],
+  "correct": "A daughter of the air."
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "Representatives of three of these species produce venom of their own. Which is the odd species?",
+  "answers": [
+   "Mosquitos",
+   "Lizards",
+   "Scorpions",
+   "Frogs"
+  ],
+  "correct": "Mosquitos"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "Your friends favorite breakfast is a shingle with shimmy and shake, squeeze one. What does he like to eat for breakfast?",
+  "answers": [
+   "Buttered toast with jam and orange juice",
+   "French toast and apple juice",
+   "Link sausage, toast and juice",
+   "Short stack of pancakes and instant coffee"
+  ],
+  "correct": "Buttered toast with jam and orange juice"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "Baltimore Orioles, Cal Ripken Jr. is most known for playing what position?",
+  "answers": [
+   "Shortstop",
+   "Right Field",
+   "Catcher",
+   "Pitcher"
+  ],
+  "correct": "Shortstop"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "Which of these animals did the Israelites worship while Moses was on the mountain?",
+  "answers": [
+   "calf",
+   "bull",
+   "duck",
+   "ram"
+  ],
+  "correct": "calf"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "This Welsh-born English poet said: If a donkey bray at you, dont bray at himâ.",
+  "answers": [
+   "George Herbert",
+   "Waldo Williams",
+   "Bertrand Russell",
+   "Dylan Thomas"
+  ],
+  "correct": "George Herbert"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "The author of the novel A Portrait of the Artist as a Young Man is this writer.",
+  "answers": [
+   "James Joyce",
+   "T. S. Eliot",
+   "Samuel Beckett",
+   "William Faulkner"
+  ],
+  "correct": "James Joyce"
+ },
+ {
+  "category": "general",
+  "difficulty": "hard",
+  "question": "An old man was looking at a photograph of a young man. Somebody asked him who it was. The mans answer was the following: Brothers and sisters, I have none. But that mans father is my fathers son. Who was in the photograph?",
+  "answers": [
+   "His son",
+   "His cousin",
+   "His grandfather",
+   "His nephew"
+  ],
+  "correct": "His son"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "Only one of the following descriptions of the features of Snow White is true. Can you spot it?",
+  "answers": [
+   "Wooden hair.",
+   "Hemophiliac lips.",
+   "Rosaceae cheeks.",
+   "Ice crystal eyes."
+  ],
+  "correct": "Wooden hair."
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "Three of these species shed their skin. Which one does not?",
+  "answers": [
+   "Penguins",
+   "Snakes",
+   "Insects",
+   "Crustaceans"
+  ],
+  "correct": "Penguins"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "A guy orders a drag it through Georgia for his son. What has he ordered?",
+  "answers": [
+   "Cola with chocolate syrup",
+   "Fried chicken basket",
+   "Chili dog, all the way",
+   "A slice of key lime pie"
+  ],
+  "correct": "Cola with chocolate syrup"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "Steve Garvey is a famous former baseball player, who is known for playing what position?",
+  "answers": [
+   "First Base",
+   "Shortstop",
+   "Third Base",
+   "Catcher"
+  ],
+  "correct": "First Base"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "Many of King Solomons wise sayings are recorded in Book 10 of Proverbs. Which of these is NOT found there?",
+  "answers": [
+   "When you see trouble coming, dont be stupid and walk right into it--be smart and hide.",
+   "Good people are remembered long after they are gone, but the wicked are soon forgotten.",
+   "Children with good sense make their parents happy, but foolish children make them sad.",
+   "You will say the wrong thing if you talk too much--so be sensible and watch what you say."
+  ],
+  "correct": "When you see trouble coming, dont be stupid and walk right into it--be smart and hide."
+ },
+ {
+  "category": "general",
+  "difficulty": "hard",
+  "question": "âI lived in the US for donkeys years so it has been a journey back in time for me. If you have had personal experience of something, it is always more authentic.â is a quote by this Australian author.",
+  "answers": [
+   "Colleen McCullough",
+   "Isobelle Carmody",
+   "Kate Morton",
+   "Melina Marchetta"
+  ],
+  "correct": "Colleen McCullough"
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "The capital of Mongolia is this city.",
+  "answers": [
+   "Ulaanbaatar",
+   "Davao",
+   "Islamabad",
+   "Quezon"
+  ],
+  "correct": "Ulaanbaatar"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "Referring to a well-known fairy tale, the millers daughter had to spin what?",
+  "answers": [
+   "Dry stalks of wheat.",
+   "Dried stalks of marsh plant.",
+   "Dry stalks of grass.",
+   "Dry stalks of corn."
+  ],
+  "correct": "Dry stalks of wheat."
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "What is diner-speak for an order of hash?",
+  "answers": [
+   "Customer will take a chance",
+   "Burn the British",
+   "Gravel train",
+   "Pittsburgh"
+  ],
+  "correct": "Customer will take a chance"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "What position is former Major League Baseball player, Joe Morgan most known to have played?",
+  "answers": [
+   "Second Base",
+   "Outfield",
+   "None of these",
+   "Catcher"
+  ],
+  "correct": "Second Base"
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "Mary was visited by this angel.",
+  "answers": [
+   "Gabriel",
+   "Uriel",
+   "Raphael",
+   "Michael"
+  ],
+  "correct": "Gabriel"
+ },
+ {
+  "category": "general",
+  "difficulty": "hard",
+  "question": "âIn school nativity plays I was always the bloody little donkey, I was never Mary.â says this singer-songwriter who is also famous as a member of an all female group. Who is she?",
+  "answers": [
+   "Geri Halliwell",
+   "Keren Woodward",
+   "Rozonda Chilli Thomas",
+   "Kelly Rowland"
+  ],
+  "correct": "Geri Halliwell"
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "Mitochondrias function in cells is to perform this.",
+  "answers": [
+   "To convert organic materials into energy",
+   "To control chemical reactions within the cytoplasm",
+   "To store information needed for cellular division",
+   "To process proteins targeted to the plasma membrane"
+  ],
+  "correct": "To convert organic materials into energy"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "The witch in Hansel and Gretel was probably raised in this part of the world.",
+  "answers": [
+   "Eastern Europe",
+   "England",
+   "Italy",
+   "The Middle East"
+  ],
+  "correct": "Eastern Europe"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "All of these animals have large ears (relative to their size) except one.",
+  "answers": [
+   "Polar bears",
+   "Foxes",
+   "Bats",
+   "Elephants"
+  ],
+  "correct": "Polar bears"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "Mom always told you to get plenty of iron in your diet, so you order a put out the lights and cry. What item have you ordered?",
+  "answers": [
+   "Liver and onions",
+   "Patty melt, no onions",
+   "Ham on rye with soup",
+   "T - Bone steak with onions"
+  ],
+  "correct": "Liver and onions"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "What position is former professional baseball player, Mike Schmidt famous for playing?",
+  "answers": [
+   "Third Base",
+   "Pitcher",
+   "Catcher",
+   "Second Base"
+  ],
+  "correct": "Third Base"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "Jesus was fond of using parables to give his messages. Which of these was NOT one he used?",
+  "answers": [
+   "The Parable of the Old Men and the Young",
+   "The Parable of the Mustard Seed",
+   "The Parable of the Prodigal Son",
+   "The Parable of the Ten Servants"
+  ],
+  "correct": "The Parable of the Old Men and the Young"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "âThat which is called firmness in a king is called obstinacy in a donkeyâ is a quote by an American author and educator.",
+  "answers": [
+   "John Erskine",
+   "Jerome Allen",
+   "Herbert Kohl",
+   "John Corcoran"
+  ],
+  "correct": "John Erskine"
+ },
+ {
+  "category": "general",
+  "difficulty": "easy",
+  "question": "The US bought Alaska in this year.",
+  "answers": [
+   "1867",
+   "1942",
+   "1882",
+   "1854"
+  ],
+  "correct": "1867"
+ },
+ {
+  "category": "general",
+  "difficulty": "medium",
+  "question": "Referring to the popular fairy tale, what is the name of the goose girls enchanted horse?",
+  "answers": [
+   "Falada - to speak",
+   "Saladin - righteousness",
+   "Fallow - pale in colour",
+   "Salada - white as salt"
+  ],
+  "correct": "Falada - to speak"
+ }
 ]
