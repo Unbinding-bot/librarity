@@ -137,9 +137,13 @@ function isValidWord(word, puzzle) {
 }
 
 function wordScore(word, puzzle) {
-  let pts = word.length === 4 ? 1 : word.length
+  // 4-letter words are worth 100 base; longer words scale by length (×100).
+  // Pangrams earn a flat +200 bonus on top of their length score.
+  // This makes Spelling Bee scoring competitive with Trivia and WordLadder
+  // on the leaderboard in unlimited mode.
+  let pts = word.length === 4 ? 100 : word.length * 100
   const allSeven = new Set([puzzle.center, ...puzzle.letters])
-  if (new Set(word).size === 7 && word.length >= 7) pts += 7
+  if (new Set(word).size === 7 && word.length >= 7) pts += 200
   return pts
 }
 

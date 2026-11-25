@@ -262,8 +262,11 @@ export default function Wordle() {
           })
         }, 1600)
       } else if (modeRef.current === 'unlimited') {
-        const roundPoints = (7 - attempts) * 100
-        const streakBonus = unlimitedRef.current.streak * 50
+        // Round score scaled to be competitive with Trivia / WordLadder on the
+        // leaderboard: base 1000 × (7 - attempts) so a 1-try solve earns 6000,
+        // plus a streak bonus of 500 × current streak.
+        const roundPoints = (7 - attempts) * 1000
+        const streakBonus = unlimitedRef.current.streak * 500
         const earned = roundPoints + streakBonus
         unlimitedRef.current.score += earned
         unlimitedRef.current.streak += 1
