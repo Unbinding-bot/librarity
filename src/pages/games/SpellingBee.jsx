@@ -117,9 +117,10 @@ function maxScore(puzzle) {
     }
     if (!ok) continue
     if (!w.includes(puzzle.center)) continue
-    total += w.length === 4 ? 1 : w.length
+    // Match wordScore() scale: 4-letter = 100, longer = length * 100, pangram = +200
+    total += w.length === 4 ? 100 : w.length * 100
     if (new Set(w).size === 7 && !foundPangrams.has(w)) {
-      total += 7
+      total += 200
       foundPangrams.add(w)
     }
   }
