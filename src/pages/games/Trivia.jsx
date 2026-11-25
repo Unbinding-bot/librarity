@@ -181,6 +181,8 @@ export default function Trivia() {
     heartsRef.current = INITIAL_HEARTS
     sessionOverRef.current = false
     finishedRef.current = false
+    scoreRef.current = 0
+    correctRef.current = 0
     setResult(null)
     setScreen('playing')
   }, [category, difficulty, count, showToast])
