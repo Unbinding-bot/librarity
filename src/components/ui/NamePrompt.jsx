@@ -21,6 +21,7 @@ export default function NamePrompt({ onDone }) {
   const submit = () => {
     const trimmed = name.trim()
     if (trimmed) setUsername(trimmed)
+    // Submitting with empty name = Anonymous = onDone('')
     onDone(trimmed)
   }
 
@@ -46,8 +47,11 @@ export default function NamePrompt({ onDone }) {
             }}
           />
           <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1.5rem' }}>
-            <button className="btn btn-primary" onClick={submit}>
+            <button className="btn btn-primary" onClick={submitAsAnonymous}>
               Submit
+            </button>
+            <button className="btn btn-outline" onClick={() => setName('')}>
+              Clear
             </button>
             <button className="btn btn-outline" onClick={() => onDone('')}>
               Cancel
