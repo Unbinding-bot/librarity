@@ -321,9 +321,9 @@ export default function SpellingBee() {
         words: finalWords,
         stats: loadStats(),
       })
-      doSubmitScore(finalScore)
+      // User will click "Submit Score" button in the result modal
     }
-  }, [unlimitedElapsed, unlimitedTimeLimit, mode, doSubmitScore])
+  }, [unlimitedElapsed, unlimitedTimeLimit, mode])
 
   const score = useMemo(() => found.reduce((a, f) => a + f.pts, 0), [found])
   const rank = useMemo(() => rankFor(score, maxScore_), [score, maxScore_])
@@ -367,9 +367,8 @@ export default function SpellingBee() {
       pangrams: f.filter((x) => x.pangram).length,
       stats: s,
     })
-    // auto-submit to leaderboard (session cumulative)
-    doSubmitScore(sessionScoreRef.current)
-  }, [maxScore_, updateStats, doSubmitScore])
+    // User will click "Submit Score" button in the result modal
+  }, [maxScore_, updateStats])
 
   // maxScoreRef for use inside finishPuzzle without dependency loop
   const maxScoreRef = useRef(maxScore_)
@@ -556,15 +555,14 @@ export default function SpellingBee() {
       words: finalWords,
       stats: loadStats(),
     })
-    doSubmitScore(finalScore)
-  }, [doSubmitScore])
+    // User will click "Submit Score" button in the result modal
+  }, [])
 
   const giveUp = useCallback(() => {
     if (mode === 'unlimited') {
       endUnlimitedSession()
     } else {
-      // Non-unlimited: sessionScore is 0 (submitWord adds to it only in the
-      // same session) — submit the current puzzle's score directly.
+      // Non-unlimited: user must click "Submit Score" button in the result modal
       const finalScore = score
       setResult({
         title: 'Game Over',
@@ -573,9 +571,8 @@ export default function SpellingBee() {
         words: found.length,
         stats: loadStats(),
       })
-      doSubmitScore(finalScore)
     }
-  }, [mode, endUnlimitedSession, score, found, doSubmitScore])
+  }, [mode, endUnlimitedSession, score, found])
 
   const shuffleLetters = useCallback(() => {
     // Free: just permutes hex positions visually — same letters, different layout
