@@ -486,7 +486,7 @@ export default function Wordle() {
       const score =
         lastAttemptsRef.current === null
           ? finalSessionScoreRef.current ?? 0
-          : Math.max(50, (7 - Math.min(attempts, 6)) * 100)
+          : (7 - Math.min(attempts, 6)) * 1000
 
       await recordScore({
         gameType: 'wordle',
