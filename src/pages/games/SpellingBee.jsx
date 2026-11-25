@@ -210,9 +210,12 @@ export default function SpellingBee() {
   const foundRef = useRef([])
   const { recordScore } = useGameState()
   const [namePrompt, setNamePrompt] = useState(null)
+  const [submitting, setSubmitting] = useState(false)
 
   const doSubmitScore = useCallback(
     async (score) => {
+      if (submitting) return
+      setSubmitting(true)
       try {
         const username = await new Promise((resolve) => setNamePrompt({ resolve }))
         if (!username) {
@@ -230,9 +233,11 @@ export default function SpellingBee() {
       } catch (err) {
         console.error('Error submitting score:', err)
         showToast('Could not submit score', 'error')
+      } finally {
+        setSubmitting(false)
       }
     },
-    [recordScore, showToast],
+    [recordScore, showToast, submitting],
   )
 
   useEffect(() => { puzzleRef.current = puzzle }, [puzzle])
@@ -886,12 +891,13 @@ export default function SpellingBee() {
             )}
             <div className="result-actions">
               <button
-                className="btn btn-secondary"
+                className={`btn btn-secondary ${submitting ? 'disabled' : ''}`}
+                disabled={submitting}
                 onClick={() => {
                   doSubmitScore(result.totalScore ?? 0)
                 }}
               >
-                Submit Score
+                {submitting ? 'Submitting...' : 'Submit Score'}
               </button>
               <button
                 className="btn btn-secondary"
