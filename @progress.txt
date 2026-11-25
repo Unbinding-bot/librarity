@@ -30,6 +30,7 @@ Master plan: @unlimited-plan.md
 - 2026-11-25: UTC+8 daily rotation implemented for all 4 daily games (WordLadder, SpellingBee, WikipediaRace, Wordle) via new `src/lib/dateUtils.js` — `getTodayUTC8()` and `getDaysSinceAnchorUTC8()`; daily→Random fallback consistent across all games.
 - All 5 games: build ✅ (18 prerendered pages), live browser verification ✅ (test_unlimited 11/11, test_wl_fixes 12/12, test_trivia_session all-pass, test_sb_real_words 8/8, test_wordle_rounds 3/3), zero regressions.
 - 2026-11-25: Trivia question bank expanded from 79 → 439 using OpenTriviaQA dataset (CC BY-SA 4.0). Converter script added at scripts/convert-trivia.mjs. Category distribution: history 78, science 75, literature 72, geography 72, arts 70, general 71. Difficulty spread: easy 126, medium 222, hard 91.
+- 2026-11-25: Spelling Bee score submission fixed: added "Submit Score" button to result modal, fixed missing sessionScoreRef.current = 0 in resetUnlimitedState(), verified 7/7 + 8/8 + 1/1 tests pass.
 
 ## Notes
 - 2026-11-24: User decision — Wordle and Trivia unlimited get NO timer bar and NO pause. They already have their own loss mechanics (Wordle: 6 guesses; Trivia: hearts). Timer/pause architecture (wall-clock freeze, pause overlay, unlimitedStartTimeRef, etc.) applies only to WordLadder, SpellingBee, WikipediaRace.

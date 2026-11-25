@@ -472,6 +472,7 @@ export default function SpellingBee() {
     setUnlimitedElapsed(0)
     unlimitedStartTimeRef.current = null
     setSessionScore(0)
+    sessionScoreRef.current = 0
     setSessionWords(0)
     sessionWordsRef.current = 0
   }, [])
@@ -881,6 +882,14 @@ export default function SpellingBee() {
               </div>
             )}
             <div className="result-actions">
+              <button
+                className="btn btn-secondary"
+                onClick={() => {
+                  doSubmitScore(result.totalScore ?? 0)
+                }}
+              >
+                Submit Score
+              </button>
               <button
                 className="btn btn-secondary"
                 onClick={() => {
