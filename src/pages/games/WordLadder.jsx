@@ -297,7 +297,6 @@ export default function WordLadder() {
           gameMode: modeRef.current,
           playerName: username || getDisplayName(),
           score,
-          time_taken,
           timeTaken,
         })
         showToast(`Score submitted as "${username}"!`, 'success')
