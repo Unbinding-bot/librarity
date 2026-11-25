@@ -15,7 +15,6 @@
     { "source": "/library/og-tools.jpg", "destination": "/og-tools.jpg" },
     { "source": "/library/og-events.jpg", "destination": "/og-events.jpg" },
     { "source": "/library/events/:id", "destination": "/library/events/:id/index.html" },
-<<<<<<< HEAD
     { "source": "/library/(.*)", "destination": "/library/index.html" }
   ],
   "redirects": [
