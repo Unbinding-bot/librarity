@@ -34,3 +34,6 @@ supabase/.temp/
 
 .vercel
 .env*
+
+# Local handoff package for the mansci root-site project (not part of librarity)
+/handoff-mansci/
